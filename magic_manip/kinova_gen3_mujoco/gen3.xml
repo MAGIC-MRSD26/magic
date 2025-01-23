@@ -1,4 +1,4 @@
-<mujoco model="gen3_robot2">
+<mujoco model="gen3">
   <compiler angle="radian" meshdir="assets"/>
 
   <option integrator="implicitfast"/>
