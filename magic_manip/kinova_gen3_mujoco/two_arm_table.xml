@@ -38,6 +38,9 @@
     <default class="table">
         <geom rgba="0.5 0.5 0.5 1" friction="1 0.1 0.1"/>
     </default>
+    <default class="manip_object">
+        <geom rgba="0 0.5 0 1" friction="1 0.1 0.1"/>
+    </default>
   </default>
 
   <asset>
@@ -306,6 +309,11 @@
         <geom name="leg3" type="cylinder" size="0.05 0.49" pos="-0.9 0.9 0.5" class="table"/>
         <geom name="leg4" type="cylinder" size="0.05 0.49" pos="-0.9 -0.9 0.5" class="table"/>
     </body>
+
+    <body name="box" pos="0 0 1">
+        <!-- Table top -->
+        <geom name="object" type="box" size="0.2 0.2 0.2" pos="0 0 0.1" class="manip_object"/>
+    </body>
   </worldbody>
 
   <actuator>
@@ -327,10 +335,10 @@
     <position class="small_actuator_2" name="joint_7_2" joint="joint_7_2"/>
   </actuator>
 
-  <!-- <keyframe>
-    <key name="home" qpos="0 0.26179939 3.14159265 -2.26892803 0 0.95993109 1.57079633"
-      ctrl="0 0.26179939 3.14159265 -2.26892803 0 0.95993109 1.57079633"/>
-    <key name="retract" qpos="0 -0.34906585 3.14159265 -2.54818071 0 -0.87266463 1.57079633"
-      ctrl="0 -0.34906585 3.14159265 -2.54818071 0 -0.87266463 1.57079633"/>
-  </keyframe> -->
+  <keyframe>
+    <key name="home" qpos="0. 0. 0.5 0. 0. 0. 0. 0. 0. 0. 0. 0.5 0. 0. 0. 0. 0. 0."
+      ctrl="0. 0. 0.5 0. 0. 0. 0. 0. 0. 0. 0. 0.5 0. 0."/>
+    <key name="retract" qpos="0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0."
+      ctrl="0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0."/>
+  </keyframe>
 </mujoco>
