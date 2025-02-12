@@ -2,10 +2,12 @@
 
   <compiler angle="radian" meshdir="assets"/>
 
-  <option integrator="implicitfast"/>
+  <option integrator="implicit"/>
 
   <visual>
-    <headlight ambient="0.5 0.5 0.5"/>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.1 0.1 0.1" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
   </visual>
 
   <default>
@@ -76,12 +78,17 @@
 		<mesh name="inner_knuckle_coarse_2" file="inner_knuckle_coarse.stl"/>
 		<mesh name="inner_finger_coarse_2" file="inner_finger_coarse.stl"/>
 
-		<material name="GreyMaterial" specular="0" shininess="0" reflectance="0" rgba="0.8 0.8 0.8 1" emission="0" />
+		<texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
   </asset>
 
   <worldbody>
-    <geom name="floor" pos="0 0 0" size="10 10 1" type="plane" rgba="0.8 0.8 0.8 1" material="GreyMaterial" />
-    <body name="base_link" pos="0.5 0 1" euler="0 0 3.14">
+    <light pos="0 0 1.5" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <body name="base_link" pos="0.75 0 1.02" euler="0 0 3.14">
       <inertial pos="-0.000648 -0.000166 0.084487" quat="0.999294 0.00139618 -0.0118387 0.035636" mass="1.697"
         diaginertia="0.00462407 0.00449437 0.00207755"/>
       <geom class="visual" mesh="base_link"/>
@@ -190,7 +197,7 @@
       </body>
     </body>
 
-    <body name="base_link_2" pos="-0.5 0 1">
+    <body name="base_link_2" pos="-0.75 0 1.02">
       <inertial pos="-0.000648 -0.000166 0.084487" quat="0.999294 0.00139618 -0.0118387 0.035636" mass="1.697"
         diaginertia="0.00462407 0.00449437 0.00207755"/>
       <geom class="visual" mesh="base_link_2"/>
@@ -310,35 +317,33 @@
         <geom name="leg4" type="cylinder" size="0.05 0.49" pos="-0.9 -0.9 0.5" class="table"/>
     </body>
 
-    <body name="box" pos="0 0 1">
+    <body name="box" pos="0. 0. 1.02">
         <!-- Table top -->
-        <geom name="object" type="box" size="0.2 0.2 0.2" pos="0 0 0.1" class="manip_object"/>
+        <geom name="object" type="box" size="0.2 0.2 0.2" pos="0. 0. 0.2" class="manip_object"/>
     </body>
   </worldbody>
 
   <actuator>
     <!-- Gen3 Arm -->
     <position class="large_actuator" name="joint_1" joint="joint_1"/>
-    <position class="large_actuator" name="joint_2" joint="joint_2" ctrlrange="-2.2497294058206907 2.2497294058206907"/>
+    <position class="large_actuator" name="joint_2" joint="joint_2"/>
     <position class="large_actuator" name="joint_3" joint="joint_3"/>
-    <position class="large_actuator" name="joint_4" joint="joint_4" ctrlrange="-2.5795966344476193 2.5795966344476193"/>
+    <position class="large_actuator" name="joint_4" joint="joint_4"/>
     <position class="small_actuator" name="joint_5" joint="joint_5"/>
-    <position class="small_actuator" name="joint_6" joint="joint_6" ctrlrange="-2.0996310901491784 2.0996310901491784"/>
+    <position class="small_actuator" name="joint_6" joint="joint_6"/>
     <position class="small_actuator" name="joint_7" joint="joint_7"/>
 
     <position class="large_actuator_2" name="joint_1_2" joint="joint_1_2"/>
-    <position class="large_actuator_2" name="joint_2_2" joint="joint_2_2" ctrlrange="-2.2497294058206907 2.2497294058206907"/>
+    <position class="large_actuator_2" name="joint_2_2" joint="joint_2_2"/>
     <position class="large_actuator_2" name="joint_3_2" joint="joint_3_2"/>
-    <position class="large_actuator_2" name="joint_4_2" joint="joint_4_2" ctrlrange="-2.5795966344476193 2.5795966344476193"/>
+    <position class="large_actuator_2" name="joint_4_2" joint="joint_4_2"/>
     <position class="small_actuator_2" name="joint_5_2" joint="joint_5_2"/>
-    <position class="small_actuator_2" name="joint_6_2" joint="joint_6_2" ctrlrange="-2.0996310901491784 2.0996310901491784"/>
+    <position class="small_actuator_2" name="joint_6_2" joint="joint_6_2"/>
     <position class="small_actuator_2" name="joint_7_2" joint="joint_7_2"/>
   </actuator>
 
   <keyframe>
-    <key name="home" qpos="0. 0. 0.5 0. 0. 0. 0. 0. 0. 0. 0. 0.5 0. 0. 0. 0. 0. 0."
-      ctrl="0. 0. 0.5 0. 0. 0. 0. 0. 0. 0. 0. 0.5 0. 0."/>
-    <key name="retract" qpos="0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0."
-      ctrl="0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0."/>
+    <key name="home" qpos="0. 0. 0. 2.53 0. 0.576 1.57 0. 0. 0. 0. 0. 2.53 0. 0.576 1.57 0. 0."/>
+    <key name="retract" qpos="0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0."/>
   </keyframe>
 </mujoco>
