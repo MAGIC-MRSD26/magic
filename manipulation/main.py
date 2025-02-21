@@ -1,7 +1,7 @@
 import mujoco as mj
 from mujoco import viewer
 import numpy as np
-from one_arm_control import SingleArmPIDControl
+from manipulation.one_arm_pid_control import SingleArmPIDControl
 
 if __name__ == "__main__":
 
