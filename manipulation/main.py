@@ -1,7 +1,7 @@
 import mujoco as mj
 from mujoco import viewer
 import numpy as np
-from one_arm_control import SingleArmControl
+from one_arm_control import SingleArmPIDControl
 
 if __name__ == "__main__":
 
@@ -13,9 +13,9 @@ if __name__ == "__main__":
     data = mj.MjData(model)
     model.opt.timestep = 0.001
 
-    controller = SingleArmControl(model, data)
+    controller = SingleArmPIDControl(model, data)
 
-    # controller.go_to_home(model, data)
+    controller.go_to_home(model, data)
 
     # Set specific arm positions
     arm1_angles = [0, np.pi/4, 0, np.pi/2, 0, 0, 0]  # 7 joint angles
@@ -23,7 +23,15 @@ if __name__ == "__main__":
 
     # Control grippers
     controller.close_gripper(1)  # close first gripper
+    controller.close_gripper(2)
     controller.go_to_desired(model, data)
+ 
+
+    # object_pos = np.array([
+    #         [0.3, 0.0, 0.5, 0.0, 0.0, 0.0],
+    #         [0.3, 0.0, 0.5, 0.0, 0.0, 0.0]
+    #     ])
+    # controller.go_to_desired(model, data, object_pos)
 
     '''
     Workflow:
