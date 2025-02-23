@@ -1,7 +1,7 @@
 # Multi Agent Geometric Inspection and Classification (MAGIC)
 
 ## Overview
-MAGIC is an system designed for automated geometric inspection and classification using 2 robot arms. The project is part of the Master of Robot Systems Development (MRSD'26) curriculum. 
+MAGIC is an system designed for automated geometric inspection and classification using 2 robot arms. The project is part of the Master of Robot Systems Development (MRSD'26) curriculum at Carnegie Mellon University. 
 
 ## Features
 - Multi-agent coordination and control
