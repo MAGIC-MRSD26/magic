@@ -57,7 +57,7 @@ class ImpedanceControl():
             velocity_error = desired_velocity - self.vel_cartesian_curr 
 
             # Set default gains
-            K_d = np.diag([65, 65, 75, 15, 15, 15])
+            K_d = np.diag([60, 60, 60, 13, 13, 13])
             D_d = np.diag([4, 4, 4, 2, 2, 2])
 
             # Compute impedance forces and torques
@@ -66,8 +66,13 @@ class ImpedanceControl():
             # Compute joint torques
             torque = J.T @ impedance_force
 
+            # constrain torque
+            max_torque = 10
+            torque = np.clip(torque, -max_torque, max_torque)
+
             # Set joint angle control for the specified arm with gravity
             start_idx = 0 if arm == 1 else 7
+
             data.ctrl[start_idx:start_idx+7] = data.qfrc_bias[start_vel_idx:start_vel_idx+7] + torque
         
             print(f"Arm {arm} - Current: {self.pos_cartesian_curr[:3]}, Desired: {self.desired_point[arm-1][:3]}, Error: {position_error[:3]}")

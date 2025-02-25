@@ -18,8 +18,8 @@ if __name__ == "__main__":
 
     ################ PID Control Testing ######################
 
-    # controller = SingleArmPIDControl(model, data)
-    # controller.go_to_home(model, data)
+    controller = SingleArmPIDControl(model, data)
+    controller.go_to_home(model, data)
 
     # # Set specific arm positions
     # arm1_angles = [0, np.pi/4, 0, np.pi/2, 0, 0, 0]  # 7 joint angles
@@ -32,12 +32,12 @@ if __name__ == "__main__":
 
     ############################################################
  
-    object_pos = np.array([
-            [0.3, 0.3, 1.6, 0.0, 0.0, 0.0],
-            [-0.3, -0.3,  1.6, 0.0, 0.0, 0.0]
-        ])
-    controller = ImpedanceControl(model, data, object_pos)
-    controller.go_to_desired(model, data)
+    # object_pos = np.array([
+    #         [0.3, 0.3, 1.6, 0.0, 0.0, 0.0],
+    #         [-0.3, -0.3, 1.6, 0.0, 0.0, 0.0]
+    #     ])
+    # controller = ImpedanceControl(model, data, object_pos)
+    # controller.go_to_desired(model, data)
 
     '''
     Workflow:
