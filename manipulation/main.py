@@ -8,7 +8,7 @@ import time
 if __name__ == "__main__":
 
     # Set the XML filepath
-    xml_filepath = "/home/megan/magic/manipulation/kinova_gen3_mujoco/two_arm_table.xml"
+    xml_filepath = "/home/megan/magic/manipulation/kinova_gen3_mujoco/two_arm_vention_table.xml"
 
     # Load the xml file here
     model = mj.MjModel.from_xml_path(xml_filepath)
