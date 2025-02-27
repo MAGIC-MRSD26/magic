@@ -1,0 +1,7 @@
+<library path="picknik_twist_controller">
+  <class name="picknik_twist_controller/PicknikTwistController" type="picknik_twist_controller::PicknikTwistController" base_class_type="controller_interface::ControllerInterface">
+  <description>
+    Subscribes to twist msg and forwards to hardware
+  </description>
+  </class>
+</library>
