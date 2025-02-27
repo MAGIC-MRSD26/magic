@@ -1,4 +1,0 @@
-source;share/ros_gz_sim/local_setup.bash
-source;share/ros_gz_sim/local_setup.dsv
-source;share/ros_gz_sim/local_setup.sh
-source;share/ros_gz_sim/local_setup.zsh

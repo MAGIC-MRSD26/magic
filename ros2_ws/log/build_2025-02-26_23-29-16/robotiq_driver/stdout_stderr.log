@@ -1,8 +1,0 @@
-[  8%] Built target gmock_main
-[ 20%] Built target gmock
-[ 58%] Built target robotiq_driver
-[ 66%] Built target test_default_serial_factory
-[ 75%] Built target test_robotiq_gripper_hardware_interface
-[ 83%] Built target test_data_utils
-[ 91%] Built target test_crc_utils
-[100%] Built target test_default_driver_factory
