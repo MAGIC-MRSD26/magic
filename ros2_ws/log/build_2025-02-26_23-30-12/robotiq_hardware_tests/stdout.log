@@ -1,0 +1,47 @@
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /home/megan/.pyenv/versions/3.10.15/envs/magic/bin/python3 (found version "3.10.15") found components: Interpreter 
+-- Found hardware_interface: 2.48.0 (/home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake)
+-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+-- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+-- Looking for C++ include pthread.h
+-- Looking for C++ include pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found serial: 1.2.1 (/home/megan/magic/ros2_ws/install/serial/share/serial/cmake)
+-- Found robotiq_driver: 0.0.1 (/home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake)
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/megan/magic/ros2_ws/build/robotiq_hardware_tests
+[ 33%] [32mBuilding CXX object CMakeFiles/full_test.dir/src/gripper_interface_test.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/full_test.dir/src/command_line_utility.cpp.o[0m
+[100%] [32m[1mLinking CXX executable full_test[0m
+[100%] Built target full_test
+-- Install configuration: "Release"
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/ament_index/resource_index/package_run_dependencies/robotiq_hardware_tests
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/ament_index/resource_index/parent_prefix_path/robotiq_hardware_tests
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/environment/ament_prefix_path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/environment/ament_prefix_path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/environment/path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/environment/path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/local_setup.bash
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/local_setup.sh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/local_setup.zsh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/local_setup.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/package.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/ament_index/resource_index/packages/robotiq_hardware_tests
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/cmake/robotiq_hardware_testsConfig.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/cmake/robotiq_hardware_testsConfig-version.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_hardware_tests/share/robotiq_hardware_tests/package.xml

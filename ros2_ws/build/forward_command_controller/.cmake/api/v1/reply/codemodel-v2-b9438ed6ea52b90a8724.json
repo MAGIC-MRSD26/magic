@@ -1,0 +1,229 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-19b5eaa1bdad582f1f61.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				},
+				{
+					"build" : "gmock",
+					"jsonFile" : "directory-gmock-Release-3370d118e31866b3418b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "/opt/ros/humble/src/gmock_vendor",
+					"targetIndexes" : 
+					[
+						3,
+						4
+					]
+				},
+				{
+					"build" : "gtest",
+					"jsonFile" : "directory-gtest-Release-a2408fe1a73b92c5e636.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "/opt/ros/humble/src/gtest_vendor",
+					"targetIndexes" : 
+					[
+						5,
+						6
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "forward_command_controller",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "gmock",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "gtest",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						6
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "forward_command_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-forward_command_controller-Release-e99566fba301db026367.json",
+					"name" : "forward_command_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "forward_command_controller_parameters::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-forward_command_controller_parameters-Release-b46c94786f07a57aa166.json",
+					"name" : "forward_command_controller_parameters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "forward_command_controller_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-forward_command_controller_uninstall-Release-f083c627c5bb7efabbaa.json",
+					"name" : "forward_command_controller_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "gmock::@0590522bda6a4df7f28a",
+					"jsonFile" : "target-gmock-Release-174a2d2ba5c467de7c35.json",
+					"name" : "gmock",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "gmock_main::@0590522bda6a4df7f28a",
+					"jsonFile" : "target-gmock_main-Release-e16102e5458acca35d56.json",
+					"name" : "gmock_main",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gtest::@0af4add9fe94340e763e",
+					"jsonFile" : "target-gtest-Release-5de60cfa11db9d91a3ba.json",
+					"name" : "gtest",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gtest_main::@0af4add9fe94340e763e",
+					"jsonFile" : "target-gtest_main-Release-3c9536e3e9ead09eb605.json",
+					"name" : "gtest_main",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "multi_interface_forward_command_controller_parameters::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-multi_interface_forward_command_controller_parameters-Release-ae1f1c3e0482427e0da4.json",
+					"name" : "multi_interface_forward_command_controller_parameters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_forward_command_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_forward_command_controller-Release-a0a40303ac11d9a09d93.json",
+					"name" : "test_forward_command_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_load_forward_command_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_load_forward_command_controller-Release-683255417d9d9f88dee1.json",
+					"name" : "test_load_forward_command_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_load_multi_interface_forward_command_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_load_multi_interface_forward_command_controller-Release-8e8d50bfaa2ba6b6ab9a.json",
+					"name" : "test_load_multi_interface_forward_command_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_multi_interface_forward_command_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_multi_interface_forward_command_controller-Release-16e39f6c29dca0393bba.json",
+					"name" : "test_multi_interface_forward_command_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-5236f73a52b9debf49b1.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/megan/magic/ros2_ws/build/forward_command_controller",
+		"source" : "/home/megan/magic/ros2_ws/src/ros2_controllers/forward_command_controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

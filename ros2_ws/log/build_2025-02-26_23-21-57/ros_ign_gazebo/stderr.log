@@ -1,0 +1,4 @@
+[01m[K/home/megan/magic/ros2_ws/src/ros_gz/ros_ign_gazebo/src/create_shim.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/megan/magic/ros2_ws/src/ros_gz/ros_ign_gazebo/src/create_shim.cpp:40:9:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Kint system(const char*)[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+   40 |   [01;35m[Ksystem(cli_call.str().c_str())[m[K;
+      |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~[m[K

@@ -1,0 +1,104 @@
+[0.019s] Invoking command in '/home/megan/magic/ros2_ws/build/diff_drive_controller': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_controllers/diff_drive_controller -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/diff_drive_controller
+[0.086s] -- The CXX compiler identification is GNU 11.4.0
+[0.092s] -- Detecting CXX compiler ABI info
+[0.160s] -- Detecting CXX compiler ABI info - done
+[0.165s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.165s] -- Detecting CXX compile features
+[0.165s] -- Detecting CXX compile features - done
+[0.167s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.635s] -- Found Python3: /home/megan/.pyenv/versions/3.10.15/envs/magic/bin/python3 (found version "3.10.15") found components: Interpreter 
+[0.725s] -- Found controller_interface: 2.48.0 (/home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake)
+[0.778s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.782s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.788s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.797s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.809s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.982s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.984s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[1.002s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[1.009s] -- Looking for C++ include pthread.h
+[1.140s] -- Looking for C++ include pthread.h - found
+[1.140s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.235s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.236s] -- Found Threads: TRUE  
+[1.299s] -- Found generate_parameter_library: 0.4.0 (/opt/ros/humble/share/generate_parameter_library/cmake)
+[1.300s] -- Found parameter_traits: 0.4.0 (/opt/ros/humble/share/parameter_traits/cmake)
+[1.315s] -- Found nav_msgs: 4.2.4 (/opt/ros/humble/share/nav_msgs/cmake)
+[1.327s] -- Found realtime_tools: 2.11.0 (/opt/ros/humble/share/realtime_tools/cmake)
+[1.345s] -- Found tf2: 0.25.12 (/opt/ros/humble/share/tf2/cmake)
+[1.351s] -- Found tf2_msgs: 0.25.12 (/opt/ros/humble/share/tf2_msgs/cmake)
+[1.395s] -- Found ament_cmake_gmock: 1.3.11 (/opt/ros/humble/share/ament_cmake_gmock/cmake)
+[1.395s] -- Found controller_manager: 2.48.0 (/home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake)
+[1.411s] -- Found ros2_control_test_assets: 2.48.0 (/home/megan/magic/ros2_ws/install/ros2_control_test_assets/share/ros2_control_test_assets/cmake)
+[1.413s] -- Found gmock sources under '/opt/ros/humble/src/gmock_vendor': C++ tests using 'Google Mock' will be built
+[1.455s] -- The C compiler identification is GNU 11.4.0
+[1.461s] -- Detecting C compiler ABI info
+[1.549s] -- Detecting C compiler ABI info - done
+[1.558s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.558s] -- Detecting C compile features
+[1.558s] -- Detecting C compile features - done
+[1.562s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.562s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.682s] -- Configuring done
+[1.732s] -- Generating done
+[1.742s] -- Build files have been written to: /home/megan/magic/ros2_ws/build/diff_drive_controller
+[1.754s] Invoked command in '/home/megan/magic/ros2_ws/build/diff_drive_controller' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_controllers/diff_drive_controller -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/diff_drive_controller
+[1.756s] Invoking command in '/home/megan/magic/ros2_ws/build/diff_drive_controller': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/diff_drive_controller -- -j20 -l20
+[1.811s] [  6%] [32mBuilding CXX object gmock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o[0m
+[1.812s] [ 20%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/src/gmock-all.cc.o[0m
+[1.812s] [ 20%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/opt/ros/humble/src/gtest_vendor/src/gtest-all.cc.o[0m
+[1.812s] [ 26%] [34m[1mRunning `/opt/ros/humble/bin/generate_parameter_library_cpp /home/megan/magic/ros2_ws/build/diff_drive_controller/include/diff_drive_controller/diff_drive_controller_parameters.hpp /home/megan/magic/ros2_ws/src/ros2_controllers/diff_drive_controller/src/diff_drive_controller_parameter.yaml `[0m
+[2.629s] [ 33%] [34m[1mCreating deprecated header file /home/megan/magic/ros2_ws/build/diff_drive_controller/include/diff_drive_controller_parameters.hpp[0m
+[2.677s] [ 33%] Built target diff_drive_controller_parameters
+[2.700s] [ 40%] [32mBuilding CXX object CMakeFiles/diff_drive_controller.dir/src/speed_limiter.cpp.o[0m
+[2.703s] [ 53%] [32mBuilding CXX object CMakeFiles/diff_drive_controller.dir/src/odometry.cpp.o[0m
+[2.703s] [ 53%] [32mBuilding CXX object CMakeFiles/diff_drive_controller.dir/src/diff_drive_controller.cpp.o[0m
+[2.900s] [ 60%] [32m[1mLinking CXX static library libgmock_main.a[0m
+[2.971s] [ 60%] Built target gmock_main
+[8.245s] [ 66%] [32m[1mLinking CXX static library libgmock.a[0m
+[8.317s] [ 66%] Built target gmock
+[8.340s] [ 73%] [32mBuilding CXX object CMakeFiles/test_load_diff_drive_controller.dir/test/test_load_diff_drive_controller.cpp.o[0m
+[12.195s] [ 80%] [32m[1mLinking CXX executable test_load_diff_drive_controller[0m
+[12.369s] [ 80%] Built target test_load_diff_drive_controller
+[17.849s] [ 86%] [32m[1mLinking CXX shared library libdiff_drive_controller.so[0m
+[18.026s] [ 86%] Built target diff_drive_controller
+[18.044s] [ 93%] [32mBuilding CXX object CMakeFiles/test_diff_drive_controller.dir/test/test_diff_drive_controller.cpp.o[0m
+[24.577s] [100%] [32m[1mLinking CXX executable test_diff_drive_controller[0m
+[24.785s] [100%] Built target test_diff_drive_controller
+[24.795s] Invoked command in '/home/megan/magic/ros2_ws/build/diff_drive_controller' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/diff_drive_controller -- -j20 -l20
+[24.797s] Invoking command in '/home/megan/magic/ros2_ws/build/diff_drive_controller': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/diff_drive_controller
+[24.806s] -- Install configuration: "Release"
+[24.806s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller
+[24.806s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller/diff_drive_controller_parameters.hpp
+[24.806s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/diff_drive_plugin.xml
+[24.806s] -- Up-to-date: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller
+[24.807s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller/diff_drive_controller
+[24.807s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller/diff_drive_controller/odometry.hpp
+[24.807s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller/diff_drive_controller/visibility_control.h
+[24.807s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller/diff_drive_controller/speed_limiter.hpp
+[24.807s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/include/diff_drive_controller/diff_drive_controller/diff_drive_controller.hpp
+[24.807s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/lib/libdiff_drive_controller.so
+[24.810s] -- Set runtime path of "/home/megan/magic/ros2_ws/install/diff_drive_controller/lib/libdiff_drive_controller.so" to ""
+[24.810s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/environment/library_path.sh
+[24.810s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/environment/library_path.dsv
+[24.811s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/ament_index/resource_index/package_run_dependencies/diff_drive_controller
+[24.811s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/ament_index/resource_index/parent_prefix_path/diff_drive_controller
+[24.811s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/environment/ament_prefix_path.sh
+[24.811s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/environment/ament_prefix_path.dsv
+[24.811s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/environment/path.sh
+[24.811s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/environment/path.dsv
+[24.812s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/local_setup.bash
+[24.812s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/local_setup.sh
+[24.812s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/local_setup.zsh
+[24.812s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/local_setup.dsv
+[24.812s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/package.dsv
+[24.812s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/ament_index/resource_index/packages/diff_drive_controller
+[24.812s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/diff_drive_controller
+[24.813s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/cmake/export_diff_drive_controllerExport.cmake
+[24.813s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/cmake/export_diff_drive_controllerExport-release.cmake
+[24.813s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[24.813s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/cmake/ament_cmake_export_targets-extras.cmake
+[24.813s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/cmake/diff_drive_controllerConfig.cmake
+[24.813s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/cmake/diff_drive_controllerConfig-version.cmake
+[24.813s] -- Installing: /home/megan/magic/ros2_ws/install/diff_drive_controller/share/diff_drive_controller/package.xml
+[24.815s] Invoked command in '/home/megan/magic/ros2_ws/build/diff_drive_controller' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/diff_drive_controller

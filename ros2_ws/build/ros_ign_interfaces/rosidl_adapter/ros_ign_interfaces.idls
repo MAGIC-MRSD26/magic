@@ -1,0 +1,16 @@
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/Contact.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/Contacts.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/Entity.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/EntityFactory.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/GuiCamera.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/JointWrench.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/Light.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/StringVec.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/TrackVisual.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/VideoRecord.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/WorldControl.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:msg/WorldReset.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:srv/ControlWorld.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:srv/DeleteEntity.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:srv/SetEntityPose.idl
+/home/megan/magic/ros2_ws/build/ros_ign_interfaces/rosidl_adapter/ros_ign_interfaces:srv/SpawnEntity.idl

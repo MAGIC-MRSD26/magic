@@ -1,0 +1,4 @@
+source;share/picknik_twist_controller/local_setup.bash
+source;share/picknik_twist_controller/local_setup.dsv
+source;share/picknik_twist_controller/local_setup.sh
+source;share/picknik_twist_controller/local_setup.zsh

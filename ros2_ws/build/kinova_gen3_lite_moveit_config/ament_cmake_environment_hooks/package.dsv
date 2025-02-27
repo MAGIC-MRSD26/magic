@@ -1,0 +1,4 @@
+source;share/kinova_gen3_lite_moveit_config/local_setup.bash
+source;share/kinova_gen3_lite_moveit_config/local_setup.dsv
+source;share/kinova_gen3_lite_moveit_config/local_setup.sh
+source;share/kinova_gen3_lite_moveit_config/local_setup.zsh

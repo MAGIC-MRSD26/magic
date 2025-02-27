@@ -1,0 +1,9 @@
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/uninstall.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/kortex_bringup_uninstall.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/test.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/edit_cache.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/rebuild_cache.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/list_install_components.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/install.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/install/local.dir
+/home/megan/magic/ros2_ws/build/kortex_bringup/CMakeFiles/install/strip.dir

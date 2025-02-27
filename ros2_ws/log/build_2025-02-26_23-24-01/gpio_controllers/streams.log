@@ -1,0 +1,96 @@
+[0.022s] Invoking command in '/home/megan/magic/ros2_ws/build/gpio_controllers': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_controllers/gpio_controllers -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/gpio_controllers
+[0.070s] -- The C compiler identification is GNU 11.4.0
+[0.128s] -- The CXX compiler identification is GNU 11.4.0
+[0.134s] -- Detecting C compiler ABI info
+[0.215s] -- Detecting C compiler ABI info - done
+[0.234s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.234s] -- Detecting C compile features
+[0.235s] -- Detecting C compile features - done
+[0.238s] -- Detecting CXX compiler ABI info
+[0.299s] -- Detecting CXX compiler ABI info - done
+[0.305s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.305s] -- Detecting CXX compile features
+[0.306s] -- Detecting CXX compile features - done
+[0.308s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.772s] -- Found Python3: /home/megan/.pyenv/versions/3.10.15/envs/magic/bin/python3 (found version "3.10.15") found components: Interpreter 
+[0.853s] -- Found controller_interface: 2.48.0 (/home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake)
+[0.886s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.891s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.899s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.916s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.936s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.102s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.105s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[1.123s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[1.130s] -- Looking for pthread.h
+[1.204s] -- Looking for pthread.h - found
+[1.205s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.274s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.276s] -- Found Threads: TRUE  
+[1.331s] -- Found realtime_tools: 2.11.0 (/opt/ros/humble/share/realtime_tools/cmake)
+[1.342s] -- Found generate_parameter_library: 0.4.0 (/opt/ros/humble/share/generate_parameter_library/cmake)
+[1.343s] -- Found parameter_traits: 0.4.0 (/opt/ros/humble/share/parameter_traits/cmake)
+[1.367s] -- Found ament_cmake_gmock: 1.3.11 (/opt/ros/humble/share/ament_cmake_gmock/cmake)
+[1.367s] -- Found controller_manager: 2.48.0 (/home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake)
+[1.386s] -- Found ros2_control_test_assets: 2.48.0 (/home/megan/magic/ros2_ws/install/ros2_control_test_assets/share/ros2_control_test_assets/cmake)
+[1.388s] -- Found gmock sources under '/opt/ros/humble/src/gmock_vendor': C++ tests using 'Google Mock' will be built
+[1.394s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.395s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.530s] -- Configuring done
+[1.573s] -- Generating done
+[1.583s] -- Build files have been written to: /home/megan/magic/ros2_ws/build/gpio_controllers
+[1.592s] Invoked command in '/home/megan/magic/ros2_ws/build/gpio_controllers' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_controllers/gpio_controllers -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/gpio_controllers
+[1.593s] Invoking command in '/home/megan/magic/ros2_ws/build/gpio_controllers': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/gpio_controllers -- -j20 -l20
+[1.641s] [ 15%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/opt/ros/humble/src/gtest_vendor/src/gtest-all.cc.o[0m
+[1.641s] [ 15%] [34m[1mRunning `/opt/ros/humble/bin/generate_parameter_library_cpp /home/megan/magic/ros2_ws/build/gpio_controllers/include/gpio_controllers/gpio_command_controller_parameters.hpp /home/megan/magic/ros2_ws/src/ros2_controllers/gpio_controllers/src/gpio_command_controller_parameters.yaml `[0m
+[1.642s] [ 23%] [32mBuilding CXX object gmock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o[0m
+[1.642s] [ 30%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/src/gmock-all.cc.o[0m
+[1.834s] [ 38%] [34m[1mCreating deprecated header file /home/megan/magic/ros2_ws/build/gpio_controllers/include/gpio_command_controller_parameters.hpp[0m
+[1.877s] [ 38%] Built target gpio_command_controller_parameters
+[1.898s] [ 46%] [32mBuilding CXX object CMakeFiles/gpio_controllers.dir/src/gpio_command_controller.cpp.o[0m
+[2.184s] [ 53%] [32m[1mLinking CXX static library libgmock_main.a[0m
+[2.241s] [ 53%] Built target gmock_main
+[6.777s] [ 61%] [32m[1mLinking CXX static library libgmock.a[0m
+[6.844s] [ 61%] Built target gmock
+[6.866s] [ 69%] [32mBuilding CXX object CMakeFiles/test_load_gpio_command_controller.dir/test/test_load_gpio_command_controller.cpp.o[0m
+[10.607s] [ 76%] [32m[1mLinking CXX executable test_load_gpio_command_controller[0m
+[10.776s] [ 76%] Built target test_load_gpio_command_controller
+[11.311s] [ 84%] [32m[1mLinking CXX shared library libgpio_controllers.so[0m
+[11.477s] [ 84%] Built target gpio_controllers
+[11.499s] [ 92%] [32mBuilding CXX object CMakeFiles/test_gpio_command_controller.dir/test/test_gpio_command_controller.cpp.o[0m
+[23.401s] [100%] [32m[1mLinking CXX executable test_gpio_command_controller[0m
+[23.593s] [100%] Built target test_gpio_command_controller
+[23.604s] Invoked command in '/home/megan/magic/ros2_ws/build/gpio_controllers' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/gpio_controllers -- -j20 -l20
+[23.606s] Invoking command in '/home/megan/magic/ros2_ws/build/gpio_controllers': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/gpio_controllers
+[23.612s] -- Install configuration: "Release"
+[23.612s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/include/gpio_controllers
+[23.612s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/include/gpio_controllers/gpio_command_controller_parameters.hpp
+[23.612s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/gpio_controllers_plugin.xml
+[23.612s] -- Up-to-date: /home/megan/magic/ros2_ws/install/gpio_controllers/include
+[23.612s] -- Up-to-date: /home/megan/magic/ros2_ws/install/gpio_controllers/include/gpio_controllers
+[23.612s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/include/gpio_controllers/visibility_control.h
+[23.612s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/include/gpio_controllers/gpio_command_controller.hpp
+[23.612s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/lib/libgpio_controllers.so
+[23.613s] -- Set runtime path of "/home/megan/magic/ros2_ws/install/gpio_controllers/lib/libgpio_controllers.so" to ""
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/environment/library_path.sh
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/environment/library_path.dsv
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/ament_index/resource_index/package_run_dependencies/gpio_controllers
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/ament_index/resource_index/parent_prefix_path/gpio_controllers
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/environment/ament_prefix_path.sh
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/environment/ament_prefix_path.dsv
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/environment/path.sh
+[23.613s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/environment/path.dsv
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/local_setup.bash
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/local_setup.sh
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/local_setup.zsh
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/local_setup.dsv
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/package.dsv
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/ament_index/resource_index/packages/gpio_controllers
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/ament_index/resource_index/controller_interface__pluginlib__plugin/gpio_controllers
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/cmake/ament_cmake_export_dependencies-extras.cmake
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/cmake/ament_cmake_export_include_directories-extras.cmake
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/cmake/ament_cmake_export_libraries-extras.cmake
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/cmake/gpio_controllersConfig.cmake
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/cmake/gpio_controllersConfig-version.cmake
+[23.614s] -- Installing: /home/megan/magic/ros2_ws/install/gpio_controllers/share/gpio_controllers/package.xml
+[23.616s] Invoked command in '/home/megan/magic/ros2_ws/build/gpio_controllers' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/gpio_controllers

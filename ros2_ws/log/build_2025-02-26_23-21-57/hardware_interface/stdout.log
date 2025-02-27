@@ -1,0 +1,91 @@
+[35m[1mConsolidate compiler generated dependencies of target gmock[0m
+[35m[1mConsolidate compiler generated dependencies of target gmock_main[0m
+[  5%] Built target gmock_main
+[ 17%] Built target gmock
+[ 17%] Built target ament_generate_version_header__hardware_interface
+[35m[1mConsolidate compiler generated dependencies of target test_macros[0m
+[35m[1mConsolidate compiler generated dependencies of target hardware_interface[0m
+[ 22%] Built target test_macros
+[ 42%] Built target hardware_interface
+[35m[1mConsolidate compiler generated dependencies of target mock_components[0m
+[35m[1mConsolidate compiler generated dependencies of target test_joint_handle[0m
+[35m[1mConsolidate compiler generated dependencies of target fake_components[0m
+[35m[1mConsolidate compiler generated dependencies of target test_inst_hardwares[0m
+[35m[1mConsolidate compiler generated dependencies of target test_hardware_components[0m
+[ 45%] [32mBuilding CXX object CMakeFiles/test_component_interfaces.dir/test/test_component_interfaces.cpp.o[0m
+[ 48%] [32mBuilding CXX object CMakeFiles/test_generic_system.dir/test/mock_components/test_generic_system.cpp.o[0m
+[ 51%] [32mBuilding CXX object CMakeFiles/test_component_parser.dir/test/test_component_parser.cpp.o[0m
+[ 57%] Built target mock_components
+[ 62%] Built target test_joint_handle
+[ 71%] Built target fake_components
+[ 77%] Built target test_inst_hardwares
+[ 91%] Built target test_hardware_components
+[ 94%] [32m[1mLinking CXX executable test_component_interfaces[0m
+[ 94%] Built target test_component_interfaces
+[ 97%] [32m[1mLinking CXX executable test_component_parser[0m
+[ 97%] Built target test_component_parser
+[100%] [32m[1mLinking CXX executable test_generic_system[0m
+[100%] Built target test_generic_system
+-- Install configuration: "Release"
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/mock_components_plugin_description.xml
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/fake_components_plugin_description.xml
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/fake_components
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/fake_components/generic_system.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/fake_components/visibility_control.h
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/macros.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/component_parser.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/controller_info.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/hardware_info.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/actuator.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/visibility_control.h
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/types
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/types/lifecycle_state_names.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/types/hardware_interface_return_values.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/types/hardware_interface_type_values.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/lexical_casts.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/handle.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/resource_manager.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/hardware_component_info.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/loaned_command_interface.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/loaned_state_interface.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/sensor.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/sensor_interface.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/system.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/system_interface.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/actuator_interface.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/mock_components
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/mock_components/generic_system.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/mock_components/visibility_control.h
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/lib/libfake_components.so
+-- Set runtime path of "/home/megan/magic/ros2_ws/install/hardware_interface/lib/libfake_components.so" to ""
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/lib/libmock_components.so
+-- Set runtime path of "/home/megan/magic/ros2_ws/install/hardware_interface/lib/libmock_components.so" to ""
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/lib/libhardware_interface.so
+-- Set runtime path of "/home/megan/magic/ros2_ws/install/hardware_interface/lib/libhardware_interface.so" to ""
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/lib/libtest_hardware_components.so
+-- Set runtime path of "/home/megan/magic/ros2_ws/install/hardware_interface/lib/libtest_hardware_components.so" to ""
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/test/test_hardware_components/test_hardware_components.xml
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/environment/library_path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/environment/library_path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/ament_index/resource_index/package_run_dependencies/hardware_interface
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/ament_index/resource_index/parent_prefix_path/hardware_interface
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/environment/ament_prefix_path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/environment/ament_prefix_path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/environment/path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/environment/path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/local_setup.bash
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/local_setup.sh
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/local_setup.zsh
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/local_setup.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/package.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/ament_index/resource_index/packages/hardware_interface
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/hardware_interface
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake/hardware_interfaceConfig.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake/hardware_interfaceConfig-version.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/package.xml
+-- Installing: /home/megan/magic/ros2_ws/install/hardware_interface/include/hardware_interface/hardware_interface/version.h

@@ -1,0 +1,2 @@
+source;share/ros_ign_gazebo/environment/ament_prefix_path.sh
+source;share/ros_ign_gazebo/environment/path.sh

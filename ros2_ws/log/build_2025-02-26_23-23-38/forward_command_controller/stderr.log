@@ -1,0 +1,4 @@
+gmake[2]: *** Deleting file 'test_forward_command_controller'
+gmake[2]: *** [CMakeFiles/test_forward_command_controller.dir/build.make:307: test_forward_command_controller] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:299: CMakeFiles/test_forward_command_controller.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

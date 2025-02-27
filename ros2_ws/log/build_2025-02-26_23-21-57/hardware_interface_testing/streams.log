@@ -1,0 +1,82 @@
+[0.037s] Invoking command in '/home/megan/magic/ros2_ws/build/hardware_interface_testing': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_control/hardware_interface_testing -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/hardware_interface_testing
+[0.134s] -- The CXX compiler identification is GNU 11.4.0
+[0.141s] -- Detecting CXX compiler ABI info
+[0.216s] -- Detecting CXX compiler ABI info - done
+[0.221s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.221s] -- Detecting CXX compile features
+[0.221s] -- Detecting CXX compile features - done
+[0.223s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.736s] -- Found Python3: /home/megan/.pyenv/versions/3.10.15/envs/magic/bin/python3 (found version "3.10.15") found components: Interpreter 
+[0.809s] -- Found control_msgs: 4.7.0 (/home/megan/magic/ros2_ws/install/control_msgs/share/control_msgs/cmake)
+[0.839s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.840s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.844s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.852s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.863s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.960s] -- Found hardware_interface: 2.48.0 (/home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake)
+[1.031s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.033s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[1.047s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[1.059s] -- Looking for C++ include pthread.h
+[1.133s] -- Looking for C++ include pthread.h - found
+[1.133s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.202s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.203s] -- Found Threads: TRUE  
+[1.238s] -- Found ros2_control_test_assets: 2.48.0 (/home/megan/magic/ros2_ws/install/ros2_control_test_assets/share/ros2_control_test_assets/cmake)
+[1.242s] -- Found ament_cmake_gmock: 1.3.11 (/opt/ros/humble/share/ament_cmake_gmock/cmake)
+[1.244s] -- Found gmock sources under '/opt/ros/humble/src/gmock_vendor': C++ tests using 'Google Mock' will be built
+[1.299s] -- The C compiler identification is GNU 11.4.0
+[1.317s] -- Detecting C compiler ABI info
+[1.387s] -- Detecting C compiler ABI info - done
+[1.394s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.394s] -- Detecting C compile features
+[1.395s] -- Detecting C compile features - done
+[1.399s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.400s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.480s] -- Configuring done
+[1.519s] -- Generating done
+[1.527s] -- Build files have been written to: /home/megan/magic/ros2_ws/build/hardware_interface_testing
+[1.534s] Invoked command in '/home/megan/magic/ros2_ws/build/hardware_interface_testing' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_control/hardware_interface_testing -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/hardware_interface_testing
+[1.535s] Invoking command in '/home/megan/magic/ros2_ws/build/hardware_interface_testing': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/hardware_interface_testing -- -j20 -l20
+[1.583s] [  7%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/src/gmock-all.cc.o[0m
+[1.583s] [ 15%] [32mBuilding CXX object gmock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o[0m
+[1.584s] [ 23%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/opt/ros/humble/src/gtest_vendor/src/gtest-all.cc.o[0m
+[1.586s] [ 30%] [32mBuilding CXX object CMakeFiles/test_components.dir/test/test_components/test_actuator.cpp.o[0m
+[1.588s] [ 46%] [32mBuilding CXX object CMakeFiles/test_components.dir/test/test_components/test_system.cpp.o[0m
+[1.588s] [ 46%] [32mBuilding CXX object CMakeFiles/test_components.dir/test/test_components/test_sensor.cpp.o[0m
+[3.289s] [ 53%] [32m[1mLinking CXX static library libgmock_main.a[0m
+[3.484s] [ 53%] Built target gmock_main
+[4.720s] [ 61%] [32m[1mLinking CXX shared library libtest_components.so[0m
+[4.811s] [ 61%] Built target test_components
+[7.668s] [ 69%] [32m[1mLinking CXX static library libgmock.a[0m
+[7.727s] [ 69%] Built target gmock
+[7.745s] [ 76%] [32mBuilding CXX object CMakeFiles/test_resource_manager_prepare_perform_switch.dir/test/test_resource_manager_prepare_perform_switch.cpp.o[0m
+[7.746s] [ 84%] [32mBuilding CXX object CMakeFiles/test_resource_manager.dir/test/test_resource_manager.cpp.o[0m
+[11.562s] [ 92%] [32m[1mLinking CXX executable test_resource_manager_prepare_perform_switch[0m
+[11.703s] [ 92%] Built target test_resource_manager_prepare_perform_switch
+[14.085s] [100%] [32m[1mLinking CXX executable test_resource_manager[0m
+[14.216s] [100%] Built target test_resource_manager
+[14.225s] Invoked command in '/home/megan/magic/ros2_ws/build/hardware_interface_testing' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/hardware_interface_testing -- -j20 -l20
+[14.227s] Invoking command in '/home/megan/magic/ros2_ws/build/hardware_interface_testing': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/hardware_interface_testing
+[14.235s] -- Install configuration: "Release"
+[14.235s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/lib/libtest_components.so
+[14.236s] -- Set runtime path of "/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib/libtest_components.so" to ""
+[14.236s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/test/test_components/test_components.xml
+[14.236s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/ament_index/resource_index/package_run_dependencies/hardware_interface_testing
+[14.237s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/ament_index/resource_index/parent_prefix_path/hardware_interface_testing
+[14.237s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/environment/ament_prefix_path.sh
+[14.237s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/environment/ament_prefix_path.dsv
+[14.237s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/environment/path.sh
+[14.237s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/environment/path.dsv
+[14.237s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/local_setup.bash
+[14.238s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/local_setup.sh
+[14.238s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/local_setup.zsh
+[14.238s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/local_setup.dsv
+[14.238s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/package.dsv
+[14.238s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/ament_index/resource_index/packages/hardware_interface_testing
+[14.239s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/hardware_interface_testing
+[14.239s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/cmake/ament_cmake_export_dependencies-extras.cmake
+[14.239s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/cmake/hardware_interface_testingConfig.cmake
+[14.239s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/cmake/hardware_interface_testingConfig-version.cmake
+[14.239s] -- Installing: /home/megan/magic/ros2_ws/install/hardware_interface_testing/share/hardware_interface_testing/package.xml
+[14.241s] Invoked command in '/home/megan/magic/ros2_ws/build/hardware_interface_testing' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/hardware_interface_testing

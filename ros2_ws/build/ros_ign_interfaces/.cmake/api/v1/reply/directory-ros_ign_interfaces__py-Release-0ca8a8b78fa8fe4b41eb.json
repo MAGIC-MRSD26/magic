@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "ros_ign_interfaces__py",
+		"source" : "/home/megan/magic/ros2_ws/build/ros_ign_interfaces/ros_ign_interfaces__py"
+	}
+}

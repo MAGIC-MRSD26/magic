@@ -1,0 +1,51 @@
+[0.014s] Invoking command in '/home/megan/magic/ros2_ws/build/controller_interface': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/controller_interface -- -j20 -l20
+[0.057s] [  4%] Built target ament_generate_version_header__controller_interface
+[0.067s] [ 12%] Built target gmock_main
+[0.067s] [ 25%] Built target gmock
+[0.082s] [ 41%] Built target controller_interface
+[0.089s] [ 50%] Built target test_semantic_component_interface
+[0.091s] [ 58%] Built target test_force_torque_sensor
+[0.093s] [ 66%] Built target test_pose_sensor
+[0.095s] [ 75%] Built target test_imu_sensor
+[0.106s] [ 83%] Built target test_controller_with_options
+[0.106s] [ 91%] Built target test_controller_interface
+[0.110s] [100%] Built target test_chainable_controller_interface
+[0.119s] Invoked command in '/home/megan/magic/ros2_ws/build/controller_interface' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/controller_interface -- -j20 -l20
+[0.120s] Invoking command in '/home/megan/magic/ros2_ws/build/controller_interface': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/controller_interface
+[0.125s] -- Install configuration: "Release"
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/semantic_components
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/semantic_components/force_torque_sensor.hpp
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/semantic_components/pose_sensor.hpp
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/semantic_components/semantic_component_interface.hpp
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/semantic_components/range_sensor.hpp
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/semantic_components/imu_sensor.hpp
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/controller_interface
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/controller_interface/helpers.hpp
+[0.126s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/controller_interface/chainable_controller_interface.hpp
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/controller_interface/visibility_control.h
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/controller_interface/controller_interface.hpp
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/controller_interface/controller_interface_base.hpp
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/lib/libcontroller_interface.so
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/environment/library_path.sh
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/environment/library_path.dsv
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/ament_index/resource_index/package_run_dependencies/controller_interface
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/ament_index/resource_index/parent_prefix_path/controller_interface
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/environment/ament_prefix_path.sh
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/environment/ament_prefix_path.dsv
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/environment/path.sh
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/environment/path.dsv
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/local_setup.bash
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/local_setup.sh
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/local_setup.zsh
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/local_setup.dsv
+[0.127s] -- Installing: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/package.dsv
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/ament_index/resource_index/packages/controller_interface
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.127s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.128s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake/ament_cmake_export_libraries-extras.cmake
+[0.128s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake/controller_interfaceConfig.cmake
+[0.128s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake/controller_interfaceConfig-version.cmake
+[0.128s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/package.xml
+[0.128s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_interface/include/controller_interface/controller_interface/version.h
+[0.128s] Invoked command in '/home/megan/magic/ros2_ws/build/controller_interface' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/controller_interface

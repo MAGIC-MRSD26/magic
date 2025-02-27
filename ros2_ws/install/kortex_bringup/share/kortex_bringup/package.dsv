@@ -1,0 +1,8 @@
+source;share/kortex_bringup/hook/cmake_prefix_path.ps1
+source;share/kortex_bringup/hook/cmake_prefix_path.dsv
+source;share/kortex_bringup/hook/cmake_prefix_path.sh
+source;share/kortex_bringup/local_setup.bash
+source;share/kortex_bringup/local_setup.dsv
+source;share/kortex_bringup/local_setup.ps1
+source;share/kortex_bringup/local_setup.sh
+source;share/kortex_bringup/local_setup.zsh

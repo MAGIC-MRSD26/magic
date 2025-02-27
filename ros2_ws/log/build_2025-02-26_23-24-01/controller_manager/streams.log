@@ -1,0 +1,111 @@
+[0.016s] Invoking command in '/home/megan/magic/ros2_ws/build/controller_manager': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/controller_manager -- -j20 -l20
+[0.074s] [  0%] Built target ament_cmake_python_copy_controller_manager
+[0.074s] [  0%] Built target ament_cmake_python_copy_controller_manager_setup
+[0.074s] [  2%] Built target ament_generate_version_header__controller_manager
+[0.076s] [ 10%] Built target gmock
+[0.081s] [ 15%] Built target gmock_main
+[0.117s] [ 21%] Built target controller_manager
+[0.137s] [ 26%] Built target ros2_control_node
+[0.137s] [ 31%] Built target test_chainable_controller
+[0.139s] [ 36%] Built target test_controller_failed_init
+[0.143s] [ 42%] Built target test_controller
+[0.146s] [ 47%] Built target test_controller_manager_urdf_passing
+[0.150s] [ 57%] Built target test_controller_with_interfaces
+[0.150s] [ 57%] Built target test_hardware_spawner
+[0.166s] [ 63%] Built target test_controller_manager_with_namespace.cpp
+[0.168s] [ 68%] Built target test_controller_manager
+[0.170s] [ 73%] Built target test_hardware_management_srvs
+[0.170s] [ 78%] Built target test_controller_manager_srvs
+[0.171s] [ 84%] Built target test_load_controller
+[0.177s] [ 89%] Built target test_controllers_chaining_with_controller_manager
+[0.178s] [ 94%] Built target test_release_interfaces
+[0.178s] [100%] Built target test_spawner_unspawner
+[0.366s] running egg_info
+[0.373s] writing controller_manager.egg-info/PKG-INFO
+[0.373s] writing dependency_links to controller_manager.egg-info/dependency_links.txt
+[0.373s] writing entry points to controller_manager.egg-info/entry_points.txt
+[0.373s] writing top-level names to controller_manager.egg-info/top_level.txt
+[0.373s] running install_scripts
+[0.388s] /home/megan/.pyenv/versions/3.10.15/envs/magic/lib/python3.10/site-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.388s]   warnings.warn(
+[0.393s] reading manifest file 'controller_manager.egg-info/SOURCES.txt'
+[0.394s] writing manifest file 'controller_manager.egg-info/SOURCES.txt'
+[0.417s] running egg_info
+[0.431s] [100%] Built target ament_cmake_python_build_controller_manager_egg
+[0.433s] writing controller_manager.egg-info/PKG-INFO
+[0.433s] writing dependency_links to controller_manager.egg-info/dependency_links.txt
+[0.433s] writing entry points to controller_manager.egg-info/entry_points.txt
+[0.434s] writing top-level names to controller_manager.egg-info/top_level.txt
+[0.446s] reading manifest file 'controller_manager.egg-info/SOURCES.txt'
+[0.446s] writing manifest file 'controller_manager.egg-info/SOURCES.txt'
+[0.459s] Installing hardware_spawner script to scripts
+[0.460s] Installing spawner script to scripts
+[0.460s] Installing unspawner script to scripts
+[0.504s] [100%] Built target ament_cmake_python_build_controller_manager_scripts
+[0.514s] Invoked command in '/home/megan/magic/ros2_ws/build/controller_manager' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/controller_manager -- -j20 -l20
+[0.516s] Invoking command in '/home/megan/magic/ros2_ws/build/controller_manager': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/controller_manager
+[0.522s] -- Install configuration: "Release"
+[0.522s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/libcontroller_manager.so
+[0.522s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/controller_manager/ros2_control_node
+[0.522s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/include
+[0.522s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/include/controller_manager
+[0.522s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/include/controller_manager/visibility_control.h
+[0.522s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/include/controller_manager/controller_manager.hpp
+[0.522s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/include/controller_manager/controller_spec.hpp
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/test/test_controller/test_controller.xml
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/libtest_controller.so
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/test/test_controller_failed_init/test_controller_failed_init.xml
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/libtest_controller_failed_init.so
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/test/test_chainable_controller/test_chainable_controller.xml
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/libtest_chainable_controller.so
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/test/test_controller_with_interfaces/test_controller_with_interfaces.xml
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/libtest_controller_with_interfaces.so
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/test/test_controller_spawner_with_type.yaml
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/test/test_controller_spawner_with_basic_controllers.yaml
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/test/test_controller_overriding_parameters.yaml
+[0.523s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/test/test_controller_spawner_wildcard_entries.yaml
+[0.524s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/test/test_controller_spawner_with_interfaces.yaml
+[0.524s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/test/test_ros2_control_node.yaml
+[0.524s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/pythonpath.sh
+[0.524s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/pythonpath.dsv
+[0.524s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager-2.48.0-py3.10.egg-info
+[0.524s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager-2.48.0-py3.10.egg-info/dependency_links.txt
+[0.524s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager-2.48.0-py3.10.egg-info/PKG-INFO
+[0.524s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager-2.48.0-py3.10.egg-info/top_level.txt
+[0.524s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager-2.48.0-py3.10.egg-info/SOURCES.txt
+[0.524s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager-2.48.0-py3.10.egg-info/entry_points.txt
+[0.524s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/controller_manager/
+[0.525s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/controller_manager//spawner
+[0.525s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/controller_manager//hardware_spawner
+[0.525s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/lib/controller_manager//unspawner
+[0.525s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager
+[0.525s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager/__init__.py
+[0.525s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager/hardware_spawner.py
+[0.525s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager/launch_utils.py
+[0.525s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager/unspawner.py
+[0.525s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager/controller_manager_services.py
+[0.525s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager/spawner.py
+[0.550s] Listing '/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages/controller_manager'...
+[0.553s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/library_path.sh
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/library_path.dsv
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/ament_index/resource_index/package_run_dependencies/controller_manager
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/ament_index/resource_index/parent_prefix_path/controller_manager
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/ament_prefix_path.sh
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/ament_prefix_path.dsv
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/path.sh
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/environment/path.dsv
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/local_setup.bash
+[0.554s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/local_setup.sh
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/local_setup.zsh
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/local_setup.dsv
+[0.555s] -- Installing: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/package.dsv
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/ament_index/resource_index/packages/controller_manager
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/ament_index/resource_index/controller_interface__pluginlib__plugin/controller_manager
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake/ament_cmake_export_libraries-extras.cmake
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake/controller_managerConfig.cmake
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake/controller_managerConfig-version.cmake
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/package.xml
+[0.555s] -- Up-to-date: /home/megan/magic/ros2_ws/install/controller_manager/include/controller_manager/controller_manager/version.h
+[0.562s] Invoked command in '/home/megan/magic/ros2_ws/build/controller_manager' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/controller_manager

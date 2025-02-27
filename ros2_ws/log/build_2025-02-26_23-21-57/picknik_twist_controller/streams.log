@@ -1,0 +1,73 @@
+[0.016s] Invoking command in '/home/megan/magic/ros2_ws/build/picknik_twist_controller': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/picknik_controllers/picknik_twist_controller -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/picknik_twist_controller
+[0.078s] -- The C compiler identification is GNU 11.4.0
+[0.120s] -- The CXX compiler identification is GNU 11.4.0
+[0.125s] -- Detecting C compiler ABI info
+[0.184s] -- Detecting C compiler ABI info - done
+[0.190s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.190s] -- Detecting C compile features
+[0.190s] -- Detecting C compile features - done
+[0.192s] -- Detecting CXX compiler ABI info
+[0.259s] -- Detecting CXX compiler ABI info - done
+[0.265s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.265s] -- Detecting CXX compile features
+[0.265s] -- Detecting CXX compile features - done
+[0.267s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.769s] -- Found Python3: /home/megan/.pyenv/versions/3.10.15/envs/magic/bin/python3 (found version "3.10.15") found components: Interpreter 
+[0.842s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[0.848s] -- Found controller_interface: 2.48.0 (/home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake)
+[0.877s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.881s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.886s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.895s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.906s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.049s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.051s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[1.069s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[1.075s] -- Looking for pthread.h
+[1.136s] -- Looking for pthread.h - found
+[1.136s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.205s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.206s] -- Found Threads: TRUE  
+[1.245s] -- Found example_interfaces: 0.9.3 (/opt/ros/humble/share/example_interfaces/cmake)
+[1.257s] -- Found realtime_tools: 2.11.0 (/opt/ros/humble/share/realtime_tools/cmake)
+[1.348s] -- Configuring done
+[1.365s] -- Generating done
+[1.369s] -- Build files have been written to: /home/megan/magic/ros2_ws/build/picknik_twist_controller
+[1.376s] Invoked command in '/home/megan/magic/ros2_ws/build/picknik_twist_controller' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/picknik_controllers/picknik_twist_controller -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/picknik_twist_controller
+[1.377s] Invoking command in '/home/megan/magic/ros2_ws/build/picknik_twist_controller': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/picknik_twist_controller -- -j20 -l20
+[1.423s] [ 50%] [32mBuilding CXX object CMakeFiles/picknik_twist_controller.dir/src/picknik_twist_controller.cpp.o[0m
+[8.668s] [100%] [32m[1mLinking CXX shared library libpicknik_twist_controller.so[0m
+[8.823s] [100%] Built target picknik_twist_controller
+[8.832s] Invoked command in '/home/megan/magic/ros2_ws/build/picknik_twist_controller' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/picknik_twist_controller -- -j20 -l20
+[8.833s] Invoking command in '/home/megan/magic/ros2_ws/build/picknik_twist_controller': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/picknik_twist_controller
+[8.840s] -- Install configuration: "Release"
+[8.840s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/controller_plugins.xml
+[8.840s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/lib/libpicknik_twist_controller.so
+[8.841s] -- Set runtime path of "/home/megan/magic/ros2_ws/install/picknik_twist_controller/lib/libpicknik_twist_controller.so" to ""
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/include
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/include/picknik_twist_controller
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/include/picknik_twist_controller/visibility_control.h
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/include/picknik_twist_controller/picknik_twist_controller.hpp
+[8.841s] -- Up-to-date: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/controller_plugins.xml
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/environment/library_path.sh
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/environment/library_path.dsv
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/ament_index/resource_index/package_run_dependencies/picknik_twist_controller
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/ament_index/resource_index/parent_prefix_path/picknik_twist_controller
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/environment/ament_prefix_path.sh
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/environment/ament_prefix_path.dsv
+[8.841s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/environment/path.sh
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/environment/path.dsv
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.bash
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.sh
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.zsh
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.dsv
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/package.dsv
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/ament_index/resource_index/packages/picknik_twist_controller
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/picknik_twist_controller
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/cmake/ament_cmake_export_libraries-extras.cmake
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/cmake/picknik_twist_controllerConfig.cmake
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/cmake/picknik_twist_controllerConfig-version.cmake
+[8.842s] -- Installing: /home/megan/magic/ros2_ws/install/picknik_twist_controller/share/picknik_twist_controller/package.xml
+[8.844s] Invoked command in '/home/megan/magic/ros2_ws/build/picknik_twist_controller' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/picknik_twist_controller

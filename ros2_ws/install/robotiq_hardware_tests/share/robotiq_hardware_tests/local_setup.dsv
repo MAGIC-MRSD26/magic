@@ -1,0 +1,2 @@
+source;share/robotiq_hardware_tests/environment/ament_prefix_path.sh
+source;share/robotiq_hardware_tests/environment/path.sh

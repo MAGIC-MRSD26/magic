@@ -1,0 +1,40 @@
+[0.005s] Invoking command in '/home/megan/magic/ros2_ws/build/ros_gz_sim': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/ros_gz_sim -- -j20 -l20
+[0.050s] [35m[1mConsolidate compiler generated dependencies of target gtest_main[0m
+[0.051s] [35m[1mConsolidate compiler generated dependencies of target ros_gz_sim[0m
+[0.051s] [35m[1mConsolidate compiler generated dependencies of target gtest[0m
+[0.055s] [35m[1mConsolidate compiler generated dependencies of target create[0m
+[0.065s] [ 40%] Built target gtest
+[0.065s] [ 40%] Built target ros_gz_sim
+[0.065s] [ 60%] Built target gtest_main
+[0.074s] [35m[1mConsolidate compiler generated dependencies of target test_stopwatch[0m
+[0.076s] [ 80%] Built target create
+[0.086s] [100%] Built target test_stopwatch
+[0.095s] Invoked command in '/home/megan/magic/ros2_ws/build/ros_gz_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/ros_gz_sim -- -j20 -l20
+[0.096s] Invoking command in '/home/megan/magic/ros2_ws/build/ros_gz_sim': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/ros_gz_sim
+[0.101s] -- Install configuration: "Release"
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/include/ros_gz_sim
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/include/ros_gz_sim/Stopwatch.hpp
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/launch/gz_sim.launch.py
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/lib/ros_gz_sim/create
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/lib/libros_gz_sim.so
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/lib/ros_gz_sim/test_stopwatch
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ament_index/resource_index/package_run_dependencies/ros_gz_sim
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ament_index/resource_index/parent_prefix_path/ros_gz_sim
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/environment/ament_prefix_path.sh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/environment/ament_prefix_path.dsv
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/environment/path.sh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/environment/path.dsv
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/local_setup.bash
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/local_setup.sh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/local_setup.zsh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/local_setup.dsv
+[0.102s] -- Installing: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/package.dsv
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ament_index/resource_index/packages/ros_gz_sim
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/cmake/ros_gz_simExport.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/cmake/ros_gz_simExport-release.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/cmake/ament_cmake_export_targets-extras.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/cmake/ros_gz_simConfig.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/cmake/ros_gz_simConfig-version.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/ros_gz_sim/share/ros_gz_sim/package.xml
+[0.104s] Invoked command in '/home/megan/magic/ros2_ws/build/ros_gz_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/ros_gz_sim

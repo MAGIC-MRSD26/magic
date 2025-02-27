@@ -1,0 +1,21 @@
+[35m[1mConsolidate compiler generated dependencies of target create[0m
+[100%] Built target create
+-- Install configuration: "Release"
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/launch/ign_gazebo.launch.py
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/lib/ros_ign_gazebo/create
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ament_index/resource_index/package_run_dependencies/ros_ign_gazebo
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ament_index/resource_index/parent_prefix_path/ros_ign_gazebo
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/environment/ament_prefix_path.sh
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/environment/path.sh
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/environment/path.dsv
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/local_setup.bash
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/local_setup.sh
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/local_setup.zsh
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/local_setup.dsv
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/package.dsv
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ament_index/resource_index/packages/ros_ign_gazebo
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/cmake/ros_ign_gazeboConfig.cmake
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/cmake/ros_ign_gazeboConfig-version.cmake
+-- Up-to-date: /home/megan/magic/ros2_ws/install/ros_ign_gazebo/share/ros_ign_gazebo/package.xml

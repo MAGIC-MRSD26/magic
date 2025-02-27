@@ -1,0 +1,4 @@
+gmake[2]: *** Deleting file 'libsteering_controllers_library.so'
+gmake[2]: *** [CMakeFiles/steering_controllers_library.dir/build.make:323: libsteering_controllers_library.so] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:206: CMakeFiles/steering_controllers_library.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

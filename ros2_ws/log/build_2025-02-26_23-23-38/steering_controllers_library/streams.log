@@ -1,0 +1,73 @@
+[0.020s] Invoking command in '/home/megan/magic/ros2_ws/build/steering_controllers_library': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_controllers/steering_controllers_library -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/steering_controllers_library
+[0.080s] -- The CXX compiler identification is GNU 11.4.0
+[0.086s] -- Detecting CXX compiler ABI info
+[0.159s] -- Detecting CXX compiler ABI info - done
+[0.165s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.165s] -- Detecting CXX compile features
+[0.165s] -- Detecting CXX compile features - done
+[0.167s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.623s] -- Found Python3: /home/megan/.pyenv/versions/3.10.15/envs/magic/bin/python3 (found version "3.10.15") found components: Interpreter 
+[0.698s] -- Found control_msgs: 4.7.0 (/home/megan/magic/ros2_ws/install/control_msgs/share/control_msgs/cmake)
+[0.731s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.735s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.742s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.751s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.763s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.858s] -- Found controller_interface: 2.48.0 (/home/megan/magic/ros2_ws/install/controller_interface/share/controller_interface/cmake)
+[0.923s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.926s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[0.944s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[0.951s] -- Looking for C++ include pthread.h
+[1.070s] -- Looking for C++ include pthread.h - found
+[1.070s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.191s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.192s] -- Found Threads: TRUE  
+[1.237s] -- Found generate_parameter_library: 0.4.0 (/opt/ros/humble/share/generate_parameter_library/cmake)
+[1.239s] -- Found parameter_traits: 0.4.0 (/opt/ros/humble/share/parameter_traits/cmake)
+[1.255s] -- Found nav_msgs: 4.2.4 (/opt/ros/humble/share/nav_msgs/cmake)
+[1.272s] -- Found realtime_tools: 2.11.0 (/opt/ros/humble/share/realtime_tools/cmake)
+[1.284s] -- Found std_srvs: 4.2.4 (/opt/ros/humble/share/std_srvs/cmake)
+[1.295s] -- Found tf2: 0.25.12 (/opt/ros/humble/share/tf2/cmake)
+[1.299s] -- Found tf2_msgs: 0.25.12 (/opt/ros/humble/share/tf2_msgs/cmake)
+[1.318s] -- Found tf2_geometry_msgs: 0.25.12 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[1.328s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[1.329s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[1.329s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[1.359s] -- Found ackermann_msgs: 2.0.2 (/opt/ros/humble/share/ackermann_msgs/cmake)
+[1.380s] -- Found ament_cmake_gmock: 1.3.11 (/opt/ros/humble/share/ament_cmake_gmock/cmake)
+[1.381s] -- Found controller_manager: 2.48.0 (/home/megan/magic/ros2_ws/install/controller_manager/share/controller_manager/cmake)
+[1.396s] -- Found ros2_control_test_assets: 2.48.0 (/home/megan/magic/ros2_ws/install/ros2_control_test_assets/share/ros2_control_test_assets/cmake)
+[1.398s] -- Found gmock sources under '/opt/ros/humble/src/gmock_vendor': C++ tests using 'Google Mock' will be built
+[1.437s] -- The C compiler identification is GNU 11.4.0
+[1.443s] -- Detecting C compiler ABI info
+[1.526s] -- Detecting C compiler ABI info - done
+[1.531s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.531s] -- Detecting C compile features
+[1.532s] -- Detecting C compile features - done
+[1.535s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.536s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.547s] -- Found gmock sources under '/opt/ros/humble/src/gmock_vendor': C++ tests using 'Google Mock' will be built
+[1.547s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.547s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.629s] -- Configuring done
+[1.662s] -- Generating done
+[1.671s] -- Build files have been written to: /home/megan/magic/ros2_ws/build/steering_controllers_library
+[1.679s] Invoked command in '/home/megan/magic/ros2_ws/build/steering_controllers_library' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_controllers/steering_controllers_library -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/steering_controllers_library
+[1.680s] Invoking command in '/home/megan/magic/ros2_ws/build/steering_controllers_library': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/controller_manager:/home/megan/magic/ros2_ws/install/hardware_interface_testing:/home/megan/magic/ros2_ws/install/controller_interface:/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/controller_manager_msgs:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/controller_manager/lib:/home/megan/magic/ros2_ws/install/hardware_interface_testing/lib:/home/megan/magic/ros2_ws/install/controller_interface/lib:/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/controller_manager/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/controller_manager_msgs/lib/python3.10/site-packages:/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/steering_controllers_library -- -j20 -l20
+[1.738s] [  7%] [34m[1mRunning `/opt/ros/humble/bin/generate_parameter_library_cpp /home/megan/magic/ros2_ws/build/steering_controllers_library/include/steering_controllers_library/steering_controllers_library_parameters.hpp /home/megan/magic/ros2_ws/src/ros2_controllers/steering_controllers_library/src/steering_controllers_library.yaml `[0m
+[1.742s] [ 14%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/opt/ros/humble/src/gtest_vendor/src/gtest-all.cc.o[0m
+[1.742s] [ 21%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/src/gmock-all.cc.o[0m
+[1.745s] [ 28%] [32mBuilding CXX object gmock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o[0m
+[2.317s] [ 35%] [34m[1mCreating deprecated header file /home/megan/magic/ros2_ws/build/steering_controllers_library/include/steering_controllers_library_parameters.hpp[0m
+[2.367s] [ 35%] Built target steering_controllers_library_parameters
+[2.395s] [ 50%] [32mBuilding CXX object CMakeFiles/steering_controllers_library.dir/src/steering_odometry.cpp.o[0m
+[2.396s] [ 50%] [32mBuilding CXX object CMakeFiles/steering_controllers_library.dir/src/steering_controllers_library.cpp.o[0m
+[2.720s] [ 57%] [32m[1mLinking CXX static library libgmock_main.a[0m
+[2.779s] [ 57%] Built target gmock_main
+[7.604s] [ 64%] [32m[1mLinking CXX static library libgmock.a[0m
+[7.665s] [ 64%] Built target gmock
+[16.434s] [ 71%] [32m[1mLinking CXX shared library libsteering_controllers_library.so[0m
+[16.596s] gmake[2]: *** Deleting file 'libsteering_controllers_library.so'
+[16.596s] gmake[2]: *** [CMakeFiles/steering_controllers_library.dir/build.make:323: libsteering_controllers_library.so] Interrupt
+[16.596s] gmake[1]: *** [CMakeFiles/Makefile2:206: CMakeFiles/steering_controllers_library.dir/all] Interrupt
+[16.597s] gmake: *** [Makefile:146: all] Interrupt

@@ -1,0 +1,53 @@
+[ 12%] Built target gmock
+[ 20%] Built target gmock_main
+[ 58%] Built target robotiq_driver
+[ 66%] Built target test_crc_utils
+[ 75%] Built target test_data_utils
+[ 83%] Built target test_default_driver_factory
+[100%] Built target test_robotiq_gripper_hardware_interface
+[100%] Built target test_default_serial_factory
+-- Install configuration: "Release"
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/hardware_interface_plugin.xml
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/environment/library_path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/environment/library_path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/driver_factory.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/hardware_interface.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/default_serial.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/default_serial_factory.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/crc_utils.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/visibility_control.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/data_utils.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/default_driver.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/fake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/fake/fake_driver.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/driver_exception.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/serial.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/default_driver_factory.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/driver.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/include/robotiq_driver/serial_factory.hpp
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/lib/librobotiq_driver.so
+-- Set runtime path of "/home/megan/magic/ros2_ws/install/robotiq_driver/lib/librobotiq_driver.so" to ""
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/ament_index/resource_index/package_run_dependencies/robotiq_driver
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/ament_index/resource_index/parent_prefix_path/robotiq_driver
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/environment/ament_prefix_path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/environment/ament_prefix_path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/environment/path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/environment/path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/local_setup.bash
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/local_setup.sh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/local_setup.zsh
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/local_setup.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/package.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/ament_index/resource_index/packages/robotiq_driver
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/robotiq_driver
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driver_targetsExport.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driver_targetsExport-release.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driverConfig.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driverConfig-version.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/robotiq_driver/share/robotiq_driver/package.xml

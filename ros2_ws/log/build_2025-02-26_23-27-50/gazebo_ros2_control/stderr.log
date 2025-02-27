@@ -1,0 +1,4 @@
+[01m[K/home/megan/magic/ros2_ws/src/gazebo_ros2_control/gazebo_ros2_control/src/gazebo_system.cpp:[m[K In member function ‘[01m[Kbool gazebo_ros2_control::GazeboSystem::extractPIDFromParameters(const string&, const string&, control_toolbox::Pid&)[m[K’:
+[01m[K/home/megan/magic/ros2_ws/src/gazebo_ros2_control/gazebo_ros2_control/src/gazebo_system.cpp:317:62:[m[K [01;35m[Kwarning: [m[K‘[01m[Kantiwindup[m[K’ may be used uninitialized in this function [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  317 |                       << "antiwindup =" << std::boolalpha << [01;35m[Kantiwindup[m[K << " from node parameters");
+      |                                                              [01;35m[K^~~~~~~~~~[m[K

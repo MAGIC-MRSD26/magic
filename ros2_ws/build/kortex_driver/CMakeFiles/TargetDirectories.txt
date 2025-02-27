@@ -1,0 +1,10 @@
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/uninstall.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/kortex_driver_uninstall.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/kortex_driver.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/test.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/edit_cache.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/rebuild_cache.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/list_install_components.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/install.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/install/local.dir
+/home/megan/magic/ros2_ws/build/kortex_driver/CMakeFiles/install/strip.dir

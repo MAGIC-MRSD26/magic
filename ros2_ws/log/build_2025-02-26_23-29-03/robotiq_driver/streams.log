@@ -1,0 +1,17 @@
+[0.019s] Invoking command in '/home/megan/magic/ros2_ws/build/robotiq_driver': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/serial/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/robotiq_driver -- -j20 -l20
+[0.061s] [35m[1mConsolidate compiler generated dependencies of target gmock_main[0m
+[0.062s] [35m[1mConsolidate compiler generated dependencies of target gmock[0m
+[0.065s] [35m[1mConsolidate compiler generated dependencies of target robotiq_driver[0m
+[0.074s] [  8%] Built target gmock_main
+[0.076s] [ 20%] Built target gmock
+[0.090s] [ 58%] Built target robotiq_driver
+[0.101s] [35m[1mConsolidate compiler generated dependencies of target test_robotiq_gripper_hardware_interface[0m
+[0.101s] [35m[1mConsolidate compiler generated dependencies of target test_data_utils[0m
+[0.102s] [35m[1mConsolidate compiler generated dependencies of target test_default_serial_factory[0m
+[0.103s] [35m[1mConsolidate compiler generated dependencies of target test_crc_utils[0m
+[0.104s] [35m[1mConsolidate compiler generated dependencies of target test_default_driver_factory[0m
+[0.114s] [ 66%] Built target test_crc_utils
+[0.115s] [ 75%] Built target test_robotiq_gripper_hardware_interface
+[0.115s] [ 83%] Built target test_default_serial_factory
+[0.115s] [ 91%] Built target test_data_utils
+[0.124s] [100%] Built target test_default_driver_factory

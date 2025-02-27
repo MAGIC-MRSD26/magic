@@ -1,0 +1,25 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/test_position.dir/src/test_position.cpp.o[0m
+[100%] [32m[1mLinking CXX executable test_position[0m
+[100%] Built target test_position
+-- Install configuration: "Release"
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/lib/gz_ros2_control_tests/test_position
+-- Set runtime path of "/home/megan/magic/ros2_ws/install/gz_ros2_control_tests/lib/gz_ros2_control_tests/test_position" to ""
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests//urdf
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests//urdf/test_cart_position.xacro.urdf
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests//config
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests//config/cart_controller_position.yaml
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/ament_index/resource_index/package_run_dependencies/gz_ros2_control_tests
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/ament_index/resource_index/parent_prefix_path/gz_ros2_control_tests
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/environment/ament_prefix_path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/environment/ament_prefix_path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/environment/path.sh
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/environment/path.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/local_setup.bash
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/local_setup.sh
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/local_setup.zsh
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/local_setup.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/package.dsv
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/ament_index/resource_index/packages/gz_ros2_control_tests
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/cmake/gz_ros2_control_testsConfig.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/cmake/gz_ros2_control_testsConfig-version.cmake
+-- Installing: /home/megan/magic/ros2_ws/install/gz_ros2_control_tests/share/gz_ros2_control_tests/package.xml

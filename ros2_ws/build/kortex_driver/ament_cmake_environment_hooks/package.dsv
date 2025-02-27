@@ -1,0 +1,4 @@
+source;share/kortex_driver/local_setup.bash
+source;share/kortex_driver/local_setup.dsv
+source;share/kortex_driver/local_setup.sh
+source;share/kortex_driver/local_setup.zsh

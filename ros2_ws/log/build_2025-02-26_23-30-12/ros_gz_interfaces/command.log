@@ -1,0 +1,4 @@
+Invoking command in '/home/megan/magic/ros2_ws/build/ros_gz_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/ros_gz_interfaces -- -j20 -l20
+Invoked command in '/home/megan/magic/ros2_ws/build/ros_gz_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/ros_gz_interfaces -- -j20 -l20
+Invoking command in '/home/megan/magic/ros2_ws/build/ros_gz_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/ros_gz_interfaces
+Invoked command in '/home/megan/magic/ros2_ws/build/ros_gz_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/ros_gz_interfaces

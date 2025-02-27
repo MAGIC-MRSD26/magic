@@ -1,0 +1,73 @@
+[0.014s] Invoking command in '/home/megan/magic/ros2_ws/build/robotiq_driver': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/serial/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_robotiq_gripper/robotiq_driver -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/robotiq_driver
+[0.112s] -- The CXX compiler identification is GNU 11.4.0
+[0.128s] -- Detecting CXX compiler ABI info
+[0.228s] -- Detecting CXX compiler ABI info - done
+[0.233s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.233s] -- Detecting CXX compile features
+[0.233s] -- Detecting CXX compile features - done
+[0.236s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.725s] -- Found Python3: /home/megan/.pyenv/versions/3.10.15/envs/magic/bin/python3 (found version "3.10.15") found components: Interpreter 
+[0.815s] -- Found hardware_interface: 2.48.0 (/home/megan/magic/ros2_ws/install/hardware_interface/share/hardware_interface/cmake)
+[0.844s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.848s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.854s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.864s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.876s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.030s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.032s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[1.047s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[1.059s] -- Looking for C++ include pthread.h
+[1.132s] -- Looking for C++ include pthread.h - found
+[1.132s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.220s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.221s] -- Found Threads: TRUE  
+[1.261s] -- Found serial: 1.2.1 (/home/megan/magic/ros2_ws/install/serial/share/serial/cmake)
+[1.275s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.277s] -- Found ament_cmake_gmock: 1.3.11 (/opt/ros/humble/share/ament_cmake_gmock/cmake)
+[1.278s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.279s] -- Found ros2_control_test_assets: 2.48.0 (/home/megan/magic/ros2_ws/install/ros2_control_test_assets/share/ros2_control_test_assets/cmake)
+[1.381s] -- Found gmock sources under '/opt/ros/humble/src/gmock_vendor': C++ tests using 'Google Mock' will be built
+[1.416s] -- The C compiler identification is GNU 11.4.0
+[1.421s] -- Detecting C compiler ABI info
+[1.483s] -- Detecting C compiler ABI info - done
+[1.488s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.488s] -- Detecting C compile features
+[1.488s] -- Detecting C compile features - done
+[1.490s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.564s] -- Configuring done
+[1.638s] -- Generating done
+[1.657s] -- Build files have been written to: /home/megan/magic/ros2_ws/build/robotiq_driver
+[1.669s] Invoked command in '/home/megan/magic/ros2_ws/build/robotiq_driver' returned '0': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/serial/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake /home/megan/magic/ros2_ws/src/ros2_robotiq_gripper/robotiq_driver -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/home/megan/magic/ros2_ws/install/robotiq_driver
+[1.670s] Invoking command in '/home/megan/magic/ros2_ws/build/robotiq_driver': AMENT_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/megan/magic/ros2_ws/install/hardware_interface:/home/megan/magic/ros2_ws/install/serial:/home/megan/magic/ros2_ws/install/ros2_control_test_assets:/home/megan/magic/ros2_ws/install/control_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/megan/magic/ros2_ws/install/hardware_interface/lib:/home/megan/magic/ros2_ws/install/serial/lib:/home/megan/magic/ros2_ws/install/control_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/megan/magic/ros2_ws/install/control_msgs/lib/python3.10/site-packages:${PYTHONPATH} VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/robotiq_driver -- -j20 -l20
+[1.719s] [  8%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/data_utils.cpp.o[0m
+[1.719s] [  8%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/crc_utils.cpp.o[0m
+[1.719s] [ 12%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/hardware_interface.cpp.o[0m
+[1.719s] [ 16%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/default_driver.cpp.o[0m
+[1.720s] [ 20%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/default_serial_factory.cpp.o[0m
+[1.721s] [ 25%] [32mBuilding CXX object gmock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o[0m
+[1.721s] [ 29%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/opt/ros/humble/src/gtest_vendor/src/gtest-all.cc.o[0m
+[1.721s] [ 33%] [32mBuilding CXX object gmock/CMakeFiles/gmock.dir/src/gmock-all.cc.o[0m
+[1.722s] [ 37%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/default_driver_factory.cpp.o[0m
+[1.723s] [ 41%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/fake/fake_driver.cpp.o[0m
+[1.723s] [ 45%] [32mBuilding CXX object CMakeFiles/robotiq_driver.dir/src/default_serial.cpp.o[0m
+[2.685s] [ 50%] [32m[1mLinking CXX static library libgmock_main.a[0m
+[2.742s] [ 50%] Built target gmock_main
+[5.562s] [ 54%] [32m[1mLinking CXX shared library librobotiq_driver.so[0m
+[5.673s] [ 54%] Built target robotiq_driver
+[7.744s] [ 58%] [32m[1mLinking CXX static library libgmock.a[0m
+[7.848s] [ 58%] Built target gmock
+[7.890s] [ 62%] [32mBuilding CXX object tests/CMakeFiles/test_robotiq_gripper_hardware_interface.dir/test_robotiq_gripper_hardware_interface.cpp.o[0m
+[7.890s] [ 66%] [32mBuilding CXX object tests/CMakeFiles/test_default_serial_factory.dir/test_default_serial_factory.cpp.o[0m
+[7.898s] [ 70%] [32mBuilding CXX object tests/CMakeFiles/test_default_driver_factory.dir/test_default_driver_factory.cpp.o[0m
+[7.900s] [ 75%] [32mBuilding CXX object tests/CMakeFiles/test_data_utils.dir/test_data_utils.cpp.o[0m
+[7.900s] [ 79%] [32mBuilding CXX object tests/CMakeFiles/test_crc_utils.dir/test_crc_utils.cpp.o[0m
+[8.765s] [ 83%] [32m[1mLinking CXX executable test_crc_utils[0m
+[8.896s] [ 83%] Built target test_crc_utils
+[8.937s] [ 87%] [32m[1mLinking CXX executable test_data_utils[0m
+[9.055s] [ 87%] Built target test_data_utils
+[10.889s] [ 91%] [32m[1mLinking CXX executable test_robotiq_gripper_hardware_interface[0m
+[11.006s] [ 91%] Built target test_robotiq_gripper_hardware_interface
+[11.216s] [ 95%] [32m[1mLinking CXX executable test_default_serial_factory[0m
+[11.356s] [ 95%] Built target test_default_serial_factory
+[11.964s] [100%] [32m[1mLinking CXX executable test_default_driver_factory[0m
+[12.137s] [100%] Built target test_default_driver_factory

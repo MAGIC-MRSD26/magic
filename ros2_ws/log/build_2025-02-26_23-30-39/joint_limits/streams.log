@@ -1,0 +1,41 @@
+[0.007s] Invoking command in '/home/megan/magic/ros2_ws/build/joint_limits': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/joint_limits -- -j20 -l20
+[0.051s] [ 14%] Built target ament_generate_version_header__joint_limits
+[0.052s] [ 42%] Built target gtest_main
+[0.054s] [ 71%] Built target gtest
+[0.080s] [100%] Built target joint_limits_rosparam_test
+[0.093s] Invoked command in '/home/megan/magic/ros2_ws/build/joint_limits' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --build /home/megan/magic/ros2_ws/build/joint_limits -- -j20 -l20
+[0.094s] Invoking command in '/home/megan/magic/ros2_ws/build/joint_limits': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/joint_limits
+[0.100s] -- Install configuration: "Release"
+[0.100s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include
+[0.100s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits
+[0.100s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits/joint_limits_rosparam.hpp
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits/joint_limits.hpp
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/lib/joint_limits/joint_limits_rosparam_test
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/test/joint_limits_rosparam.yaml
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits/joint_limits
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits/joint_limits/joint_limits_rosparam.hpp
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits/joint_limits/joint_limits.hpp
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/environment/library_path.sh
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/environment/library_path.dsv
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/ament_index/resource_index/package_run_dependencies/joint_limits
+[0.101s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/ament_index/resource_index/parent_prefix_path/joint_limits
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/environment/ament_prefix_path.sh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/environment/ament_prefix_path.dsv
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/environment/path.sh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/environment/path.dsv
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/local_setup.bash
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/local_setup.sh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/local_setup.zsh
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/local_setup.dsv
+[0.102s] -- Installing: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/package.dsv
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/ament_index/resource_index/packages/joint_limits
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/cmake/export_joint_limitsExport.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/cmake/ament_cmake_export_targets-extras.cmake
+[0.102s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.103s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.103s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/cmake/joint_limitsConfig.cmake
+[0.103s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/cmake/joint_limitsConfig-version.cmake
+[0.103s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/share/joint_limits/package.xml
+[0.103s] -- Up-to-date: /home/megan/magic/ros2_ws/install/joint_limits/include/joint_limits/joint_limits/version.h
+[0.104s] Invoked command in '/home/megan/magic/ros2_ws/build/joint_limits' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble VIRTUAL_ENV_PROMPT=(magic) /usr/bin/cmake --install /home/megan/magic/ros2_ws/build/joint_limits
