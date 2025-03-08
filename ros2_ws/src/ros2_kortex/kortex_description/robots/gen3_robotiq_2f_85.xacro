@@ -13,9 +13,22 @@
 
     <xacro:arg name="sim" default="false" />
     <xacro:arg name="prefix" default="" />
+    <xacro:arg name="gripper_joint_name" default="robotiq_85_left_knuckle_joint" />
+    <xacro:arg name="robot_ip" default="192.168.1.10" />
+    <xacro:arg name="username" default="admin" />
+    <xacro:arg name="password" default="admin" />
+    <xacro:arg name="port" default="10000" />
+    <xacro:arg name="port_realtime" default="10001" />
+    <xacro:arg name="session_inactivity_timeout_ms" default="60000" />
+    <xacro:arg name="connection_inactivity_timeout_ms" default="60000" />
+
 
     <xacro:include filename="$(find kortex_description)/robots/kortex_robot.xacro" />
+    <xacro:property name="origin">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:property>
     <xacro:load_robot
+      parent="world"
       arm="$(arg arm)"
       gripper="$(arg gripper)"
       dof="$(arg dof)"
@@ -23,7 +36,19 @@
       sim="$(arg sim)"
       prefix="$(arg prefix)"
       use_internal_bus_gripper_comm="$(arg use_internal_bus_gripper_comm)"
-      gripper_com_port="$(arg gripper_com_port)">
+      gripper_com_port="$(arg gripper_com_port)"
+      gripper_joint_name="$(arg gripper_joint_name)"
+      robot_ip="$(arg robot_ip)"
+      username="$(arg username)"
+      password="$(arg password)"
+      port="$(arg port)"
+      port_realtime="$(arg port_realtime)"
+      session_inactivity_timeout_ms="$(arg session_inactivity_timeout_ms)"
+      connection_inactivity_timeout_ms="$(arg connection_inactivity_timeout_ms)">
+      <xacro:insert_block name="origin" />
     </xacro:load_robot>
+
+    
+    
 
 </robot>
