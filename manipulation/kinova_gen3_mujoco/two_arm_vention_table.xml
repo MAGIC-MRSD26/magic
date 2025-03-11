@@ -333,6 +333,9 @@
         <geom name="bin_visual" type="mesh" mesh="bin" material="bin_material" class="manip_object"/>
         <geom name="bin_collision" type="mesh" mesh="bin" class="manip_object" contype="1" conaffinity="1"/>
     </body>
+
+    <geom name="dot" type="sphere" size="0.005" pos="0.186825 0 1.1716" rgba="1 0 0 0.5" contype="0" conaffinity="0" group="1"/>
+    <geom name="dot_2" type="sphere" size="0.005" pos="-0.186825 0 1.1716" rgba="1 0 0 0.5" contype="0" conaffinity="0" group="1"/>
   </worldbody>
 
   <tendon>
