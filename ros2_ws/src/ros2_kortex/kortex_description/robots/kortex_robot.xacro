@@ -21,6 +21,7 @@
     use_internal_bus_gripper_comm:=false
     use_fake_hardware:=false
     fake_sensor_commands:=false
+    sim:=false
     sim_gazebo:=false
     sim_ignition:=false
     sim_isaac:=false
