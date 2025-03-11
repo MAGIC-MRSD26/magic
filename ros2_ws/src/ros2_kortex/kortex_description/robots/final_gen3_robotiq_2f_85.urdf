@@ -1327,7 +1327,7 @@
 </joint>
 
 <!-- Box material -->
-<material name="bound_top_red">
+<material name="box_red">
   <color rgba="1.0 0.0 0.0 1.0"/>
 </material>
 
@@ -1425,8 +1425,73 @@
 <joint name="bound_right_joint" type="fixed">
   <parent link="world"/>
   <child link="bound_right_link"/>
-  <origin rpy="0 0 1.5708" xyz="-0.73 0 1.8"/>
+  <origin rpy="0 0 1.5708" xyz="-0.7 0 1.8"/>
 </joint>
+
+<!-- Simple box link -->
+<link name="bound_right_top_link">
+  <visual>
+    <geometry>
+      <box size="2 0.05 0.05"/>
+    </geometry>
+    <material name="box_red"/>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="2 0.05 0.05"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="1.0"/>
+    <!-- Corrected inertia tensor for a 2×0.1×0.1 box -->
+    <inertia 
+      ixx="0.00167" 
+      ixy="0.0" 
+      ixz="0.0" 
+      iyy="0.33417" 
+      iyz="0.0" 
+      izz="0.33417"/>
+  </inertial>
+</link>
+
+<joint name="bound_right_top_joint" type="fixed">
+  <parent link="world"/>
+  <child link="bound_right_top_link"/>
+  <origin rpy="0 0 1.5708" xyz="-0.7 0 2.03"/>
+</joint>
+
+<!-- Simple box link -->
+<link name="bound_left_top_link">
+  <visual>
+    <geometry>
+      <box size="2 0.05 0.05"/>
+    </geometry>
+    <material name="box_red"/>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="2 0.05 0.05"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="1.0"/>
+    <!-- Corrected inertia tensor for a 2×0.1×0.1 box -->
+    <inertia 
+      ixx="0.00167" 
+      ixy="0.0" 
+      ixz="0.0" 
+      iyy="0.33417" 
+      iyz="0.0" 
+      izz="0.33417"/>
+  </inertial>
+</link>
+
+<joint name="bound_left_top_joint" type="fixed">
+  <parent link="world"/>
+  <child link="bound_left_top_link"/>
+  <origin rpy="0 0 1.5708" xyz="0.75 0 2.03"/>
+</joint>
+
 
 </robot>
 
