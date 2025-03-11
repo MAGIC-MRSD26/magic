@@ -1326,6 +1326,35 @@
   <origin xyz="0 0 0.061525" rpy="0 0 0"/>
 </joint>
 
+<!-- Box material -->
+<material name="box_red">
+  <color rgba="1.0 0.0 0.0 1.0"/>
+</material>
+
+<!-- Simple box link -->
+<link name="box_link">
+  <visual>
+    <geometry>
+      <box size="0.5 0.5 0.5"/>
+    </geometry>
+    <material name="box_red"/>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.5 0.5 0.5"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="1.0"/>
+    <inertia ixx="0.0417" ixy="0.0" ixz="0.0" iyy="0.0417" iyz="0.0" izz="0.0417"/>
+  </inertial>
+</link>
+
+<joint name="box_joint" type="fixed">
+  <parent link="world"/>
+  <child link="box_link"/>
+  <origin rpy="0 0 0" xyz="0 0 1.18"/>
+</joint>
 
 </robot>
 
