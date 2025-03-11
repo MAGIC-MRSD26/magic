@@ -31,7 +31,7 @@
         <geom type="mesh" group="5" rgba="0.0 0.1 0.4 1" friction="1 0.1 0.1" contype="2" conaffinity="2" />
     </default>
     <default class="manip_object">
-        <geom rgba="0 0.5 0 1" friction="1 0.1 0.1"/>
+        <geom rgba="0.25 0.25 0.25 1" friction="1 0.1 0.1" contype="1" conaffinity="1"/>
     </default>
   </default>
 
@@ -76,6 +76,10 @@
     <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
       markrgb="0.8 0.8 0.8" width="300" height="300"/>
     <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+
+    <!-- Bin -->
+    <mesh name="bin" file="bin.stl" scale="0.001 0.001 0.001"/>
+    <material name="bin_material" rgba="0.25 0.25 0.25 1" specular="0.1" shininess="0.1" reflectance="0.05"/>
   </asset>
 
   <worldbody>
@@ -324,11 +328,10 @@
       </body>
     </body>
 
-    <body name="box1" pos="0. 0. 0.9316">
-        <geom name="object1" type="box" size="0.05 0.05 0.05" pos="0.1 0. 0.05" class="manip_object"/>
-    </body>
-    <body name="box2" pos="0. 0. 0.9316">
-        <geom name="object2" type="box" size="0.05 0.05 0.05" pos="-0.1 0. 0.05" class="manip_object"/>
+    <body name="bin_body" pos="-0.1905 0.15875 0.9316" quat="0.7071 0.7071 0 0">
+        <inertial pos="0 0 0" mass="0.68" diaginertia="0.001 0.001 0.001"/>
+        <geom name="bin_visual" type="mesh" mesh="bin" material="bin_material" class="manip_object"/>
+        <geom name="bin_collision" type="mesh" mesh="bin" class="manip_object" contype="1" conaffinity="1"/>
     </body>
   </worldbody>
 
