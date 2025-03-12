@@ -145,7 +145,6 @@
     <disable_collisions link1="left_bracelet_link" link2="right_robotiq_85_right_inner_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_bracelet_link" link2="right_robotiq_85_right_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_bracelet_link" link2="right_shoulder_link" reason="Never"/>
-    <disable_collisions link1="left_bracelet_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_forearm_link" link2="left_half_arm_1_link" reason="Never"/>
     <disable_collisions link1="left_forearm_link" link2="left_half_arm_2_link" reason="Adjacent"/>
     <disable_collisions link1="left_forearm_link" link2="left_robotiq_85_base_link" reason="Never"/>
@@ -177,7 +176,6 @@
     <disable_collisions link1="left_forearm_link" link2="right_shoulder_link" reason="Never"/>
     <disable_collisions link1="left_forearm_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="left_forearm_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="left_forearm_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_1_link" link2="left_half_arm_2_link" reason="Adjacent"/>
     <disable_collisions link1="left_half_arm_1_link" link2="left_shoulder_link" reason="Adjacent"/>
     <disable_collisions link1="left_half_arm_1_link" link2="left_spherical_wrist_1_link" reason="Never"/>
@@ -199,7 +197,6 @@
     <disable_collisions link1="left_half_arm_1_link" link2="right_shoulder_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_1_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_1_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="left_half_arm_1_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_2_link" link2="left_robotiq_85_base_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_2_link" link2="left_robotiq_85_left_finger_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_2_link" link2="left_robotiq_85_left_finger_tip_link" reason="Never"/>
@@ -229,7 +226,6 @@
     <disable_collisions link1="left_half_arm_2_link" link2="right_shoulder_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_2_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="left_half_arm_2_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="left_half_arm_2_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_base_link" link2="left_robotiq_85_left_finger_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_base_link" link2="left_robotiq_85_left_finger_tip_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_base_link" link2="left_robotiq_85_left_inner_knuckle_link" reason="Adjacent"/>
@@ -251,7 +247,6 @@
     <disable_collisions link1="left_robotiq_85_base_link" link2="right_robotiq_85_right_finger_tip_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_base_link" link2="right_robotiq_85_right_inner_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_base_link" link2="right_shoulder_link" reason="Never"/>
-    <disable_collisions link1="left_robotiq_85_base_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_left_finger_link" link2="left_robotiq_85_left_finger_tip_link" reason="Adjacent"/>
     <disable_collisions link1="left_robotiq_85_left_finger_link" link2="left_robotiq_85_left_inner_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_left_finger_link" link2="left_robotiq_85_left_knuckle_link" reason="Adjacent"/>
@@ -344,7 +339,6 @@
     <disable_collisions link1="left_robotiq_85_left_knuckle_link" link2="right_shoulder_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_left_knuckle_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_left_knuckle_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="left_robotiq_85_left_knuckle_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_right_finger_link" link2="left_robotiq_85_right_finger_tip_link" reason="Adjacent"/>
     <disable_collisions link1="left_robotiq_85_right_finger_link" link2="left_robotiq_85_right_inner_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_right_finger_link" link2="left_robotiq_85_right_knuckle_link" reason="Adjacent"/>
@@ -419,7 +413,6 @@
     <disable_collisions link1="left_robotiq_85_right_knuckle_link" link2="right_shoulder_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_right_knuckle_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="left_robotiq_85_right_knuckle_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="left_robotiq_85_right_knuckle_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_shoulder_link" link2="left_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="left_shoulder_link" link2="left_spherical_wrist_2_link" reason="Never"/>
     <disable_collisions link1="left_shoulder_link" link2="right_base_link" reason="Never"/>
@@ -439,7 +432,6 @@
     <disable_collisions link1="left_shoulder_link" link2="right_shoulder_link" reason="Never"/>
     <disable_collisions link1="left_shoulder_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="left_shoulder_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="left_shoulder_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_1_link" link2="left_spherical_wrist_2_link" reason="Adjacent"/>
     <disable_collisions link1="left_spherical_wrist_1_link" link2="right_base_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_1_link" link2="right_forearm_link" reason="Never"/>
@@ -456,7 +448,6 @@
     <disable_collisions link1="left_spherical_wrist_1_link" link2="right_robotiq_85_right_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_1_link" link2="right_shoulder_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_1_link" link2="right_spherical_wrist_1_link" reason="Never"/>
-    <disable_collisions link1="left_spherical_wrist_1_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_2_link" link2="right_base_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_2_link" link2="right_forearm_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_2_link" link2="right_half_arm_1_link" reason="Never"/>
@@ -470,7 +461,6 @@
     <disable_collisions link1="left_spherical_wrist_2_link" link2="right_robotiq_85_right_inner_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_2_link" link2="right_robotiq_85_right_knuckle_link" reason="Never"/>
     <disable_collisions link1="left_spherical_wrist_2_link" link2="right_shoulder_link" reason="Never"/>
-    <disable_collisions link1="left_spherical_wrist_2_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="right_base_link" link2="right_forearm_link" reason="Never"/>
     <disable_collisions link1="right_base_link" link2="right_half_arm_1_link" reason="Never"/>
     <disable_collisions link1="right_base_link" link2="right_half_arm_2_link" reason="Never"/>
@@ -506,7 +496,6 @@
     <disable_collisions link1="right_half_arm_1_link" link2="right_shoulder_link" reason="Adjacent"/>
     <disable_collisions link1="right_half_arm_1_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="right_half_arm_1_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="right_half_arm_1_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="right_half_arm_2_link" link2="right_robotiq_85_base_link" reason="Never"/>
     <disable_collisions link1="right_half_arm_2_link" link2="right_robotiq_85_left_finger_link" reason="Never"/>
     <disable_collisions link1="right_half_arm_2_link" link2="right_robotiq_85_left_finger_tip_link" reason="Never"/>
@@ -575,6 +564,5 @@
     <disable_collisions link1="right_robotiq_85_right_knuckle_link" link2="right_spherical_wrist_2_link" reason="Never"/>
     <disable_collisions link1="right_shoulder_link" link2="right_spherical_wrist_1_link" reason="Never"/>
     <disable_collisions link1="right_shoulder_link" link2="right_spherical_wrist_2_link" reason="Never"/>
-    <disable_collisions link1="right_shoulder_link" link2="vention_table_link" reason="Never"/>
     <disable_collisions link1="right_spherical_wrist_1_link" link2="right_spherical_wrist_2_link" reason="Adjacent"/>
 </robot>

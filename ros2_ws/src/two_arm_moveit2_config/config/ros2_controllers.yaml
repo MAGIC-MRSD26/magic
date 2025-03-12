@@ -41,9 +41,10 @@ left_arm_controller:
       - left_joint_6
       - left_joint_7
     command_interfaces:
-      []
+      - position
     state_interfaces:
-      []
+      - position
+      - velocity
 right_arm_controller:
   ros__parameters:
     joints:
@@ -55,9 +56,10 @@ right_arm_controller:
       - right_joint_6
       - right_joint_7
     command_interfaces:
-      []
+      - position
     state_interfaces:
-      []
+      - position
+      - velocity
 left_planning_controller:
   ros__parameters:
     joints:
@@ -69,9 +71,10 @@ left_planning_controller:
       - left_joint_6
       - left_joint_7
     command_interfaces:
-      []
+      - position
     state_interfaces:
-      []
+      - position
+      - velocity
 right_planning_controller:
   ros__parameters:
     joints:
@@ -83,9 +86,10 @@ right_planning_controller:
       - right_joint_6
       - right_joint_7
     command_interfaces:
-      []
+      - position
     state_interfaces:
-      []
+      - position
+      - velocity
 left_gripper_controller:
   ros__parameters:
     joints:
