@@ -16,9 +16,11 @@ setup(
     maintainer_email='your_email@example.com',
     description='MuJoCo environment with ROS 2 integration',
     license='MIT',
+    #install_requires=['setuptools', 'moveit_commander', 'moveit_ros_planning_interface'],
     entry_points={
         'console_scripts': [
             'mujoco_node = mujoco_ros2.mujoco_node:main',
+            'moveit_pose= mujoco_ros2.moveit_pose:main'
         ],
     },
     data_files=[
