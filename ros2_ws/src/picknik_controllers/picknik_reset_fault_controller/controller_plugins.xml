@@ -1,7 +1,0 @@
-<library path="picknik_reset_fault_controller">
-  <class name="picknik_reset_fault_controller/PicknikResetFaultController" type="picknik_reset_fault_controller::PicknikResetFaultController" base_class_type="controller_interface::ControllerInterface">
-    <description>
-      ROS 2 controller that offers a service to clear faults in a hardware interface
-    </description>
-  </class>
-</library>
