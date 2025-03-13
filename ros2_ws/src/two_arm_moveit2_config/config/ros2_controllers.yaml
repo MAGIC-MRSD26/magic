@@ -11,19 +11,15 @@ controller_manager:
       type: joint_trajectory_controller/JointTrajectoryController
 
 
-    left_planning_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
-
-
-    right_planning_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
-
-
     left_gripper_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
 
     right_gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    both_arms_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
 
@@ -41,10 +37,9 @@ left_arm_controller:
       - left_joint_6
       - left_joint_7
     command_interfaces:
-      - position
+      []
     state_interfaces:
-      - position
-      - velocity
+      []
 right_arm_controller:
   ros__parameters:
     joints:
@@ -56,40 +51,9 @@ right_arm_controller:
       - right_joint_6
       - right_joint_7
     command_interfaces:
-      - position
+      []
     state_interfaces:
-      - position
-      - velocity
-left_planning_controller:
-  ros__parameters:
-    joints:
-      - left_joint_1
-      - left_joint_2
-      - left_joint_3
-      - left_joint_4
-      - left_joint_5
-      - left_joint_6
-      - left_joint_7
-    command_interfaces:
-      - position
-    state_interfaces:
-      - position
-      - velocity
-right_planning_controller:
-  ros__parameters:
-    joints:
-      - right_joint_1
-      - right_joint_2
-      - right_joint_3
-      - right_joint_4
-      - right_joint_5
-      - right_joint_6
-      - right_joint_7
-    command_interfaces:
-      - position
-    state_interfaces:
-      - position
-      - velocity
+      []
 left_gripper_controller:
   ros__parameters:
     joints:
@@ -102,6 +66,27 @@ right_gripper_controller:
   ros__parameters:
     joints:
       - right_robotiq_85_left_knuckle_joint
+    command_interfaces:
+      []
+    state_interfaces:
+      []
+both_arms_controller:
+  ros__parameters:
+    joints:
+      - left_joint_1
+      - left_joint_2
+      - left_joint_3
+      - left_joint_4
+      - left_joint_5
+      - left_joint_6
+      - left_joint_7
+      - right_joint_1
+      - right_joint_2
+      - right_joint_3
+      - right_joint_4
+      - right_joint_5
+      - right_joint_6
+      - right_joint_7
     command_interfaces:
       []
     state_interfaces:
