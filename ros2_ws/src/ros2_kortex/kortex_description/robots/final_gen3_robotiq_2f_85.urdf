@@ -945,7 +945,7 @@
             <kd>1</kd>
             <soft_cfm>0</soft_cfm>
             <soft_erp>0.2</soft_erp>
-            <minDepth>0.002</minDepth>
+            <minDepth>0.004</minDepth>
             <maxVel>0</maxVel>
           </ode>
         </contact>
@@ -980,7 +980,7 @@
             <kd>1</kd>
             <soft_cfm>0</soft_cfm>
             <soft_erp>0.2</soft_erp>
-            <minDepth>0.002</minDepth>
+            <minDepth>0.004</minDepth>
             <maxVel>0</maxVel>
           </ode>
         </contact>
@@ -1192,7 +1192,7 @@
             <kd>1</kd>
             <soft_cfm>0</soft_cfm>
             <soft_erp>0.2</soft_erp>
-            <minDepth>0.002</minDepth>
+            <minDepth>0.004</minDepth>
             <maxVel>0</maxVel>
           </ode>
         </contact>
@@ -1227,7 +1227,7 @@
             <kd>1</kd>
             <soft_cfm>0</soft_cfm>
             <soft_erp>0.2</soft_erp>
-            <minDepth>0.002</minDepth>
+            <minDepth>0.004</minDepth>
             <maxVel>0</maxVel>
           </ode>
         </contact>
@@ -1299,40 +1299,6 @@
     <mimic joint="right_robotiq_85_left_knuckle_joint"/>
   </joint>
 
-<!-- Left Gripper Planning Point -->
-<link name="left_gripper_planning_point">
-  <visual>
-    <geometry>
-        <sphere radius="0.02"/>
-      </geometry>
-    <material name="">
-      <color rgba="1 0 0 0.5"/>
-    </material>
-  </visual>
-</link>
-<joint name="left_gripper_planning_joint" type="fixed">
-  <parent link="left_robotiq_85_base_link"/>
-  <child link="left_gripper_planning_point"/>
-  <origin xyz="0 0 0.061525" rpy="0 0 0"/>
-</joint>
-
-<!-- Right Gripper Planning Point -->
-<link name="right_gripper_planning_point">
-  <visual>
-    <geometry>
-        <sphere radius="0.02"/>
-      </geometry>
-    <material name="">
-      <color rgba="0 1 0 0.5"/>
-    </material>
-  </visual>
-</link>
-<joint name="right_gripper_planning_joint" type="fixed">
-  <parent link="right_robotiq_85_base_link"/>
-  <child link="right_gripper_planning_point"/>
-  <origin xyz="0 0 0.061525" rpy="0 0 0"/>
-</joint>
-
 <!-- Object -->
 <!-- Bin mesh definition -->
 <material name="bin_material">
@@ -1352,6 +1318,22 @@
       <mesh filename="package://control/kinova_gen3_mujoco/assets/bin.stl" scale="0.001 0.001 0.001"/>
     </geometry>
     <origin xyz="-0.1905 0.15875 0.9316" rpy="1.5708 0 0"/>
+    <surface>
+      <friction>
+        <ode>
+          <mu1>1.0</mu1>
+          <mu2>1.0</mu2>
+        </ode>
+      </friction>
+      <contact>
+        <ode>
+          <kp>1000.0</kp>
+          <kd>100.0</kd>
+          <max_vel>0.01</max_vel>
+          <min_depth>0.001</min_depth>
+        </ode>
+      </contact>
+    </surface>
   </collision>
   <inertial>
     <mass value="0.68"/>
@@ -1361,7 +1343,7 @@
 </link>
 
 <!-- Connect the bin to the world with a fixed joint -->
-<joint name="bin_joint" type="fixed">
+<joint name="bin_joint" type="floating">
   <parent link="world"/>
   <child link="bin_link"/>
   <origin xyz="0 0 0" rpy="0 0 0"/>

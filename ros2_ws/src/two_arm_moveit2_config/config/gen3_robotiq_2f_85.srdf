@@ -15,12 +15,6 @@
     <group name="right_arm">
         <chain base_link="right_base_link" tip_link="right_end_effector_link"/>
     </group>
-    <group name="left_planning">
-        <chain base_link="left_base_link" tip_link="left_gripper_planning_point"/>
-    </group>
-    <group name="right_planning">
-        <chain base_link="right_base_link" tip_link="right_gripper_planning_point"/>
-    </group>
     <group name="left_gripper">
         <joint name="left_robotiq_85_base_joint"/>
         <joint name="left_robotiq_85_left_inner_knuckle_joint"/>
@@ -83,8 +77,8 @@
         <joint name="right_joint_7" value="1.57"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="left_gripper" parent_link="left_end_effector_link" group="left_gripper"/>
-    <end_effector name="right_gripper" parent_link="right_end_effector_link" group="right_gripper"/>
+    <end_effector name="left_gripper" parent_link="left_end_effector_link" group="left_gripper" parent_group="left_arm"/>
+    <end_effector name="right_gripper" parent_link="right_end_effector_link" group="right_gripper" parent_group="right_arm"/>
     <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
     <passive_joint name="left_robotiq_85_left_inner_knuckle_joint"/>
     <passive_joint name="left_robotiq_85_left_finger_tip_joint"/>
