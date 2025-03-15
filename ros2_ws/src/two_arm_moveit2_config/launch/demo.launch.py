@@ -12,13 +12,13 @@ def generate_launch_description():
     # Standard demo launch
     demo_launch = generate_demo_launch(moveit_config)
     
-    # Add a joint state publisher with GUI
-    joint_state_publisher_gui_node = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='joint_state_publisher_gui',
-        output='screen',
-    )
+    # # Add a joint state publisher with GUI
+    # joint_state_publisher_gui_node = Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui',
+    #     name='joint_state_publisher_gui',
+    #     output='screen',
+    # )
     
     # Combine launches
     ld = LaunchDescription()
@@ -28,6 +28,6 @@ def generate_launch_description():
         ld.add_action(item)
     
     # Add our additional nodes
-    ld.add_action(joint_state_publisher_gui_node)
+    # ld.add_action(joint_state_publisher_gui_node)
     
     return ld

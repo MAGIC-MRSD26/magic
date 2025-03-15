@@ -7,12 +7,21 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from sensor_msgs.msg import JointState
 import numpy as np
-from .one_arm_pid_control import SingleArmPIDControl
+import sys
+import os
+from ament_index_python.packages import get_package_share_directory
+
+sys.path.append('../')
+from control.one_arm_pid_control import SingleArmPIDControl
 
 class MuJoCoNode(Node):
     def __init__(self):
         super().__init__('mujoco_node')
-        self.xml_filepath = "/home/jarvis/codebase/magic_capstone/magic/manipulation/kinova_gen3_mujoco/two_arm_table.xml"
+        control_package_path=get_package_share_directory('control')
+        self.xml_filepath=os.path.join(control_package_path,'kinova_gen3_mujoco/two_arm_vention_table.xml')
+
+
+        # self.xml_filepath = "../control/kinova_gen3_mujoco/two_arm_table.xml"
         #path to the xml file that describes the robot and the environment
         # This is the main node that runs the MuJoCo simulation and controls the robot using PID control
 
