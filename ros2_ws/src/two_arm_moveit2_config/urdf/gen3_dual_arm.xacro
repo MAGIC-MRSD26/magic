@@ -139,54 +139,6 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
-    <!-- <xacro:load_robot
-        parent="world"
-        arm="gen3"
-        gripper="$(arg gripper)"
-        dof="7"
-        vision="$(arg vision)"
-        prefix="$(arg left_prefix)"
-        gripper_joint_name="finger_joint"
-        robot_ip="192.168.1.10"
-        username="admin"
-        password="admin"
-        port="10000"
-        port_realtime="10001"
-        session_inactivity_timeout_ms="60000"
-        connection_inactivity_timeout_ms="2000"
-        use_fake_hardware="true"
-        fake_sensor_commands="false"
-        sim_gazebo="false"
-        sim_ignition="false"
-        sim_isaac="false"
-        initial_positions="${xacro.load_yaml(initial_positions_file)}" >
-        <origin rpy="0 0 3.14" xyz="0.63017298 0 0.93657"/>
-    </xacro:load_robot>
-    
-    <xacro:load_robot
-        parent="world"
-        arm="gen3"
-        gripper="$(arg gripper)"
-        dof="7"
-        vision="$(arg vision)"
-        prefix="$(arg right_prefix)"
-        gripper_joint_name="finger_joint"
-        robot_ip="192.168.1.11"
-        username="admin"
-        password="admin"
-        port="10000"
-        port_realtime="10001"
-        session_inactivity_timeout_ms="60000"
-        connection_inactivity_timeout_ms="2000"
-        use_fake_hardware="true"
-        fake_sensor_commands="false"
-        sim_gazebo="false"
-        sim_ignition="false"
-        sim_isaac="false"
-        initial_positions="${xacro.load_yaml(initial_positions_file)}" >
-        <origin rpy="0 0 0" xyz="-0.63017298 0 0.93657"/>
-    </xacro:load_robot> -->
-
     <!-- Left arm -->
     <xacro:load_robot
         parent="world"
@@ -244,29 +196,5 @@
         initial_positions="${xacro.load_yaml(initial_positions_file)}" >
         <origin rpy="0 0 0" xyz="-0.63017298 0 0.93657"/>
     </xacro:load_robot>
-
-    <!-- Left gripper
-    <xacro:load_gripper
-        parent="left_end_effector_link"
-        prefix="left_"
-        use_fake_hardware="false"
-        fake_sensor_commands="false"
-        sim_ignition="false"
-        sim_isaac="false"
-        com_port="/dev/ttyUSB0"
-        use_internal_bus_gripper_comm="false"
-        moveit_active="false"/>
-
-    Right gripper
-    <xacro:load_gripper
-        parent="right_end_effector_link"
-        prefix="right_"
-        use_fake_hardware="false"
-        fake_sensor_commands="false"
-        sim_ignition="false"
-        sim_isaac="false"
-        com_port="/dev/ttyUSB0"
-        use_internal_bus_gripper_comm="false"
-        moveit_active="false"/> -->
 
 </robot>
