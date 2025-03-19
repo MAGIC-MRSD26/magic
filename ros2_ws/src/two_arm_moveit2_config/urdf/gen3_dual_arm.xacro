@@ -12,8 +12,8 @@
     <xacro:arg name="port_realtime" default="10001" />
     <xacro:arg name="session_inactivity_timeout_ms" default="60000" />
     <xacro:arg name="connection_inactivity_timeout_ms" default="2000" />
-    <xacro:arg name="gripper" default="robotic_2f_85" />
-    <xacro:arg name="gripper_joint_name" default="robotiq_85_left_knuckle_joint" />
+    <xacro:arg name="gripper" default="" />
+    <xacro:arg name="gripper_joint_name" default="" />
     <xacro:arg name="gripper_max_velocity" default="100.0" />
     <xacro:arg name="gripper_max_force" default="100.0" />
     <xacro:arg name="sim_gazebo" default="false" />
@@ -138,7 +138,7 @@
         prefix="left_"
         arm="$(arg arm)"
         gripper="$(arg gripper)"
-        gripper_joint_name="$(arg gripper_joint_name)"
+        gripper_joint_name="left_robotiq_85_left_knuckle_joint"
         gripper_max_velocity="$(arg gripper_max_velocity)"
         gripper_max_force="$(arg gripper_max_force)"
         dof="$(arg dof)"
@@ -167,7 +167,7 @@
         prefix="right_"
         arm="$(arg arm)"
         gripper="$(arg gripper)"
-        gripper_joint_name="$(arg gripper_joint_name)"
+        gripper_joint_name="right_robotiq_85_left_knuckle_joint"
         gripper_max_velocity="$(arg gripper_max_velocity)"
         gripper_max_force="$(arg gripper_max_force)"
         dof="$(arg dof)"
