@@ -25,13 +25,6 @@
     <xacro:arg name="use_internal_bus_gripper_comm" default="false" />
     <xacro:arg name="use_external_cable" default="false" />
 
-    <xacro:arg name="left_arm"  default="gen3"/>
-    <xacro:arg name="left_dof"  default="7"/>
-    <xacro:arg name="left_prefix" default="left_"/>
-
-    <xacro:arg name="right_arm"  default="gen3"/>
-    <xacro:arg name="right_dof"  default="7"/>
-    <xacro:arg name="right_prefix" default="right_"/>
 
     <xacro:include filename="$(find kortex_description)/robots/kortex_robot.xacro" />
 
