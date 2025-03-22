@@ -6,7 +6,7 @@
   <description>
      An automatically generated package with all the configuration and launch files for using the gen3_robotiq_2f_85 with the MoveIt Motion Planning Framework
   </description>
-  <maintainer email="manyunghon@gmail.com">Emma</maintainer>
+  <maintainer email="minjul0501@gmail.com">Megan</maintainer>
 
   <license>BSD</license>
 
@@ -14,7 +14,7 @@
   <url type="bugtracker">https://github.com/ros-planning/moveit2/issues</url>
   <url type="repository">https://github.com/ros-planning/moveit2</url>
 
-  <author email="manyunghon@gmail.com">Emma</author>
+  <author email="minjul0501@gmail.com">Megan</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
