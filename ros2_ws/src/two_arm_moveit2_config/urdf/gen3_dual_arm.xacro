@@ -5,7 +5,7 @@
     <xacro:arg name="arm" default="gen3" />
     <xacro:arg name="dof" default="7" />
     <xacro:arg name="vision" default="false" />
-    <xacro:arg name="robot_ip" default="192.168.11.11" />
+    <xacro:arg name="robot_ip" default="" />
     <xacro:arg name="username" default="admin" />
     <xacro:arg name="password" default="admin" />
     <xacro:arg name="port" default="10000" />
@@ -143,14 +143,14 @@
         gripper_max_force="$(arg gripper_max_force)"
         dof="$(arg dof)"
         vision="$(arg vision)"
-        robot_ip="192.168.1.10"
+        robot_ip="192.168.1.41"
         username="admin"
         password="admin"
         port="10000"
         port_realtime="10001"
         session_inactivity_timeout_ms="60000"
         connection_inactivity_timeout_ms="60000"
-        use_internal_bus_gripper_comm="false"
+        use_internal_bus_gripper_comm="true"
         use_fake_hardware="$(arg use_fake_hardware)"
         fake_sensor_commands="$(arg fake_sensor_commands)"
         sim_gazebo="$(arg sim_gazebo)"
@@ -158,7 +158,7 @@
         sim_isaac="$(arg sim_isaac)"
         use_external_cable="$(arg use_external_cable)"
         initial_positions="${xacro.load_yaml(initial_positions_file)}" >
-        <origin rpy="0 0 3.14" xyz="0.63017298 0 0.93657"/>  position robot in the world
+        <origin rpy="0 0 3.14" xyz="0.63017298 0 0.93657"/> 
     </xacro:load_robot>
 
     <!-- Right arm -->
@@ -172,14 +172,14 @@
         gripper_max_force="$(arg gripper_max_force)"
         dof="$(arg dof)"
         vision="$(arg vision)"
-        robot_ip="192.168.1.10"
+        robot_ip="192.168.1.42"
         username="admin"
         password="admin"
         port="10000"
         port_realtime="10001"
         session_inactivity_timeout_ms="60000"
         connection_inactivity_timeout_ms="60000"
-        use_internal_bus_gripper_comm="false"
+        use_internal_bus_gripper_comm="true"
         use_fake_hardware="$(arg use_fake_hardware)"
         fake_sensor_commands="$(arg fake_sensor_commands)"
         sim_gazebo="$(arg sim_gazebo)"
