@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(moveit_visual_tools REQUIRED)
 
 add_executable(moveit_go_left src/moveit_go_left.cpp)
 target_include_directories(moveit_go_left PUBLIC
@@ -18,6 +19,7 @@ target_compile_features(moveit_go_left PUBLIC c_std_99 cxx_std_17)  # Require C9
 ament_target_dependencies(
   moveit_go_left
   "moveit_ros_planning_interface"
+  "moveit_visual_tools"
   "rclcpp"
 )
 
@@ -29,6 +31,7 @@ target_compile_features(moveit_go_right PUBLIC c_std_99 cxx_std_17)  # Require C
 ament_target_dependencies(
   moveit_go_right
   "moveit_ros_planning_interface"
+  "moveit_visual_tools"
   "rclcpp"
 )
 
@@ -40,6 +43,7 @@ target_compile_features(moveit_go_dual PUBLIC c_std_99 cxx_std_17)  # Require C9
 ament_target_dependencies(
   moveit_go_dual
   "moveit_ros_planning_interface"
+  "moveit_visual_tools"
   "rclcpp"
 )
 

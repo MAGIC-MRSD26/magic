@@ -6,8 +6,8 @@ Panels:
         - /MotionPlanning1
   - Class: rviz_common/Help
     Name: Help
-  - Class: rviz_common/Views
-    Name: Views
+  - Class: rviz_visual_tools/RvizVisualToolsGui
+    Name: Rviz Visual Tool 
 Visualization Manager:
   Displays:
     - Class: rviz_default_plugins/Grid
@@ -26,6 +26,9 @@ Visualization Manager:
       Scene Robot:
         Robot Alpha: 0.5
       Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Name: MarkerArray
+      Value: true
   Global Options:
     Fixed Frame: world
   Tools:
@@ -36,7 +39,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 2.0
+      Distance: 8.0
       Focal Point:
         X: -0.1
         Y: 0.25
