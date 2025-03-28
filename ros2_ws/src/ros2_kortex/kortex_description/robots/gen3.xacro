@@ -17,6 +17,7 @@
     <xacro:arg name="gripper_joint_name" default="finger_joint" />
     <xacro:arg name="gripper_max_velocity" default="100.0" />
     <xacro:arg name="gripper_max_force" default="100.0" />
+    <xacro:arg name="sim_mujoco" default="false" />
     <xacro:arg name="sim_gazebo" default="false" />
     <xacro:arg name="sim_ignition" default="false" />
     <xacro:arg name="sim_isaac" default="false" />
@@ -52,6 +53,7 @@
         prefix="$(arg prefix)"
         use_fake_hardware="$(arg use_fake_hardware)"
         fake_sensor_commands="$(arg fake_sensor_commands)"
+        sim_mujoco="$(arg sim_mujoco)"
         sim_gazebo="$(arg sim_gazebo)"
         sim_ignition="$(arg sim_ignition)"
         sim_isaac="$(arg sim_isaac)"

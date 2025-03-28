@@ -1,0 +1,204 @@
+[INFO] [launch]: All log files can be found below /home/megan/.ros/log/2025-03-27-22-47-16-114663-mlee-1169408
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [rviz2-1]: process started with pid [1169409]
+[INFO] [static_transform_publisher-2]: process started with pid [1169411]
+[INFO] [robot_state_publisher-3]: process started with pid [1169413]
+[INFO] [move_group-4]: process started with pid [1169415]
+[INFO] [mujoco_ros2_control-5]: process started with pid [1169417]
+[INFO] [spawner-6]: process started with pid [1169419]
+[static_transform_publisher-2] [INFO] [1743130036.333844944] [static_transform_publisher]: Spinning until stopped - publishing transform
+[static_transform_publisher-2] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-2] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-2] from 'world' to 'panda_link0'
+[mujoco_ros2_control-5] [INFO] [1743130036.337048648] [mujoco_ros2_control_node]: Initializing mujoco_ros2_control node...
+[robot_state_publisher-3] [INFO] [1743130036.366584510] [robot_state_publisher]: got segment panda_hand
+[robot_state_publisher-3] [INFO] [1743130036.366658607] [robot_state_publisher]: got segment panda_leftfinger
+[robot_state_publisher-3] [INFO] [1743130036.366664202] [robot_state_publisher]: got segment panda_link0
+[robot_state_publisher-3] [INFO] [1743130036.366667116] [robot_state_publisher]: got segment panda_link1
+[robot_state_publisher-3] [INFO] [1743130036.366669665] [robot_state_publisher]: got segment panda_link2
+[robot_state_publisher-3] [INFO] [1743130036.366671971] [robot_state_publisher]: got segment panda_link3
+[robot_state_publisher-3] [INFO] [1743130036.366674330] [robot_state_publisher]: got segment panda_link4
+[robot_state_publisher-3] [INFO] [1743130036.366676636] [robot_state_publisher]: got segment panda_link5
+[robot_state_publisher-3] [INFO] [1743130036.366678979] [robot_state_publisher]: got segment panda_link6
+[robot_state_publisher-3] [INFO] [1743130036.366681425] [robot_state_publisher]: got segment panda_link7
+[robot_state_publisher-3] [INFO] [1743130036.366685771] [robot_state_publisher]: got segment panda_link8
+[robot_state_publisher-3] [INFO] [1743130036.366688395] [robot_state_publisher]: got segment panda_rightfinger
+[move_group-4] [INFO] [1743130036.383016874] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0 seconds
+[move_group-4] [INFO] [1743130036.383061452] [moveit_robot_model.robot_model]: Loading robot model 'panda'...
+[move_group-4] [INFO] [1743130036.404503899] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Publishing maintained planning scene on 'monitored_planning_scene'
+[move_group-4] [INFO] [1743130036.404618048] [moveit.ros_planning_interface.moveit_cpp]: Listening to 'joint_states' for joint states
+[move_group-4] [INFO] [1743130036.405471928] [moveit_ros.current_state_monitor]: Listening to joint states on topic 'joint_states'
+[move_group-4] [INFO] [1743130036.405702277] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/attached_collision_object' for attached collision objects
+[move_group-4] [INFO] [1743130036.405713881] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[move_group-4] [INFO] [1743130036.405850253] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/planning_scene'
+[move_group-4] [INFO] [1743130036.405858541] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting world geometry update monitor for collision objects, attached objects, octomap updates.
+[move_group-4] [INFO] [1743130036.406011591] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to 'collision_object'
+[move_group-4] [INFO] [1743130036.406162879] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to 'planning_scene_world' for planning scene world geometry
+[move_group-4] [WARN] [1743130036.406560388] [moveit.ros.occupancy_map_monitor.middleware_handle]: Resolution not specified for Octomap. Assuming resolution = 0.1 instead
+[move_group-4] [ERROR] [1743130036.406577618] [moveit.ros.occupancy_map_monitor.middleware_handle]: No 3D sensor plugin(s) defined for octomap updates
+[move_group-4] [INFO] [1743130036.407324607] [moveit.ros_planning_interface.moveit_cpp]: Loading planning pipeline 'ompl'
+[move_group-4] [INFO] [1743130036.416717529] [moveit.ros_planning.planning_pipeline]: Using planning interface 'OMPL'
+[move_group-4] [INFO] [1743130036.418553322] [moveit_ros.add_time_optimal_parameterization]: Param 'ompl.path_tolerance' was not set. Using default value: 0.100000
+[move_group-4] [INFO] [1743130036.418568751] [moveit_ros.add_time_optimal_parameterization]: Param 'ompl.resample_dt' was not set. Using default value: 0.100000
+[move_group-4] [INFO] [1743130036.418573807] [moveit_ros.add_time_optimal_parameterization]: Param 'ompl.min_angle_change' was not set. Using default value: 0.001000
+[move_group-4] [INFO] [1743130036.418593568] [moveit_ros.fix_workspace_bounds]: Param 'ompl.default_workspace_bounds' was not set. Using default value: 10.000000
+[move_group-4] [INFO] [1743130036.418609766] [moveit_ros.fix_start_state_bounds]: Param 'ompl.start_state_max_bounds_error' was set to 0.100000
+[move_group-4] [INFO] [1743130036.418617367] [moveit_ros.fix_start_state_bounds]: Param 'ompl.start_state_max_dt' was not set. Using default value: 0.500000
+[move_group-4] [INFO] [1743130036.418626947] [moveit_ros.fix_start_state_collision]: Param 'ompl.start_state_max_dt' was not set. Using default value: 0.500000
+[move_group-4] [INFO] [1743130036.418630980] [moveit_ros.fix_start_state_collision]: Param 'ompl.jiggle_fraction' was not set. Using default value: 0.020000
+[move_group-4] [INFO] [1743130036.418635190] [moveit_ros.fix_start_state_collision]: Param 'ompl.max_sampling_attempts' was not set. Using default value: 100
+[move_group-4] [INFO] [1743130036.418648422] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Add Time Optimal Parameterization'
+[move_group-4] [INFO] [1743130036.418651725] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Resolve constraint frames to robot links'
+[move_group-4] [INFO] [1743130036.418653689] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Workspace Bounds'
+[move_group-4] [INFO] [1743130036.418655789] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State Bounds'
+[move_group-4] [INFO] [1743130036.418657579] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State In Collision'
+[move_group-4] [INFO] [1743130036.418659274] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State Path Constraints'
+[move_group-4] [INFO] [1743130036.420174059] [moveit.ros_planning_interface.moveit_cpp]: Loading planning pipeline 'pilz_industrial_motion_planner'
+[move_group-4] [INFO] [1743130036.422946690] [moveit.pilz_industrial_motion_planner.joint_limits_aggregator]: Reading limits from namespace robot_description_planning
+[move_group-4] [WARN] [1743130036.424351774] [moveit.pilz_industrial_motion_planner.joint_limits_aggregator]: Multi-DOF-Joint 'virtual_joint' not supported.
+[move_group-4] [WARN] [1743130036.424382980] [moveit.pilz_industrial_motion_planner.joint_limits_aggregator]: Multi-DOF-Joint 'virtual_joint' not supported.
+[move_group-4] [INFO] [1743130036.429024121] [moveit.pilz_industrial_motion_planner]: Available plugins: pilz_industrial_motion_planner/PlanningContextLoaderCIRC pilz_industrial_motion_planner/PlanningContextLoaderLIN pilz_industrial_motion_planner/PlanningContextLoaderPTP 
+[move_group-4] [INFO] [1743130036.429046777] [moveit.pilz_industrial_motion_planner]: About to load: pilz_industrial_motion_planner/PlanningContextLoaderCIRC
+[move_group-4] [INFO] [1743130036.429842799] [moveit.pilz_industrial_motion_planner]: Registered Algorithm [CIRC]
+[move_group-4] [INFO] [1743130036.429850852] [moveit.pilz_industrial_motion_planner]: About to load: pilz_industrial_motion_planner/PlanningContextLoaderLIN
+[move_group-4] [INFO] [1743130036.430394753] [moveit.pilz_industrial_motion_planner]: Registered Algorithm [LIN]
+[move_group-4] [INFO] [1743130036.430401749] [moveit.pilz_industrial_motion_planner]: About to load: pilz_industrial_motion_planner/PlanningContextLoaderPTP
+[move_group-4] [INFO] [1743130036.430921897] [moveit.pilz_industrial_motion_planner]: Registered Algorithm [PTP]
+[move_group-4] [INFO] [1743130036.430930102] [moveit.ros_planning.planning_pipeline]: Using planning interface 'Pilz Industrial Motion Planner'
+[move_group-4] [INFO] [1743130036.431748974] [moveit_ros.fix_workspace_bounds]: Param 'pilz_industrial_motion_planner.default_workspace_bounds' was not set. Using default value: 10.000000
+[move_group-4] [INFO] [1743130036.431761837] [moveit_ros.fix_start_state_bounds]: Param 'pilz_industrial_motion_planner.start_state_max_bounds_error' was not set. Using default value: 0.050000
+[move_group-4] [INFO] [1743130036.431764862] [moveit_ros.fix_start_state_bounds]: Param 'pilz_industrial_motion_planner.start_state_max_dt' was not set. Using default value: 0.500000
+[move_group-4] [INFO] [1743130036.431772266] [moveit_ros.fix_start_state_collision]: Param 'pilz_industrial_motion_planner.start_state_max_dt' was not set. Using default value: 0.500000
+[move_group-4] [INFO] [1743130036.431774969] [moveit_ros.fix_start_state_collision]: Param 'pilz_industrial_motion_planner.jiggle_fraction' was not set. Using default value: 0.020000
+[move_group-4] [INFO] [1743130036.431777342] [moveit_ros.fix_start_state_collision]: Param 'pilz_industrial_motion_planner.max_sampling_attempts' was not set. Using default value: 100
+[move_group-4] [INFO] [1743130036.431784914] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Workspace Bounds'
+[move_group-4] [INFO] [1743130036.431787524] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State Bounds'
+[move_group-4] [INFO] [1743130036.431789362] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State In Collision'
+[move_group-4] [INFO] [1743130036.431791132] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State Path Constraints'
+[move_group-4] [INFO] [1743130036.448089873] [moveit.plugins.moveit_simple_controller_manager]: Added FollowJointTrajectory controller for panda_arm_controller
+[move_group-4] [INFO] [1743130036.448130141] [moveit.plugins.moveit_simple_controller_manager]: Max effort set to 0.0
+[move_group-4] [INFO] [1743130036.449574631] [moveit.plugins.moveit_simple_controller_manager]: Added GripperCommand controller for panda_hand_controller
+[move_group-4] [INFO] [1743130036.449676010] [moveit.plugins.moveit_simple_controller_manager]: Returned 2 controllers in list
+[move_group-4] [INFO] [1743130036.449688564] [moveit.plugins.moveit_simple_controller_manager]: Returned 2 controllers in list
+[move_group-4] [INFO] [1743130036.450009519] [moveit_ros.trajectory_execution_manager]: Trajectory execution is managing controllers
+[move_group-4] [INFO] [1743130036.450018674] [move_group.move_group]: MoveGroup debug mode is ON
+[move_group-4] [INFO] [1743130036.457412581] [move_group.move_group]: 
+[move_group-4] 
+[move_group-4] ********************************************************
+[move_group-4] * MoveGroup using: 
+[move_group-4] *     - ApplyPlanningSceneService
+[move_group-4] *     - ClearOctomapService
+[move_group-4] *     - CartesianPathService
+[move_group-4] *     - ExecuteTrajectoryAction
+[move_group-4] *     - GetPlanningSceneService
+[move_group-4] *     - KinematicsService
+[move_group-4] *     - MoveAction
+[move_group-4] *     - MotionPlanService
+[move_group-4] *     - QueryPlannersService
+[move_group-4] *     - StateValidationService
+[move_group-4] ********************************************************
+[move_group-4] 
+[move_group-4] [INFO] [1743130036.457453307] [moveit_move_group_capabilities_base.move_group_context]: MoveGroup context using planning plugin ompl_interface/OMPLPlanner
+[move_group-4] [INFO] [1743130036.457459705] [moveit_move_group_capabilities_base.move_group_context]: MoveGroup context initialization complete
+[move_group-4] [96mLoading 'move_group/ApplyPlanningSceneService'...
+[move_group-4] [0m[96mLoading 'move_group/ClearOctomapService'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupCartesianPathService'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupExecuteTrajectoryAction'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupGetPlanningSceneService'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupKinematicsService'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupMoveAction'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupPlanService'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupQueryPlannersService'...
+[move_group-4] [0m[96mLoading 'move_group/MoveGroupStateValidationService'...
+[move_group-4] [0m[92m
+[move_group-4] You can start planning now!
+[move_group-4] 
+[spawner-6] [INFO] [1743130036.549380525] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[rviz2-1] [INFO] [1743130036.571267785] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-1] [INFO] [1743130036.571373000] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-1] [INFO] [1743130036.586406441] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-1] Warning: class_loader.impl: SEVERE WARNING!!! A namespace collision has occurred with plugin factory for class rviz_default_plugins::displays::InteractiveMarkerDisplay. New factory will OVERWRITE existing one. This situation occurs when libraries containing plugins are directly linked against an executable (the one running right now generating this message). Please separate plugins out into their own library or just don't link against the library and use either class_loader::ClassLoader/MultiLibraryClassLoader to open.
+[rviz2-1]          at line 253 in /opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp
+[mujoco_ros2_control-5] [INFO] [1743130036.928806923] [mujoco_ros2_control_node]: Mujoco model has been successfully loaded !
+[mujoco_ros2_control-5] [INFO] [1743130036.952760868] [resource_manager]: Initialize hardware 'PandaFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130036.952850868] [resource_manager]: Successful initialization of hardware 'PandaFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130036.952884452] [resource_manager]: 'configure' hardware 'PandaFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130036.952889511] [resource_manager]: Successful 'configure' of hardware 'PandaFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130036.952894907] [resource_manager]: 'activate' hardware 'PandaFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130036.952897983] [resource_manager]: Successful 'activate' of hardware 'PandaFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130036.973198370] [resource_manager]: Initialize hardware 'PandaHandFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130036.973223299] [resource_manager]: Successful initialization of hardware 'PandaHandFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130036.973233803] [resource_manager]: 'configure' hardware 'PandaHandFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130036.973237389] [resource_manager]: Successful 'configure' of hardware 'PandaHandFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130036.973240555] [resource_manager]: 'activate' hardware 'PandaHandFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130036.973243637] [resource_manager]: Successful 'activate' of hardware 'PandaHandFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130036.973514307] [mujoco_ros2_control_node.mujoco_ros2_control]: Loading controller_manager
+[mujoco_ros2_control-5] [INFO] [1743130036.983976992] [mujoco_ros2_control_node]: Mujoco ros2 controller has been successfully initialized !
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[mujoco_ros2_control-5] [INFO] [1743130037.049838476] [rclcpp]: signal_handler(signum=2)
+[rviz2-1] [INFO] [1743130037.049847865] [rclcpp]: signal_handler(signum=2)
+[rviz2-1] [ERROR] [1743130037.050171996] [moveit_ros_visualization.motion_planning_frame]: Action server: /recognize_objects not available
+[static_transform_publisher-2] [INFO] [1743130037.049851488] [rclcpp]: signal_handler(signum=2)
+[mujoco_ros2_control-5] [INFO] [1743130037.050060530] [controller_manager]: Shutdown request received....
+[mujoco_ros2_control-5] [INFO] [1743130037.050130835] [controller_manager]: Shutting down all controllers in the controller manager.
+[mujoco_ros2_control-5] [INFO] [1743130037.050167815] [resource_manager]: 'deactivate' hardware 'PandaHandFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130037.050177319] [resource_manager]: Successful 'deactivate' of hardware 'PandaHandFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130037.050180946] [resource_manager]: 'shutdown' hardware 'PandaHandFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130037.050184862] [resource_manager]: Successful 'shutdown' of hardware 'PandaHandFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130037.050189165] [resource_manager]: 'deactivate' hardware 'PandaFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130037.050193521] [resource_manager]: Successful 'deactivate' of hardware 'PandaFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130037.050196538] [resource_manager]: 'shutdown' hardware 'PandaFakeSystem' 
+[mujoco_ros2_control-5] [INFO] [1743130037.050200407] [resource_manager]: Successful 'shutdown' of hardware 'PandaFakeSystem'
+[mujoco_ros2_control-5] [INFO] [1743130037.050203857] [controller_manager]: Shutting down the controller manager.
+[robot_state_publisher-3] [INFO] [1743130037.049895700] [rclcpp]: signal_handler(signum=2)
+[move_group-4] [INFO] [1743130037.049903881] [rclcpp]: signal_handler(signum=2)
+[rviz2-1] 
+[rviz2-1] >>> [rcutils|error_handling.c:108] rcutils_set_error_state()
+[rviz2-1] This error state is being overwritten:
+[rviz2-1] 
+[rviz2-1]   'rcl node's context is invalid, at ./src/rcl/node.c:428'
+[rviz2-1] 
+[rviz2-1] with this new error message:
+[rviz2-1] 
+[rviz2-1]   'the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/guard_condition.c:67'
+[rviz2-1] 
+[rviz2-1] rcutils_reset_error() should be called after error handling to avoid this.
+[rviz2-1] <<<
+[rviz2-1] [ERROR] [1743130037.054132033] [rviz2]: Could not load display config: failed to create guard condition: the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/guard_condition.c:67
+[move_group-4] [INFO] [1743130037.062482370] [moveit.ros_planning_interface.moveit_cpp]: Deleting MoveItCpp
+[move_group-4] [INFO] [1743130037.063155051] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopped publishing maintained planning scene.
+[move_group-4] [INFO] [1743130037.064279728] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping world geometry monitor
+[move_group-4] [INFO] [1743130037.064566159] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping planning scene monitor
+[move_group-4] Warning: class_loader.ClassLoader: SEVERE WARNING!!! Attempting to unload library while objects created by this loader exist in the heap! You should delete your objects before attempting to unload the library or destroying the ClassLoader. The library will NOT be unloaded.
+[move_group-4]          at line 127 in ./src/class_loader.cpp
+[move_group-4] Stack trace (most recent call last):
+[move_group-4] #16   Object "", at 0xffffffffffffffff, in 
+[move_group-4] #15   Object "/opt/ros/humble/lib/moveit_ros_move_group/move_group", at 0x5de6bb83b724, in 
+[move_group-4] #14   Source "../csu/libc-start.c", line 392, in __libc_start_main_impl [0x707f18e29e3f]
+[move_group-4] #13   Source "../sysdeps/nptl/libc_start_call_main.h", line 58, in __libc_start_call_main [0x707f18e29d8f]
+[move_group-4] #12   Object "/opt/ros/humble/lib/moveit_ros_move_group/move_group", at 0x5de6bb83a65b, in 
+[move_group-4] #11   Object "/opt/ros/humble/lib/moveit_ros_move_group/move_group", at 0x5de6bb83c709, in 
+[move_group-4] #10   Object "/opt/ros/humble/lib/libmoveit_cpp.so.2.5.8", at 0x707f19b21486, in moveit_cpp::MoveItCpp::~MoveItCpp()
+[move_group-4] #9    Object "/opt/ros/humble/lib/libmoveit_cpp.so.2.5.8", at 0x707f19b1f7b9, in 
+[move_group-4] #8    Object "/opt/ros/humble/lib/libmoveit_trajectory_execution_manager.so.2.5.8", at 0x707f190783b5, in trajectory_execution_manager::TrajectoryExecutionManager::~TrajectoryExecutionManager()
+[move_group-4] #7    Object "/opt/ros/humble/lib/libmoveit_trajectory_execution_manager.so.2.5.8", at 0x707f1908b029, in 
+[move_group-4] #6    Object "/opt/ros/humble/lib/librclcpp.so", at 0x707f197819dc, in rclcpp::Node::~Node()
+[move_group-4] #5    Object "/opt/ros/humble/lib/librclcpp.so", at 0x707f1978197e, in rclcpp::Node::~Node()
+[move_group-4] #4    Object "/opt/ros/humble/lib/librclcpp.so", at 0x707f1975cc59, in 
+[move_group-4] #3    Object "/opt/ros/humble/lib/librclcpp.so", at 0x707f1978b029, in 
+[move_group-4] #2    Object "/opt/ros/humble/lib/librclcpp.so", at 0x707f1978af70, in rclcpp::node_interfaces::NodeBase::~NodeBase()
+[move_group-4] #1    Object "/opt/ros/humble/lib/librclcpp.so", at 0x707f1975cc59, in 
+[move_group-4] #0    Object "/opt/ros/humble/lib/librclcpp.so", at 0x707f197619d1, in rclcpp::CallbackGroup::~CallbackGroup()
+[move_group-4] Segmentation fault (Address not mapped to object [0x707f11526798])
+[INFO] [static_transform_publisher-2]: process has finished cleanly [pid 1169411]
+[INFO] [robot_state_publisher-3]: process has finished cleanly [pid 1169413]
+[INFO] [spawner-6]: process has finished cleanly [pid 1169419]
+[mujoco_ros2_control-5] [INFO] [1743130037.224454612] [mujoco_ros2_control_node]: Mujoco rendering has been successfully initialized !
+[mujoco_ros2_control-5] terminate called after throwing an instance of 'std::runtime_error'
+[mujoco_ros2_control-5]   what():  Node needs to be associated with an executor.
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT) again, ignoring...
+[ERROR] [rviz2-1]: process has died [pid 1169409, exit code -11, cmd '/opt/ros/humble/lib/rviz2/rviz2 -d /home/megan/magic/mujoco_ros2_control_examples/install/interactive_marker/share/interactive_marker/config/interactive_marker.rviz --ros-args -r __node:=rviz2 --params-file /tmp/launch_params_cwjbwvh8 --params-file /tmp/launch_params_79d406hs --params-file /tmp/launch_params_4cpkkqc7 --params-file /tmp/launch_params_xrninobg --params-file /tmp/launch_params_fy84y48r --params-file /tmp/launch_params_85x_v6sl'].
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT) again, ignoring...
+[ERROR] [move_group-4]: process has died [pid 1169415, exit code -11, cmd '/opt/ros/humble/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_9384ly1_ --params-file /tmp/launch_params_8j5s0ok8'].
+[move_group-4] [0m
+[ERROR] [mujoco_ros2_control-5]: process has died [pid 1169417, exit code -6, cmd '/home/megan/magic/mujoco_ros2_control/install/mujoco_ros2_control/lib/mujoco_ros2_control/mujoco_ros2_control --ros-args --params-file /tmp/launch_params_j6rwpx3g --params-file /home/megan/magic/mujoco_ros2_control_examples/install/moveit_resources_panda_moveit_config/share/moveit_resources_panda_moveit_config/config/ros2_controllers.yaml --params-file /tmp/launch_params_3slqt39k --params-file /tmp/launch_params__ebk27fk'].

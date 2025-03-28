@@ -1,0 +1,319 @@
+[INFO] [launch]: All log files can be found below /home/megan/.ros/log/2025-03-27-22-52-48-555672-mlee-1176497
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [mujoco_ros2_control-1]: process started with pid [1176498]
+[INFO] [spawner-2]: process started with pid [1176500]
+[INFO] [spawner-3]: process started with pid [1176502]
+[INFO] [spawner-4]: process started with pid [1176504]
+[INFO] [spawner-5]: process started with pid [1176506]
+[INFO] [spawner-6]: process started with pid [1176508]
+[INFO] [spawner-7]: process started with pid [1176510]
+[INFO] [rviz2-8]: process started with pid [1176512]
+[INFO] [static_transform_publisher-9]: process started with pid [1176514]
+[INFO] [robot_state_publisher-10]: process started with pid [1176516]
+[INFO] [move_group-11]: process started with pid [1176518]
+[mujoco_ros2_control-1] [INFO] [1743130369.512023143] [mujoco_ros2_control_node]: Initializing mujoco_ros2_control node...
+[static_transform_publisher-9] [INFO] [1743130369.521338950] [static_transform_publisher]: Spinning until stopped - publishing transform
+[static_transform_publisher-9] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-9] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-9] from 'world' to 'left_base_link'
+[move_group-11] [INFO] [1743130369.560315900] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.0307959 seconds
+[move_group-11] [INFO] [1743130369.560370839] [moveit_robot_model.robot_model]: Loading robot model 'gen3_dual_arm'...
+[move_group-11] [INFO] [1743130369.560376844] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[spawner-5] [INFO] [1743130369.565305823] [spawner_left_robotiq_gripper_controller]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-4] [INFO] [1743130369.565874613] [spawner_right_arm_controller]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-2] [INFO] [1743130369.570415803] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-6] [INFO] [1743130369.570460281] [spawner_right_robotiq_gripper_controller]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-3] [INFO] [1743130369.571372714] [spawner_left_arm_controller]: waiting for service /controller_manager/list_controllers to become available...
+[spawner-7] [INFO] [1743130369.572394464] [spawner_twist_controller]: waiting for service /controller_manager/list_controllers to become available...
+[robot_state_publisher-10] [INFO] [1743130369.573293299] [robot_state_publisher]: got segment left_base_link
+[robot_state_publisher-10] [INFO] [1743130369.573381045] [robot_state_publisher]: got segment left_bracelet_link
+[robot_state_publisher-10] [INFO] [1743130369.573386904] [robot_state_publisher]: got segment left_end_effector_link
+[robot_state_publisher-10] [INFO] [1743130369.573390425] [robot_state_publisher]: got segment left_forearm_link
+[robot_state_publisher-10] [INFO] [1743130369.573393266] [robot_state_publisher]: got segment left_half_arm_1_link
+[robot_state_publisher-10] [INFO] [1743130369.573396152] [robot_state_publisher]: got segment left_half_arm_2_link
+[robot_state_publisher-10] [INFO] [1743130369.573398787] [robot_state_publisher]: got segment left_robotiq_85_base_link
+[robot_state_publisher-10] [INFO] [1743130369.573401518] [robot_state_publisher]: got segment left_robotiq_85_left_finger_link
+[robot_state_publisher-10] [INFO] [1743130369.573404299] [robot_state_publisher]: got segment left_robotiq_85_left_finger_tip_link
+[robot_state_publisher-10] [INFO] [1743130369.573406878] [robot_state_publisher]: got segment left_robotiq_85_left_inner_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573409410] [robot_state_publisher]: got segment left_robotiq_85_left_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573411918] [robot_state_publisher]: got segment left_robotiq_85_right_finger_link
+[robot_state_publisher-10] [INFO] [1743130369.573414421] [robot_state_publisher]: got segment left_robotiq_85_right_finger_tip_link
+[robot_state_publisher-10] [INFO] [1743130369.573416977] [robot_state_publisher]: got segment left_robotiq_85_right_inner_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573419633] [robot_state_publisher]: got segment left_robotiq_85_right_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573422209] [robot_state_publisher]: got segment left_shoulder_link
+[robot_state_publisher-10] [INFO] [1743130369.573424951] [robot_state_publisher]: got segment left_spherical_wrist_1_link
+[robot_state_publisher-10] [INFO] [1743130369.573427525] [robot_state_publisher]: got segment left_spherical_wrist_2_link
+[robot_state_publisher-10] [INFO] [1743130369.573430201] [robot_state_publisher]: got segment right_base_link
+[robot_state_publisher-10] [INFO] [1743130369.573432876] [robot_state_publisher]: got segment right_bracelet_link
+[robot_state_publisher-10] [INFO] [1743130369.573435498] [robot_state_publisher]: got segment right_end_effector_link
+[robot_state_publisher-10] [INFO] [1743130369.573438087] [robot_state_publisher]: got segment right_forearm_link
+[robot_state_publisher-10] [INFO] [1743130369.573440682] [robot_state_publisher]: got segment right_half_arm_1_link
+[robot_state_publisher-10] [INFO] [1743130369.573443367] [robot_state_publisher]: got segment right_half_arm_2_link
+[robot_state_publisher-10] [INFO] [1743130369.573445926] [robot_state_publisher]: got segment right_robotiq_85_base_link
+[robot_state_publisher-10] [INFO] [1743130369.573448462] [robot_state_publisher]: got segment right_robotiq_85_left_finger_link
+[robot_state_publisher-10] [INFO] [1743130369.573451108] [robot_state_publisher]: got segment right_robotiq_85_left_finger_tip_link
+[robot_state_publisher-10] [INFO] [1743130369.573453679] [robot_state_publisher]: got segment right_robotiq_85_left_inner_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573456226] [robot_state_publisher]: got segment right_robotiq_85_left_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573458739] [robot_state_publisher]: got segment right_robotiq_85_right_finger_link
+[robot_state_publisher-10] [INFO] [1743130369.573461277] [robot_state_publisher]: got segment right_robotiq_85_right_finger_tip_link
+[robot_state_publisher-10] [INFO] [1743130369.573463826] [robot_state_publisher]: got segment right_robotiq_85_right_inner_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573466400] [robot_state_publisher]: got segment right_robotiq_85_right_knuckle_link
+[robot_state_publisher-10] [INFO] [1743130369.573468960] [robot_state_publisher]: got segment right_shoulder_link
+[robot_state_publisher-10] [INFO] [1743130369.573471591] [robot_state_publisher]: got segment right_spherical_wrist_1_link
+[robot_state_publisher-10] [INFO] [1743130369.573474201] [robot_state_publisher]: got segment right_spherical_wrist_2_link
+[robot_state_publisher-10] [INFO] [1743130369.573476797] [robot_state_publisher]: got segment vention_table_link
+[robot_state_publisher-10] [INFO] [1743130369.573479528] [robot_state_publisher]: got segment world
+[rviz2-8] [INFO] [1743130369.688306229] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-8] [INFO] [1743130369.688355379] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-8] [INFO] [1743130369.704477621] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-8] Warning: class_loader.impl: SEVERE WARNING!!! A namespace collision has occurred with plugin factory for class rviz_default_plugins::displays::InteractiveMarkerDisplay. New factory will OVERWRITE existing one. This situation occurs when libraries containing plugins are directly linked against an executable (the one running right now generating this message). Please separate plugins out into their own library or just don't link against the library and use either class_loader::ClassLoader/MultiLibraryClassLoader to open.
+[rviz2-8]          at line 253 in /opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp
+[mujoco_ros2_control-1] [INFO] [1743130370.036981767] [mujoco_ros2_control_node]: Mujoco model has been successfully loaded !
+[mujoco_ros2_control-1] [INFO] [1743130370.062089658] [resource_manager]: Initialize hardware 'left_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130370.062195287] [resource_manager]: Successful initialization of hardware 'left_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130370.062234738] [resource_manager]: 'configure' hardware 'left_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130370.062241929] [resource_manager]: Successful 'configure' of hardware 'left_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130370.062249791] [resource_manager]: 'activate' hardware 'left_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130370.062254834] [resource_manager]: Successful 'activate' of hardware 'left_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130370.084107552] [resource_manager]: Initialize hardware 'left_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130370.084141516] [resource_manager]: Successful initialization of hardware 'left_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130370.084154301] [resource_manager]: 'configure' hardware 'left_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130370.084159648] [resource_manager]: Successful 'configure' of hardware 'left_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130370.084163690] [resource_manager]: 'activate' hardware 'left_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130370.084168137] [resource_manager]: Successful 'activate' of hardware 'left_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130370.105742605] [resource_manager]: Initialize hardware 'right_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130370.105769278] [resource_manager]: Successful initialization of hardware 'right_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130370.105788372] [resource_manager]: 'configure' hardware 'right_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130370.105793790] [resource_manager]: Successful 'configure' of hardware 'right_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130370.105801552] [resource_manager]: 'activate' hardware 'right_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130370.105806223] [resource_manager]: Successful 'activate' of hardware 'right_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130370.127397887] [resource_manager]: Initialize hardware 'right_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130370.127423396] [resource_manager]: Successful initialization of hardware 'right_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130370.127435664] [resource_manager]: 'configure' hardware 'right_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130370.127441178] [resource_manager]: Successful 'configure' of hardware 'right_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130370.127445326] [resource_manager]: 'activate' hardware 'right_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130370.127450097] [resource_manager]: Successful 'activate' of hardware 'right_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130370.127935111] [mujoco_ros2_control_node.mujoco_ros2_control]: Loading controller_manager
+[mujoco_ros2_control-1] [INFO] [1743130370.139454906] [mujoco_ros2_control_node]: Mujoco ros2 controller has been successfully initialized !
+[mujoco_ros2_control-1] [INFO] [1743130370.321210284] [controller_manager]: Loading controller 'right_arm_controller'
+[mujoco_ros2_control-1] [WARN] [1743130370.338117232] [right_arm_controller]: [Deprecated]: "allow_nonzero_velocity_at_trajectory_end" is set to true. The default behavior will change to false.
+[spawner-4] [INFO] [1743130370.339481553] [spawner_right_arm_controller]: [94mLoaded [1mright_arm_controller[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.341806219] [controller_manager]: Loading controller 'right_robotiq_gripper_controller'
+[mujoco_ros2_control-1] [INFO] [1743130370.353088245] [controller_manager]: Configuring controller 'right_arm_controller'
+[mujoco_ros2_control-1] [INFO] [1743130370.353430381] [right_arm_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[mujoco_ros2_control-1] [INFO] [1743130370.353478190] [right_arm_controller]: Command interfaces are [position] and state interfaces are [position velocity].
+[mujoco_ros2_control-1] [INFO] [1743130370.353528195] [right_arm_controller]: Using 'splines' interpolation method.
+[spawner-6] [INFO] [1743130370.354493316] [spawner_right_robotiq_gripper_controller]: [94mLoaded [1mright_robotiq_gripper_controller[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.356857705] [right_arm_controller]: Controller state will be published at 50.00 Hz.
+[mujoco_ros2_control-1] [INFO] [1743130370.361508719] [right_arm_controller]: Action status changes will be monitored at 20.00 Hz.
+[mujoco_ros2_control-1] [INFO] [1743130370.368003894] [controller_manager]: Loading controller 'left_arm_controller'
+[mujoco_ros2_control-1] [WARN] [1743130370.392729191] [left_arm_controller]: [Deprecated]: "allow_nonzero_velocity_at_trajectory_end" is set to true. The default behavior will change to false.
+[mujoco_ros2_control-1] [INFO] [1743130370.392849885] [controller_manager]: Configuring controller 'right_robotiq_gripper_controller'
+[mujoco_ros2_control-1] [INFO] [1743130370.392920871] [right_robotiq_gripper_controller]: Action status changes will be monitored at 20Hz.
+[mujoco_ros2_control-1] [INFO] [1743130370.393133994] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[spawner-3] [INFO] [1743130370.393973905] [spawner_left_arm_controller]: [94mLoaded [1mleft_arm_controller[0m
+[spawner-2] [INFO] [1743130370.409922597] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.442064748] [mujoco_ros2_control_node]: Mujoco rendering has been successfully initialized !
+[mujoco_ros2_control-1] [INFO] [1743130370.626694095] [controller_manager]: Configuring controller 'left_arm_controller'
+[mujoco_ros2_control-1] [INFO] [1743130370.626831249] [left_arm_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[mujoco_ros2_control-1] [INFO] [1743130370.626845005] [left_arm_controller]: Command interfaces are [position] and state interfaces are [position velocity].
+[mujoco_ros2_control-1] [INFO] [1743130370.626855404] [left_arm_controller]: Using 'splines' interpolation method.
+[spawner-4] [INFO] [1743130370.627432484] [spawner_right_arm_controller]: [92mConfigured and activated [1mright_arm_controller[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.627439432] [left_arm_controller]: Controller state will be published at 50.00 Hz.
+[mujoco_ros2_control-1] [INFO] [1743130370.629213520] [left_arm_controller]: Action status changes will be monitored at 20.00 Hz.
+[mujoco_ros2_control-1] [INFO] [1743130370.656973981] [controller_manager]: Loading controller 'left_robotiq_gripper_controller'
+[spawner-6] [INFO] [1743130370.657659187] [spawner_right_robotiq_gripper_controller]: [92mConfigured and activated [1mright_robotiq_gripper_controller[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.680815490] [controller_manager]: Configuring controller 'joint_state_broadcaster'
+[mujoco_ros2_control-1] [INFO] [1743130370.680968720] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[spawner-5] [INFO] [1743130370.683785562] [spawner_left_robotiq_gripper_controller]: [94mLoaded [1mleft_robotiq_gripper_controller[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.690943197] [controller_manager]: Loading controller 'twist_controller'
+[spawner-3] [INFO] [1743130370.692701195] [spawner_left_arm_controller]: [92mConfigured and activated [1mleft_arm_controller[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.717475552] [controller_manager]: Configuring controller 'left_robotiq_gripper_controller'
+[mujoco_ros2_control-1] [INFO] [1743130370.717719771] [left_robotiq_gripper_controller]: Action status changes will be monitored at 20Hz.
+[spawner-7] [INFO] [1743130370.719619967] [spawner_twist_controller]: [94mLoaded [1mtwist_controller[0m
+[spawner-2] [INFO] [1743130370.722005608] [spawner_joint_state_broadcaster]: [92mConfigured and activated [1mjoint_state_broadcaster[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.732462792] [controller_manager]: Configuring controller 'twist_controller'
+[spawner-5] [INFO] [1743130370.733114364] [spawner_left_robotiq_gripper_controller]: [92mConfigured and activated [1mleft_robotiq_gripper_controller[0m
+[mujoco_ros2_control-1] [INFO] [1743130370.733569950] [twist_controller]: configure successful
+[INFO] [spawner-4]: process has finished cleanly [pid 1176504]
+[INFO] [spawner-6]: process has finished cleanly [pid 1176508]
+[INFO] [spawner-3]: process has finished cleanly [pid 1176502]
+[INFO] [spawner-2]: process has finished cleanly [pid 1176500]
+[INFO] [spawner-5]: process has finished cleanly [pid 1176506]
+[INFO] [spawner-7]: process has finished cleanly [pid 1176510]
+[move_group-11] [INFO] [1743130371.056037825] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Publishing maintained planning scene on 'monitored_planning_scene'
+[move_group-11] [INFO] [1743130371.056152320] [moveit.ros_planning_interface.moveit_cpp]: Listening to 'joint_states' for joint states
+[move_group-11] [INFO] [1743130371.056761293] [moveit_ros.current_state_monitor]: Listening to joint states on topic 'joint_states'
+[move_group-11] [INFO] [1743130371.056982223] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/attached_collision_object' for attached collision objects
+[move_group-11] [INFO] [1743130371.056994506] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[move_group-11] [INFO] [1743130371.057163910] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/planning_scene'
+[move_group-11] [INFO] [1743130371.057171755] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting world geometry update monitor for collision objects, attached objects, octomap updates.
+[move_group-11] [INFO] [1743130371.057341487] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to 'collision_object'
+[move_group-11] [INFO] [1743130371.057512516] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to 'planning_scene_world' for planning scene world geometry
+[move_group-11] [WARN] [1743130371.057866663] [moveit.ros.occupancy_map_monitor.middleware_handle]: Resolution not specified for Octomap. Assuming resolution = 0.1 instead
+[rviz2-8] [ERROR] [1743130372.787990054] [moveit_ros_visualization.motion_planning_frame]: Action server: /recognize_objects not available
+[rviz2-8] [INFO] [1743130372.797769638] [moveit_ros_visualization.motion_planning_frame]: MoveGroup namespace changed: / -> . Reloading params.
+[rviz2-8] [WARN] [1743130372.804956857] [rcl.logging_rosout]: Publisher already registered for provided node name. If this is due to multiple nodes with the same name then all logs for that logger name will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[rviz2-8] [INFO] [1743130372.861863362] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0.0290097 seconds
+[rviz2-8] [INFO] [1743130372.861906957] [moveit_robot_model.robot_model]: Loading robot model 'gen3_dual_arm'...
+[rviz2-8] [INFO] [1743130372.861917493] [moveit_robot_model.robot_model]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[rviz2-8] [INFO] [1743130374.272717878] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Starting planning scene monitor
+[rviz2-8] [INFO] [1743130374.273121501] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Listening to '/monitored_planning_scene'
+[rviz2-8] [INFO] [1743130374.722405469] [interactive_marker_display_95476203454560]: Connected on namespace: /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic
+[rviz2-8] [INFO] [1743130374.745878308] [interactive_marker_display_95476203454560]: Sending request for interactive markers
+[rviz2-8] [INFO] [1743130374.778161482] [interactive_marker_display_95476203454560]: Service response received for initialization
+[move_group-11] [INFO] [1743130374.979068832] [moveit.ros_planning_interface.moveit_cpp]: Loading planning pipeline 'ompl'
+[move_group-11] [INFO] [1743130374.988811644] [moveit.ros_planning.planning_pipeline]: Using planning interface 'OMPL'
+[move_group-11] [INFO] [1743130374.990352739] [moveit_ros.add_time_optimal_parameterization]: Param 'ompl.path_tolerance' was not set. Using default value: 0.100000
+[move_group-11] [INFO] [1743130374.990363308] [moveit_ros.add_time_optimal_parameterization]: Param 'ompl.resample_dt' was not set. Using default value: 0.100000
+[move_group-11] [INFO] [1743130374.990366660] [moveit_ros.add_time_optimal_parameterization]: Param 'ompl.min_angle_change' was not set. Using default value: 0.001000
+[move_group-11] [INFO] [1743130374.990381096] [moveit_ros.fix_workspace_bounds]: Param 'ompl.default_workspace_bounds' was not set. Using default value: 10.000000
+[move_group-11] [INFO] [1743130374.990391717] [moveit_ros.fix_start_state_bounds]: Param 'ompl.start_state_max_bounds_error' was set to 0.100000
+[move_group-11] [INFO] [1743130374.990394848] [moveit_ros.fix_start_state_bounds]: Param 'ompl.start_state_max_dt' was not set. Using default value: 0.500000
+[move_group-11] [INFO] [1743130374.990402532] [moveit_ros.fix_start_state_collision]: Param 'ompl.start_state_max_dt' was not set. Using default value: 0.500000
+[move_group-11] [INFO] [1743130374.990405572] [moveit_ros.fix_start_state_collision]: Param 'ompl.jiggle_fraction' was set to 0.050000
+[move_group-11] [INFO] [1743130374.990408891] [moveit_ros.fix_start_state_collision]: Param 'ompl.max_sampling_attempts' was not set. Using default value: 100
+[move_group-11] [INFO] [1743130374.990416495] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Add Time Optimal Parameterization'
+[move_group-11] [INFO] [1743130374.990419097] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Resolve constraint frames to robot links'
+[move_group-11] [INFO] [1743130374.990421037] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Workspace Bounds'
+[move_group-11] [INFO] [1743130374.990423075] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State Bounds'
+[move_group-11] [INFO] [1743130374.990425008] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State In Collision'
+[move_group-11] [INFO] [1743130374.990426868] [moveit.ros_planning.planning_pipeline]: Using planning request adapter 'Fix Start State Path Constraints'
+[move_group-11] [INFO] [1743130374.991875443] [moveit.ros_planning_interface.moveit_cpp]: Loading planning pipeline 'pilz_industrial_motion_planner'
+[move_group-11] [INFO] [1743130374.993545800] [moveit.pilz_industrial_motion_planner.joint_limits_aggregator]: Reading limits from namespace robot_description_planning
+[move_group-11] [INFO] [1743130375.018849705] [moveit.pilz_industrial_motion_planner]: Available plugins: pilz_industrial_motion_planner/PlanningContextLoaderCIRC pilz_industrial_motion_planner/PlanningContextLoaderLIN pilz_industrial_motion_planner/PlanningContextLoaderPTP 
+[move_group-11] [INFO] [1743130375.018894726] [moveit.pilz_industrial_motion_planner]: About to load: pilz_industrial_motion_planner/PlanningContextLoaderCIRC
+[move_group-11] [INFO] [1743130375.020964623] [moveit.pilz_industrial_motion_planner]: Registered Algorithm [CIRC]
+[move_group-11] [INFO] [1743130375.020984267] [moveit.pilz_industrial_motion_planner]: About to load: pilz_industrial_motion_planner/PlanningContextLoaderLIN
+[move_group-11] [INFO] [1743130375.021866234] [moveit.pilz_industrial_motion_planner]: Registered Algorithm [LIN]
+[move_group-11] [INFO] [1743130375.021878604] [moveit.pilz_industrial_motion_planner]: About to load: pilz_industrial_motion_planner/PlanningContextLoaderPTP
+[move_group-11] [INFO] [1743130375.022524959] [moveit.pilz_industrial_motion_planner]: Registered Algorithm [PTP]
+[move_group-11] [INFO] [1743130375.022534866] [moveit.ros_planning.planning_pipeline]: Using planning interface 'Pilz Industrial Motion Planner'
+[move_group-11] [INFO] [1743130375.077772774] [moveit.plugins.moveit_simple_controller_manager]: Added FollowJointTrajectory controller for left_arm_controller
+[move_group-11] [INFO] [1743130375.079642417] [moveit.plugins.moveit_simple_controller_manager]: Added FollowJointTrajectory controller for right_arm_controller
+[move_group-11] [INFO] [1743130375.079689518] [moveit.plugins.moveit_simple_controller_manager]: Max effort set to 0.0
+[move_group-11] [INFO] [1743130375.081883637] [moveit.plugins.moveit_simple_controller_manager]: Added GripperCommand controller for left_robotiq_gripper_controller
+[move_group-11] [INFO] [1743130375.081920191] [moveit.plugins.moveit_simple_controller_manager]: Max effort set to 0.0
+[move_group-11] [INFO] [1743130375.083666623] [moveit.plugins.moveit_simple_controller_manager]: Added GripperCommand controller for right_robotiq_gripper_controller
+[move_group-11] [INFO] [1743130375.083850922] [moveit.plugins.moveit_simple_controller_manager]: Returned 4 controllers in list
+[move_group-11] [INFO] [1743130375.083876726] [moveit.plugins.moveit_simple_controller_manager]: Returned 4 controllers in list
+[move_group-11] [INFO] [1743130375.084594641] [moveit_ros.trajectory_execution_manager]: Trajectory execution is managing controllers
+[move_group-11] [INFO] [1743130375.084644501] [move_group.move_group]: MoveGroup debug mode is ON
+[rviz2-8] [INFO] [1743130375.093699991] [moveit_ros_visualization.motion_planning_frame]: group both_arms
+[rviz2-8] [INFO] [1743130375.093716986] [moveit_ros_visualization.motion_planning_frame]: Constructing new MoveGroup connection for group 'both_arms' in namespace ''
+[move_group-11] [INFO] [1743130375.099477871] [move_group.move_group]: 
+[move_group-11] 
+[move_group-11] ********************************************************
+[move_group-11] * MoveGroup using: 
+[move_group-11] *     - ApplyPlanningSceneService
+[move_group-11] *     - ClearOctomapService
+[move_group-11] *     - CartesianPathService
+[move_group-11] *     - ExecuteTrajectoryAction
+[move_group-11] *     - GetPlanningSceneService
+[move_group-11] *     - KinematicsService
+[move_group-11] *     - MoveAction
+[move_group-11] *     - MotionPlanService
+[move_group-11] *     - QueryPlannersService
+[move_group-11] *     - StateValidationService
+[move_group-11] ********************************************************
+[move_group-11] 
+[move_group-11] [INFO] [1743130375.099528388] [moveit_move_group_capabilities_base.move_group_context]: MoveGroup context using planning plugin ompl_interface/OMPLPlanner
+[move_group-11] [INFO] [1743130375.099539268] [moveit_move_group_capabilities_base.move_group_context]: MoveGroup context initialization complete
+[move_group-11] [96mLoading 'move_group/ApplyPlanningSceneService'...
+[move_group-11] [0m[96mLoading 'move_group/ClearOctomapService'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupCartesianPathService'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupExecuteTrajectoryAction'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupGetPlanningSceneService'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupKinematicsService'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupMoveAction'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupPlanService'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupQueryPlannersService'...
+[move_group-11] [0m[96mLoading 'move_group/MoveGroupStateValidationService'...
+[move_group-11] [0m[92m
+[move_group-11] You can start planning now!
+[move_group-11] 
+[rviz2-8] [INFO] [1743130375.101484243] [move_group_interface]: Ready to take commands for planning group both_arms.
+[rviz2-8] [INFO] [1743130375.103391366] [moveit_ros_visualization.motion_planning_frame]: group both_arms
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[rviz2-8] [INFO] [1743130409.978781813] [rclcpp]: signal_handler(signum=2)
+[robot_state_publisher-10] [INFO] [1743130409.978786332] [rclcpp]: signal_handler(signum=2)
+[mujoco_ros2_control-1] [INFO] [1743130409.978782229] [rclcpp]: signal_handler(signum=2)
+[mujoco_ros2_control-1] [INFO] [1743130409.978877889] [controller_manager]: Shutdown request received....
+[move_group-11] [INFO] [1743130409.978785552] [rclcpp]: signal_handler(signum=2)
+[static_transform_publisher-9] [INFO] [1743130409.978788009] [rclcpp]: signal_handler(signum=2)
+[mujoco_ros2_control-1] [INFO] [1743130409.978971300] [controller_manager]: Shutting down all controllers in the controller manager.
+[mujoco_ros2_control-1] [INFO] [1743130409.979010347] [controller_manager]: Deactivating controller 'right_arm_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979068857] [controller_manager]: Shutting down controller 'right_arm_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979103924] [controller_manager]: Deactivating controller 'right_robotiq_gripper_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979133351] [controller_manager]: Shutting down controller 'right_robotiq_gripper_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979160627] [controller_manager]: Deactivating controller 'left_arm_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979189459] [controller_manager]: Shutting down controller 'left_arm_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979213051] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[mujoco_ros2_control-1] [INFO] [1743130409.979244052] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[mujoco_ros2_control-1] [INFO] [1743130409.979267555] [controller_manager]: Deactivating controller 'left_robotiq_gripper_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979292583] [controller_manager]: Shutting down controller 'left_robotiq_gripper_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979318818] [controller_manager]: Shutting down controller 'twist_controller'
+[mujoco_ros2_control-1] [INFO] [1743130409.979357542] [resource_manager]: 'deactivate' hardware 'right_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979374328] [resource_manager]: Successful 'deactivate' of hardware 'right_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130409.979380755] [resource_manager]: 'shutdown' hardware 'right_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979414010] [resource_manager]: Successful 'shutdown' of hardware 'right_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130409.979423737] [resource_manager]: 'deactivate' hardware 'right_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979430500] [resource_manager]: Successful 'deactivate' of hardware 'right_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130409.979435576] [resource_manager]: 'shutdown' hardware 'right_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979441554] [resource_manager]: Successful 'shutdown' of hardware 'right_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130409.979447879] [resource_manager]: 'deactivate' hardware 'left_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979453706] [resource_manager]: Successful 'deactivate' of hardware 'left_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130409.979458828] [resource_manager]: 'shutdown' hardware 'left_RobotiqGripperHardwareInterface' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979464642] [resource_manager]: Successful 'shutdown' of hardware 'left_RobotiqGripperHardwareInterface'
+[mujoco_ros2_control-1] [INFO] [1743130409.979470547] [resource_manager]: 'deactivate' hardware 'left_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979476287] [resource_manager]: Successful 'deactivate' of hardware 'left_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130409.979481289] [resource_manager]: 'shutdown' hardware 'left_KortexMultiInterfaceHardware' 
+[mujoco_ros2_control-1] [INFO] [1743130409.979486871] [resource_manager]: Successful 'shutdown' of hardware 'left_KortexMultiInterfaceHardware'
+[mujoco_ros2_control-1] [INFO] [1743130409.979491948] [controller_manager]: Shutting down the controller manager.
+[rviz2-8] [WARN] [1743130409.979985456] [interactive_marker_display_95476203454560]: Server not available while running, resetting
+[move_group-11] [INFO] [1743130409.992121583] [moveit.ros_planning_interface.moveit_cpp]: Deleting MoveItCpp
+[move_group-11] [INFO] [1743130409.993208012] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopped publishing maintained planning scene.
+[move_group-11] [INFO] [1743130409.994240611] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping world geometry monitor
+[move_group-11] [INFO] [1743130409.995283628] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping planning scene monitor
+[move_group-11] Warning: class_loader.ClassLoader: SEVERE WARNING!!! Attempting to unload library while objects created by this loader exist in the heap! You should delete your objects before attempting to unload the library or destroying the ClassLoader. The library will NOT be unloaded.
+[move_group-11]          at line 127 in ./src/class_loader.cpp
+[mujoco_ros2_control-1] terminate called after throwing an instance of 'std::runtime_error'
+[mujoco_ros2_control-1]   what():  Node needs to be associated with an executor.
+[move_group-11] Stack trace (most recent call last):
+[move_group-11] #16   Object "", at 0xffffffffffffffff, in 
+[move_group-11] #15   Object "/opt/ros/humble/lib/moveit_ros_move_group/move_group", at 0x56ef72705724, in 
+[rviz2-8] 
+[rviz2-8] >>> [rcutils|error_handling.c:108] rcutils_set_error_state()
+[rviz2-8] This error state is being overwritten:
+[rviz2-8] 
+[rviz2-8]   'rcl node's context is invalid, at ./src/rcl/node.c:428'
+[rviz2-8] 
+[rviz2-8] with this new error message:
+[rviz2-8] 
+[rviz2-8]   'publisher's context is invalid, at ./src/rcl/publisher.c:389'
+[rviz2-8] 
+[rviz2-8] rcutils_reset_error() should be called after error handling to avoid this.
+[rviz2-8] <<<
+[rviz2-8] [INFO] [1743130410.076779619] [moveit_ros.planning_scene_monitor.planning_scene_monitor]: Stopping planning scene monitor
+[INFO] [static_transform_publisher-9]: process has finished cleanly [pid 1176514]
+[INFO] [robot_state_publisher-10]: process has finished cleanly [pid 1176516]
+[move_group-11] #14   Source "../csu/libc-start.c", line 392, in __libc_start_main_impl [0x744f47629e3f]
+[move_group-11] #13   Source "../sysdeps/nptl/libc_start_call_main.h", line 58, in __libc_start_call_main [0x744f47629d8f]
+[move_group-11] #12   Object "/opt/ros/humble/lib/moveit_ros_move_group/move_group", at 0x56ef7270465b, in 
+[move_group-11] #11   Object "/opt/ros/humble/lib/moveit_ros_move_group/move_group", at 0x56ef72706709, in 
+[move_group-11] #10   Object "/opt/ros/humble/lib/libmoveit_cpp.so.2.5.8", at 0x744f482ef486, in moveit_cpp::MoveItCpp::~MoveItCpp()
+[move_group-11] #9    Object "/opt/ros/humble/lib/libmoveit_cpp.so.2.5.8", at 0x744f482ed7b9, in 
+[move_group-11] #8    Object "/opt/ros/humble/lib/libmoveit_trajectory_execution_manager.so.2.5.8", at 0x744f478783b5, in trajectory_execution_manager::TrajectoryExecutionManager::~TrajectoryExecutionManager()
+[move_group-11] #7    Object "/opt/ros/humble/lib/libmoveit_trajectory_execution_manager.so.2.5.8", at 0x744f4788b029, in 
+[move_group-11] #6    Object "/opt/ros/humble/lib/librclcpp.so", at 0x744f47f4f9dc, in rclcpp::Node::~Node()
+[move_group-11] #5    Object "/opt/ros/humble/lib/librclcpp.so", at 0x744f47f4f97e, in rclcpp::Node::~Node()
+[move_group-11] #4    Object "/opt/ros/humble/lib/librclcpp.so", at 0x744f47f2ac59, in 
+[move_group-11] #3    Object "/opt/ros/humble/lib/librclcpp.so", at 0x744f47f59029, in 
+[move_group-11] #2    Object "/opt/ros/humble/lib/librclcpp.so", at 0x744f47f58f70, in rclcpp::node_interfaces::NodeBase::~NodeBase()
+[move_group-11] #1    Object "/opt/ros/humble/lib/librclcpp.so", at 0x744f47f2ac59, in 
+[move_group-11] #0    Object "/opt/ros/humble/lib/librclcpp.so", at 0x744f47f2f9d1, in rclcpp::CallbackGroup::~CallbackGroup()
+[move_group-11] Segmentation fault (Address not mapped to object [0x744f057a2798])
+[ERROR] [mujoco_ros2_control-1]: process has died [pid 1176498, exit code -6, cmd '/home/megan/magic/mujoco_ros2_control/install/mujoco_ros2_control/lib/mujoco_ros2_control/mujoco_ros2_control --ros-args --params-file /tmp/launch_params_zuzo4v5y --params-file /home/megan/magic/ros2_ws/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/ros2_controllers.yaml --params-file /tmp/launch_params_utfmze37 --params-file /tmp/launch_params_13hyegq6'].
+[ERROR] [move_group-11]: process has died [pid 1176518, exit code -11, cmd '/opt/ros/humble/lib/moveit_ros_move_group/move_group --ros-args --params-file /tmp/launch_params_pcrzznbh --params-file /tmp/launch_params_3oinjc9a'].
+[move_group-11] [0m
+[ERROR] [rviz2-8]: process has died [pid 1176512, exit code -11, cmd '/opt/ros/humble/lib/rviz2/rviz2 -d /home/megan/magic/ros2_ws/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/moveit.rviz --ros-args -r __node:=rviz2_moveit --params-file /tmp/launch_params_5z3xp2pq --params-file /tmp/launch_params_jl9lb65t --params-file /tmp/launch_params_x4ah062a --params-file /tmp/launch_params_1uhk5j4m --params-file /tmp/launch_params_81a32bpv --params-file /tmp/launch_params_i16z0uhg'].

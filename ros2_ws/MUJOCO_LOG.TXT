@@ -1,0 +1,213 @@
+Wed Mar 26 17:02:11 2025
+ERROR: Load model error: Error: mesh 'robotiq_85_base_link_coarse' not found in geom 23
+Element name '', id 23, line 153
+
+Wed Mar 26 17:04:44 2025
+ERROR: Load model error: Error: mesh 'robotiq_85_base_link_coarse' not found in geom 23
+Element name '', id 23, line 153
+
+Wed Mar 26 17:05:36 2025
+ERROR: Load model error: Error: mesh 'robotiq_85_base_link_coarse' not found in geom 23
+Element name '', id 23, line 153
+
+Wed Mar 26 17:49:32 2025
+ERROR: Load model error: Error: mesh 'robotiq_85_base_link_coarse' not found in geom 23
+Element name '', id 23, line 153
+
+Wed Mar 26 17:51:18 2025
+ERROR: Load model error: Error: mesh 'robotiq_85_base_link_coarse' not found in geom 23
+Element name '', id 23, line 153
+
+Wed Mar 26 17:57:43 2025
+ERROR: Load model error: Error: mesh 'robotiq_85_base_link_coarse' not found in geom 23
+Element name '', id 23, line 153
+
+Wed Mar 26 18:17:56 2025
+ERROR: Load model error: XML parse error 14:
+Error=XML_ERROR_MISMATCHED_ELEMENT ErrorID=14 (0xe) Line number=93: XMLElement name=worldbody
+
+
+Wed Mar 26 18:18:44 2025
+ERROR: Load model error: XML parse error 14:
+Error=XML_ERROR_MISMATCHED_ELEMENT ErrorID=14 (0xe) Line number=93: XMLElement name=worldbody
+
+
+Wed Mar 26 20:37:20 2025
+ERROR: Load model error: XML Error: Schema violation: unrecognized attribute: 'vel'
+Element 'joint', line 146
+
+
+Wed Mar 26 20:54:55 2025
+ERROR: Load model error: XML Error: Schema violation: unrecognized attribute: 'keyinit'
+Element 'compiler', line 3
+
+
+Wed Mar 26 20:55:37 2025
+ERROR: Load model error: XML Error: Schema violation: unrecognized attribute: 'keyinit'
+Element 'compiler', line 3
+
+
+Wed Mar 26 20:56:34 2025
+ERROR: Load model error: XML Error: Schema violation: unrecognized attribute: 'keyinit'
+Element 'compiler', line 3
+
+
+Wed Mar 26 23:36:07 2025
+ERROR: Load model error: XML Error: invalid keyword: 'fixed'
+Element 'joint', line 155
+
+
+Wed Mar 26 23:38:25 2025
+ERROR: Load model error: XML Error: invalid keyword: 'fixed'
+Element 'joint', line 155
+
+
+Wed Mar 26 23:39:14 2025
+ERROR: Load model error: XML Error: invalid keyword: 'fixed'
+Element 'joint', line 155
+
+
+Thu Mar 27 00:14:55 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 00:19:01 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 00:23:38 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 13:07:59 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 13:08:39 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 13:14:01 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 13:16:50 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 13:20:01 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 13:28:19 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 13:30:51 2025
+ERROR: Load model error: Error: repeated name 'right_gripper' in body
+
+Thu Mar 27 14:25:31 2025
+ERROR: Load model error: ParseXML: Error opening file '/home/megan/magic/ros2_ws/install/two_arm_moveit2_config/share/two_arm_moveit2_config/mujoco_model/dual_arm_setup.xml': No such file or directory
+
+Thu Mar 27 14:47:25 2025
+ERROR: Load model error: ParseXML: Error opening file '/home/megan/magic/ros2_ws/install/two_arm_moveit2_config/share/two_arm_moveit2_config/mujoco_model/dual_arm_setup.xml': No such file or directory
+
+Thu Mar 27 17:06:15 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 17:09:18 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 25. The simulation is unstable. Time = 0.2040.
+
+Thu Mar 27 17:11:52 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 17:16:05 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 17:58:40 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 17:59:09 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 18:02:02 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 18:04:25 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 18:08:34 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 18:12:23 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 18:21:45 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 9. The simulation is unstable. Time = 0.0760.
+
+Thu Mar 27 18:23:15 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 9. The simulation is unstable. Time = 0.0760.
+
+Thu Mar 27 18:24:31 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 18:27:30 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2060.
+
+Thu Mar 27 18:29:02 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 2. The simulation is unstable. Time = 0.3400.
+
+Thu Mar 27 18:34:37 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 2. The simulation is unstable. Time = 0.3400.
+
+Thu Mar 27 18:48:36 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.0060.
+
+Thu Mar 27 18:51:28 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.0060.
+
+Thu Mar 27 18:55:17 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.0060.
+
+Thu Mar 27 20:31:30 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.0060.
+
+Thu Mar 27 20:34:10 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.0060.
+
+Thu Mar 27 20:36:03 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.0060.
+
+Thu Mar 27 20:38:59 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 2. The simulation is unstable. Time = 0.3400.
+
+Thu Mar 27 20:41:59 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 2. The simulation is unstable. Time = 0.3400.
+
+Thu Mar 27 21:45:41 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 18. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 21:58:45 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 18. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 22:00:27 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 18. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 22:02:09 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 18. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 22:17:43 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 18. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 22:18:05 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 18. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 22:48:06 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 22. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 22:49:08 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 9. The simulation is unstable. Time = 0.3360.
+
+Thu Mar 27 22:49:39 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.3480.
+
+Thu Mar 27 22:52:50 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 23. The simulation is unstable. Time = 0.3400.
+
+Thu Mar 27 22:55:10 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 6. The simulation is unstable. Time = 0.0060.
+
+Thu Mar 27 22:56:00 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 16. The simulation is unstable. Time = 0.3840.
+
