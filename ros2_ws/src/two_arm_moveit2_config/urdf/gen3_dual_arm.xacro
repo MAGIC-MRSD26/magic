@@ -5,17 +5,18 @@
     <xacro:arg name="arm" default="gen3" />
     <xacro:arg name="dof" default="7" />
     <xacro:arg name="vision" default="false" />
-    <xacro:arg name="robot_ip" default="" />
+    <xacro:arg name="robot_ip" default="yyy.yyy.yyy.yyy" />
     <xacro:arg name="username" default="admin" />
     <xacro:arg name="password" default="admin" />
     <xacro:arg name="port" default="10000" />
     <xacro:arg name="port_realtime" default="10001" />
     <xacro:arg name="session_inactivity_timeout_ms" default="60000" />
     <xacro:arg name="connection_inactivity_timeout_ms" default="2000" />
-    <xacro:arg name="gripper" default="" />
+    <xacro:arg name="gripper" default="robotiq_2f_85" />
     <xacro:arg name="gripper_joint_name" default="" />
     <xacro:arg name="gripper_max_velocity" default="100.0" />
     <xacro:arg name="gripper_max_force" default="100.0" />
+    <xacro:arg name="sim_mujoco" default="false" />
     <xacro:arg name="sim_gazebo" default="false" />
     <xacro:arg name="sim_ignition" default="false" />
     <xacro:arg name="sim_isaac" default="false" />
@@ -38,7 +39,9 @@
     </material>
 
     <!-- Initial positions from the YAML file -->
-    <xacro:property name="initial_positions_file" default="$(find two_arm_moveit2_config)/config/initial_positions.yaml"/>
+    <xacro:arg name="initial_positions_file" default="$(find two_arm_moveit2_config)/config/initial_positions.yaml"/>
+     <!-- convert to property to use substitution in function -->
+    <xacro:property name="initial_positions_file" default="$(arg initial_positions_file)"/>
 
     <!-- World link -->
     <link name="world">
@@ -87,7 +90,7 @@
     <origin rpy="0 0 0" xyz="-1.1125 0.80448 -0.09654"/>
     </joint>
 
-    <!-- Bin link -->
+    <!-- Bin link
     <link name="bin_link">
     <visual>
         <geometry>
@@ -125,12 +128,12 @@
     </inertial>
     </link>
 
-    <!-- Bin joint -->
+    Bin joint
     <joint name="bin_joint" type="fixed">
     <parent link="world"/>
     <child link="bin_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <!-- Left arm -->
     <xacro:load_robot
@@ -153,6 +156,7 @@
         use_internal_bus_gripper_comm="true"
         use_fake_hardware="$(arg use_fake_hardware)"
         fake_sensor_commands="$(arg fake_sensor_commands)"
+        sim_mujoco="$(arg sim_mujoco)"
         sim_gazebo="$(arg sim_gazebo)"
         sim_ignition="$(arg sim_ignition)"
         sim_isaac="$(arg sim_isaac)"
@@ -182,6 +186,7 @@
         use_internal_bus_gripper_comm="true"
         use_fake_hardware="$(arg use_fake_hardware)"
         fake_sensor_commands="$(arg fake_sensor_commands)"
+        sim_mujoco="$(arg sim_mujoco)"
         sim_gazebo="$(arg sim_gazebo)"
         sim_ignition="$(arg sim_ignition)"
         sim_isaac="$(arg sim_isaac)"

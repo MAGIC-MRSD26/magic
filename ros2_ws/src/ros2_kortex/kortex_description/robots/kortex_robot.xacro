@@ -22,6 +22,7 @@
     use_fake_hardware:=false
     fake_sensor_commands:=false
     sim:=false
+    sim_mujoco:=false
     sim_gazebo:=false
     sim_ignition:=false
     sim_isaac:=false
@@ -53,6 +54,7 @@
       use_internal_bus_gripper_comm="${use_internal_bus_gripper_comm}"
       use_fake_hardware="${use_fake_hardware}"
       fake_sensor_commands="${fake_sensor_commands}"
+      sim_mujoco="${sim_mujoco}"
       sim_gazebo="${sim_gazebo}"
       sim_ignition="${sim_ignition}"
       sim_isaac="${sim_isaac}"
@@ -87,6 +89,7 @@
         prefix="${prefix}"
         use_fake_hardware="${use_fake_hardware}"
         fake_sensor_commands="${fake_sensor_commands}"
+        sim_mujoco="${sim_mujoco}"
         sim_ignition="${sim_ignition}"
         sim_isaac="${sim_isaac}"
         isaac_joint_commands="${isaac_joint_commands}"

@@ -152,13 +152,6 @@ def launch_setup(context, *args, **kwargs):
         arguments=["right_robotiq_gripper_controller", "-c", "/controller_manager"],
     )
 
-    fault_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["fault_controller", "-c", "/controller_manager"],
-        condition=UnlessCondition(use_fake_hardware),
-    )
-
     # rviz with moveit configuration
     rviz_config_file = (
         get_package_share_directory("two_arm_moveit2_config")
@@ -200,7 +193,6 @@ def launch_setup(context, *args, **kwargs):
         robot_pos_controller_spawner,
         robot_left_hand_controller_spawner,
         robot_right_hand_controller_spawner,
-        fault_controller_spawner,
         move_group_node,
         static_tf,
     ]
