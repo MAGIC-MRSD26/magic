@@ -31,7 +31,6 @@ def launch_setup(context, *args, **kwargs):
     description_package = LaunchConfiguration("description_package")
     description_file = LaunchConfiguration("description_file")
     robot_name = LaunchConfiguration("robot_name")
-    prefix = LaunchConfiguration("prefix")
     launch_rviz = LaunchConfiguration("launch_rviz")
     use_sim_time = LaunchConfiguration("use_sim_time")
     gripper = LaunchConfiguration("gripper")
@@ -44,7 +43,6 @@ def launch_setup(context, *args, **kwargs):
             controllers_file,
         ]
     )
-    print(robot_controllers)
 
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare(description_package), "config", "moveit.rviz"]
@@ -71,9 +69,6 @@ def launch_setup(context, *args, **kwargs):
             " ",
             "vision:=",
             vision,
-            " ",
-            "prefix:=",
-            prefix,
             " ",
             "sim_gazebo:=",
             sim_gazebo,
@@ -347,15 +342,6 @@ def generate_launch_description():
     )
     declared_arguments.append(
         DeclareLaunchArgument(
-            "prefix",
-            default_value='""',
-            description="Prefix of the joint names, useful for \
-        multi-robot setup. If changed than also joint names in the controllers' configuration \
-        have to be updated.",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
             "use_sim_time",
             default_value="true",
             description="Use simulated clock",
@@ -370,7 +356,7 @@ def generate_launch_description():
         )
     )
     declared_arguments.append(
-        DeclareLaunchArgument("launch_rviz", default_value="true", description="Launch RViz?")
+        DeclareLaunchArgument("launch_rviz", default_value="false", description="Launch RViz?")
     )
 
     return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])

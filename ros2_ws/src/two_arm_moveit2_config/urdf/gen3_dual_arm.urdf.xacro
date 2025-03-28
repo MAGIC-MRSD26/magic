@@ -6,7 +6,7 @@
 
     <!-- Arguments -->
     <xacro:arg name="prefix" default="" />
-    <xacro:arg name="arm" default="NO_ARM_TYPE_DEFINED" />
+    <xacro:arg name="arm" default="gen3" />
     <xacro:arg name="dof" default="7" />
     <xacro:arg name="vision" default="false" />
     <xacro:arg name="robot_ip" default="192.168.11.11" />
@@ -71,14 +71,14 @@
     <visual>
         <origin rpy="1.5708 0 0" xyz="0 0 0"/>
         <geometry>
-        <mesh filename="package://control/kinova_gen3_mujoco/assets/VentionAssembly.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="file://$(find control)/kinova_gen3_mujoco/assets/VentionAssembly.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="dark_blue_metal"/>
     </visual>
     <collision>
         <origin rpy="1.5708 0 0" xyz="0 0 0"/>
         <geometry>
-        <mesh filename="package://control/kinova_gen3_mujoco/assets/VentionAssembly.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="file://$(find control)/kinova_gen3_mujoco/assets/VentionAssembly.stl" scale="0.001 0.001 0.001"/>
         </geometry>
     </collision>
     <inertial>
@@ -99,14 +99,14 @@
     <link name="bin_link">
     <visual>
         <geometry>
-        <mesh filename="package://control/kinova_gen3_mujoco/assets/bin.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="file://$(find control)/kinova_gen3_mujoco/assets/bin.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="bin_material"/>
         <origin xyz="-0.1905 0.15875 0.9316" rpy="1.5708 0 0"/>
     </visual>
     <collision>
         <geometry>
-        <mesh filename="package://control/kinova_gen3_mujoco/assets/bin.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="file://$(find control)/kinova_gen3_mujoco/assets/bin.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <origin xyz="-0.1905 0.15875 0.9316" rpy="1.5708 0 0"/>
         <surface>
