@@ -1,19 +1,3 @@
-# Copyright (c) 2021 PickNik, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-# Author: Marq Rasmussen
-
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
@@ -48,10 +32,6 @@ def launch_setup(context, *args, **kwargs):
     description_file = LaunchConfiguration("description_file")
     robot_name = LaunchConfiguration("robot_name")
     prefix = LaunchConfiguration("prefix")
-    robot_traj_controller = LaunchConfiguration("robot_controller")
-    robot_pos_controller = LaunchConfiguration("robot_pos_controller")
-    robot_hand_controller = LaunchConfiguration("robot_hand_controller")
-    robot_lite_hand_controller = LaunchConfiguration("robot_lite_hand_controller")
     launch_rviz = LaunchConfiguration("launch_rviz")
     use_sim_time = LaunchConfiguration("use_sim_time")
     gripper = LaunchConfiguration("gripper")
@@ -60,13 +40,14 @@ def launch_setup(context, *args, **kwargs):
         # https://answers.ros.org/question/397123/how-to-access-the-runtime-value-of-a-launchconfiguration-instance-within-custom-launch-code-injected-via-an-opaquefunction-in-ros2/
         [
             FindPackageShare(description_package),
-            "arms/" + robot_type.perform(context) + "/" + dof.perform(context) + "dof/config",
+            "config",
             controllers_file,
         ]
     )
+    print(robot_controllers)
 
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
+        [FindPackageShare(description_package), "config", "moveit.rviz"]
     )
 
     robot_description_content = Command(
@@ -74,7 +55,7 @@ def launch_setup(context, *args, **kwargs):
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare(description_package), "robots", description_file]
+                [FindPackageShare(description_package), "urdf", description_file]
             ),
             " ",
             "robot_ip:=xxx.yyy.zzz.www",
@@ -147,36 +128,42 @@ def launch_setup(context, *args, **kwargs):
         )
     )
 
-    robot_traj_controller_spawner = Node(
+   # robot_left_traj_controller_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["left_arm_controller", "-c", "/controller_manager",],
+    # )
+
+    # robot_right_traj_controller_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["right_arm_controller", "-c", "/controller_manager"],
+    # )
+
+    robot_both_traj_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=[robot_traj_controller, "-c", "/controller_manager"],
+        arguments=["both_arms_controller", "-c", "/controller_manager"],
     )
 
     robot_pos_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=[robot_pos_controller, "--inactive", "-c", "/controller_manager"],
+        arguments=["twist_controller", "--inactive", "-c", "/controller_manager"],
     )
 
-    robot_model = robot_type.perform(context)
-    is_gen3_lite = "false"
-    if robot_model == "gen3_lite":
-        is_gen3_lite = "true"
-
-    robot_hand_controller_spawner = Node(
+    robot_left_hand_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=[robot_hand_controller, "-c", "/controller_manager"],
-        condition=UnlessCondition(is_gen3_lite),
+        arguments=["left_robotiq_gripper_controller", "-c", "/controller_manager"],
     )
 
-    robot_hand_controller_spawner = Node(
+    robot_right_hand_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=[robot_lite_hand_controller, "-c", "/controller_manager"],
-        condition=IfCondition(is_gen3_lite),
+        arguments=["right_robotiq_gripper_controller", "-c", "/controller_manager"],
     )
+
 
     # Bridge
     bridge = Node(
@@ -271,9 +258,10 @@ def launch_setup(context, *args, **kwargs):
         robot_state_publisher_node,
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
-        robot_traj_controller_spawner,
+        robot_both_traj_controller_spawner,
         robot_pos_controller_spawner,
-        robot_hand_controller_spawner,
+        robot_left_hand_controller_spawner,
+        robot_right_hand_controller_spawner,
         gzserver,
         gzclient,
         gazebo_spawn_robot,
@@ -338,7 +326,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
-            default_value="kortex_description",
+            default_value="two_arm_moveit2_config",
             description="Description package with robot URDF/XACRO files. Usually the argument \
         is not set, it enables use of a custom description.",
         )
@@ -346,7 +334,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
-            default_value="kinova.urdf.xacro",
+            default_value="gen3_dual_arm.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
     )
@@ -364,34 +352,6 @@ def generate_launch_description():
             description="Prefix of the joint names, useful for \
         multi-robot setup. If changed than also joint names in the controllers' configuration \
         have to be updated.",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "robot_controller",
-            default_value="joint_trajectory_controller",
-            description="Robot controller to start.",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "robot_pos_controller",
-            default_value="twist_controller",
-            description="Robot controller to start.",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "robot_hand_controller",
-            default_value="robotiq_gripper_controller",
-            description="Robot hand controller to start.",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "robot_lite_hand_controller",
-            default_value="gen3_lite_2f_gripper_controller",
-            description="Robot hand controller to start for Gen3_Lite.",
         )
     )
     declared_arguments.append(
