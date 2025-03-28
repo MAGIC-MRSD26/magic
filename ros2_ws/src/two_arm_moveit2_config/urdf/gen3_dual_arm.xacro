@@ -132,6 +132,280 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
+    <link name="bound_top_link">
+    <visual>
+        <geometry>
+        <box size="1.5 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="1.5 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_top_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_top_link"/>
+    <origin rpy="0 0 0" xyz="0 0 1.8"/>
+    </joint>
+
+    <link name="bound_left_link">
+    <visual>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_left_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_left_link"/>
+    <origin rpy="0 0 1.5708" xyz="0.75 0 1.8"/>
+    </joint>
+
+    <!-- Simple box link -->
+    <link name="bound_right_link">
+    <visual>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_right_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_right_link"/>
+    <origin rpy="0 0 1.5708" xyz="-0.7 0 1.8"/>
+    </joint>
+
+    <link name="bound_right_top_link">
+    <visual>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_right_top_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_right_top_link"/>
+    <origin rpy="0 0 1.5708" xyz="-0.7 0 2.03"/>
+    </joint>
+
+    <!-- Simple box link -->
+    <link name="bound_left_top_link">
+    <visual>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="1 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_left_top_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_left_top_link"/>
+    <origin rpy="0 0 1.5708" xyz="0.75 0 2.03"/>
+    </joint>
+
+    <!-- Simple box link -->
+    <link name="bound_stand_1_link">
+    <visual>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_stand_1_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_stand_1_link"/>
+    <origin rpy="0 1.5708 0" xyz="0.75 -0.55 1.1"/>
+    </joint>
+
+    <!-- Simple box link -->
+    <link name="bound_stand_2_link">
+    <visual>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_stand_2_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_stand_2_link"/>
+    <origin rpy="0 1.5708 0" xyz="-0.7 -0.55 1.1"/>
+    </joint>
+
+    <link name="bound_stand_3_link">
+    <visual>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_stand_3_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_stand_3_link"/>
+    <origin rpy="0 1.5708 0" xyz="-0.7 0.55 1.1"/>
+    </joint>
+
+    <link name="bound_stand_4_link">
+    <visual>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+        <material name="dark_blue_metal"/>
+    </visual>
+    <collision>
+        <geometry>
+        <box size="2 0.1 0.1"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <inertia 
+        ixx="0.00167" 
+        ixy="0.0" 
+        ixz="0.0" 
+        iyy="0.33417" 
+        iyz="0.0" 
+        izz="0.33417"/>
+    </inertial>
+    </link>
+
+    <joint name="bound_stand_4_joint" type="fixed">
+    <parent link="world"/>
+    <child link="bound_stand_4_link"/>
+    <origin rpy="0 1.5708 0" xyz="0.75 0.55 1.1"/>
+    </joint>
+
     <!-- Left arm -->
     <xacro:load_robot
         parent="world"
