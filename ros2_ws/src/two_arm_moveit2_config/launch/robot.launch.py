@@ -36,22 +36,34 @@ def launch_setup(context, *args, **kwargs):
         "gripper_max_force": gripper_max_force,
         "use_internal_bus_gripper_comm": use_internal_bus_gripper_comm,
     }
+    kinematics_path = os.path.join(
+    get_package_share_directory("two_arm_moveit2_config"),
+    "config",
+    "kinematics.yaml"
+    )
 
+    with open(kinematics_path, "r") as f:
+        kinematics_data = yaml.safe_load(f)
+
+    print(">>> Loaded kinematics.yaml:", kinematics_data)
     # Build moveit configuration
     moveit_config = (
-        MoveItConfigsBuilder("gen3_dual_arm", package_name="two_arm_moveit2_config")
-        .robot_description(mappings=launch_arguments)
-        .trajectory_execution(file_path="config/moveit_controllers.yaml")
-        .planning_pipelines(
-            pipelines=["ompl", "pilz_industrial_motion_planner"],
-            default_planning_pipeline="ompl"
-        )
-        .planning_scene_monitor(
-            publish_robot_description=True,
-            publish_robot_description_semantic=True
-        )
-        .to_moveit_configs()
-    )  
+    MoveItConfigsBuilder("gen3_dual_arm", package_name="two_arm_moveit2_config")
+    .robot_description(mappings=launch_arguments)
+    .trajectory_execution(file_path="config/moveit_controllers.yaml")
+    .planning_pipelines(
+        pipelines=["ompl", "pilz_industrial_motion_planner"],
+        default_planning_pipeline="ompl"
+    )
+    .planning_scene_monitor(
+        publish_robot_description=True,
+        publish_robot_description_semantic=True
+    )
+    .to_moveit_configs()
+    )
+
+# Inject kinematics manually
+    moveit_config.robot_description_kinematics = kinematics_data 
 
     moveit_config.moveit_cpp.update({"use_sim_time": use_sim_time.perform(context) == "true"})
 
