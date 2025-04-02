@@ -11,6 +11,7 @@ find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
 
+
 add_executable(moveit_go_left src/moveit_go_left.cpp)
 target_include_directories(moveit_go_left PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -46,6 +47,11 @@ ament_target_dependencies(
   "moveit_visual_tools"
   "rclcpp"
 )
+
+add_executable(dual_arm_joint_planner src/dual_arm_joint_planner.cpp)
+ament_target_dependencies(dual_arm_joint_planner rclcpp moveit_ros_planning_interface)
+install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
+
 
 install(TARGETS moveit_go_left moveit_go_right moveit_go_dual
   DESTINATION lib/${PROJECT_NAME})
