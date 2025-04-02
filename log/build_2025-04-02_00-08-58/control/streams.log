@@ -1,0 +1,22 @@
+[0.594s] Invoking command in '/home/emma/Documents/GitHub/magic/ros2_ws/src/control': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/emma/Documents/GitHub/magic/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/control build --build-base /home/emma/Documents/GitHub/magic/build/control/build install --record /home/emma/Documents/GitHub/magic/build/control/install.log --single-version-externally-managed install_data
+[0.733s] running egg_info
+[0.733s] writing ../../../build/control/control.egg-info/PKG-INFO
+[0.733s] writing dependency_links to ../../../build/control/control.egg-info/dependency_links.txt
+[0.734s] writing entry points to ../../../build/control/control.egg-info/entry_points.txt
+[0.734s] writing requirements to ../../../build/control/control.egg-info/requires.txt
+[0.734s] writing top-level names to ../../../build/control/control.egg-info/top_level.txt
+[0.735s] reading manifest file '../../../build/control/control.egg-info/SOURCES.txt'
+[0.735s] writing manifest file '../../../build/control/control.egg-info/SOURCES.txt'
+[0.735s] running build
+[0.735s] running build_py
+[0.736s] running install
+[0.736s] running install_lib
+[0.736s] running install_data
+[0.736s] running install_egg_info
+[0.737s] removing '/home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control-0.0.1-py3.10.egg-info' (and everything under it)
+[0.738s] Copying ../../../build/control/control.egg-info to /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control-0.0.1-py3.10.egg-info
+[0.738s] running install_scripts
+[0.750s] Installing control_node script to /home/emma/Documents/GitHub/magic/install/control/lib/control
+[0.750s] Installing kinova_gen3_mujoco script to /home/emma/Documents/GitHub/magic/install/control/lib/control
+[0.750s] writing list of installed files to '/home/emma/Documents/GitHub/magic/build/control/install.log'
+[0.764s] Invoked command in '/home/emma/Documents/GitHub/magic/ros2_ws/src/control' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/emma/Documents/GitHub/magic/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/control build --build-base /home/emma/Documents/GitHub/magic/build/control/build install --record /home/emma/Documents/GitHub/magic/build/control/install.log --single-version-externally-managed install_data

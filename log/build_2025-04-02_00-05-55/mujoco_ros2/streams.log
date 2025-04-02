@@ -1,0 +1,22 @@
+[0.572s] Invoking command in '/home/emma/Documents/GitHub/magic/ros2_ws/src/mujoco_ros2': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/emma/Documents/GitHub/magic/build/mujoco_ros2/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/mujoco_ros2 build --build-base /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build install --record /home/emma/Documents/GitHub/magic/build/mujoco_ros2/install.log --single-version-externally-managed install_data
+[0.718s] running egg_info
+[0.719s] writing ../../../build/mujoco_ros2/mujoco_ros2.egg-info/PKG-INFO
+[0.719s] writing dependency_links to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/dependency_links.txt
+[0.719s] writing entry points to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/entry_points.txt
+[0.719s] writing requirements to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/requires.txt
+[0.719s] writing top-level names to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/top_level.txt
+[0.720s] reading manifest file '../../../build/mujoco_ros2/mujoco_ros2.egg-info/SOURCES.txt'
+[0.720s] writing manifest file '../../../build/mujoco_ros2/mujoco_ros2.egg-info/SOURCES.txt'
+[0.721s] running build
+[0.721s] running build_py
+[0.721s] running install
+[0.721s] running install_lib
+[0.722s] running install_data
+[0.722s] running install_egg_info
+[0.723s] removing '/home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2-0.0.0-py3.10.egg-info' (and everything under it)
+[0.723s] Copying ../../../build/mujoco_ros2/mujoco_ros2.egg-info to /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2-0.0.0-py3.10.egg-info
+[0.723s] running install_scripts
+[0.736s] Installing moveit_pose script to /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/mujoco_ros2
+[0.736s] Installing mujoco_node script to /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/mujoco_ros2
+[0.736s] writing list of installed files to '/home/emma/Documents/GitHub/magic/build/mujoco_ros2/install.log'
+[0.751s] Invoked command in '/home/emma/Documents/GitHub/magic/ros2_ws/src/mujoco_ros2' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/emma/Documents/GitHub/magic/build/mujoco_ros2/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/mujoco_ros2 build --build-base /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build install --record /home/emma/Documents/GitHub/magic/build/mujoco_ros2/install.log --single-version-externally-managed install_data

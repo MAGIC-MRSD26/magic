@@ -61,7 +61,8 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
         parameters=[
             moveit_config.to_dict(),
-            {"planning_pipeline": "ompl"},
+            {"planning_pipeline": "ompl",
+             "default_planner_id": "RRTConnect"}
         ],
     )
 
