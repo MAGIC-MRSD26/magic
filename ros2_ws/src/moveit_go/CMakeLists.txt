@@ -11,7 +11,6 @@ find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
 
-
 add_executable(moveit_go_left src/moveit_go_left.cpp)
 target_include_directories(moveit_go_left PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
