@@ -43,7 +43,7 @@ def launch_setup(context, *args, **kwargs):
         .robot_description(mappings=launch_arguments)
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
         .planning_pipelines(
-            pipelines=["ompl", "pilz_industrial_motion_planner"],
+            pipelines=["ompl", "pilz_industrial_motion_planner", "chomp"],
             default_planning_pipeline="ompl"
         )
         .planning_scene_monitor(
@@ -53,6 +53,20 @@ def launch_setup(context, *args, **kwargs):
         .to_moveit_configs()
     )  
 
+    ompl_planning_yaml = os.path.join(
+    get_package_share_directory("two_arm_moveit2_config"),
+    "config",
+    "ompl_planning.yaml"
+    )
+    if os.path.exists(ompl_planning_yaml):
+        with open(ompl_planning_yaml, 'r') as f:
+            ompl_config = yaml.safe_load(f)
+            if not hasattr(moveit_config, 'planning_pipelines'):
+                moveit_config.planning_pipelines = {}
+            if 'ompl' not in moveit_config.planning_pipelines:
+                moveit_config.planning_pipelines['ompl'] = {}
+            moveit_config.planning_pipelines['ompl'].update(ompl_config)
+
     moveit_config.moveit_cpp.update({"use_sim_time": use_sim_time.perform(context) == "true"})
 
     move_group_node = Node(
@@ -61,6 +75,8 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
         parameters=[
             moveit_config.to_dict(),
+            {"planning_pipeline": "ompl", 
+            "default_planner_id": "RRTConnect"} 
         ],
     )
 
