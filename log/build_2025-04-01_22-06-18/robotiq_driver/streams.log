@@ -1,0 +1,64 @@
+[0.017s] Invoking command in '/home/emma/Documents/GitHub/magic/build/robotiq_driver': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/two_arm_moveit2_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_hardware_tests:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_bringup:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_lite_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_6dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_controllers:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_api:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) LD_LIBRARY_PATH=/home/emma/Documents/GitHub/magic/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/robotiq_driver -- -j20 -l20
+[0.047s] [35m[1mConsolidate compiler generated dependencies of target gmock_main[0m
+[0.047s] [35m[1mConsolidate compiler generated dependencies of target gmock[0m
+[0.049s] [35m[1mConsolidate compiler generated dependencies of target robotiq_driver[0m
+[0.056s] [  8%] Built target gmock_main
+[0.056s] [ 20%] Built target gmock
+[0.074s] [ 58%] Built target robotiq_driver
+[0.078s] [35m[1mConsolidate compiler generated dependencies of target test_crc_utils[0m
+[0.078s] [35m[1mConsolidate compiler generated dependencies of target test_default_serial_factory[0m
+[0.078s] [35m[1mConsolidate compiler generated dependencies of target test_data_utils[0m
+[0.080s] [35m[1mConsolidate compiler generated dependencies of target test_default_driver_factory[0m
+[0.080s] [35m[1mConsolidate compiler generated dependencies of target test_robotiq_gripper_hardware_interface[0m
+[0.088s] [ 75%] Built target test_default_serial_factory
+[0.088s] [ 75%] Built target test_data_utils
+[0.088s] [ 83%] Built target test_crc_utils
+[0.095s] [ 91%] Built target test_default_driver_factory
+[0.098s] [100%] Built target test_robotiq_gripper_hardware_interface
+[0.120s] Invoked command in '/home/emma/Documents/GitHub/magic/build/robotiq_driver' returned '0': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/two_arm_moveit2_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_hardware_tests:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_bringup:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_lite_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_6dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_controllers:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_api:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) LD_LIBRARY_PATH=/home/emma/Documents/GitHub/magic/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/robotiq_driver -- -j20 -l20
+[0.122s] Invoking command in '/home/emma/Documents/GitHub/magic/build/robotiq_driver': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/two_arm_moveit2_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_hardware_tests:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_bringup:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_lite_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_6dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_controllers:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_api:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) LD_LIBRARY_PATH=/home/emma/Documents/GitHub/magic/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/robotiq_driver
+[0.129s] -- Install configuration: ""
+[0.129s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/hardware_interface_plugin.xml
+[0.130s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/environment/library_path.sh
+[0.130s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/environment/library_path.dsv
+[0.130s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include
+[0.130s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver
+[0.131s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/default_driver_factory.hpp
+[0.131s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/default_serial_factory.hpp
+[0.131s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/driver.hpp
+[0.131s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/hardware_interface.hpp
+[0.131s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/default_driver.hpp
+[0.132s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/serial.hpp
+[0.132s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/driver_exception.hpp
+[0.132s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/data_utils.hpp
+[0.132s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/driver_factory.hpp
+[0.132s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/default_serial.hpp
+[0.132s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/fake
+[0.132s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/fake/fake_driver.hpp
+[0.133s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/crc_utils.hpp
+[0.133s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/serial_factory.hpp
+[0.133s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/include/robotiq_driver/visibility_control.hpp
+[0.133s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/lib/librobotiq_driver.so
+[0.134s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/ament_index/resource_index/package_run_dependencies/robotiq_driver
+[0.134s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/ament_index/resource_index/parent_prefix_path/robotiq_driver
+[0.134s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/environment/ament_prefix_path.sh
+[0.134s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/environment/ament_prefix_path.dsv
+[0.134s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/environment/path.sh
+[0.135s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/environment/path.dsv
+[0.135s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/local_setup.bash
+[0.135s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/local_setup.sh
+[0.135s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/local_setup.zsh
+[0.135s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/local_setup.dsv
+[0.136s] -- Installing: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/package.dsv
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/ament_index/resource_index/packages/robotiq_driver
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/robotiq_driver
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driver_targetsExport.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driver_targetsExport-noconfig.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_targets-extras.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/ament_cmake_export_libraries-extras.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driverConfig.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/cmake/robotiq_driverConfig-version.cmake
+[0.136s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_driver/share/robotiq_driver/package.xml
+[0.143s] Invoked command in '/home/emma/Documents/GitHub/magic/build/robotiq_driver' returned '0': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/two_arm_moveit2_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_hardware_tests:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/serial:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_bringup:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_lite_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kinova_gen3_6dof_robotiq_2f_85_moveit_config:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_description:/home/emma/Documents/GitHub/magic/ros2_ws/install/robotiq_controllers:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_driver:/home/emma/Documents/GitHub/magic/ros2_ws/install/kortex_api:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) LD_LIBRARY_PATH=/home/emma/Documents/GitHub/magic/install/serial/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/robotiq_driver

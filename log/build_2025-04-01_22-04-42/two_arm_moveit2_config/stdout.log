@@ -1,0 +1,49 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /home/emma/anaconda3/bin/python3 (found version "3.12.7") found components: Interpreter 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/emma/Documents/GitHub/magic/build/two_arm_moveit2_config
+-- Install configuration: ""
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/ament_index/resource_index/package_run_dependencies/two_arm_moveit2_config
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/ament_index/resource_index/parent_prefix_path/two_arm_moveit2_config
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/environment/ament_prefix_path.sh
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/environment/ament_prefix_path.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/environment/path.sh
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/environment/path.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/local_setup.bash
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/local_setup.sh
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/local_setup.zsh
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/local_setup.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/package.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/ament_index/resource_index/packages/two_arm_moveit2_config
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/cmake/two_arm_moveit2_configConfig.cmake
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/cmake/two_arm_moveit2_configConfig-version.cmake
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/package.xml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/launch
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/launch/robot.launch.py
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/pilz_cartesian_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/moveit.rviz
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/initial_positions.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/ompl_planning.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/ros2_controllers.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/moveit_controllers.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/sensors_3d.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/gen3_dual_arm.srdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/joint_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/config/kinematics.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/urdf/gen3_dual_arm.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/two_arm_moveit2_config/share/two_arm_moveit2_config/.setup_assistant

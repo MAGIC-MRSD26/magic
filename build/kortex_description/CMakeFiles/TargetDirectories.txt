@@ -1,0 +1,9 @@
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/uninstall.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/kortex_description_uninstall.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/test.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/edit_cache.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/rebuild_cache.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/list_install_components.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/install.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/install/local.dir
+/home/emma/Documents/GitHub/magic/build/kortex_description/CMakeFiles/install/strip.dir

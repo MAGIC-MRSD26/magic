@@ -1,0 +1,59 @@
+[0.014s] Invoking command in '/home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_kortex/kortex_moveit_config/kinova_gen3_7dof_robotiq_2f_85_moveit_config -DCMAKE_INSTALL_PREFIX=/home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config
+[0.052s] -- The C compiler identification is GNU 11.4.0
+[0.091s] -- The CXX compiler identification is GNU 11.4.0
+[0.098s] -- Detecting C compiler ABI info
+[0.139s] -- Detecting C compiler ABI info - done
+[0.147s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.148s] -- Detecting C compile features
+[0.148s] -- Detecting C compile features - done
+[0.151s] -- Detecting CXX compiler ABI info
+[0.210s] -- Detecting CXX compiler ABI info - done
+[0.215s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.215s] -- Detecting CXX compile features
+[0.216s] -- Detecting CXX compile features - done
+[0.217s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.510s] -- Found Python3: /home/emma/anaconda3/bin/python3 (found version "3.12.7") found components: Interpreter 
+[0.647s] -- Configuring done
+[0.648s] -- Generating done
+[0.649s] -- Build files have been written to: /home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config
+[0.652s] Invoked command in '/home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config' returned '0': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_kortex/kortex_moveit_config/kinova_gen3_7dof_robotiq_2f_85_moveit_config -DCMAKE_INSTALL_PREFIX=/home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config
+[0.654s] Invoking command in '/home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config -- -j20 -l20
+[0.696s] Invoked command in '/home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config' returned '0': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config -- -j20 -l20
+[0.697s] Invoking command in '/home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config
+[0.699s] -- Install configuration: ""
+[0.699s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/ament_index/resource_index/package_run_dependencies/kinova_gen3_7dof_robotiq_2f_85_moveit_config
+[0.699s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/ament_index/resource_index/parent_prefix_path/kinova_gen3_7dof_robotiq_2f_85_moveit_config
+[0.699s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/environment/ament_prefix_path.sh
+[0.699s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/environment/ament_prefix_path.dsv
+[0.699s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/environment/path.sh
+[0.699s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/environment/path.dsv
+[0.699s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/local_setup.bash
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/local_setup.sh
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/local_setup.zsh
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/local_setup.dsv
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/package.dsv
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/ament_index/resource_index/packages/kinova_gen3_7dof_robotiq_2f_85_moveit_config
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/cmake/kinova_gen3_7dof_robotiq_2f_85_moveit_configConfig.cmake
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/cmake/kinova_gen3_7dof_robotiq_2f_85_moveit_configConfig-version.cmake
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/package.xml
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/rsp.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/move_group.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/sim.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/moveit_rviz.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/static_virtual_joint_tfs.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/spawn_controllers.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/setup_assistant.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/launch/robot.launch.py
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/pilz_cartesian_limits.yaml
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/moveit.rviz
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/initial_positions.yaml
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/gen3.srdf
+[0.700s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/ompl_planning.yaml
+[0.701s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/ros2_controllers.yaml
+[0.701s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/moveit_controllers.yaml
+[0.701s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/joint_limits.yaml
+[0.701s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/config/kinematics.yaml
+[0.701s] -- Installing: /home/emma/Documents/GitHub/magic/install/kinova_gen3_7dof_robotiq_2f_85_moveit_config/share/kinova_gen3_7dof_robotiq_2f_85_moveit_config/.setup_assistant
+[0.713s] Invoked command in '/home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config' returned '0': AMENT_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/emma/Documents/GitHub/magic/install/kortex_description:/home/emma/Documents/GitHub/magic/install/robotiq_description:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/kinova_gen3_7dof_robotiq_2f_85_moveit_config

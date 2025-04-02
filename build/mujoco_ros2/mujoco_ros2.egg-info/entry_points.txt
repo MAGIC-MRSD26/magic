@@ -1,0 +1,4 @@
+[console_scripts]
+moveit_pose = mujoco_ros2.moveit_pose:main
+mujoco_node = mujoco_ros2.mujoco_node:main
+

@@ -1,0 +1,46 @@
+running egg_info
+creating ../../../build/mujoco_ros2/mujoco_ros2.egg-info
+writing ../../../build/mujoco_ros2/mujoco_ros2.egg-info/PKG-INFO
+writing dependency_links to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/dependency_links.txt
+writing entry points to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/entry_points.txt
+writing requirements to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/requires.txt
+writing top-level names to ../../../build/mujoco_ros2/mujoco_ros2.egg-info/top_level.txt
+writing manifest file '../../../build/mujoco_ros2/mujoco_ros2.egg-info/SOURCES.txt'
+reading manifest file '../../../build/mujoco_ros2/mujoco_ros2.egg-info/SOURCES.txt'
+writing manifest file '../../../build/mujoco_ros2/mujoco_ros2.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build
+creating /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib
+creating /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2
+copying mujoco_ros2/moveit_pose.py -> /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2
+copying mujoco_ros2/mujoco_node_moveit.py -> /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2
+copying mujoco_ros2/temp2.py -> /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2
+copying mujoco_ros2/mujoco_node.py -> /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2
+copying mujoco_ros2/__init__.py -> /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2
+copying mujoco_ros2/temp.py -> /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2
+running install
+running install_lib
+creating /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2
+copying /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2/moveit_pose.py -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2
+copying /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2/mujoco_node_moveit.py -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2
+copying /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2/temp2.py -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2
+copying /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2/mujoco_node.py -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2
+copying /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2/__init__.py -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2
+copying /home/emma/Documents/GitHub/magic/build/mujoco_ros2/build/lib/mujoco_ros2/temp.py -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2
+byte-compiling /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2/moveit_pose.py to moveit_pose.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2/mujoco_node_moveit.py to mujoco_node_moveit.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2/temp2.py to temp2.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2/mujoco_node.py to mujoco_node.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2/temp.py to temp.cpython-310.pyc
+running install_data
+copying package.xml -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/share/mujoco_ros2
+creating /home/emma/Documents/GitHub/magic/install/mujoco_ros2/share/mujoco_ros2/launch
+copying launch/mujoco_launch.py -> /home/emma/Documents/GitHub/magic/install/mujoco_ros2/share/mujoco_ros2/launch
+running install_egg_info
+Copying ../../../build/mujoco_ros2/mujoco_ros2.egg-info to /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/python3.10/site-packages/mujoco_ros2-0.0.0-py3.10.egg-info
+running install_scripts
+Installing moveit_pose script to /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/mujoco_ros2
+Installing mujoco_node script to /home/emma/Documents/GitHub/magic/install/mujoco_ros2/lib/mujoco_ros2
+writing list of installed files to '/home/emma/Documents/GitHub/magic/build/mujoco_ros2/install.log'

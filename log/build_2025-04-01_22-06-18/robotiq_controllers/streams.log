@@ -1,0 +1,36 @@
+[0.314s] Invoking command in '/home/emma/Documents/GitHub/magic/build/robotiq_controllers': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/robotiq_controllers -- -j20 -l20
+[0.345s] [35m[1mConsolidate compiler generated dependencies of target robotiq_controllers[0m
+[0.362s] [100%] Built target robotiq_controllers
+[0.371s] Invoked command in '/home/emma/Documents/GitHub/magic/build/robotiq_controllers' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/robotiq_controllers -- -j20 -l20
+[0.372s] Invoking command in '/home/emma/Documents/GitHub/magic/build/robotiq_controllers': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/robotiq_controllers
+[0.378s] -- Install configuration: ""
+[0.378s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/controller_plugins.xml
+[0.378s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/lib/librobotiq_controllers.so
+[0.378s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/include
+[0.378s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/include/robotiq_controllers
+[0.378s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/include/robotiq_controllers/robotiq_activation_controller.hpp
+[0.378s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/environment/library_path.sh
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/environment/library_path.dsv
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/ament_index/resource_index/package_run_dependencies/robotiq_controllers
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/ament_index/resource_index/parent_prefix_path/robotiq_controllers
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/environment/ament_prefix_path.sh
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/environment/ament_prefix_path.dsv
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/environment/path.sh
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/environment/path.dsv
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/local_setup.bash
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/local_setup.sh
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/local_setup.zsh
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/local_setup.dsv
+[0.379s] -- Installing: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/package.dsv
+[0.379s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/ament_index/resource_index/packages/robotiq_controllers
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/ament_index/resource_index/controller_interface__pluginlib__plugin/robotiq_controllers
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/export_robotiq_controllersExport.cmake
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/export_robotiq_controllersExport-noconfig.cmake
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_libraries-extras.cmake
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_targets-extras.cmake
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.380s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/robotiq_controllersConfig.cmake
+[0.381s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/cmake/robotiq_controllersConfig-version.cmake
+[0.381s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/robotiq_controllers/share/robotiq_controllers/package.xml
+[0.381s] Invoked command in '/home/emma/Documents/GitHub/magic/build/robotiq_controllers' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/ros2_ws/install/mujoco_ros2:/home/emma/Documents/GitHub/magic/ros2_ws/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/robotiq_controllers

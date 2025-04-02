@@ -1,0 +1,11 @@
+source;share/kortex_driver/hook/cmake_prefix_path.ps1
+source;share/kortex_driver/hook/cmake_prefix_path.dsv
+source;share/kortex_driver/hook/cmake_prefix_path.sh
+source;share/kortex_driver/hook/ld_library_path_lib.ps1
+source;share/kortex_driver/hook/ld_library_path_lib.dsv
+source;share/kortex_driver/hook/ld_library_path_lib.sh
+source;share/kortex_driver/local_setup.bash
+source;share/kortex_driver/local_setup.dsv
+source;share/kortex_driver/local_setup.ps1
+source;share/kortex_driver/local_setup.sh
+source;share/kortex_driver/local_setup.zsh
