@@ -92,7 +92,6 @@ def launch_setup(context, *args, **kwargs):
     )
 
     ros2_control_node = Node(
-        # name="controller_manager",
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[ros2_controllers_path],
@@ -114,27 +113,26 @@ def launch_setup(context, *args, **kwargs):
             'rate': 30,
             'use_sim_time': use_sim_time,
             'publish_default_positions': True,
-            # 'default_positions': initial_positions,
         }]
     )
 
-    # robot_left_traj_controller_spawner = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     arguments=["left_arm_controller", "-c", "/controller_manager",],
-    # )
-
-    # robot_right_traj_controller_spawner = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     arguments=["right_arm_controller", "-c", "/controller_manager"],
-    # )
-
-    robot_both_traj_controller_spawner = Node(
+    robot_left_traj_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["both_arms_controller", "-c", "/controller_manager"],
+        arguments=["left_arm_controller", "-c", "/controller_manager",],
     )
+
+    robot_right_traj_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["right_arm_controller", "-c", "/controller_manager"],
+    )
+
+    # robot_both_traj_controller_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["both_arms_controller", "-c", "/controller_manager"],
+    # )
 
     robot_pos_controller_spawner = Node(
         package="controller_manager",
@@ -196,9 +194,9 @@ def launch_setup(context, *args, **kwargs):
         robot_state_publisher,
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
-        # robot_left_traj_controller_spawner,
-        # robot_right_traj_controller_spawner,
-        robot_both_traj_controller_spawner,
+        robot_left_traj_controller_spawner,
+        robot_right_traj_controller_spawner,
+        # robot_both_traj_controller_spawner,
         robot_pos_controller_spawner,
         robot_left_hand_controller_spawner,
         robot_right_hand_controller_spawner,
