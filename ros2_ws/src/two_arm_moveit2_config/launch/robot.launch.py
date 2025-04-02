@@ -48,22 +48,33 @@ def launch_setup(context, *args, **kwargs):
     print(">>> Loaded kinematics.yaml:", kinematics_data)
     # Build moveit configuration
     moveit_config = (
-    MoveItConfigsBuilder("gen3_dual_arm", package_name="two_arm_moveit2_config")
-    .robot_description(mappings=launch_arguments)
-    .trajectory_execution(file_path="config/moveit_controllers.yaml")
-    .planning_pipelines(
-        pipelines=["ompl", "pilz_industrial_motion_planner"],
-        default_planning_pipeline="ompl"
-    )
-    .planning_scene_monitor(
-        publish_robot_description=True,
-        publish_robot_description_semantic=True
-    )
-    .to_moveit_configs()
-    )
+        MoveItConfigsBuilder("gen3_dual_arm", package_name="two_arm_moveit2_config")
+        .robot_description(mappings=launch_arguments)
+        .trajectory_execution(file_path="config/moveit_controllers.yaml")
+        .planning_pipelines(
+            pipelines=["ompl", "pilz_industrial_motion_planner", "chomp"],
+            default_planning_pipeline="ompl"
+        )
+        .planning_scene_monitor(
+            publish_robot_description=True,
+            publish_robot_description_semantic=True
+        )
+        .to_moveit_configs()
+    )  
 
-# Inject kinematics manually
-    moveit_config.robot_description_kinematics = kinematics_data 
+    ompl_planning_yaml = os.path.join(
+    get_package_share_directory("two_arm_moveit2_config"),
+    "config",
+    "ompl_planning.yaml"
+    )
+    if os.path.exists(ompl_planning_yaml):
+        with open(ompl_planning_yaml, 'r') as f:
+            ompl_config = yaml.safe_load(f)
+            if not hasattr(moveit_config, 'planning_pipelines'):
+                moveit_config.planning_pipelines = {}
+            if 'ompl' not in moveit_config.planning_pipelines:
+                moveit_config.planning_pipelines['ompl'] = {}
+            moveit_config.planning_pipelines['ompl'].update(ompl_config)
 
     moveit_config.moveit_cpp.update({"use_sim_time": use_sim_time.perform(context) == "true"})
 
@@ -73,6 +84,8 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
         parameters=[
             moveit_config.to_dict(),
+            {"planning_pipeline": "ompl", 
+            "default_planner_id": "RRTConnect"} 
         ],
     )
 
