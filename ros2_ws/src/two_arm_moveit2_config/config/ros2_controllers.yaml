@@ -18,9 +18,6 @@ controller_manager:
     twist_controller:
       type: picknik_twist_controller/PicknikTwistController
 
-    fault_controller:
-      type: picknik_reset_fault_controller/PicknikResetFaultController
-
     left_robotiq_gripper_controller:
       type: position_controllers/GripperActionController
 
