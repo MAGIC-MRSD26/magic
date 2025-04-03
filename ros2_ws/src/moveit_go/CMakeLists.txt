@@ -56,6 +56,9 @@ install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
 install(TARGETS moveit_go_left moveit_go_right moveit_go_dual
   DESTINATION lib/${PROJECT_NAME})
 
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
