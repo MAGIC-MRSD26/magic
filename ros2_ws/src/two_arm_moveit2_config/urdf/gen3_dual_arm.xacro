@@ -59,7 +59,7 @@
     </link>
 
     <!-- Table link -->
-    <link name="vention_table_link">
+    <!-- <link name="vention_table_link">
     <visual>
         <origin rpy="1.5708 0 0" xyz="0 0 0"/>
         <geometry>
@@ -80,14 +80,14 @@
     </inertial>
     </link>
 
-    <!-- Table joint -->
+    Table joint
     <joint name="table_joint" type="fixed">
     <parent link="world"/>
     <child link="vention_table_link"/>
     <origin rpy="0 0 0" xyz="-1.1125 0.80448 -0.09654"/>
     </joint>
 
-    <!-- Bin link -->
+    Bin link
     <link name="bin_link">
     <visual>
         <geometry>
@@ -125,13 +125,14 @@
     </inertial>
     </link>
 
-    <!-- Bin joint -->
+    Bin joint
     <joint name="bin_joint" type="fixed">
     <parent link="world"/>
     <child link="bin_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
+    Collision boxes
     <link name="bound_top_link">
     <visual>
         <geometry>
@@ -192,7 +193,6 @@
     <origin rpy="0 0 1.5708" xyz="0.75 0 1.8"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_right_link">
     <visual>
         <geometry>
@@ -253,7 +253,6 @@
     <origin rpy="0 0 1.5708" xyz="-0.7 0 2.03"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_left_top_link">
     <visual>
         <geometry>
@@ -284,7 +283,6 @@
     <origin rpy="0 0 1.5708" xyz="0.75 0 2.03"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_stand_1_link">
     <visual>
         <geometry>
@@ -315,7 +313,6 @@
     <origin rpy="0 1.5708 0" xyz="0.75 -0.55 1.1"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_stand_2_link">
     <visual>
         <geometry>
@@ -404,7 +401,7 @@
     <parent link="world"/>
     <child link="bound_stand_4_link"/>
     <origin rpy="0 1.5708 0" xyz="0.75 0.55 1.1"/>
-    </joint>
+    </joint> -->
 
     <!-- Left arm -->
     <xacro:load_robot
