@@ -48,7 +48,20 @@ ament_target_dependencies(
   "rclcpp"
 )
 
-install(TARGETS moveit_go_left moveit_go_right moveit_go_dual
+add_executable(grasp_and_lift src/grasp_and_lift.cpp)
+target_include_directories(grasp_and_lift PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(grasp_and_lift PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  grasp_and_lift
+  "moveit_task_constructor_core"
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+
+install(TARGETS moveit_go_left moveit_go_right moveit_go_dual grasp_and_lift
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
