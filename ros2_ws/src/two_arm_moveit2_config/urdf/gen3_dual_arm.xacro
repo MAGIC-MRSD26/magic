@@ -33,6 +33,10 @@
     <color rgba="0.0 0.1 0.2 1"/>
     </material>
 
+    <material name="transparent">
+    <color rgba="0.8 0.8 0.8 0"/>
+    </material>
+
     <material name="bin_material">
     <color rgba="0.25 0.25 0.25 1"/>
     </material>
@@ -135,13 +139,13 @@
     <link name="bound_top_link">
     <visual>
         <geometry>
-        <box size="1.5 0.1 0.1"/>
+        <box size="1.5 0.06 0.06"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
-        <box size="1.5 0.1 0.1"/>
+        <box size="1.5 0.06 0.06"/>
         </geometry>
     </collision>
     <inertial>
@@ -165,13 +169,13 @@
     <link name="bound_left_link">
     <visual>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
     </collision>
     <inertial>
@@ -196,13 +200,13 @@
     <link name="bound_right_link">
     <visual>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
     </collision>
     <inertial>
@@ -220,19 +224,19 @@
     <joint name="bound_right_joint" type="fixed">
     <parent link="world"/>
     <child link="bound_right_link"/>
-    <origin rpy="0 0 1.5708" xyz="-0.7 0 1.8"/>
+    <origin rpy="0 0 1.5708" xyz="-0.73 0 1.8"/>
     </joint>
 
     <link name="bound_right_top_link">
     <visual>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
     </collision>
     <inertial>
@@ -250,26 +254,26 @@
     <joint name="bound_right_top_joint" type="fixed">
     <parent link="world"/>
     <child link="bound_right_top_link"/>
-    <origin rpy="0 0 1.5708" xyz="-0.7 0 2.03"/>
+    <origin rpy="0 0 1.5708" xyz="-0.73 0 2.03"/>
     </joint>
 
     <!-- Simple box link -->
     <link name="bound_left_top_link">
     <visual>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
-        <box size="1 0.1 0.1"/>
+        <box size="1 0.06 0.06"/>
         </geometry>
     </collision>
     <inertial>
         <mass value="1.0"/>
         <inertia 
-        ixx="0.00167" 
+        ixx="0.0" 
         ixy="0.0" 
         ixz="0.0" 
         iyy="0.33417" 
@@ -290,7 +294,7 @@
         <geometry>
         <box size="2 0.1 0.1"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
@@ -321,7 +325,7 @@
         <geometry>
         <box size="2 0.1 0.1"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
@@ -343,7 +347,7 @@
     <joint name="bound_stand_2_joint" type="fixed">
     <parent link="world"/>
     <child link="bound_stand_2_link"/>
-    <origin rpy="0 1.5708 0" xyz="-0.7 -0.55 1.1"/>
+    <origin rpy="0 1.5708 0" xyz="-0.73 -0.55 1.1"/>
     </joint>
 
     <link name="bound_stand_3_link">
@@ -351,7 +355,7 @@
         <geometry>
         <box size="2 0.1 0.1"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
@@ -373,7 +377,7 @@
     <joint name="bound_stand_3_joint" type="fixed">
     <parent link="world"/>
     <child link="bound_stand_3_link"/>
-    <origin rpy="0 1.5708 0" xyz="-0.7 0.55 1.1"/>
+    <origin rpy="0 1.5708 0" xyz="-0.73 0.55 1.1"/>
     </joint>
 
     <link name="bound_stand_4_link">
@@ -381,7 +385,7 @@
         <geometry>
         <box size="2 0.1 0.1"/>
         </geometry>
-        <material name="dark_blue_metal"/>
+        <material name="transparent"/>
     </visual>
     <collision>
         <geometry>
