@@ -46,9 +46,11 @@ public:
 
         
         // Create subscription to the grasp pose topic
-        grasp_pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
-            "/left_grasp_pose", 10, 
+        grasp_pose_subscription_ = node_->create_subscription<geometry_msgs::msg::Pose>(
+            "/left_arm_pose", 10, 
             std::bind(&MotionPlanningFSM::graspPoseCallback, this, std::placeholders::_1));
+
+        grasp_pose_received_ = false;
         
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
     }
@@ -58,6 +60,13 @@ public:
             case State::HOME:
                 // arm_move_group_.setNamedTarget("Home");
                 // arm_move_group_.move();
+
+                // Wait for pose if needed
+                if (!grasp_pose_received_) {
+                    RCLCPP_INFO_THROTTLE(LOGGER, *node_->get_clock(), 2000, 
+                                        "Waiting for pose on /left_arm_pose...");
+                    return true; // Stay in HOME state until we get a message
+                }
                 current_state_ = State::PLAN_TO_OBJECT;
                 visual_tools_.prompt("Press 'Next' in the RvizVisualToolsGui window to plan to object");
                 return true;
@@ -122,18 +131,20 @@ private:
     moveit::planning_interface::MoveGroupInterface::Plan current_plan_;
 
     // Grasp pose subscription and storage
-    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr grasp_pose_subscription_;
+    rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr grasp_pose_subscription_;
     geometry_msgs::msg::Pose target_grasp_pose_;
     bool grasp_pose_received_;
 
     // Callback for the grasp pose subscriber
-    void graspPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
-        target_grasp_pose_ = msg->pose;
+    void graspPoseCallback(const geometry_msgs::msg::Pose::SharedPtr msg) {
+        target_grasp_pose_ = *msg;
         grasp_pose_received_ = true;
         RCLCPP_INFO(LOGGER, "Received grasp pose: x=%f, y=%f, z=%f", 
                     target_grasp_pose_.position.x,
                     target_grasp_pose_.position.y,
                     target_grasp_pose_.position.z);
+
+        grasp_pose_subscription_.reset();
     }
 
     bool planToObject() {
@@ -148,13 +159,17 @@ private:
         target_pose.orientation = quat_orient;
 
         if (grasp_pose_received_) {
+            RCLCPP_INFO(LOGGER, "Using position from topic");
             target_pose.position.x = target_grasp_pose_.position.x;
             target_pose.position.y = target_grasp_pose_.position.y;
             target_pose.position.z = target_grasp_pose_.position.z; // Slightly above the grasp position
-        } 
-        // target_pose.position.x = 0.1868;
-        // target_pose.position.y = 0;
-        // target_pose.position.z = 1.4;
+        }
+        // } else {
+        //     RCLCPP_INFO(LOGGER, "Using default position");
+        //     target_pose.position.x = 0.1868; // Default position
+        //     target_pose.position.y = 0.0;
+        //     target_pose.position.z = 1.4; // Slightly above the grasp position
+        // }
         arm_move_group_.setPoseTarget(target_pose);
         arm_move_group_.setPlanningTime(15.0);  // Give the planner more time (15 seconds)
         auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
