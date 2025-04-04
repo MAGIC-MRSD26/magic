@@ -47,6 +47,9 @@ ament_target_dependencies(
   "rclcpp"
 )
 
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME})
+
 install(TARGETS moveit_go_left moveit_go_right moveit_go_dual
   DESTINATION lib/${PROJECT_NAME})
 
