@@ -11,6 +11,40 @@ from ros2_aruco_interfaces.msg import ArucoMarkers
 from rcl_interfaces.msg import ParameterDescriptor, ParameterType
 
 
+
+
+R_X90 = np.array([
+    [1, 0, 0],
+    [0, 0, -1],
+    [0, 1, 0]
+])
+
+# Define the translation vector (1.88 meters in Z direction)
+T_camera_to_world = np.array([0, 0, 1.88])
+
+def transform_to_world_frame(grasp_point_camera):
+    # Apply the rotation and translation
+    grasp_point_camera_np = np.array([grasp_point_camera.position.x, 
+                                      grasp_point_camera.position.y, 
+                                      grasp_point_camera.position.z])
+    
+    # Apply rotation and translation
+    grasp_point_world = np.dot(R_X90, grasp_point_camera_np) + T_camera_to_world
+    
+    # Create a Pose message for the transformed grasp point in the world frame
+    grasp_point_world_pose = Pose()
+    grasp_point_world_pose.position.x = grasp_point_world[0]
+    grasp_point_world_pose.position.y = grasp_point_world[1]
+    grasp_point_world_pose.position.z = grasp_point_world[2]
+    
+    # Use the same rotation quaternion as the camera frame for simplicity
+    grasp_point_world_pose.orientation = grasp_point_camera.orientation
+    
+    return grasp_point_world_pose
+
+
+
+
 class ArucoNode(rclpy.node.Node):
     def __init__(self):
         super().__init__("aruco_node")
@@ -194,7 +228,7 @@ class ArucoNode(rclpy.node.Node):
                 markers.marker_ids.append(marker_id[0])
 
                 # Left grasp point calculation (-20 cm in X, +25 cm in Z)
-                left_grasp_offset = np.array([-0.20, 0, 0.25])  # 20 cm in X, 25 cm in Z (in marker's local frame)
+                left_grasp_offset = np.array([-0.25, 0, 0.25])  # 20 cm in X, 25 cm in Z (in marker's local frame)
                 rot_matrix_left = np.eye(3)
                 rot_matrix_left[0:3, 0:3] = cv2.Rodrigues(np.array(rvecs[i][0]))[0]  # Marker rotation matrix
                 left_grasp_offset_rotated = np.dot(rot_matrix_left, left_grasp_offset)  # Apply the rotation
@@ -203,7 +237,7 @@ class ArucoNode(rclpy.node.Node):
                 left_grasp_tvec = tvecs[i][0] + left_grasp_offset_rotated  # Add the offset to the marker's position
 
                 # Right grasp point calculation (+20 cm in X, +25 cm in Z)
-                right_grasp_offset = np.array([0.20, 0, 0.25])  # 20 cm in X, 25 cm in Z (in marker's local frame)
+                right_grasp_offset = np.array([0.19, 0, 0.25])  # 20 cm in X, 25 cm in Z (in marker's local frame)
                 rot_matrix_right = np.eye(3)
                 rot_matrix_right[0:3, 0:3] = cv2.Rodrigues(np.array(rvecs[i][0]))[0]  # Marker rotation matrix
                 right_grasp_offset_rotated = np.dot(rot_matrix_right, right_grasp_offset)  # Apply the rotation
@@ -227,8 +261,11 @@ class ArucoNode(rclpy.node.Node):
                 left_grasp.orientation.z = quat_left[2]
                 left_grasp.orientation.w = quat_left[3]
 
-                # Publish the left grasp point
-                self.left_grasp_pub.publish(left_grasp)
+
+                # Example usage: Transforming the left grasp point
+                left_grasp_world = transform_to_world_frame(left_grasp)
+                                # Publish the left grasp point
+                self.left_grasp_pub.publish(left_grasp_world)
 
                 # Create Pose message for the right grasp point
                 right_grasp = Pose()
@@ -247,7 +284,8 @@ class ArucoNode(rclpy.node.Node):
                 right_grasp.orientation.w = quat_right[3]
 
                 # Publish the right grasp point
-                self.right_grasp_pub.publish(right_grasp)
+                right_grasp_world = transform_to_world_frame(right_grasp)
+                self.right_grasp_pub.publish(right_grasp_world)
 
                 # Project the left grasp point to image coordinates using the updated left_grasp_tvec
                 left_grasp_image = cv2.projectPoints(
@@ -261,10 +299,11 @@ class ArucoNode(rclpy.node.Node):
                     rvecs[i], right_grasp_tvec, self.intrinsic_mat, self.distortion
                 )[0].reshape(-1, 2).astype(int)
 
-                # Draw the circles on the grasp points (on the image)
+                
+                # cv2.drawFrameAxes(cv_image, self.intrinsic_mat, self.distortion, rvecs[i], left_grasp_tvec, 0.05)  # Draw frame axes for left grasp
+                # cv2.drawFrameAxes(cv_image, self.intrinsic_mat, self.distortion, rvecs[i], right_grasp_tvec, 0.05)  # Draw frame axes for right grasp
                 cv2.drawFrameAxes(cv_image, self.intrinsic_mat, self.distortion, rvecs[i], left_grasp_tvec, 0.05)  # Draw frame axes for left grasp
                 cv2.drawFrameAxes(cv_image, self.intrinsic_mat, self.distortion, rvecs[i], right_grasp_tvec, 0.05)  # Draw frame axes for right grasp
-
 
 
             # Publish the poses and marker information

@@ -1,9 +1,0 @@
-# Default initial positions for gen3_robotiq_2f_85's ros2_control fake system
-
-joint_1: 0.0
-joint_2: 0.0
-joint_3: 0.0
-joint_4: 2.53
-joint_5: 0.0
-joint_6: 0.576
-joint_7: 1.57
