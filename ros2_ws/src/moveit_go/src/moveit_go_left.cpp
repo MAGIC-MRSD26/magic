@@ -24,6 +24,13 @@ class LeftArmPlanner : public rclcpp::Node {
   
   private:
     void pose_callback(const geometry_msgs::msg::Pose::SharedPtr msg) {
+      //debug stattement: checking incoming pose
+      RCLCPP_INFO(this->get_logger(), "Received Pose:");
+      RCLCPP_INFO(this->get_logger(), "  Position -> x: %.3f, y: %.3f, z: %.3f",
+              msg->position.x, msg->position.y, msg->position.z);
+      RCLCPP_INFO(this->get_logger(), "  Orientation -> x: %.3f, y: %.3f, z: %.3f, w: %.3f",
+              msg->orientation.x, msg->orientation.y, msg->orientation.z, msg->orientation.w);
+              
       move_group_->setPoseTarget(*msg);
       move_group_->setPlanningTime(15.0);
       moveit::planning_interface::MoveGroupInterface::Plan plan;
@@ -35,7 +42,7 @@ class LeftArmPlanner : public rclcpp::Node {
       } else {
         RCLCPP_WARN(this->get_logger(), "Planning failed.");
       }
-      //rclcpp::shutdown(); 
+      rclcpp::shutdown(); 
       // Uncomment this line if you want to shut down the node after executing the plan
     }
   
