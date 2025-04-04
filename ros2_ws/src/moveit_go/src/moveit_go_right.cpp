@@ -35,7 +35,7 @@ class RightArmPlanner : public rclcpp::Node {
       } else {
         RCLCPP_WARN(this->get_logger(), "Planning failed.");
       }
-      //rclcpp::shutdown(); 
+      rclcpp::shutdown(); 
       // Uncomment this line if you want to shut down the node after executing the plan
     }
 
