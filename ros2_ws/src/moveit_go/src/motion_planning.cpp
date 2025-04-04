@@ -43,6 +43,12 @@ public:
           arm_move_group_(node, arm_planning_group),
           gripper_move_group_(node, gripper_planning_group),
           current_state_(State::HOME) {
+
+        
+        // Create subscription to the grasp pose topic
+        grasp_pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
+            "/left_grasp_pose", 10, 
+            std::bind(&MotionPlanningFSM::graspPoseCallback, this, std::placeholders::_1));
         
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
     }
@@ -115,6 +121,21 @@ private:
     State current_state_;
     moveit::planning_interface::MoveGroupInterface::Plan current_plan_;
 
+    // Grasp pose subscription and storage
+    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr grasp_pose_subscription_;
+    geometry_msgs::msg::Pose target_grasp_pose_;
+    bool grasp_pose_received_;
+
+    // Callback for the grasp pose subscriber
+    void graspPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
+        target_grasp_pose_ = msg->pose;
+        grasp_pose_received_ = true;
+        RCLCPP_INFO(LOGGER, "Received grasp pose: x=%f, y=%f, z=%f", 
+                    target_grasp_pose_.position.x,
+                    target_grasp_pose_.position.y,
+                    target_grasp_pose_.position.z);
+    }
+
     bool planToObject() {
         // End Effector target pose
         // Define orientation in quaternion
@@ -125,9 +146,15 @@ private:
 
         geometry_msgs::msg::Pose target_pose;
         target_pose.orientation = quat_orient;
-        target_pose.position.x = 0.1868;
-        target_pose.position.y = 0;
-        target_pose.position.z = 1.4;
+
+        if (grasp_pose_received_) {
+            target_pose.position.x = target_grasp_pose_.position.x;
+            target_pose.position.y = target_grasp_pose_.position.y;
+            target_pose.position.z = target_grasp_pose_.position.z; // Slightly above the grasp position
+        } 
+        // target_pose.position.x = 0.1868;
+        // target_pose.position.y = 0;
+        // target_pose.position.z = 1.4;
         arm_move_group_.setPoseTarget(target_pose);
         arm_move_group_.setPlanningTime(15.0);  // Give the planner more time (15 seconds)
         auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
@@ -251,22 +278,22 @@ private:
 
     bool Grasp() {
 
-        // Allow Collision
-        std::vector<std::string> touch_links;
-        touch_links.push_back("left_robotiq_85_right_finger_tip_link");
-        touch_links.push_back("left_robotiq_85_left_finger_tip_link");
-        touch_links.push_back("left_robotiq_85_right_inner_knuckle_link");
-        touch_links.push_back("left_robotiq_85_left_inner_knuckle_link");
-        touch_links.push_back("left_robotiq_85_right_knuckle_link");
-        touch_links.push_back("left_robotiq_85_left_knuckle_link");
+        // // Allow Collision
+        // std::vector<std::string> touch_links;
+        // touch_links.push_back("left_robotiq_85_right_finger_tip_link");
+        // touch_links.push_back("left_robotiq_85_left_finger_tip_link");
+        // touch_links.push_back("left_robotiq_85_right_inner_knuckle_link");
+        // touch_links.push_back("left_robotiq_85_left_inner_knuckle_link");
+        // touch_links.push_back("left_robotiq_85_right_knuckle_link");
+        // touch_links.push_back("left_robotiq_85_left_knuckle_link");
         
-        // Get the current planning scene
-        moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
+        // // Get the current planning scene
+        // moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
         
-        // Simply modify the ACM (Allowed Collision Matrix) for the bin and gripper links
-        for (const auto& link : touch_links) {
-            planning_scene_interface.allowCollisions("bin", link, true);
-        }
+        // // Simply modify the ACM (Allowed Collision Matrix) for the bin and gripper links
+        // for (const auto& link : touch_links) {
+        //     planning_scene_interface.allowCollisions("bin", link, true);
+        // }
 
         // Close gripper
         gripper_move_group_.setNamedTarget("Close");
