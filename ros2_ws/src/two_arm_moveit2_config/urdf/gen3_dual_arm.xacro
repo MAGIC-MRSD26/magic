@@ -132,7 +132,7 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
-    <!-- <link name="bound_top_link">
+    <link name="bound_top_link">
     <visual>
         <geometry>
         <box size="1.5 0.1 0.1"/>
@@ -400,7 +400,7 @@
     <parent link="world"/>
     <child link="bound_stand_4_link"/>
     <origin rpy="0 1.5708 0" xyz="0.75 0.55 1.1"/>
-    </joint> -->
+    </joint>
 
     <!-- Left arm -->
     <xacro:load_robot
