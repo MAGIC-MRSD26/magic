@@ -175,44 +175,47 @@ private:
         gripper_move_group_.setNamedTarget("Open");
         gripper_move_group_.move();
 
-        // Turn off collision for object and gripper
-
-
-        // Approach object
-        moveit_msgs::msg::CollisionObject object;
-        object.id = "cylinder1";
+        // Add object to the planning scene
+        visual_tools_.prompt("Press 'Next' to add object to planning scene");
+        moveit_msgs::msg::CollisionObject bin_object;
+        bin_object.id = "bin";
+        bin_object.header.frame_id = "world";
         
         // Define the object shape
-        shape_msgs::msg::SolidPrimitive cylinder_primitive;
-        cylinder_primitive.type = shape_msgs::msg::SolidPrimitive::CYLINDER;
-        cylinder_primitive.dimensions.resize(2);
-        cylinder_primitive.dimensions[shape_msgs::msg::SolidPrimitive::CYLINDER_HEIGHT] = 0.20;
-        cylinder_primitive.dimensions[shape_msgs::msg::SolidPrimitive::CYLINDER_RADIUS] = 0.04;
+        shape_msgs::msg::SolidPrimitive box_primitive;
+        box_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        box_primitive.dimensions.resize(3);
+        box_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = 0.01;  // Adjust dimensions
+        box_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = 0.32;  // based on your bin
+        box_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = 0.266;
         
         // Define the object pose
         geometry_msgs::msg::Pose object_pose;
-        object_pose.orientation.w = 1.0;
-        object_pose.position.x = 0.1868;  // Same position as your target
+        tf2::Quaternion obj_quat;
+        obj_quat.setRPY(0, 0, 0);  // Set proper rotation
+        object_pose.orientation = tf2::toMsg(obj_quat);
+        object_pose.position.x = 0.1905;
         object_pose.position.y = 0.0;
-        object_pose.position.z = 1.3;     // Slightly below your target
+        object_pose.position.z = 1.0646; // height of table is 0.9316
         
-        // Add the object to the planning scene
-        object.header.frame_id = "world";  // Or your base frame
-        object.primitives.push_back(cylinder_primitive);
-        object.primitive_poses.push_back(object_pose);
-        object.operation = moveit_msgs::msg::CollisionObject::ADD;
+        // Add the bin to the planning scene
+        bin_object.primitives.push_back(box_primitive);
+        bin_object.primitive_poses.push_back(object_pose);
+        bin_object.operation = moveit_msgs::msg::CollisionObject::ADD;
         
-        // Add the object to the planning scene
-        planning_scene_interface_.applyCollisionObject(object);
+        planning_scene_interface_.applyCollisionObject(bin_object);
         
         RCLCPP_INFO(LOGGER, "Added cylinder to planning scene");
         
         // Plan to the grasp position with collision avoidance
+        visual_tools_.prompt("Press 'Next' to plan to grasp pose");
+        tf2::Quaternion q;
+        q.setRPY(0, M_PI/2, 0);  // Adjusted orientation for top 
         geometry_msgs::msg::Pose grasp_pose;
-        grasp_pose.orientation = object_pose.orientation;
-        grasp_pose.position.x = object_pose.position.x;
-        grasp_pose.position.y = object_pose.position.y;
-        grasp_pose.position.z = object_pose.position.z + 0.1;  // Approach from above
+        grasp_pose.orientation = tf2::toMsg(q);
+        grasp_pose.position.x = -0.1905;  // Bin position
+        grasp_pose.position.y = 0.15875;
+        grasp_pose.position.z = 1.0316;
         
         arm_move_group_.setPoseTarget(grasp_pose);
         arm_move_group_.setPlanningTime(15.0);
@@ -221,6 +224,7 @@ private:
     
         if (success) {
             RCLCPP_INFO(LOGGER, "Planning to grasp");
+            visual_tools_.prompt("Press 'Next' to move to grasp pose");
             current_state_ = State::MOVE_TO_GRASP;
         } else {
             RCLCPP_ERROR(LOGGER, "Failed to move to object");
@@ -279,15 +283,35 @@ private:
 
     bool planToHome() {
 
-        RCLCPP_INFO(LOGGER, "Planning to home");
-        current_state_ = State::MOVE_TO_HOME;
+        arm_move_group_.setNamedTarget("Home");
+        arm_move_group_.setPlanningTime(15.0);
+        auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
+
+        if (success) {
+            current_state_ = State::MOVE_TO_HOME;
+            visual_tools_.prompt("Press 'Next' in the RvizVisualToolsGui window to execute move to home");
+            return true;
+        } else {
+            RCLCPP_ERROR(LOGGER, "Failed to plan to object");
+            current_state_ = State::FAILED;
+            return true;
+        }
+        
         return true;
     }
 
     bool moveToHome() {
 
-        RCLCPP_INFO(LOGGER, "Moving to home");
-        current_state_ = State::SUCCEEDED;
+        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        
+        if (success) {
+            RCLCPP_INFO(LOGGER, "Successfully moved to object");
+            current_state_ = State::SUCCEEDED;
+        } else {
+            RCLCPP_ERROR(LOGGER, "Failed to move to object");
+            current_state_ = State::FAILED;
+        }
+        
         return true;
     }
 };
