@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
   }
   
   // Plan and execute
-  if (pick_place_task.plan(5)) {
+  if (pick_place_task.plan(10)) {
     RCLCPP_INFO(node->get_logger(), "Planning successful");
     if (pick_place_task.execute()) {
       RCLCPP_INFO(node->get_logger(), "Execution successful");

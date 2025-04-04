@@ -170,13 +170,15 @@ def launch_setup(context, *args, **kwargs):
         executable="kinova_pick_place_demo",
         output="screen",
         parameters=[
-            moveit_config.robot_description,
-            moveit_config.robot_description_semantic,
-            moveit_config.robot_description_kinematics,
-            moveit_config.joint_limits,
-            moveit_config.planning_pipelines,
-            os.path.join(
-                get_package_share_directory("moveit_go"), "config", "7dof_kinova_config.yaml"),
+            moveit_config.to_dict(),
+            {"planning_pipeline": "ompl"}
+        #     moveit_config.robot_description,
+        #     moveit_config.robot_description_semantic,
+        #     moveit_config.robot_description_kinematics,
+        #     moveit_config.joint_limits,
+        #     moveit_config.planning_pipelines,
+        #     os.path.join(
+        #         get_package_share_directory("moveit_go"), "config", "7dof_kinova_config.yaml"),
         ],
     )
 

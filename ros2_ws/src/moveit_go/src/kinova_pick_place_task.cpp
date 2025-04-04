@@ -238,30 +238,24 @@ bool KinovaPickPlaceTask::init(const rclcpp::Node::SharedPtr& node, const Params
 		 *               Generate Grasp Pose                *
 		 ***************************************************/
 		{
+			// Sample grasp pose candidates in angle increments around the z-axis of the object
 			auto stage = std::make_unique<stages::GenerateGraspPose>("generate grasp pose");
 			stage->properties().configureInitFrom(Stage::PARENT);
 			stage->properties().set("marker_ns", "grasp_pose");
-			
-            // Instead of using setPreGraspPose with a RobotState, define a named pre-grasp pose
-            // and use that name. For now, we'll use "open" as the named pose.
-            stage->setPreGraspPose("Open");
-            
-            // Set the pre-grasp pose as a property for other stages to reference
-            auto joint_map = vectorToJointMap(params.hand_open_pose, params.hand_group_name, robot_model);
-            stage->properties().set("Open", joint_map);
-			
-			stage->setObject(params.object_name);
-			// Sample less grasp poses for Kinova
-			stage->setAngleDelta(M_PI / 8);  // 45 degree increments
-			stage->setMonitoredStage(initial_state_ptr);
+			stage->setPreGraspPose("Open");
+			stage->setObject(params.object_name);  // object to sample grasps for
+			stage->setAngleDelta(M_PI / 12);
+			stage->setMonitoredStage(initial_state_ptr);  // hook into successful initial-phase solutions
 
 			// Compute IK for sampled grasp poses
 			auto wrapper = std::make_unique<stages::ComputeIK>("grasp pose IK", std::move(stage));
-			wrapper->setMaxIKSolutions(8);
+			wrapper->setMaxIKSolutions(8);  // limit number of solutions
 			wrapper->setMinSolutionDistance(1.0);
+			// define virtual frame to reach the target_pose
 			wrapper->setIKFrame(vectorToEigen(params.grasp_frame_transform), params.hand_frame);
-			wrapper->properties().configureInitFrom(Stage::PARENT, { "eef", "group" });
-			wrapper->properties().configureInitFrom(Stage::INTERFACE, { "target_pose" });
+			wrapper->properties().configureInitFrom(Stage::PARENT, { "eef", "group" });  // inherit properties from parent
+			wrapper->properties().configureInitFrom(Stage::INTERFACE,
+			                                        { "target_pose" });  // inherit property from child solution
 			grasp->insert(std::move(wrapper));
 		}
 
