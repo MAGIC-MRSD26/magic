@@ -35,6 +35,8 @@ class RightArmPlanner : public rclcpp::Node {
       } else {
         RCLCPP_WARN(this->get_logger(), "Planning failed.");
       }
+      //rclcpp::shutdown(); 
+      // Uncomment this line if you want to shut down the node after executing the plan
     }
 
     rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr subscriber_;
@@ -49,6 +51,7 @@ int main(int argc, char** argv) {
   node->init_move_group();
 
   rclcpp::spin(node);
-  rclcpp::shutdown();
+  //rclcpp::shutdown();
+  //uncomment this line if you want to the node running continuously
   return 0;
 }

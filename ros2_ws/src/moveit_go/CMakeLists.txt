@@ -36,24 +36,24 @@ ament_target_dependencies(
   "rclcpp"
 )
 
-add_executable(moveit_go_dual src/moveit_go_dual.cpp)
-target_include_directories(moveit_go_dual PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
-target_compile_features(moveit_go_dual PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  moveit_go_dual
-  "moveit_ros_planning_interface"
-  "moveit_visual_tools"
-  "rclcpp"
-)
+# add_executable(moveit_go_dual src/moveit_go_dual.cpp)
+# target_include_directories(moveit_go_dual PUBLIC
+#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#   $<INSTALL_INTERFACE:include>)
+# target_compile_features(moveit_go_dual PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+# ament_target_dependencies(
+#   moveit_go_dual
+#   "moveit_ros_planning_interface"
+#   "moveit_visual_tools"
+#   "rclcpp"
+# )
 
 add_executable(dual_arm_joint_planner src/dual_arm_joint_planner.cpp)
 ament_target_dependencies(dual_arm_joint_planner rclcpp moveit_ros_planning_interface)
 install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
 
 
-install(TARGETS moveit_go_left moveit_go_right moveit_go_dual
+install(TARGETS moveit_go_left moveit_go_right #moveit_go_dual
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
