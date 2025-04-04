@@ -130,7 +130,7 @@
     <parent link="world"/>
     <child link="bin_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <link name="bound_top_link">
     <visual>
@@ -154,7 +154,7 @@
         iyz="0.0" 
         izz="0.33417"/>
     </inertial>
-    </link> -->
+    </link>
 
     <joint name="bound_top_joint" type="fixed">
     <parent link="world"/>

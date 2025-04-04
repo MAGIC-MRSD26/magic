@@ -205,17 +205,17 @@ private:
         
         planning_scene_interface_.applyCollisionObject(bin_object);
         
-        RCLCPP_INFO(LOGGER, "Added cylinder to planning scene");
+        RCLCPP_INFO(LOGGER, "Added bin to planning scene");
         
         // Plan to the grasp position with collision avoidance
         visual_tools_.prompt("Press 'Next' to plan to grasp pose");
         tf2::Quaternion q;
-        q.setRPY(0, M_PI/2, 0);  // Adjusted orientation for top 
+        q.setRPY(0, -3.14, 0);  // Adjusted orientation for top 
         geometry_msgs::msg::Pose grasp_pose;
         grasp_pose.orientation = tf2::toMsg(q);
-        grasp_pose.position.x = -0.1905;  // Bin position
-        grasp_pose.position.y = 0.15875;
-        grasp_pose.position.z = 1.0316;
+        grasp_pose.position.x = 0.1905;
+        grasp_pose.position.y = 0.0;
+        grasp_pose.position.z = 1.3;
         
         arm_move_group_.setPoseTarget(grasp_pose);
         arm_move_group_.setPlanningTime(15.0);
@@ -227,7 +227,7 @@ private:
             visual_tools_.prompt("Press 'Next' to move to grasp pose");
             current_state_ = State::MOVE_TO_GRASP;
         } else {
-            RCLCPP_ERROR(LOGGER, "Failed to move to object");
+            RCLCPP_ERROR(LOGGER, "Failed to move to grasp pose");
             current_state_ = State::FAILED;
         }
         return true;
@@ -235,21 +235,70 @@ private:
 
     bool moveToGrasp() {
 
-        RCLCPP_INFO(LOGGER, "Moving to grasp");
-        current_state_ = State::GRASP;
+        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        
+        if (success) {
+            RCLCPP_INFO(LOGGER, "Successfully moved to grasp pose");
+            visual_tools_.prompt("Press 'Next' to grasp object");
+            current_state_ = State::GRASP;
+        } else {
+            RCLCPP_ERROR(LOGGER, "Failed to move to grasp pose");
+            current_state_ = State::FAILED;
+        }
+        
         return true;
     }
 
     bool Grasp() {
+
+        // Allow Collision
+        std::vector<std::string> touch_links;
+        touch_links.push_back("left_robotiq_85_right_finger_tip_link");
+        touch_links.push_back("left_robotiq_85_left_finger_tip_link");
+        touch_links.push_back("left_robotiq_85_right_inner_knuckle_link");
+        touch_links.push_back("left_robotiq_85_left_inner_knuckle_link");
+        touch_links.push_back("left_robotiq_85_right_knuckle_link");
+        touch_links.push_back("left_robotiq_85_left_knuckle_link");
+        
+        // Get the current planning scene
+        moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
+        
+        // Simply modify the ACM (Allowed Collision Matrix) for the bin and gripper links
+        for (const auto& link : touch_links) {
+            planning_scene_interface.allowCollisions("bin", link, true);
+        }
 
         // Close gripper
         gripper_move_group_.setNamedTarget("Close");
         gripper_move_group_.move();
 
         // Attach object to gripper
+        visual_tools_.prompt("Press 'Next' to attach object to gripper");
+        moveit_msgs::msg::AttachedCollisionObject attached_bin;
+        attached_bin.object.id = "bin";
+        attached_bin.link_name = arm_move_group_.getEndEffectorLink();
+        
+        // Define which links are allowed to touch the bin
+        std::vector<std::string> touch_links;
+        // Add your specific gripper finger links here
+        touch_links.push_back("left_robotiq_85_right_finger_tip_link");
+        touch_links.push_back("left_robotiq_85_left_finger_tip_link");
+        attached_bin.touch_links = touch_links;
+        
+        // Define object as attached
+        attached_bin.object.operation = moveit_msgs::msg::CollisionObject::ADD;
+        
+        // Attach the bin
+        bool success = (planning_scene_interface_.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
-
-        current_state_ = State::PLAN_TO_LIFT;
+        if (success) {
+            RCLCPP_INFO(LOGGER, "Graped");
+            current_state_ = State::PLAN_TO_LIFT;
+        } else {
+            RCLCPP_ERROR(LOGGER, "Failed to grasp");
+            current_state_ = State::FAILED;
+        }
+        
         return true;
     }
 
@@ -283,6 +332,7 @@ private:
 
     bool planToHome() {
 
+        visual_tools_.prompt("Press 'Next' to plan to home");
         arm_move_group_.setNamedTarget("Home");
         arm_move_group_.setPlanningTime(15.0);
         auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
