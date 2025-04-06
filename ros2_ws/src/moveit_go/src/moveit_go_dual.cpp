@@ -20,7 +20,7 @@ int main(int argc, char * argv[]){
   rclcpp::sleep_for(std::chrono::seconds(2));
 
   // Create the MoveIt MoveGroup Interface
-  moveit::planning_interface::MoveGroupInterface MoveGroupInterface(node, "both_arms");\
+  moveit::planning_interface::MoveGroupInterface MoveGroupInterface(node, "both_arms");
 
   // Define orientation in quaternion
   tf2::Quaternion tf2_quat;
