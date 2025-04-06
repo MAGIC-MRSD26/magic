@@ -507,11 +507,11 @@ private:
 
     bool Place() {
 
-        bool success = (arm_move_group_.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-
         // Open gripper
         gripper_move_group_.setNamedTarget("Open");
         gripper_move_group_.move();
+
+        bool success = (arm_move_group_.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         if (success) {
             RCLCPP_INFO(LOGGER, "Successfully dropped object");
