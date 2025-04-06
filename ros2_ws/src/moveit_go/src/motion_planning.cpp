@@ -54,6 +54,124 @@ public:
         grasp_pose_received_ = false;
         
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
+
+        // Add object to the planning scene
+        visual_tools_.prompt("Press 'Next' to add bin to planning scene");
+
+        // Create a bin using multiple collision objects for sides and bottom
+        double bin_width = 0.38;   // X dimension (length)
+        double bin_depth = 0.32;   // Y dimension (width)
+        double bin_height = 0.266; // Z dimension (height)
+        double wall_thickness = 0.01; // Wall thickness of the bin
+
+        // Base position for the bin
+        double bin_x = 0.0;
+        double bin_y = 0.0;
+        double bin_z = 1.0646; // height of table is 0.9316
+        double bin_bottom_z = bin_z - (bin_height / 2) + (wall_thickness / 2);
+
+        // Create a single collision object for the entire bin
+        moveit_msgs::msg::CollisionObject bin_object;
+        bin_object.id = "bin";
+        bin_object.header.frame_id = "world";
+        bin_object.operation = moveit_msgs::msg::CollisionObject::ADD;
+
+        // Create a quaternion for orientation (not rotated)
+        tf2::Quaternion bin_quat;
+        bin_quat.setRPY(0, 0, 0);
+        geometry_msgs::msg::Quaternion bin_orientation = tf2::toMsg(bin_quat);
+
+        // 1. Bottom of the bin
+        shape_msgs::msg::SolidPrimitive bottom_primitive;
+        bottom_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        bottom_primitive.dimensions.resize(3);
+        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
+        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
+        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = wall_thickness;
+
+        geometry_msgs::msg::Pose bottom_pose;
+        bottom_pose.orientation = bin_orientation;
+        bottom_pose.position.x = bin_x;
+        bottom_pose.position.y = bin_y;
+        bottom_pose.position.z = bin_bottom_z;
+
+        bin_object.primitives.push_back(bottom_primitive);
+        bin_object.primitive_poses.push_back(bottom_pose);
+
+        // 2. Front wall of the bin
+        shape_msgs::msg::SolidPrimitive front_primitive;
+        front_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        front_primitive.dimensions.resize(3);
+        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
+        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
+        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose front_pose;
+        front_pose.orientation = bin_orientation;
+        front_pose.position.x = bin_x;
+        front_pose.position.y = bin_y + (bin_depth / 2) - (wall_thickness / 2);
+        front_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(front_primitive);
+        bin_object.primitive_poses.push_back(front_pose);
+
+        // 3. Back wall of the bin
+        shape_msgs::msg::SolidPrimitive back_primitive;
+        back_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        back_primitive.dimensions.resize(3);
+        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
+        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
+        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose back_pose;
+        back_pose.orientation = bin_orientation;
+        back_pose.position.x = bin_x;
+        back_pose.position.y = bin_y - (bin_depth / 2) + (wall_thickness / 2);
+        back_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(back_primitive);
+        bin_object.primitive_poses.push_back(back_pose);
+
+        // 4. Left wall of the bin
+        shape_msgs::msg::SolidPrimitive left_primitive;
+        left_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        left_primitive.dimensions.resize(3);
+        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
+        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
+        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose left_pose;
+        left_pose.orientation = bin_orientation;
+        left_pose.position.x = bin_x - (bin_width / 2) + (wall_thickness / 2);
+        left_pose.position.y = bin_y;
+        left_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(left_primitive);
+        bin_object.primitive_poses.push_back(left_pose);
+
+        // 5. Right wall of the bin
+        shape_msgs::msg::SolidPrimitive right_primitive;
+        right_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        right_primitive.dimensions.resize(3);
+        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
+        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
+        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose right_pose;
+        right_pose.orientation = bin_orientation;
+        right_pose.position.x = bin_x + (bin_width / 2) - (wall_thickness / 2);
+        right_pose.position.y = bin_y;
+        right_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(right_primitive);
+        bin_object.primitive_poses.push_back(right_pose);
+
+        // Add bin object to the planning scene
+        std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
+        collision_objects.push_back(bin_object);
+        planning_scene_interface_.applyCollisionObjects(collision_objects);
+
+        RCLCPP_INFO(LOGGER, "Added bin to planning scene");
     }
 
     bool execute() {
@@ -223,38 +341,6 @@ private:
         // Open gripper
         gripper_move_group_.setNamedTarget("Open");
         gripper_move_group_.move();
-
-        // Add object to the planning scene
-        visual_tools_.prompt("Press 'Next' to add object to planning scene");
-        moveit_msgs::msg::CollisionObject bin_object;
-        bin_object.id = "bin";
-        bin_object.header.frame_id = "world";
-        
-        // Define the object shape
-        shape_msgs::msg::SolidPrimitive box_primitive;
-        box_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        box_primitive.dimensions.resize(3);
-        box_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = 0.01;  // Adjust dimensions
-        box_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = 0.32;  // based on your bin
-        box_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = 0.266;
-        
-        // Define the object pose
-        geometry_msgs::msg::Pose object_pose;
-        tf2::Quaternion obj_quat;
-        obj_quat.setRPY(0, 0, 0);  // Set proper rotation
-        object_pose.orientation = tf2::toMsg(obj_quat);
-        object_pose.position.x = 0.1905;
-        object_pose.position.y = 0.0;
-        object_pose.position.z = 1.0646; // height of table is 0.9316
-        
-        // Add the bin to the planning scene
-        bin_object.primitives.push_back(box_primitive);
-        bin_object.primitive_poses.push_back(object_pose);
-        bin_object.operation = moveit_msgs::msg::CollisionObject::ADD;
-        
-        planning_scene_interface_.applyCollisionObject(bin_object);
-        
-        RCLCPP_INFO(LOGGER, "Added bin to planning scene");
         
         // Plan to the grasp position with collision avoidance
         visual_tools_.prompt("Press 'Next' to plan to grasp pose");
@@ -264,7 +350,7 @@ private:
         grasp_pose.orientation = tf2::toMsg(q);
         grasp_pose.position.x = 0.1905;
         grasp_pose.position.y = 0.0;
-        grasp_pose.position.z = 1.3;
+        grasp_pose.position.z = 1.33;
         
         arm_move_group_.setPoseTarget(grasp_pose);
         arm_move_group_.setPlanningTime(15.0);
@@ -299,16 +385,22 @@ private:
     }
 
     bool Grasp() {
-
-        // Attach object to gripper
+        // Now we attach the compound bin
         attached_bin.object.id = "bin";
         attached_bin.link_name = arm_move_group_.getEndEffectorLink();
         
         // Define which links are allowed to touch the bin
         std::vector<std::string> touch_links;
         // Add your specific gripper finger links here
-        touch_links.push_back("left_robotiq_85_right_finger_tip_link");
-        touch_links.push_back("left_robotiq_85_left_finger_tip_link");
+        std::string prefix = "left_";
+        touch_links.push_back(prefix + "robotiq_85_left_finger_link");
+        touch_links.push_back(prefix + "robotiq_85_left_finger_tip_link");
+        touch_links.push_back(prefix + "robotiq_85_left_inner_knuckle_link");
+        touch_links.push_back(prefix + "robotiq_85_left_knuckle_link");
+        touch_links.push_back(prefix + "robotiq_85_right_finger_link");
+        touch_links.push_back(prefix + "robotiq_85_right_finger_tip_link");
+        touch_links.push_back(prefix + "robotiq_85_right_inner_knuckle_link");
+        touch_links.push_back(prefix + "robotiq_85_right_knuckle_link");
         attached_bin.touch_links = touch_links;
         
         // Define object as attached
@@ -379,7 +471,7 @@ private:
     }
 
     bool planToPlace() {
-        target_pose.position.z = 1.35;
+        target_pose.position.z = 1.33;
         arm_move_group_.setPoseTarget(target_pose);
         arm_move_group_.setPlanningTime(15.0);
         
@@ -414,36 +506,6 @@ private:
     }
 
     bool Place() {
-
-        // geometry_msgs::msg::PoseStamped current_pose = arm_move_group_.getCurrentPose();
-        // geometry_msgs::msg::Pose put_down_pose = current_pose.pose;
-        // put_down_pose.position.z -= 0.05;  // Move slightly down
-        
-        // // Use Cartesian path for more controlled motion
-        // std::vector<geometry_msgs::msg::Pose> waypoints;
-        // waypoints.push_back(put_down_pose);
-        
-        // moveit_msgs::msg::RobotTrajectory trajectory;
-        // const double jump_threshold = 0.0;
-        // const double eef_step = 0.01;  // Small step size for smooth motion
-        
-        // // Plan the Cartesian path
-        // double fraction = arm_move_group_.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
-        
-        // if (fraction > 0.9) {  // If we can achieve at least 90% of the path
-        //     // Execute the downward motion
-        //     current_plan_.trajectory_ = trajectory;
-        //     bool put_down_success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-            
-        //     if (!put_down_success) {
-        //         RCLCPP_ERROR(LOGGER, "Failed to execute put-down motion");
-        //         current_state_ = State::FAILED;
-        //         return true;
-        //     }
-        // } else {
-        //     RCLCPP_WARN(LOGGER, "Could not compute full put-down path, proceeding with release");
-        // }
-
 
         bool success = (arm_move_group_.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 

@@ -14,7 +14,7 @@ both_arms:
     - RRTstar
     - BiTRRT
     - LazyPRM
-  default_planner_config: RRTConnect
+  default_planner_config: RRTstar
   # Goal sampling parameters
   goal_joint_tolerance: 0.01
   goal_position_tolerance: 0.01
@@ -33,7 +33,7 @@ both_arms_with_grippers:
     - RRTstar
     - BiTRRT
     - LazyPRM
-  default_planner_config: RRTConnect
+  default_planner_config: RRTstar
   
   goal_joint_tolerance: 0.01
   goal_position_tolerance: 0.01
@@ -50,7 +50,7 @@ left_arm:
     - RRTstar
     - BiTRRT
     - LazyPRM
-  default_planner_config: RRTConnect
+  default_planner_config: RRTstar
   goal_joint_tolerance: 0.01
   goal_position_tolerance: 0.01
   goal_orientation_tolerance: 0.01
@@ -65,7 +65,7 @@ right_arm:
     - RRTstar
     - BiTRRT
     - LazyPRM
-  default_planner_config: RRTConnect
+  default_planner_config: RRTstar
   goal_joint_tolerance: 0.01
   goal_position_tolerance: 0.01
   goal_orientation_tolerance: 0.01
@@ -80,7 +80,7 @@ left_arm_with_gripper:
     - RRTstar
     - BiTRRT
     - LazyPRM
-  default_planner_config: RRTConnect
+  default_planner_config: RRTstar
   goal_joint_tolerance: 0.01
   goal_position_tolerance: 0.01
   goal_orientation_tolerance: 0.01
@@ -95,7 +95,7 @@ right_arm_with_gripper:
     - RRTstar
     - BiTRRT
     - LazyPRM
-  default_planner_config: RRTConnect
+  default_planner_config: RRTstar
   goal_joint_tolerance: 0.01
   goal_position_tolerance: 0.01
   goal_orientation_tolerance: 0.01
@@ -106,7 +106,7 @@ right_arm_with_gripper:
 RRTConnect:
   type: geometric::RRTConnect
   range: 0.0  # Max step size (0.0 means auto)
-  goal_bias: 0.1  # Increased from 0.05 to help with goal sampling
+  goal_bias: 0.2  # Increased from 0.05 to help with goal sampling
 
 RRT:
   type: geometric::RRT
@@ -116,7 +116,7 @@ RRT:
 RRTstar:
   type: geometric::RRTstar
   range: 0.0
-  goal_bias: 0.1
+  goal_bias: 0.2
   delay_collision_checking: 1
   max_states_failed: 100
   
