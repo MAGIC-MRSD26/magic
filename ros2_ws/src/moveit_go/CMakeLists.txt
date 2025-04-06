@@ -47,10 +47,26 @@ ament_target_dependencies(
   "rclcpp"
 )
 
+<<<<<<< HEAD
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
 
 install(TARGETS moveit_go_left moveit_go_right moveit_go_dual
+=======
+add_executable(motion_planning src/motion_planning.cpp)
+target_include_directories(motion_planning PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(motion_planning PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  motion_planning
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+
+install(TARGETS moveit_go_left moveit_go_right moveit_go_dual motion_planning
+>>>>>>> mlee/fsm
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
