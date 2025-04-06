@@ -20,6 +20,8 @@ class LeftArmPlanner : public rclcpp::Node {
       );
   
       RCLCPP_INFO(get_logger(), "Ready to receive goals on /left_arm_pose");
+      RCLCPP_INFO(get_logger(), move_group_->getName().c_str());
+      RCLCPP_INFO(get_logger(), move_group_->getEndEffectorLink().c_str());
     }
   
   private:

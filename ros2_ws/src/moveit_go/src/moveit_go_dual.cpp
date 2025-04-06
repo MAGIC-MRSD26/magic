@@ -29,22 +29,43 @@ int main(int argc, char * argv[]){
   tf2::convert(tf2_quat, quat_orient);
 
   // Set target EE pose
+  geometry_msgs::msg::Pose goal1;
+  goal1.orientation = quat_orient;
+  goal1.position.x = 0.1868;
+  goal1.position.y = 0;
+  goal1.position.z = 1.4;
+
   geometry_msgs::msg::Pose goal;
   goal.orientation = quat_orient;
-  goal.position.x = 0.28;
-  goal.position.y = -0.2;
-  goal.position.z = 0.5;
+  goal.position.x = -0.1868;
+  goal.position.y = 0;
+  goal.position.z = 1.4;
 
-  MoveGroupInterface.setPoseTarget(goal);
+  RCLCPP_INFO(logger, "left goal being set");
+  MoveGroupInterface.setEndEffectorLink("left_end_effector_link");
+  RCLCPP_INFO(logger, MoveGroupInterface.getEndEffectorLink().c_str());
+  MoveGroupInterface.setPoseTarget(goal1);
+  RCLCPP_INFO(logger, "pose target set for left arm");
+  MoveGroupInterface.setPlanningTime(15.0);  // Give the planner more time (15 seconds)
+  moveit::planning_interface::MoveGroupInterface::Plan plan1;
+  auto const plan_complete = static_cast<bool>(MoveGroupInterface.plan(plan1));
+  RCLCPP_INFO(logger, "plan complete: %d", plan_complete);
 
+  RCLCPP_INFO(logger, "right goal being set");
+  MoveGroupInterface.setEndEffectorLink("right_robotiq_85_left_knuckle_joint");
+  RCLCPP_INFO(logger, MoveGroupInterface.getEndEffectorLink().c_str());
+  MoveGroupInterface.setPoseTarget(goal,"right_robotiq_85_left_knuckle_joint");
+  RCLCPP_INFO(logger, "pose target set for right arm");
+  MoveGroupInterface.setPlanningTime(15.0);  // Give the planner more time (15 seconds)
+  auto const plan_complete2 = static_cast<bool>(MoveGroupInterface.plan(plan1));
+  RCLCPP_INFO(logger, "plan complete: %d", plan_complete2);
+  
   // Set target joint pose
   // std::vector<double> joint_group_positions = {0.0, 0.0, 0.0, 2.5, 0.0, 1.0, 0.0};  // Home position
   // MoveGroupInterface.setJointValueTarget(joint_group_positions);
 
   // Generate a plan
-  MoveGroupInterface.setPlanningTime(15.0);  // Give the planner more time (15 seconds)
-  moveit::planning_interface::MoveGroupInterface::Plan plan1;
-  auto const plan_complete = static_cast<bool>(MoveGroupInterface.plan(plan1));
+  
   
   // Execute the plan
   if(plan_complete) {
