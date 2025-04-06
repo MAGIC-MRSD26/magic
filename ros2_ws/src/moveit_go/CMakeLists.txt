@@ -54,10 +54,14 @@ target_include_directories(motion_planning PUBLIC
 target_compile_features(motion_planning PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
   motion_planning
+add_executable(dual_arm_joint_planner src/dual_arm_joint_planner.cpp)
+ament_target_dependencies(
+  dual_arm_joint_planner
   "moveit_ros_planning_interface"
   "moveit_visual_tools"
   "rclcpp"
 )
+install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
