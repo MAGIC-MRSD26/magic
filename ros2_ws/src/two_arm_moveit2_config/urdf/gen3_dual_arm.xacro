@@ -91,7 +91,7 @@
     <origin rpy="0 0 0" xyz="-1.1125 0.80448 -0.09654"/>
     </joint>
 
-    <!-- Bin link -->
+    <!-- Bin link
     <link name="bin_link">
     <visual>
         <geometry>
@@ -129,12 +129,12 @@
     </inertial>
     </link>
 
-    <!-- Bin joint -->
+    Bin joint
     <joint name="bin_joint" type="fixed">
     <parent link="world"/>
     <child link="bin_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <link name="bound_top_link">
     <visual>
@@ -416,7 +416,7 @@
         prefix="left_"
         arm="$(arg arm)"
         gripper="$(arg gripper)"
-        gripper_joint_name="left_robotiq_85_left_knuckle_joint"
+        gripper_joint_name="robotiq_85_left_knuckle_joint"
         gripper_max_velocity="$(arg gripper_max_velocity)"
         gripper_max_force="$(arg gripper_max_force)"
         dof="$(arg dof)"
@@ -445,7 +445,7 @@
         prefix="right_"
         arm="$(arg arm)"
         gripper="$(arg gripper)"
-        gripper_joint_name="right_robotiq_85_left_knuckle_joint"
+        gripper_joint_name="robotiq_85_left_knuckle_joint"
         gripper_max_velocity="$(arg gripper_max_velocity)"
         gripper_max_force="$(arg gripper_max_force)"
         dof="$(arg dof)"
