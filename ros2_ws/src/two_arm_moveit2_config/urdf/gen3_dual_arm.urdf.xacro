@@ -95,7 +95,7 @@
     <origin rpy="0 0 0" xyz="-1.1125 0.80448 -0.09654"/>
     </joint>
 
-    <!-- Bin link -->
+    <!-- Bin link
     <link name="bin_link">
     <visual>
         <geometry>
@@ -133,12 +133,11 @@
     </inertial>
     </link>
 
-    <!-- Bin joint -->
     <joint name="bin_joint" type="fixed">
     <parent link="world"/>
     <child link="bin_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <!-- Left arm -->
     <xacro:load_robot

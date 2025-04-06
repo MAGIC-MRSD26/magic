@@ -248,6 +248,28 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
     )
 
+    # Object to manipulate
+    bin_model_path = PathJoinSubstitution(
+        [FindPackageShare(description_package), "urdf", "bin.sdf"])
+    
+    gazebo_spawn_object = Node(
+        package="ros_gz_sim",
+        executable="create",
+        name="spawn_bin",
+        output="screen",
+        arguments=[
+            "-file", bin_model_path,
+            "-name", "bin",
+            "-x", "-0.1905",
+            "-y", "0.15875",
+            "-z", "1.33",
+            "-R", "1.5708",
+            "-P", "0.0",
+            "-Y", "0.0",
+        ],
+        condition=IfCondition(sim_ignition),
+    )
+
     nodes_to_start = [
         bridge,
         robot_state_publisher_node,
@@ -262,6 +284,7 @@ def launch_setup(context, *args, **kwargs):
         gzserver,
         gzclient,
         gazebo_spawn_robot,
+        gazebo_spawn_object,
         ignition_launch_description,
         ignition_spawn_entity,
         gazebo_bridge,

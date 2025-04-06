@@ -47,12 +47,6 @@ ament_target_dependencies(
   "rclcpp"
 )
 
-<<<<<<< HEAD
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME})
-
-install(TARGETS moveit_go_left moveit_go_right moveit_go_dual
-=======
 add_executable(motion_planning src/motion_planning.cpp)
 target_include_directories(motion_planning PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -66,8 +60,11 @@ ament_target_dependencies(
 )
 
 install(TARGETS moveit_go_left moveit_go_right moveit_go_dual motion_planning
->>>>>>> mlee/fsm
   DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME})
+  
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

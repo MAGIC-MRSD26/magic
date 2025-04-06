@@ -91,13 +91,8 @@
     <origin rpy="0 0 0" xyz="-1.1125 0.80448 -0.09654"/>
     </joint>
 
-<<<<<<< HEAD
     <!-- Bin link
     <link name="bin_link">
-=======
-    <!-- Bin link -->
-    <!-- <link name="bin_link">
->>>>>>> mlee/fsm
     <visual>
         <geometry>
         <mesh filename="package://control/kinova_gen3_mujoco/assets/bin.stl" scale="0.001 0.001 0.001"/>
