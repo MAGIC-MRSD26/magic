@@ -104,39 +104,40 @@ class JointArmPlanner : public rclcpp::Node {
         return;
     }
 
-    // Get the sizes of the trajectories
-    size_t left_size = left_arm_trajectory.size();
-    size_t right_size = right_arm_trajectory.size();
-    size_t max_size = std::max(left_size, right_size);
+    // // Get the sizes of the trajectories
+    // size_t left_size = left_arm_trajectory.size();
+    // size_t right_size = right_arm_trajectory.size();
+    // size_t max_size = std::max(left_size, right_size);
+    const std::vector<double>& left_joint_position= left_arm_trajectory.back();
+    const std::vector<double>& right_joint_position= right_arm_trajectory.back();
+    // // Loop through the trajectories
+    // for (size_t i = 0; i < max_size; ++i) {
+    //   // Get the current joint positions for left and right arms
+    //   const std::vector<double>& left_joint_positions = 
+    //     (i < left_size) ? left_arm_trajectory[i] : left_arm_trajectory.back();
+    //   const std::vector<double>& right_joint_positions = 
+    //     (i < right_size) ? right_arm_trajectory[i] : right_arm_trajectory.back();
 
-    // Loop through the trajectories
-    for (size_t i = 0; i < max_size; ++i) {
-      // Get the current joint positions for left and right arms
-      const std::vector<double>& left_joint_positions = 
-        (i < left_size) ? left_arm_trajectory[i] : left_arm_trajectory.back();
-      const std::vector<double>& right_joint_positions = 
-        (i < right_size) ? right_arm_trajectory[i] : right_arm_trajectory.back();
-
-      // Concatenate the joint positions
-      std::vector<double> combined_joint_positions;
-      combined_joint_positions.insert(combined_joint_positions.end(), left_joint_positions.begin(), left_joint_positions.end());
-      combined_joint_positions.insert(combined_joint_positions.end(), right_joint_positions.begin(), right_joint_positions.end());
+    // Concatenate the joint positions
+    std::vector<double> combined_joint_positions;
+    combined_joint_positions.insert(combined_joint_positions.end(), left_joint_position.begin(), left_joint_position.end());
+    combined_joint_positions.insert(combined_joint_positions.end(), right_joint_position.begin(), right_joint_position.end());
 
       // Set the joint values for the combined group
-      move_group_both->setJointValueTarget(combined_joint_positions);
+    move_group_both->setJointValueTarget(combined_joint_positions);
 
       // Plan and execute the motion
-      moveit::planning_interface::MoveGroupInterface::Plan combined_plan;
-      bool success = (move_group_both->plan(combined_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    moveit::planning_interface::MoveGroupInterface::Plan combined_plan;
+    bool success = (move_group_both->plan(combined_plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
-      if (success) {
-          RCLCPP_INFO(this->get_logger(), "Combined plan successful for step %zu, executing...", i);
-          move_group_both->execute(combined_plan);
-      } 
-      else {
-          RCLCPP_WARN(this->get_logger(), "Combined plan failed for step %zu.", i);
-      }
+    if (success) {
+        RCLCPP_INFO(this->get_logger(), "Combined plan successful, executing...");
+        move_group_both->execute(combined_plan);
+    } 
+    else {
+        RCLCPP_WARN(this->get_logger(), "Combined plan failed");
     }
+    
 
           
       rclcpp::shutdown(); 
