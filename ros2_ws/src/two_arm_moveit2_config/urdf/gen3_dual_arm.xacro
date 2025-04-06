@@ -88,7 +88,7 @@
     </joint>
 
     <!-- Bin link -->
-    <link name="bin_link">
+    <!-- <link name="bin_link">
     <visual>
         <geometry>
         <mesh filename="package://control/kinova_gen3_mujoco/assets/bin.stl" scale="0.001 0.001 0.001"/>
@@ -125,12 +125,12 @@
     </inertial>
     </link>
 
-    <!-- Bin joint -->
+    Bin joint
     <joint name="bin_joint" type="fixed">
     <parent link="world"/>
     <child link="bin_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <link name="bound_top_link">
     <visual>
