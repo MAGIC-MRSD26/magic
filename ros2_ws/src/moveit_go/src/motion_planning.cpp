@@ -566,6 +566,9 @@ int main(int argc, char** argv) {
     node_options.automatically_declare_parameters_from_overrides(true);
     auto move_group_node = rclcpp::Node::make_shared("motion_planning", node_options);
 
+    rclcpp::Parameter sim_time_param("use_sim_time", true);
+    move_group_node->set_parameter(sim_time_param);
+
     rclcpp::executors::SingleThreadedExecutor executor;
     executor.add_node(move_group_node);
     std::thread spinner([&executor]() { executor.spin(); });
