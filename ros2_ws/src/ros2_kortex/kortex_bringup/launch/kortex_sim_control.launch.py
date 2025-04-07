@@ -404,7 +404,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "gripper",
-            default_value="",
+            default_value="robotiq_2f_85",
             choices=["robotiq_2f_85", "robotiq_2f_140", "gen3_lite_2f", ""],
             description="Gripper to use",
         )
