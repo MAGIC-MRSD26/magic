@@ -196,7 +196,6 @@
     <origin rpy="0 0 1.5708" xyz="0.75 0 1.8"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_right_link">
     <visual>
         <geometry>
@@ -257,7 +256,6 @@
     <origin rpy="0 0 1.5708" xyz="-0.73 0 2.03"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_left_top_link">
     <visual>
         <geometry>
@@ -288,7 +286,6 @@
     <origin rpy="0 0 1.5708" xyz="0.75 0 2.03"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_stand_1_link">
     <visual>
         <geometry>
@@ -319,7 +316,6 @@
     <origin rpy="0 1.5708 0" xyz="0.75 -0.55 1.1"/>
     </joint>
 
-    <!-- Simple box link -->
     <link name="bound_stand_2_link">
     <visual>
         <geometry>
