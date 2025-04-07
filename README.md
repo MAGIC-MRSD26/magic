@@ -69,7 +69,7 @@ ros2 launch two_arm_moveit2_config gazebo_sim.launch.py
 ros2 launch two_arm_moveit2_config moveit_gaz_control.py
 ```
 
-3. Run the FSM to execute motion policy.
+## Run the FSM to run motion policy
 ```
 ros2 run moveit_go motion_planning
 ```
