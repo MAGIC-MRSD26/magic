@@ -274,6 +274,18 @@ private:
         grasp_pose_subscription_.reset();
     }
 
+    char waitForKeyPress() {
+        RCLCPP_INFO(LOGGER, "Press 'r' to replan or any other key to execute the plan");
+        
+        // Make sure stdin is in raw mode to get a single keypress
+        system("stty raw");
+        char input = getchar();
+        system("stty cooked");
+        
+        std::cout << std::endl;  // Add newline after key press
+        return input;
+    }
+
     bool planToObject() {
         // End Effector target pose
         // Define orientation in quaternion
@@ -281,9 +293,9 @@ private:
         tf2_quat.setRPY(0, -3.14, 0);
         geometry_msgs::msg::Quaternion quat_orient;
         tf2::convert(tf2_quat, quat_orient);
-
+    
         target_pose.orientation = quat_orient;
-
+    
         if (grasp_pose_received_) {
             RCLCPP_INFO(LOGGER, "Using position from topic");
             target_pose.position.x = target_grasp_pose_.position.x;
@@ -298,28 +310,24 @@ private:
         arm_move_group_.setPoseTarget(target_pose);
         arm_move_group_.setPlanningTime(15.0);  // Give the planner more time (15 seconds)
         auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
-
+    
         if (success) {
-            // visual_tools_.prompt("Press 'Continue' if you want to replan, 'Next' to execute the plan");
-            // int result = visual_tools_.getUserInput();
+            RCLCPP_INFO(LOGGER, "Planning succeeded!");
+            char input = waitForKeyPress();
             
-            // // Can replan if plan sucks
-            // if (result == visual_tools_.CONTINUE) {
-            //     return true; // Stay in same state for replanning
-            // } else if (result == visual_tools_.NEXT) {
-            //     current_state_ = State::MOVE_TO_OBJECT;
-            //     return true;
-            // }
-            current_state_ = State::MOVE_TO_OBJECT;
-            visual_tools_.prompt("Press 'Next' in the RvizVisualToolsGui window to execute the plan");
-            return true;
+            if (input == 'r' || input == 'R') {
+                RCLCPP_INFO(LOGGER, "Replanning requested");
+                return true; // Stay in same state for replanning
+            } else {
+                RCLCPP_INFO(LOGGER, "Executing plan");
+                current_state_ = State::MOVE_TO_OBJECT;
+                return true;
+            }
         } else {
             RCLCPP_ERROR(LOGGER, "Failed to plan to object");
             current_state_ = State::FAILED;
             return true;
         }
-        
-        return true;
     }
 
     bool moveToObject() {
