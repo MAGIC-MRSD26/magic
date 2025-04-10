@@ -515,8 +515,7 @@ private:
         grasp_pose.position.z = 1.33;
         
         return planMovement(grasp_pose, State::MOVE_TO_GRASP, 
-                          "Planning to grasp succeeded!", 
-                          "Press 'Next' to move to grasp pose");
+                          "Planning to grasp succeeded!");
     }
 
     bool moveToGrasp() {
@@ -635,8 +634,7 @@ private:
 
     bool planToHome() {
         return planNamedTarget("Home", State::MOVE_TO_HOME, 
-                             "Successfully planned to home", 
-                             "Press 'Next' in the RvizVisualToolsGui window to execute move to home");
+                             "Successfully planned to home");
     }
 
     bool moveToHome() {
