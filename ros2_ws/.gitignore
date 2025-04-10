@@ -2,3 +2,4 @@ build/
 install/
 log/
 src/control/pycache/
+src/ros_gz/ros_gz_bridge/ros_gz_bridge/__pycache__/
