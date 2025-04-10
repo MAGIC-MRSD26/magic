@@ -578,8 +578,7 @@ private:
         lift_pose.position.z += 0.2;  // Lift by 20cm
         
         return planMovement(lift_pose, State::MOVE_TO_LIFT, 
-                          "Successfully planned lift movement", 
-                          "Press 'Next' to move to lift pose");
+                          "Successfully planned lift movement");
     }
 
     bool moveToLift() {
@@ -588,9 +587,23 @@ private:
     }
 
     bool planToPlace() {
-        target_pose.position.z = 1.33;
+        // Get current pose to maintain the same orientation
+        geometry_msgs::msg::PoseStamped current_pose = arm_move_group_.getCurrentPose();
         
-        return planMovement(target_pose, State::MOVE_TO_PLACE, 
+        geometry_msgs::msg::Pose place_pose;
+        
+        // Keep the same orientation as the current pose
+        place_pose.orientation = current_pose.pose.orientation;
+        
+        // Just change the position
+        place_pose.position.x = 0.0;  
+        place_pose.position.y = 0.0;  
+        place_pose.position.z = 1.33;  
+        
+        RCLCPP_INFO(LOGGER, "Planning to place at position: x=%f, y=%f, z=%f (maintaining current orientation)", 
+                    place_pose.position.x, place_pose.position.y, place_pose.position.z);
+        
+        return planMovement(place_pose, State::MOVE_TO_PLACE, 
                           "Successfully planned to place position", 
                           "Press 'Next' to execute placement motion");
     }
