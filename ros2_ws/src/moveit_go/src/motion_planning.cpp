@@ -7,8 +7,6 @@
 #include <moveit_msgs/msg/attached_collision_object.hpp>
 #include <moveit_msgs/msg/collision_object.hpp>
 
-#include <moveit_visual_tools/moveit_visual_tools.h>
-
 // This is a finite state machine for Kinova Gen3 7DOF arm
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("motion_planning");
 
@@ -16,6 +14,7 @@ enum class State {
     HOME,
     PLAN_TO_OBJECT,
     MOVE_TO_OBJECT,
+    OPEN_GRIPPER,
     PLAN_TO_GRASP,
     MOVE_TO_GRASP,
     GRASP,
@@ -35,12 +34,10 @@ public:
     MotionPlanningFSM(
         const rclcpp::Node::SharedPtr& node,
         const std::string& arm_planning_group, 
-        const std::string& gripper_planning_group,
-        moveit_visual_tools::MoveItVisualTools& visual_tools) 
+        const std::string& gripper_planning_group) 
         : node_(node),
           arm_planning_group_(arm_planning_group),
           gripper_planning_group_(gripper_planning_group),
-          visual_tools_(visual_tools),
           arm_move_group_(node, arm_planning_group),
           gripper_move_group_(node, gripper_planning_group),
           current_state_(State::HOME) {
@@ -56,7 +53,8 @@ public:
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
 
         // Add object to the planning scene
-        visual_tools_.prompt("Press 'Next' to add bin to planning scene");
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to add bin to planning scene \033[0m");
+        waitForKeyPress();
 
         // Create a bin using multiple collision objects for sides and bottom
         double bin_width = 0.38;   // X dimension (length)
@@ -188,8 +186,6 @@ public:
                     return true; // Stay in HOME state until we get a message
                 }
                 current_state_ = State::PLAN_TO_OBJECT;
-                visual_tools_.prompt("Press 'Next' in the RvizVisualToolsGui window to plan to object");
-                return true;
      
             case State::PLAN_TO_OBJECT:
                 return planToObject();
@@ -197,8 +193,11 @@ public:
             case State::MOVE_TO_OBJECT:
                 return moveToObject();
 
+            case State::OPEN_GRIPPER:
+                return opengripper();
+                
             case State::PLAN_TO_GRASP:
-                return planToGrasp();
+                return planToGrasp(); 
 
             case State::MOVE_TO_GRASP:
                 return moveToGrasp();
@@ -247,7 +246,6 @@ private:
     rclcpp::Node::SharedPtr node_;
     std::string arm_planning_group_;
     std::string gripper_planning_group_;
-    moveit_visual_tools::MoveItVisualTools& visual_tools_;
     moveit::planning_interface::MoveGroupInterface arm_move_group_;
     moveit::planning_interface::MoveGroupInterface gripper_move_group_;
     moveit::planning_interface::PlanningSceneInterface planning_scene_interface_;
@@ -274,16 +272,101 @@ private:
         grasp_pose_subscription_.reset();
     }
 
+    char waitForKeyPress() {
+        // Make sure stdin is in raw mode to get a single keypress
+        system("stty raw");
+        char input = getchar();
+        system("stty cooked");
+        
+        std::cout << std::endl;  // Add newline after key press
+        return input;
+    }
+
+    bool plantoTarget(const std::variant<geometry_msgs::msg::Pose, std::string>& target, 
+            State next_state, 
+            const std::string& planning_message = "Planning succeeded!") {
+
+        static int plan_attempts = 0;
+        const int max_plan_attempts = 3;  // Maximum number of automatic retries
+        
+        // Set the target whether it is pose or named target
+        if (std::holds_alternative<geometry_msgs::msg::Pose>(target)) {
+            const auto& target_pose = std::get<geometry_msgs::msg::Pose>(target);
+            arm_move_group_.setPoseTarget(target_pose);
+        } else if (std::holds_alternative<std::string>(target)) {
+            const auto& target_name = std::get<std::string>(target);
+            arm_move_group_.setNamedTarget(target_name);
+        }
+
+        arm_move_group_.setPlanningTime(15.0 + (5.0 * plan_attempts));  // Increase planning time based on attempt number
+        auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
+    
+        if (success) {
+            // Reset attempt counter on success
+            plan_attempts = 0;
+            
+            RCLCPP_INFO(LOGGER, "%s", planning_message.c_str());
+    
+            RCLCPP_INFO(LOGGER, "\033[32m 1) Press 'r' to replan, OR 2) press any other key to execute the plan \033[0m");
+            char input = waitForKeyPress();
+    
+            if (input == 'r' || input == 'R') {
+                RCLCPP_INFO(LOGGER, "Replanning requested");
+                return true; // Stay in same state for replanning
+            } else {
+                RCLCPP_INFO(LOGGER, "Executing plan");
+                current_state_ = next_state;
+                return true;
+            }
+        } else {
+            // Planning failed
+            plan_attempts++;
+            
+            if (plan_attempts < max_plan_attempts) {
+                RCLCPP_WARN(LOGGER, "Planning attempt %d/%d, retrying...", 
+                           plan_attempts, max_plan_attempts);
+                
+                // For named targets, we can adjust planning time and other parameters
+                arm_move_group_.setPlanningTime(15.0 + (5.0 * plan_attempts));
+                
+                // Stay in current state to try again
+                return true;
+            } else {
+                // After max attempts, ask the user what to do
+                RCLCPP_ERROR(LOGGER, "Failed to plan after %d attempts", max_plan_attempts);
+                current_state_ = State::FAILED;
+            }
+        }
+    }
+
+    bool executeMovement(State next_state, const std::string& success_message, const std::string& prompt_message = "") {
+        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        
+        if (success) {
+            RCLCPP_INFO(LOGGER, "%s", success_message.c_str());
+            
+            if (!prompt_message.empty()) {
+                RCLCPP_INFO(LOGGER, "\033[32m %s\033[0m", prompt_message.c_str());
+                char input = waitForKeyPress();
+            }
+            current_state_ = next_state;
+        } else {
+            RCLCPP_ERROR(LOGGER, "Failed to execute movement");
+            current_state_ = State::FAILED;
+        }
+        
+        return true;
+    }
+
     bool planToObject() {
-        // End Effector target pose
         // Define orientation in quaternion
         tf2::Quaternion tf2_quat;
         tf2_quat.setRPY(0, -3.14, 0);
         geometry_msgs::msg::Quaternion quat_orient;
         tf2::convert(tf2_quat, quat_orient);
-
+    
         target_pose.orientation = quat_orient;
-
+    
         if (grasp_pose_received_) {
             RCLCPP_INFO(LOGGER, "Using position from topic");
             target_pose.position.x = target_grasp_pose_.position.x;
@@ -295,41 +378,26 @@ private:
             target_pose.position.y = 0.0;
             target_pose.position.z = 1.4; // Slightly above the grasp position
         }
-        arm_move_group_.setPoseTarget(target_pose);
-        arm_move_group_.setPlanningTime(15.0);  // Give the planner more time (15 seconds)
-        auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
-
-        if (success) {
-            // visual_tools_.prompt("Press 'Continue' if you want to replan, 'Next' to execute the plan");
-            // int result = visual_tools_.getUserInput();
-            
-            // // Can replan if plan sucks
-            // if (result == visual_tools_.CONTINUE) {
-            //     return true; // Stay in same state for replanning
-            // } else if (result == visual_tools_.NEXT) {
-            //     current_state_ = State::MOVE_TO_OBJECT;
-            //     return true;
-            // }
-            current_state_ = State::MOVE_TO_OBJECT;
-            visual_tools_.prompt("Press 'Next' in the RvizVisualToolsGui window to execute the plan");
-            return true;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to plan to object");
-            current_state_ = State::FAILED;
-            return true;
-        }
         
-        return true;
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to object \033[0m");
+        waitForKeyPress();
+        return plantoTarget(target_pose, State::MOVE_TO_OBJECT, "Planning to object succeeded!");
     }
 
     bool moveToObject() {
-        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        return executeMovement(State::OPEN_GRIPPER, "Successfully moved to object position", 
+                                    "Press any key to open gripper");
+    }
+
+    bool opengripper() {
+        gripper_move_group_.setNamedTarget("Open");
+        bool success = (gripper_move_group_.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         
         if (success) {
-            RCLCPP_INFO(LOGGER, "Successfully moved to object");
-            current_state_ = State::PLAN_TO_GRASP;
+            RCLCPP_INFO(LOGGER, "Successfully opened gripper");
+            current_state_ = State::PLAN_TO_GRASP;  
         } else {
-            RCLCPP_ERROR(LOGGER, "Failed to move to object");
+            RCLCPP_ERROR(LOGGER, "Failed to open gripper");
             current_state_ = State::FAILED;
         }
         
@@ -337,51 +405,19 @@ private:
     }
 
     bool planToGrasp() {
-
-        // Open gripper
-        gripper_move_group_.setNamedTarget("Open");
-        gripper_move_group_.move();
         
-        // Plan to the grasp position with collision avoidance
-        visual_tools_.prompt("Press 'Next' to plan to grasp pose");
-        tf2::Quaternion q;
-        q.setRPY(0, -3.14, 0);  // Adjusted orientation for top 
-        geometry_msgs::msg::Pose grasp_pose;
-        grasp_pose.orientation = tf2::toMsg(q);
-        grasp_pose.position.x = 0.1905;
-        grasp_pose.position.y = 0.0;
-        grasp_pose.position.z = 1.33;
+        // Reuse target_pose with new z pos
+        target_pose.position.z = 1.33;
         
-        arm_move_group_.setPoseTarget(grasp_pose);
-        arm_move_group_.setPlanningTime(15.0);
-        
-        auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
-    
-        if (success) {
-            RCLCPP_INFO(LOGGER, "Planning to grasp");
-            visual_tools_.prompt("Press 'Next' to move to grasp pose");
-            current_state_ = State::MOVE_TO_GRASP;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to move to grasp pose");
-            current_state_ = State::FAILED;
-        }
-        return true;
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
+        waitForKeyPress();
+        return plantoTarget(target_pose, State::MOVE_TO_GRASP, 
+                          "Planning to grasp succeeded!");
     }
 
     bool moveToGrasp() {
-
-        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        
-        if (success) {
-            RCLCPP_INFO(LOGGER, "Successfully moved to grasp pose");
-            visual_tools_.prompt("Press 'Next' to grasp object");
-            current_state_ = State::GRASP;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to move to grasp pose");
-            current_state_ = State::FAILED;
-        }
-        
-        return true;
+        return executeMovement(State::GRASP, "Successfully moved to grasp pose", 
+                             "Press any key to grasp object");
     }
 
     bool Grasp() {
@@ -414,7 +450,6 @@ private:
         // Check both operations for overall success
         if (attach_success && gripper_success) {
             RCLCPP_INFO(LOGGER, "Successfully grasped object");
-            visual_tools_.prompt("Press 'Next' to plan lifting the object");
             current_state_ = State::PLAN_TO_LIFT;
         } else {
             if (!attach_success) {
@@ -437,72 +472,27 @@ private:
         geometry_msgs::msg::Pose lift_pose = current_pose.pose;
         lift_pose.position.z += 0.2;  // Lift by 20cm
         
-        arm_move_group_.setPoseTarget(lift_pose);
-        arm_move_group_.setPlanningTime(15.0);  // Give the planner more time
-        
-        auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
-        
-        if (success) {
-            RCLCPP_INFO(LOGGER, "Successfully planned to lift");
-            visual_tools_.prompt("Press 'Next' to move to lift pose");
-            current_state_ = State::MOVE_TO_LIFT;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to plan to lift");
-            current_state_ = State::FAILED;
-        }
-        
-        return true;
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
+        waitForKeyPress();
+        return plantoTarget(lift_pose, State::MOVE_TO_LIFT, 
+                          "Successfully planned lift movement");
     }
 
     bool moveToLift() {
-
-        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        
-        if (success) {
-            RCLCPP_INFO(LOGGER, "Successfully moved to lift pose");
-            visual_tools_.prompt("Press 'Next' to plan to place");
-            current_state_ = State::PLAN_TO_PLACE;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to move to lift pose");
-            current_state_ = State::FAILED;
-        }
-        
-        return true;
+        return executeMovement(State::PLAN_TO_PLACE, "Successfully moved to lift position",
+                             "Press any key to plan to place");
     }
 
     bool planToPlace() {
-        target_pose.position.z = 1.33;
-        arm_move_group_.setPoseTarget(target_pose);
-        arm_move_group_.setPlanningTime(15.0);
-        
-        auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
-        
-        if (success) {
-            RCLCPP_INFO(LOGGER, "Successfully planned to place position");
-            visual_tools_.prompt("Press 'Next' to execute placement motion");
-            current_state_ = State::MOVE_TO_PLACE;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to plan to place position");
-            current_state_ = State::FAILED;
-        }
-        
-        return true;
+        // Reuse target pose from grasp
+
+        return plantoTarget(target_pose, State::MOVE_TO_PLACE, 
+                          "Successfully planned to place position");
     }
 
     bool moveToPlace() {
-
-        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-    
-        if (success) {
-            RCLCPP_INFO(LOGGER, "Successfully moved to place position");
-            visual_tools_.prompt("Press 'Next' to drop object");
-            current_state_ = State::PLACE;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to move to drop position");
-            current_state_ = State::FAILED;
-        }
-        
-        return true;
+        return executeMovement(State::PLACE, "Successfully moved to place position",
+                             "Press any key to drop object");
     }
 
     bool Place() {
@@ -515,7 +505,6 @@ private:
 
         if (success) {
             RCLCPP_INFO(LOGGER, "Successfully dropped object");
-            visual_tools_.prompt("Press 'Next' to plan to home");
             current_state_ = State::PLAN_TO_HOME;
         } else {
             RCLCPP_ERROR(LOGGER, "Failed to drop object");
@@ -526,37 +515,14 @@ private:
     }
 
     bool planToHome() {
-
-        arm_move_group_.setNamedTarget("Home");
-        arm_move_group_.setPlanningTime(15.0);
-        auto const success = static_cast<bool>(arm_move_group_.plan(current_plan_));
-
-        if (success) {
-            current_state_ = State::MOVE_TO_HOME;
-            visual_tools_.prompt("Press 'Next' in the RvizVisualToolsGui window to execute move to home");
-            return true;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to plan to object");
-            current_state_ = State::FAILED;
-            return true;
-        }
-        
-        return true;
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
+        waitForKeyPress();
+        return plantoTarget("Home", State::MOVE_TO_HOME, 
+                             "Successfully planned to home");
     }
 
     bool moveToHome() {
-
-        bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        
-        if (success) {
-            RCLCPP_INFO(LOGGER, "Successfully moved to object");
-            current_state_ = State::SUCCEEDED;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to move to object");
-            current_state_ = State::FAILED;
-        }
-        
-        return true;
+        return executeMovement(State::SUCCEEDED, "Successfully moved to home position");
     }
 };
 
@@ -577,13 +543,8 @@ int main(int argc, char** argv) {
     static const std::string PLANNING_GROUP = "left_arm";
     static const std::string GRIPPER_GROUP = "left_gripper";
 
-    // Initialize visual tools
-    moveit_visual_tools::MoveItVisualTools visual_tools(move_group_node, "left_base_link");
-    visual_tools.deleteAllMarkers();
-    visual_tools.loadRemoteControl();
-
     // Create and run FSM
-    MotionPlanningFSM fsm(move_group_node, PLANNING_GROUP, GRIPPER_GROUP, visual_tools);
+    MotionPlanningFSM fsm(move_group_node, PLANNING_GROUP, GRIPPER_GROUP);
     
     // FSM execution loop
     while (fsm.execute()) {
