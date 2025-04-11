@@ -58,6 +58,14 @@ ament_target_dependencies(
   "moveit_visual_tools"
   "rclcpp"
 )
+add_executable(dual_arm_joint_planner src/dual_arm_joint_planner.cpp)
+ament_target_dependencies(
+  dual_arm_joint_planner
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
