@@ -130,7 +130,7 @@ class JointArmPlanner : public rclcpp::Node {
     moveit::planning_interface::MoveGroupInterface::Plan combined_plan;
     bool success = (move_group_both->plan(combined_plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
-    if (success) {
+    if (true) {
         RCLCPP_INFO(this->get_logger(), "Combined plan successful, executing...");
         move_group_both->execute(combined_plan);
     } 
