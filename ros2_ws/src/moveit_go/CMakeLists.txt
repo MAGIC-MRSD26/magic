@@ -58,11 +58,33 @@ ament_target_dependencies(
   "moveit_visual_tools"
   "rclcpp"
 )
+#adding executable info for motion_planning_dual node
+add_executable(motion_planning_dual src/motion_planning_dual.cpp)
+target_include_directories(motion_planning_dual PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(motion_planning_dual PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  motion_planning_dual
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+  "geometry_msgs"
+)
+
+add_executable(dual_arm_joint_planner src/dual_arm_joint_planner.cpp)
+ament_target_dependencies(
+  dual_arm_joint_planner
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+)
+install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
 
-install(TARGETS moveit_go_left moveit_go_right moveit_go_dual motion_planning
+install(TARGETS moveit_go_left moveit_go_right moveit_go_dual motion_planning motion_planning_dual
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
