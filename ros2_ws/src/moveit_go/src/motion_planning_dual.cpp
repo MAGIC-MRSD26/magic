@@ -484,109 +484,11 @@ private:
         return true;
     }
 
+    /*//////////////////////////////////////////
 
-    //execution for single arm
-    bool plantoTarget_single_arm(std::string arm_group, const std::variant<geometry_msgs::msg::Pose, std::string>& target, 
-        State next_state, 
-        const std::string& planning_message = "Planning succeeded!") {
-            moveit::planning_interface::MoveGroupInterface::Plan* current_plan_;
-            moveit::planning_interface::MoveGroupInterface* arm_move_group_ = nullptr;            
-            static int plan_attempts = 0;
-            const int max_plan_attempts = 3;  // Maximum number of automatic retries
-            //to assign the arm group    
-            if (arm_group == "left_arm"){
-                arm_move_group_ = &arm_move_group_A;
-                current_plan_ = &current_plan_A;
-            }
-            else {
-                arm_move_group_=&arm_move_group_B;
-                current_plan_ = &current_plan_B;
-            }
+    START OF FSM FUNCTIONS
 
-            // Set the target whether it is pose or named target
-            if (std::holds_alternative<geometry_msgs::msg::Pose>(target)) {
-                const auto& target_pose = std::get<geometry_msgs::msg::Pose>(target);
-                arm_move_group_->setPoseTarget(target_pose);
-            } else if (std::holds_alternative<std::string>(target)) {
-                const auto& target_name = std::get<std::string>(target);
-                arm_move_group_->setNamedTarget(target_name);
-            }
-
-            arm_move_group_->setPlanningTime(15.0 + (5.0 * plan_attempts));  // Increase planning time based on attempt number
-            auto const success = static_cast<bool>(arm_move_group_->plan(*current_plan_));
-
-            if (success) {
-                // Reset attempt counter on success
-                plan_attempts = 0;
-                
-                RCLCPP_INFO(LOGGER, "%s", planning_message.c_str());
-
-                RCLCPP_INFO(LOGGER, "\033[32m 1) Press 'r' to replan, OR 2) press any other key to execute the plan \033[0m");
-                char input = waitForKeyPress();
-
-                if (input == 'r' || input == 'R') {
-                    RCLCPP_INFO(LOGGER, "Replanning requested");
-                    return true; // Stay in same state for replanning
-                } else {
-                    RCLCPP_INFO(LOGGER, "Executing plan");
-                    current_state_ = next_state;
-                    return true;
-                }
-            } else {
-                // Planning failed
-                plan_attempts++;
-                
-                if (plan_attempts < max_plan_attempts) {
-                    RCLCPP_WARN(LOGGER, "Planning attempt %d/%d, retrying...", 
-                            plan_attempts, max_plan_attempts);
-                    
-                    // For named targets, we can adjust planning time and other parameters
-                    arm_move_group_->setPlanningTime(15.0 + (5.0 * plan_attempts));
-                    
-                    // Stay in current state to try again
-                    return true;
-                } else {
-                    // After max attempts, ask the user what to do
-                    RCLCPP_ERROR(LOGGER, "Failed to plan after %d attempts", max_plan_attempts);
-                    current_state_ = State::FAILED;
-                }
-            }
-    }
-
-    //execution for single arm
-    bool executeMovement_single_arm(std::string arm_group, State next_state, const std::string& success_message, const std::string& prompt_message = "") {
-        
-        moveit::planning_interface::MoveGroupInterface::Plan* current_plan_;
-        moveit::planning_interface::MoveGroupInterface* arm_move_group_ = nullptr; 
-        //to assign the arm group    
-        if (arm_group == "left_arm"){
-            arm_move_group_= &arm_move_group_A;
-            current_plan_ = &current_plan_A;
-        }
-        else {
-            arm_move_group_=&arm_move_group_B;
-            current_plan_ = &current_plan_B;
-        }
-
-        bool success = (arm_move_group_->execute(*current_plan_) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        if (success) {
-            RCLCPP_INFO(LOGGER, "%s", success_message.c_str());
-            
-            if (!prompt_message.empty()) {
-                RCLCPP_INFO(LOGGER, "\033[32m %s\033[0m", prompt_message.c_str());
-                char input = waitForKeyPress();
-            }
-            current_state_ = next_state;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to execute movement");
-            current_state_ = State::FAILED;
-        }
-        
-        return true;
-    }
-
-
-
+    *//////////////////////////////////////////
 
     bool planToObject() {
         //plans to the object
