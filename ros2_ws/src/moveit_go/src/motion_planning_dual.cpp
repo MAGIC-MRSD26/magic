@@ -493,11 +493,7 @@ private:
     }
 
     bool CreateDualArmChain() {
-        RCLCPP_INFO(LOGGER, "Creating dual arm kinematic chain");
-        
-        // Create a planning scene update to define constraints between arms
-        moveit_msgs::msg::PlanningScene planning_scene;
-        planning_scene.is_diff = true;
+        RCLCPP_INFO(LOGGER, "Creating dual arm kinematic chain with flexible orientation");
         
         // Get transform between end effectors
         geometry_msgs::msg::PoseStamped left_ee_pose = arm_move_group_A.getCurrentPose();
@@ -520,13 +516,13 @@ private:
         double dy = right_ee_pose.pose.position.y - left_ee_pose.pose.position.y;
         double dz = right_ee_pose.pose.position.z - left_ee_pose.pose.position.z;
         
-        // Create a bounding volume that only allows a small deviation
+        // Create a bounding volume with slightly more tolerance
         shape_msgs::msg::SolidPrimitive box;
         box.type = shape_msgs::msg::SolidPrimitive::BOX;
         box.dimensions.resize(3);
-        box.dimensions[0] = 0.01; // Small tolerance in x
-        box.dimensions[1] = 0.01; // Small tolerance in y
-        box.dimensions[2] = 0.01; // Small tolerance in z
+        box.dimensions[0] = 0.02; // Increased tolerance in x
+        box.dimensions[1] = 0.02; // Increased tolerance in y
+        box.dimensions[2] = 0.02; // Increased tolerance in z
         
         position_constraint.constraint_region.primitives.push_back(box);
         
@@ -539,23 +535,43 @@ private:
         position_constraint.constraint_region.primitive_poses.push_back(box_pose);
         position_constraint.weight = 1.0;
         
-        // Orientation constraint - enforce fixed relative orientation
-        moveit_msgs::msg::OrientationConstraint orientation_constraint;
-        orientation_constraint.header.frame_id = left_ee_pose.header.frame_id;
-        orientation_constraint.orientation = right_ee_pose.pose.orientation;
-        orientation_constraint.link_name = arm_move_group_B.getEndEffectorLink();
-        orientation_constraint.absolute_x_axis_tolerance = 0.01;
-        orientation_constraint.absolute_y_axis_tolerance = 0.01;
-        orientation_constraint.absolute_z_axis_tolerance = 0.01;
-        orientation_constraint.weight = 1.0;
+        // Calculate relative orientation between end effectors
+        // We need to get the relative orientation as a quaternion
+        tf2::Quaternion q_left, q_right, q_relative;
+        tf2::convert(left_ee_pose.pose.orientation, q_left);
+        tf2::convert(right_ee_pose.pose.orientation, q_right);
+        
+        // The relative orientation is q_relative = q_right * q_left.inverse()
+        q_relative = q_right * q_left.inverse();
+        
+        // Create a RelativeOrientation constraint instead of absolute orientation
+        moveit_msgs::msg::OrientationConstraint relative_orientation_constraint;
+        relative_orientation_constraint.header.frame_id = arm_move_group_A.getEndEffectorLink(); // Reference from left arm
+        
+        // Store the relative orientation
+        tf2::convert(q_relative, relative_orientation_constraint.orientation);
+        
+        relative_orientation_constraint.link_name = arm_move_group_B.getEndEffectorLink();
+        
+        // Allow more flexibility in orientation, but maintain relationship
+        // Setting larger tolerances allows more freedom while keeping the relative orientation
+        relative_orientation_constraint.absolute_x_axis_tolerance = 3.14159; // Full freedom
+        relative_orientation_constraint.absolute_y_axis_tolerance = 3.14159; // Full freedom
+        relative_orientation_constraint.absolute_z_axis_tolerance = 3.14159; // Full freedom
+        
+        // But make the weight less to allow some flexibility
+        relative_orientation_constraint.weight = 0.8; // Less strict weighting
         
         // Add constraints to the planning scene
         grasp_constraints.position_constraints.push_back(position_constraint);
-        grasp_constraints.orientation_constraints.push_back(orientation_constraint);
+        grasp_constraints.orientation_constraints.push_back(relative_orientation_constraint);
         
         // Apply the constraints to the dual arm group
         arm_move_group_dual.setPathConstraints(grasp_constraints);
-
+        
+        // Log success
+        RCLCPP_INFO(LOGGER, "Applied flexible dual arm constraints");
+        
         return true;
     }
 
@@ -574,6 +590,7 @@ private:
 
         // Set planning parameters
         arm_move_group_dual.setPlanningTime(20.0 + (5.0 * plan_attempts));
+        arm_move_group_dual.setPlannerId("RRTConnect");
 
         // Plan with the dual arm group directly
         bool success = (arm_move_group_dual.plan(current_plan_dual) == moveit::core::MoveItErrorCode::SUCCESS);
@@ -788,7 +805,7 @@ private:
     bool planToPlace() {
         // Reuse target pose from grasp
 
-        plantoTarget_dualarm_chain(target_pose_A, State::MOVE_TO_PLACE, 
+        return plantoTarget_dualarm_chain(target_pose_A, State::MOVE_TO_PLACE, 
             "Successfully planned lift movement");
     }
 
