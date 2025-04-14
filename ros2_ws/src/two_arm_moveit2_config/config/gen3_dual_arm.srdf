@@ -662,4 +662,6 @@
     <disable_collisions link1="bound_stand_2_link" link2="bound_stand_4_link" reason="Never"/>
     <disable_collisions link1="bound_stand_3_link" link2="bound_stand_4_link" reason="Never"/>
 
+    <virtual_joint name="left_right_base_connection" type="fixed" parent_frame="left_base_link" child_frame="right_base_link"/>
+
 </robot>

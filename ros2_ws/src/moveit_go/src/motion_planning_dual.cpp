@@ -59,6 +59,14 @@ public:
           gripper_move_group_dual(node, gripper_planning_group_dual_),
           current_state_(State::HOME) {
 
+        // Add this in constructor
+        arm_move_group_A.setMaxVelocityScalingFactor(0.6); // Increase from default
+        arm_move_group_B.setMaxVelocityScalingFactor(0.6);
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.5); // More conservative for dual-arm
+
+        // For kinematic chain movements specifically (after grasping)
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.4); // Safe but still faster
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
         
         // Create subscription to the grasp pose topic
         grasp_pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
@@ -484,6 +492,126 @@ private:
         return true;
     }
 
+    bool CreateDualArmChain() {
+        RCLCPP_INFO(LOGGER, "Creating dual arm kinematic chain");
+        
+        // Create a planning scene update to define constraints between arms
+        moveit_msgs::msg::PlanningScene planning_scene;
+        planning_scene.is_diff = true;
+        
+        // Get transform between end effectors
+        geometry_msgs::msg::PoseStamped left_ee_pose = arm_move_group_A.getCurrentPose();
+        geometry_msgs::msg::PoseStamped right_ee_pose = arm_move_group_B.getCurrentPose();
+        
+        // Create a kinematic constraint - ensure fixed distance between end effectors
+        moveit_msgs::msg::Constraints grasp_constraints;
+        grasp_constraints.name = "dual_grasp_constraint";
+        
+        // Position constraint - enforce fixed relative position
+        moveit_msgs::msg::PositionConstraint position_constraint;
+        position_constraint.header.frame_id = left_ee_pose.header.frame_id;
+        position_constraint.link_name = arm_move_group_B.getEndEffectorLink();
+        position_constraint.target_point_offset.x = 0.0;
+        position_constraint.target_point_offset.y = 0.0;
+        position_constraint.target_point_offset.z = 0.0;
+        
+        // Calculate relative position between end effectors
+        double dx = right_ee_pose.pose.position.x - left_ee_pose.pose.position.x;
+        double dy = right_ee_pose.pose.position.y - left_ee_pose.pose.position.y;
+        double dz = right_ee_pose.pose.position.z - left_ee_pose.pose.position.z;
+        
+        // Create a bounding volume that only allows a small deviation
+        shape_msgs::msg::SolidPrimitive box;
+        box.type = shape_msgs::msg::SolidPrimitive::BOX;
+        box.dimensions.resize(3);
+        box.dimensions[0] = 0.01; // Small tolerance in x
+        box.dimensions[1] = 0.01; // Small tolerance in y
+        box.dimensions[2] = 0.01; // Small tolerance in z
+        
+        position_constraint.constraint_region.primitives.push_back(box);
+        
+        geometry_msgs::msg::Pose box_pose;
+        box_pose.position.x = left_ee_pose.pose.position.x + dx;
+        box_pose.position.y = left_ee_pose.pose.position.y + dy;
+        box_pose.position.z = left_ee_pose.pose.position.z + dz;
+        box_pose.orientation = left_ee_pose.pose.orientation;
+        
+        position_constraint.constraint_region.primitive_poses.push_back(box_pose);
+        position_constraint.weight = 1.0;
+        
+        // Orientation constraint - enforce fixed relative orientation
+        moveit_msgs::msg::OrientationConstraint orientation_constraint;
+        orientation_constraint.header.frame_id = left_ee_pose.header.frame_id;
+        orientation_constraint.orientation = right_ee_pose.pose.orientation;
+        orientation_constraint.link_name = arm_move_group_B.getEndEffectorLink();
+        orientation_constraint.absolute_x_axis_tolerance = 0.01;
+        orientation_constraint.absolute_y_axis_tolerance = 0.01;
+        orientation_constraint.absolute_z_axis_tolerance = 0.01;
+        orientation_constraint.weight = 1.0;
+        
+        // Add constraints to the planning scene
+        grasp_constraints.position_constraints.push_back(position_constraint);
+        grasp_constraints.orientation_constraints.push_back(orientation_constraint);
+        
+        // Apply the constraints to the dual arm group
+        arm_move_group_dual.setPathConstraints(grasp_constraints);
+
+        return true;
+    }
+
+    bool plantoTarget_dualarm_chain(const geometry_msgs::msg::Pose& target_pose, State next_state, const std::string& planning_message = "Planning succeeded!") {
+        
+        static int plan_attempts = 0;
+        const int max_plan_attempts = 3;
+
+        // When we have a kinematic chain, we only need to set a target for one arm
+        // The other arm will follow based on the constraints
+        arm_move_group_dual.clearPoseTargets();
+
+        // Set target for the reference arm (left arm in this case)
+        // We use the dual arm group but specify the end effector of the reference arm
+        arm_move_group_dual.setPoseTarget(target_pose, arm_move_group_A.getEndEffectorLink());
+
+        // Set planning parameters
+        arm_move_group_dual.setPlanningTime(20.0 + (5.0 * plan_attempts));
+
+        // Plan with the dual arm group directly
+        bool success = (arm_move_group_dual.plan(current_plan_dual) == moveit::core::MoveItErrorCode::SUCCESS);
+
+        if (success) {
+            // Reset attempt counter on success
+            plan_attempts = 0;
+
+            RCLCPP_INFO(LOGGER, "%s", planning_message.c_str());
+
+            RCLCPP_INFO(LOGGER, "\033[32m 1) Press 'r' to replan, OR 2) press any other key to execute the plan \033[0m");
+            char input = waitForKeyPress();
+
+            if (input == 'r' || input == 'R') {
+                RCLCPP_INFO(LOGGER, "Replanning requested");
+                return true; // Stay in same state for replanning
+                } else {
+                RCLCPP_INFO(LOGGER, "Executing plan");
+                current_state_ = next_state;
+                return true;
+            }
+        } else {
+            // Planning failed
+            plan_attempts++;
+
+            if (plan_attempts < max_plan_attempts) {
+                RCLCPP_WARN(LOGGER, "Planning attempt %d/%d, retrying...", 
+                plan_attempts, max_plan_attempts);
+                return true; // Stay in current state to try again
+                } else {
+                // After max attempts, ask the user what to do
+                RCLCPP_ERROR(LOGGER, "Failed to plan after %d attempts", max_plan_attempts);
+                current_state_ = State::FAILED;
+                return true;
+            }
+        }
+    }
+
     /*//////////////////////////////////////////
 
     START OF FSM FUNCTIONS
@@ -595,12 +723,16 @@ private:
         touch_links.push_back(prefix + "robotiq_85_right_finger_tip_link");
         touch_links.push_back(prefix + "robotiq_85_right_inner_knuckle_link");
         touch_links.push_back(prefix + "robotiq_85_right_knuckle_link");
+
+        // Add the end effector link of the other arm
+        touch_links.push_back(arm_move_group_B.getEndEffectorLink());
+
         attached_bin.touch_links = touch_links;
         
         // Define object as attached
         attached_bin.object.operation = moveit_msgs::msg::CollisionObject::ADD;
-        bool attach_success_left = (planning_scene_interface_A.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        bool attach_success_right = (planning_scene_interface_B.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // bool attach_success_left = (planning_scene_interface_A.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // bool attach_success_right = (planning_scene_interface_B.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Close gripper
@@ -610,11 +742,19 @@ private:
         bool gripper_success_B = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Check both operations for overall success
-        if (attach_success_left && attach_success_right && attach_success_dual && gripper_success_A && gripper_success_B) {
+        if (attach_success_dual && gripper_success_A && gripper_success_B) {
             RCLCPP_INFO(LOGGER, "Successfully grasped object");
+
+            // Create the dual arm kinematic chain
+            if (CreateDualArmChain()) {
+                RCLCPP_INFO(LOGGER, "Dual arm kinematic chain created");
+            } else {
+                RCLCPP_WARN(LOGGER, "Failed to create dual arm kinematic chain");
+            }
+        
             current_state_ = State::PLAN_TO_LIFT;
         } else {
-            if (!attach_success_left || !attach_success_right || !attach_success_dual) {
+            if (!attach_success_dual) {
                 RCLCPP_ERROR(LOGGER, "Failed to attach object");
             }
             if (!gripper_success_A || !gripper_success_B) {
@@ -628,19 +768,15 @@ private:
 
     bool planToLift() {
         // Get current pose as starting point
-        geometry_msgs::msg::PoseStamped current_pose1 = arm_move_group_A.getCurrentPose();
-        geometry_msgs::msg::PoseStamped current_pose2 = arm_move_group_B.getCurrentPose();
-        
+        geometry_msgs::msg::PoseStamped current_pose = arm_move_group_A.getCurrentPose();
         
         // Add to z position
-        geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
-        lift_pose1.position.z += 0.2;  // Lift by 20cm
-        geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
-        lift_pose2.position.z += 0.2;  // Lift by 20cm
+        geometry_msgs::msg::Pose lift_pose = current_pose.pose;
+        lift_pose.position.z += 0.2;  // Lift by 20cm
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
         waitForKeyPress();
-        return plantoTarget_dual_arm(lift_pose1, lift_pose2, State::MOVE_TO_LIFT, 
+        return plantoTarget_dualarm_chain(lift_pose, State::MOVE_TO_LIFT, 
                           "Successfully planned lift movement");
     }
 
@@ -652,8 +788,8 @@ private:
     bool planToPlace() {
         // Reuse target pose from grasp
 
-        plantoTarget_dual_arm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
-                          "Successfully planned to place position");
+        plantoTarget_dualarm_chain(target_pose_A, State::MOVE_TO_PLACE, 
+            "Successfully planned lift movement");
     }
 
     bool moveToPlace() {
@@ -662,6 +798,8 @@ private:
     }
 
     bool Place() {
+
+        arm_move_group_dual.clearPathConstraints();
 
         // Open gripper
         gripper_move_group_A.setNamedTarget("Open");
