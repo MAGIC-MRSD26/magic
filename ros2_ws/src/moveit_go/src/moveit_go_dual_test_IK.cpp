@@ -42,7 +42,7 @@ private:
     try {
       // Define orientation in quaternion
       tf2::Quaternion tf2_quat;
-      tf2_quat.setRPY(0, -3.14, 0);
+      tf2_quat.setRPY(-1.57, 0, 0);
       geometry_msgs::msg::Quaternion quat_orient;
       tf2::convert(tf2_quat, quat_orient);
   
@@ -123,7 +123,7 @@ private:
       move_group_both->setJointValueTarget(combined_joint_positions);
 
       // Set planning time
-      move_group_both->setPlanningTime(10.0);
+      move_group_both->setPlanningTime(20.0);
 
       // Plan and execute the motion
       RCLCPP_INFO(get_logger(), "Planning trajectory...");

@@ -23,6 +23,12 @@ enum class State {
     GRASP,
     PLAN_TO_LIFT,
     MOVE_TO_LIFT,
+    // PLAN_TO_SIDE2,
+    // MOVE_TO_SIDE2,
+    // PLAN_TO_SIDE3,
+    // MOVE_TO_SIDE3,
+    // PLAN_TO_SIDE4,
+    // MOVE_TO_SIDE4,
     PLAN_TO_PLACE,
     MOVE_TO_PLACE,
     PLACE,
@@ -205,9 +211,6 @@ public:
     bool execute() {
         switch (current_state_) {
             case State::HOME:
-                // arm_move_group_.setNamedTarget("Home");
-                // arm_move_group_.move();
-
                 // Wait for pose if needed
                 if (!grasp_pose_received_ && retry_count < 3) {
                     RCLCPP_INFO_THROTTLE(LOGGER, *node_->get_clock(), 2000, 
@@ -240,6 +243,12 @@ public:
 
             case State::MOVE_TO_LIFT:
                 return moveToLift();
+
+            // case State::PLAN_TO_SIDE2:
+            //     return planToSide2();
+
+            // case State::MOVE_TO_SIDE2:
+            //     return moveToSide2();
 
             case State::PLAN_TO_PLACE:
                 return planToPlace();
@@ -417,7 +426,7 @@ private:
         arm_move_group_dual.setJointValueTarget(combined_joint_positions);
 
         // Set planning parameters
-        arm_move_group_dual.setPlanningTime(20.0 + (5.0 * plan_attempts));
+        arm_move_group_dual.setPlanningTime(15.0 + (5.0 * plan_attempts));
 
         // Plan with the dual arm group directly
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
@@ -626,8 +635,6 @@ private:
         geometry_msgs::msg::PoseStamped current_pose1 = arm_move_group_A.getCurrentPose();
         geometry_msgs::msg::PoseStamped current_pose2 = arm_move_group_B.getCurrentPose();
 
-        geometry_msgs::msg::PoseStamped current_pose = arm_move_group_A.getCurrentPose();
-
         // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
         lift_pose1.position.z += 0.2;  // Lift by 20cm
@@ -643,12 +650,41 @@ private:
 
     bool moveToLift() {
         return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to lift position",
-                                "Press any key to plan to place");
+                                "Press any key to plan to side2");
     }
 
+    // bool planToSide2() {
+
+    //     geometry_msgs::msg::Pose side2_pose1;
+    //     geometry_msgs::msg::Pose side2_pose2;
+
+    //     tf2::Quaternion tf2_quat;
+    //     tf2_quat.setRPY(-1.57, 0, 0);
+    //     geometry_msgs::msg::Quaternion quat_orient;
+    //     tf2::convert(tf2_quat, quat_orient);
+    
+    //     side2_pose1.orientation = quat_orient;
+    //     side2_pose2.orientation = quat_orient;
+    
+    //     side2_pose1.position.x = 0.1868;
+    //     side2_pose1.position.y = 0.0;
+    //     side2_pose1.position.z = 1.4; 
+
+    //     side2_pose2.position.x = -0.1868;
+    //     side2_pose2.position.y = 0.0;
+    //     side2_pose2.position.z = 1.4;
+        
+    //     // Try planning with the modified joint positions
+    //     return plantoTarget_dualarm(side2_pose1, side2_pose2, State::MOVE_TO_SIDE2, 
+    //                         "Planning to side2 succeeded!");
+    // }
+
+    // bool moveToSide2() {
+    //     return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to side2 position",
+    //                             "Press any key to plan to place");
+    // }
+
     bool planToPlace() {
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place\033[0m");
-        waitForKeyPress();
         return plantoTarget_dualarm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
                              "Planning to place succeeded!");
     }
@@ -685,10 +721,45 @@ private:
 
     bool planToHome() {
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
-        // waitForKeyPress();
-        // return plantoTarget_dualarm("Home", "Home", State::MOVE_TO_HOME, 
-        //                      "Successfully planned to home");
-        return true;
+        waitForKeyPress();
+
+        static int plan_attempts = 0;
+        const int max_plan_attempts = 3;
+
+        arm_move_group_dual.setNamedTarget("Home");
+
+        bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
+
+        if (success) {
+            // Reset attempt counter on success
+            plan_attempts = 0;
+
+            RCLCPP_INFO(LOGGER, "\033[32m 1) Press 'r' to replan, OR 2) press any other key to execute the plan \033[0m");
+            char input = waitForKeyPress();
+
+            if (input == 'r' || input == 'R') {
+                RCLCPP_INFO(LOGGER, "Replanning requested");
+                return true; // Stay in same state for replanning
+                } else {
+                RCLCPP_INFO(LOGGER, "Executing plan");
+                current_state_ = State::MOVE_TO_HOME;
+                return true;
+            }
+        } else {
+            // Planning failed
+            plan_attempts++;
+
+            if (plan_attempts < max_plan_attempts) {
+                RCLCPP_WARN(LOGGER, "Planning attempt %d/%d, retrying...", 
+                plan_attempts, max_plan_attempts);
+                return true; // Stay in current state to try again
+                } else {
+                // After max attempts, ask the user what to do
+                RCLCPP_ERROR(LOGGER, "Failed to plan after %d attempts", max_plan_attempts);
+                current_state_ = State::FAILED;
+                return true;
+            }
+        }
     }
 
     bool moveToHome() {
