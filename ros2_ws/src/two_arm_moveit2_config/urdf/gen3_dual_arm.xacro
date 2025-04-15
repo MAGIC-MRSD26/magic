@@ -437,7 +437,7 @@
 
     <!-- Right arm -->
     <xacro:load_robot
-        parent="world"
+        parent="left_base_link"
         prefix="right_"
         arm="$(arg arm)"
         gripper="$(arg gripper)"
@@ -461,7 +461,7 @@
         sim_isaac="$(arg sim_isaac)"
         use_external_cable="$(arg use_external_cable)"
         initial_positions="${xacro.load_yaml(initial_positions_file)}" >
-        <origin rpy="0 0 0" xyz="-0.63017298 0 0.93657"/>
+        <origin rpy="0 0 -3.14" xyz="1.26034596 0 0"/>
     </xacro:load_robot>
 
 </robot>
