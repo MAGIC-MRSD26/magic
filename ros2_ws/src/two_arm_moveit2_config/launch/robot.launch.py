@@ -25,7 +25,6 @@ def launch_setup(context, *args, **kwargs):
     launch_rviz = LaunchConfiguration("launch_rviz")
     use_sim_time = LaunchConfiguration("use_sim_time")
     use_internal_bus_gripper_comm = LaunchConfiguration("use_internal_bus_gripper_comm")
-    use_gui = LaunchConfiguration('use_gui')
 
     launch_arguments = {
         "robot_ip": robot_ip,
