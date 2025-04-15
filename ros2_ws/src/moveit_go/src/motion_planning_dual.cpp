@@ -218,6 +218,10 @@ public:
                     retry_count++;
                     return true; // Stay in HOME state until we get a message
                 }
+
+                // Save the home position for later 
+                home_pose_A = arm_move_group_A.getCurrentPose().pose;
+                home_pose_B = arm_move_group_B.getCurrentPose().pose;
                 current_state_ = State::PLAN_TO_OBJECT;
      
             case State::PLAN_TO_OBJECT:
@@ -316,6 +320,8 @@ private:
     //current state variable
     State current_state_;
     //target pose variables
+    geometry_msgs::msg::Pose home_pose_A;
+    geometry_msgs::msg::Pose home_pose_B;
     geometry_msgs::msg::Pose target_pose_A;
     geometry_msgs::msg::Pose target_pose_B;
 
@@ -650,7 +656,7 @@ private:
 
     bool moveToLift() {
         return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to lift position",
-                                "Press any key to plan to side2");
+                                "Press any key to plan to place");
     }
 
     // bool planToSide2() {
@@ -720,47 +726,12 @@ private:
     }
 
     bool planToHome() {
+        
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
         waitForKeyPress();
 
-        static int plan_attempts = 0;
-        const int max_plan_attempts = 3;
-
-        arm_move_group_dual.setNamedTarget("Home");
-
-        arm_move_group_dual.setPlanningTime(15.0);
-        bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
-
-        if (success) {
-            // Reset attempt counter on success
-            plan_attempts = 0;
-
-            RCLCPP_INFO(LOGGER, "\033[32m 1) Press 'r' to replan, OR 2) press any other key to execute the plan \033[0m");
-            char input = waitForKeyPress();
-
-            if (input == 'r' || input == 'R') {
-                RCLCPP_INFO(LOGGER, "Replanning requested");
-                return true; // Stay in same state for replanning
-                } else {
-                RCLCPP_INFO(LOGGER, "Executing plan");
-                current_state_ = State::MOVE_TO_HOME;
-                return true;
-            }
-        } else {
-            // Planning failed
-            plan_attempts++;
-
-            if (plan_attempts < max_plan_attempts) {
-                RCLCPP_WARN(LOGGER, "Planning attempt %d/%d, retrying...", 
-                plan_attempts, max_plan_attempts);
-                return true; // Stay in current state to try again
-                } else {
-                // After max attempts, ask the user what to do
-                RCLCPP_ERROR(LOGGER, "Failed to plan after %d attempts", max_plan_attempts);
-                current_state_ = State::FAILED;
-                return true;
-            }
-        }
+        return plantoTarget_dualarm(home_pose_A, home_pose_B, State::MOVE_TO_HOME, 
+                            "Planning to home succeeded!");
     }
 
     bool moveToHome() {
