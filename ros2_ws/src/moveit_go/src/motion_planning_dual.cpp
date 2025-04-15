@@ -218,10 +218,6 @@ public:
                     retry_count++;
                     return true; // Stay in HOME state until we get a message
                 }
-
-                // Save the home position for later 
-                home_pose_A = arm_move_group_A.getCurrentPose().pose;
-                home_pose_B = arm_move_group_B.getCurrentPose().pose;
                 current_state_ = State::PLAN_TO_OBJECT;
      
             case State::PLAN_TO_OBJECT:
@@ -320,10 +316,10 @@ private:
     //current state variable
     State current_state_;
     //target pose variables
-    geometry_msgs::msg::Pose home_pose_A;
-    geometry_msgs::msg::Pose home_pose_B;
     geometry_msgs::msg::Pose target_pose_A;
     geometry_msgs::msg::Pose target_pose_B;
+
+    // for later when we reuse go to Lift state
     bool go_to_home = false;
 
     moveit_msgs::msg::AttachedCollisionObject attached_bin;
@@ -753,9 +749,6 @@ private:
         }
         
         return true;
-
-        // return plantoTarget_dualarm(home_pose_A, home_pose_B, State::MOVE_TO_HOME, 
-        //                     "Planning to home succeeded!");
     }
 
     bool moveToHome() {
