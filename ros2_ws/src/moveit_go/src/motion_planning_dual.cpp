@@ -728,6 +728,7 @@ private:
 
         arm_move_group_dual.setNamedTarget("Home");
 
+        arm_move_group_dual.setPlanningTime(15.0);
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
         if (success) {
