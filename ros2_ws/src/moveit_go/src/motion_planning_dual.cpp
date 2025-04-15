@@ -635,9 +635,9 @@ private:
 
         // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
-        lift_pose1.position.z += 0.2;  // Lift by 20cm
+        lift_pose1.position.z += 0.02;  // Lift by 20cm
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
-        lift_pose2.position.z += 0.2;  // Lift by 20cm
+        lift_pose2.position.z += 0.02;  // Lift by 20cm
         
         // Try planning with the modified joint positions
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
@@ -652,30 +652,22 @@ private:
                                 "Press any key to plan to home");
         } else {
             return executeMovement_dualarm(State::PLAN_TO_SIDE2, "Successfully moved to lift position",
-                                "Press any key to plan to place");
+                                "Press any key to plan to side2");
         }
     }
 
     bool planToSide2() {
 
-        geometry_msgs::msg::Pose side2_pose1;
-        geometry_msgs::msg::Pose side2_pose2;
+        geometry_msgs::msg::Pose side2_pose1 = arm_move_group_A.getCurrentPose().pose;
+        geometry_msgs::msg::Pose side2_pose2 = arm_move_group_B.getCurrentPose().pose;
 
-        tf2::Quaternion tf2_quat;
-        tf2_quat.setRPY(1.57, 0, 0);
-        geometry_msgs::msg::Quaternion quat_orient;
-        tf2::convert(tf2_quat, quat_orient);
-    
-        side2_pose1.orientation = quat_orient;
-        side2_pose2.orientation = quat_orient;
-    
-        side2_pose1.position.x = 0.1868;
-        side2_pose1.position.y = 0.0;
-        side2_pose1.position.z = 1.45; 
+        float temp = side2_pose1.position.x;
+        side2_pose1.position.x = 0.0;
+        side2_pose1.position.y = temp;
 
-        side2_pose2.position.x = -0.1868;
-        side2_pose2.position.y = 0.0;
-        side2_pose2.position.z = 1.45;
+        temp = side2_pose2.position.x;
+        side2_pose2.position.x = 0.0;
+        side2_pose2.position.y = temp;
         
         // Try planning with the modified joint positions
         return plantoTarget_dualarm(side2_pose1, side2_pose2, State::MOVE_TO_SIDE2, 
