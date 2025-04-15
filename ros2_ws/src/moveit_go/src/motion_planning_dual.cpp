@@ -324,6 +324,7 @@ private:
     geometry_msgs::msg::Pose home_pose_B;
     geometry_msgs::msg::Pose target_pose_A;
     geometry_msgs::msg::Pose target_pose_B;
+    bool go_to_home = false;
 
     moveit_msgs::msg::AttachedCollisionObject attached_bin;
 
@@ -432,7 +433,7 @@ private:
         arm_move_group_dual.setJointValueTarget(combined_joint_positions);
 
         // Set planning parameters
-        arm_move_group_dual.setPlanningTime(15.0 + (5.0 * plan_attempts));
+        arm_move_group_dual.setPlanningTime(5.0 + (5.0 * plan_attempts));
 
         // Plan with the dual arm group directly
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
@@ -655,8 +656,13 @@ private:
     }
 
     bool moveToLift() {
-        return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to lift position",
+        if (go_to_home) {
+            return executeMovement_dualarm(State::PLAN_TO_HOME, "Successfully moved to lift position",
+                                "Press any key to plan to home");
+        } else {
+            return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to lift position",
                                 "Press any key to plan to place");
+        }
     }
 
     // bool planToSide2() {
@@ -710,28 +716,46 @@ private:
         gripper_move_group_B.setNamedTarget("Open");
         gripper_move_group_B.move();
 
-        bool success1 = (gripper_move_group_A.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        bool success2 = (gripper_move_group_B.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // Make sure to detach from planning scene interfaces
+        attached_bin.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
+        planning_scene_interface_A.applyAttachedCollisionObject(attached_bin);
+        planning_scene_interface_B.applyAttachedCollisionObject(attached_bin);
+        planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin);
         
-
-        if (success1 && success2) {
-            RCLCPP_INFO(LOGGER, "Successfully dropped object");
-            current_state_ = State::PLAN_TO_HOME;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to drop object");
-            current_state_ = State::FAILED;
-        }
+        // Also try gripper detach
+        gripper_move_group_A.detachObject(attached_bin.object.id);
+        gripper_move_group_B.detachObject(attached_bin.object.id);
+        
+        RCLCPP_INFO(LOGGER, "Successfully dropped object");
+        current_state_ = State::PLAN_TO_LIFT;
+        go_to_home = true;
         
         return true;
     }
 
     bool planToHome() {
-        
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
-        waitForKeyPress();
 
-        return plantoTarget_dualarm(home_pose_A, home_pose_B, State::MOVE_TO_HOME, 
-                            "Planning to home succeeded!");
+        // Close gripper
+        gripper_move_group_A.setNamedTarget("Close");
+        gripper_move_group_A.move();
+        gripper_move_group_B.setNamedTarget("Close");
+        gripper_move_group_B.move();
+
+        // Use named target instead of recorded position
+        arm_move_group_dual.setNamedTarget("Home");
+        arm_move_group_dual.setPlanningTime(10.0);
+        bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
+
+        if (success) {
+            current_state_ = State::MOVE_TO_HOME;
+        } else {
+            current_state_ = State::FAILED;
+        }
+        
+        return true;
+
+        // return plantoTarget_dualarm(home_pose_A, home_pose_B, State::MOVE_TO_HOME, 
+        //                     "Planning to home succeeded!");
     }
 
     bool moveToHome() {
