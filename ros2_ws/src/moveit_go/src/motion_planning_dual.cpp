@@ -370,7 +370,7 @@ private:
     bool plantoTarget_dualarm(geometry_msgs::msg::Pose pose1, geometry_msgs::msg::Pose pose2, State next_state, const std::string& planning_message = "Planning succeeded!") {
         
         static int plan_attempts = 0;
-        const int max_plan_attempts = 4;
+        const int max_plan_attempts = 3;
 
         std::vector<double> combined_joint_positions;
 
@@ -635,8 +635,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z = 1.3;
-        target_pose_B.position.z = 1.3;
+        target_pose_A.position.z = 1.33;
+        target_pose_B.position.z = 1.33;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
