@@ -370,7 +370,7 @@ private:
     bool plantoTarget_dualarm(geometry_msgs::msg::Pose pose1, geometry_msgs::msg::Pose pose2, State next_state, const std::string& planning_message = "Planning succeeded!") {
         
         static int plan_attempts = 0;
-        const int max_plan_attempts = 3;
+        const int max_plan_attempts = 4;
 
         std::vector<double> combined_joint_positions;
 
@@ -561,9 +561,6 @@ private:
         RCLCPP_INFO(LOGGER, "Right arm new position: x=%.3f, y=%.3f, z=%.3f", 
                     rotated_pose2.position.x, rotated_pose2.position.y, rotated_pose2.position.z);
         
-        // Use less restrictive constraints for rotation
-        arm_move_group_dual.clearPathConstraints();
-        
         // Set planning parameters specific for rotation
         arm_move_group_dual.setMaxVelocityScalingFactor(0.2); // Slower for rotation
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.1);
@@ -752,8 +749,6 @@ private:
 
     bool moveToLift() {
         if (go_to_home) {
-            arm_move_group_dual.clearPathConstraints();
-
             return executeMovement_dualarm(State::PLAN_TO_HOME, "Successfully moved to lift position",
                                 "Press any key to plan to home");
         } else {
@@ -796,8 +791,6 @@ private:
     }
 
     bool planToPlace() {
-        arm_move_group_dual.clearPathConstraints();
-
         return plantoTarget_dualarm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
                              "Planning to place succeeded!");
     }
@@ -808,8 +801,6 @@ private:
     }
 
     bool Place() {
-
-        arm_move_group_dual.clearPathConstraints();
 
         // Open gripper
         gripper_move_group_dual.setNamedTarget("Open");
