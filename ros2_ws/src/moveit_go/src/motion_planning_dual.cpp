@@ -370,7 +370,7 @@ private:
     bool plantoTarget_dualarm(geometry_msgs::msg::Pose pose1, geometry_msgs::msg::Pose pose2, State next_state, const std::string& planning_message = "Planning succeeded!") {
         
         static int plan_attempts = 0;
-        const int max_plan_attempts = 3;
+        const int max_plan_attempts = 5;
 
         std::vector<double> combined_joint_positions;
 
