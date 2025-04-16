@@ -635,8 +635,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z = 1.33;
-        target_pose_B.position.z = 1.33;
+        target_pose_A.position.z = 1.3;
+        target_pose_B.position.z = 1.3;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -791,6 +791,9 @@ private:
     }
 
     bool planToPlace() {
+        target_pose_A.position.z = 1.32;
+        target_pose_B.position.z = 1.32;
+
         return plantoTarget_dualarm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
                              "Planning to place succeeded!");
     }
