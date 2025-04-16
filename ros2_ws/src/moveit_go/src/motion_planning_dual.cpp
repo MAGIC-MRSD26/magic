@@ -23,12 +23,9 @@ enum class State {
     GRASP,
     PLAN_TO_LIFT,
     MOVE_TO_LIFT,
-    PLAN_TO_SIDE2,
-    MOVE_TO_SIDE2,
-    // PLAN_TO_SIDE3,
-    // MOVE_TO_SIDE3,
-    // PLAN_TO_SIDE4,
-    // MOVE_TO_SIDE4,
+    PLAN_TO_ROTATE_BACK,
+    PLAN_TO_ROTATE_FRONT,
+    MOVE_TO_ROTATE,
     PLAN_TO_PLACE,
     MOVE_TO_PLACE,
     PLACE,
@@ -242,11 +239,14 @@ public:
             case State::MOVE_TO_LIFT:
                 return moveToLift();
 
-            case State::PLAN_TO_SIDE2:
-                return planToSide2();
+            case State::PLAN_TO_ROTATE_BACK:
+                return planToRotateBack();
 
-            case State::MOVE_TO_SIDE2:
-                return moveToSide2();
+            case State::PLAN_TO_ROTATE_FRONT:
+                return planToRotateFront();
+
+            case State::MOVE_TO_ROTATE:
+                return moveToRotate();
 
             case State::PLAN_TO_PLACE:
                 return planToPlace();
@@ -319,6 +319,11 @@ private:
     bool go_to_home = false;
 
     moveit_msgs::msg::AttachedCollisionObject attached_bin;
+
+    // Rotation policy variables
+    geometry_msgs::msg::Pose rotated_pose1;
+    geometry_msgs::msg::Pose rotated_pose2;
+    int rotations = 0;
 
     //creating subscription for grasp_pose
     rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr grasp_pose_subscription_;
@@ -483,6 +488,85 @@ private:
         return true;
     }
 
+    void rotate(double roll, double pitch, double yaw) {
+
+        // Get current poses
+        geometry_msgs::msg::PoseStamped current_pose1 = arm_move_group_A.getCurrentPose();
+        geometry_msgs::msg::PoseStamped current_pose2 = arm_move_group_B.getCurrentPose();
+        
+        rotated_pose1 = current_pose1.pose;
+        rotated_pose2 = current_pose2.pose;
+        
+        // Calculate bin's center point (midpoint between grippers)
+        geometry_msgs::msg::Point bin_center;
+        bin_center.x = 0.0;
+        bin_center.y = 0.0;
+        bin_center.z = 1.194;
+        
+        RCLCPP_INFO(LOGGER, "Bin center: x=%.3f, y=%.3f, z=%.3f", 
+                    bin_center.x, bin_center.y, bin_center.z);
+        
+        // Create rotation quaternion - define the rotation axis
+        tf2::Quaternion rotation_quat;
+        rotation_quat.setRPY(roll, pitch, yaw); // Rotate 30 degrees around X axis
+        
+        // Calculate vectors from bin center to each gripper
+        tf2::Vector3 vec_to_gripper1(
+            current_pose1.pose.position.x - bin_center.x,
+            current_pose1.pose.position.y - bin_center.y,
+            current_pose1.pose.position.z - bin_center.z
+        );
+        
+        tf2::Vector3 vec_to_gripper2(
+            current_pose2.pose.position.x - bin_center.x,
+            current_pose2.pose.position.y - bin_center.y,
+            current_pose2.pose.position.z - bin_center.z
+        );
+        
+        // Create rotation matrix from quaternion
+        tf2::Matrix3x3 rotation_matrix(rotation_quat);
+        
+        // Rotate the vectors - this moves the grip points around the fixed center
+        tf2::Vector3 rotated_vec1 = rotation_matrix * vec_to_gripper1;
+        tf2::Vector3 rotated_vec2 = rotation_matrix * vec_to_gripper2;
+        
+        // Apply rotated vectors to get new positions
+        // The center stays the same, only the gripper positions change
+        rotated_pose1.position.x = bin_center.x + rotated_vec1.x();
+        rotated_pose1.position.y = bin_center.y + rotated_vec1.y();
+        rotated_pose1.position.z = bin_center.z + rotated_vec1.z();
+        
+        rotated_pose2.position.x = bin_center.x + rotated_vec2.x();
+        rotated_pose2.position.y = bin_center.y + rotated_vec2.y();
+        rotated_pose2.position.z = bin_center.z + rotated_vec2.z();
+        
+        // Convert current orientations to tf2
+        tf2::Quaternion current_quat1, current_quat2;
+        tf2::convert(current_pose1.pose.orientation, current_quat1);
+        tf2::convert(current_pose2.pose.orientation, current_quat2);
+        
+        // Apply the same rotation to the orientations
+        tf2::Quaternion new_quat1 = rotation_quat * current_quat1;
+        tf2::Quaternion new_quat2 = rotation_quat * current_quat2;
+        new_quat1.normalize();
+        new_quat2.normalize();
+        
+        // Convert back to geometry_msgs
+        tf2::convert(new_quat1, rotated_pose1.orientation);
+        tf2::convert(new_quat2, rotated_pose2.orientation);
+        
+        // Add diagnostic output for the rotated positions
+        RCLCPP_INFO(LOGGER, "Left arm new position: x=%.3f, y=%.3f, z=%.3f", 
+                    rotated_pose1.position.x, rotated_pose1.position.y, rotated_pose1.position.z);
+        RCLCPP_INFO(LOGGER, "Right arm new position: x=%.3f, y=%.3f, z=%.3f", 
+                    rotated_pose2.position.x, rotated_pose2.position.y, rotated_pose2.position.z);
+        
+        // Set planning parameters specific for rotation
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.2); // Slower for rotation
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.1);
+        arm_move_group_dual.setPlanningTime(15.0); // Give more planning time
+    }
+
 
     /*//////////////////////////////////////////
 
@@ -534,12 +618,10 @@ private:
 
     bool opengripper() {
         //state for gripping action
-        gripper_move_group_A.setNamedTarget("Open");
-        bool success1 = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        gripper_move_group_B.setNamedTarget("Open");
-        bool success2 = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        gripper_move_group_dual.setNamedTarget("Open");
+        bool success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         
-        if (success1 && success2) {
+        if (success) {
             RCLCPP_INFO(LOGGER, "Successfully opened gripper");
             current_state_ = State::PLAN_TO_GRASP;  
         } else {
@@ -553,8 +635,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z = 1.33;
-        target_pose_B.position.z = 1.33;
+        target_pose_A.position.z = 1.3;
+        target_pose_B.position.z = 1.3;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -607,20 +689,18 @@ private:
         bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Close gripper
-        gripper_move_group_A.setNamedTarget("Close");
-        bool gripper_success_A = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        gripper_move_group_B.setNamedTarget("Close");
-        bool gripper_success_B = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        gripper_move_group_dual.setNamedTarget("Close");
+        bool gripper_success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Check both operations for overall success
-        if (attach_success_dual && gripper_success_A && gripper_success_B) {
+        if (attach_success_dual && gripper_success) {
             RCLCPP_INFO(LOGGER, "Successfully grasped object");
             current_state_ = State::PLAN_TO_LIFT;
         } else {
             if (!attach_success_dual) {
                 RCLCPP_ERROR(LOGGER, "Failed to attach object");
             }
-            if (!gripper_success_A || !gripper_success_B) {
+            if (!gripper_success) {
                 RCLCPP_ERROR(LOGGER, "Failed to close gripper");
             }
             current_state_ = State::FAILED;
@@ -635,11 +715,32 @@ private:
 
         // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
-        lift_pose1.position.z += 0.02;  // Lift by 20cm
+        lift_pose1.position.z += 0.2;  // Lift by 20cm
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
-        lift_pose2.position.z += 0.02;  // Lift by 20cm
-        
-        // Try planning with the modified joint positions
+        lift_pose2.position.z += 0.2;  // Lift by 20cm
+
+        // // Add planar constraint
+        // moveit_msgs::msg::PositionConstraint plane_constraint;
+        // plane_constraint.header.frame_id = "world";
+        // plane_constraint.link_name = arm_move_group_A.getEndEffectorLink();
+        // shape_msgs::msg::SolidPrimitive plane;
+        // plane.type = shape_msgs::msg::SolidPrimitive::BOX;
+        // plane.dimensions = { 0.6, 0.0005, 0.6 };
+        // plane_constraint.constraint_region.primitives.emplace_back(plane);
+
+        // geometry_msgs::msg::Pose plane_pose;
+        // plane_pose.position.x = 0.0;
+        // plane_pose.position.y = current_pose1.pose.position.y;
+        // plane_pose.position.z = current_pose1.pose.position.z;
+        // plane_pose.orientation.w = 1.0;
+        // plane_constraint.constraint_region.primitive_poses.emplace_back(plane_pose);
+        // plane_constraint.weight = 0.5;
+
+        // moveit_msgs::msg::Constraints plane_constraints;
+        // plane_constraints.position_constraints.emplace_back(plane_constraint);
+        // plane_constraints.name = "use_equality_constraints";
+        // arm_move_group_dual.setPathConstraints(plane_constraints);
+                
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
         waitForKeyPress();
         return plantoTarget_dualarm(lift_pose1, lift_pose2, State::MOVE_TO_LIFT, 
@@ -651,35 +752,48 @@ private:
             return executeMovement_dualarm(State::PLAN_TO_HOME, "Successfully moved to lift position",
                                 "Press any key to plan to home");
         } else {
-            return executeMovement_dualarm(State::PLAN_TO_SIDE2, "Successfully moved to lift position",
-                                "Press any key to plan to side2");
+            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully moved to lift position",
+                                "Press any key to plan to rotation");
         }
     }
 
-    bool planToSide2() {
+    bool planToRotateBack() {
 
-        geometry_msgs::msg::Pose side2_pose1 = arm_move_group_A.getCurrentPose().pose;
-        geometry_msgs::msg::Pose side2_pose2 = arm_move_group_B.getCurrentPose().pose;
-
-        float temp = side2_pose1.position.x;
-        side2_pose1.position.x = 0.0;
-        side2_pose1.position.y = temp;
-
-        temp = side2_pose2.position.x;
-        side2_pose2.position.x = 0.0;
-        side2_pose2.position.y = temp;
-        
-        // Try planning with the modified joint positions
-        return plantoTarget_dualarm(side2_pose1, side2_pose2, State::MOVE_TO_SIDE2, 
-                            "Planning to side2 succeeded!");
+        rotate(-M_PI/4, 0, 0); // Rotate 30 degrees around X axis
+        return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
+                        "Planning rotation succeeded!");
     }
 
-    bool moveToSide2() {
-        return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to side2 position",
-                                "Press any key to plan to place");
+    bool planToRotateFront() {
+
+        rotate(M_PI/4, 0, 0); // Rotate 30 degrees around X axis
+        return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
+                        "Planning rotation succeeded!");
+    }
+
+    bool moveToRotate() {
+        rotations++;
+        RCLCPP_INFO(LOGGER, "Current rotation count: %d", rotations);
+        if (rotations < 2) {
+            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
+                                "Press any key to plan to rotate back");
+        } else if (rotations >= 2 && rotations < 6) {
+            return executeMovement_dualarm(State::PLAN_TO_ROTATE_FRONT, "Successfully rotated",
+                            "Press any key to plan to rotate front");
+        } else if (rotations >= 6 && rotations < 8) {
+            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
+                "Press any key to plan to rotate back");
+        } else {
+            return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully showed three sides",
+                "Press any key to plan to place");
+        }
+        
     }
 
     bool planToPlace() {
+        target_pose_A.position.z = 1.32;
+        target_pose_B.position.z = 1.32;
+
         return plantoTarget_dualarm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
                              "Planning to place succeeded!");
     }
@@ -691,13 +805,9 @@ private:
 
     bool Place() {
 
-        arm_move_group_dual.clearPathConstraints();
-
         // Open gripper
-        gripper_move_group_A.setNamedTarget("Open");
-        gripper_move_group_A.move();
-        gripper_move_group_B.setNamedTarget("Open");
-        gripper_move_group_B.move();
+        gripper_move_group_dual.setNamedTarget("Open");
+        gripper_move_group_dual.move();
 
         // Make sure to detach from planning scene interfaces
         attached_bin.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
@@ -717,10 +827,8 @@ private:
     bool planToHome() {
 
         // Close gripper
-        gripper_move_group_A.setNamedTarget("Close");
-        gripper_move_group_A.move();
-        gripper_move_group_B.setNamedTarget("Close");
-        gripper_move_group_B.move();
+        gripper_move_group_dual.setNamedTarget("Close");
+        gripper_move_group_dual.move();
 
         // Use named target instead of recorded position
         arm_move_group_dual.setNamedTarget("Home");
@@ -763,7 +871,7 @@ int main(int argc, char** argv) {
     static const std::string PLANNING_GROUP_B = "right_arm";
     static const std::string GRIPPER_GROUP_B = "right_gripper";
     static const std::string PLANNING_GROUP_dual = "both_arms";
-    static const std::string GRIPPER_GROUP_dual = "both_arms_with_grippers";
+    static const std::string GRIPPER_GROUP_dual = "both_grippers";
 
     // Create and run FSM
     MotionPlanningFSM fsm(move_group_node, PLANNING_GROUP_A, GRIPPER_GROUP_A,PLANNING_GROUP_B,GRIPPER_GROUP_B,PLANNING_GROUP_dual,GRIPPER_GROUP_dual);
