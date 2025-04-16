@@ -621,12 +621,15 @@ private:
 
     bool opengripper() {
         //state for gripping action
-        gripper_move_group_A.setNamedTarget("Open");
-        bool success1 = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        gripper_move_group_B.setNamedTarget("Open");
-        bool success2 = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // gripper_move_group_A.setNamedTarget("Open");
+        // bool success1 = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // gripper_move_group_B.setNamedTarget("Open");
+        // bool success2 = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+
+        gripper_planning_group_dual.setNamedTarget("Open");
+        bool success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         
-        if (success1 && success2) {
+        if (success) {
             RCLCPP_INFO(LOGGER, "Successfully opened gripper");
             current_state_ = State::PLAN_TO_GRASP;  
         } else {
@@ -694,20 +697,23 @@ private:
         bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Close gripper
-        gripper_move_group_A.setNamedTarget("Close");
-        bool gripper_success_A = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        gripper_move_group_B.setNamedTarget("Close");
-        bool gripper_success_B = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // gripper_move_group_A.setNamedTarget("Close");
+        // bool gripper_success_A = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // gripper_move_group_B.setNamedTarget("Close");
+        // bool gripper_success_B = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+
+        gripper_planning_group_dual.setNamedTarget("Close");
+        bool gripper_success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Check both operations for overall success
-        if (attach_success_dual && gripper_success_A && gripper_success_B) {
+        if (attach_success_dual && gripper_success) {
             RCLCPP_INFO(LOGGER, "Successfully grasped object");
             current_state_ = State::PLAN_TO_LIFT;
         } else {
             if (!attach_success_dual) {
                 RCLCPP_ERROR(LOGGER, "Failed to attach object");
             }
-            if (!gripper_success_A || !gripper_success_B) {
+            if (!gripper_success) {
                 RCLCPP_ERROR(LOGGER, "Failed to close gripper");
             }
             current_state_ = State::FAILED;
@@ -783,7 +789,7 @@ private:
     }
 
     bool moveToRotate() {
-        
+        RCLCPP_INFO(LOGGER, "Current rotation count: %d", rotations);
         if (rotations < 2) {
             return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
                                 "Press any key to plan to rotate back");
@@ -794,7 +800,6 @@ private:
             return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
                 "Press any key to plan to rotate back");
         } else {
-            rotations = 0;
             return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully showed three sides",
                 "Press any key to plan to place");
         }
@@ -818,10 +823,13 @@ private:
         arm_move_group_dual.clearPathConstraints();
 
         // Open gripper
-        gripper_move_group_A.setNamedTarget("Open");
-        gripper_move_group_A.move();
-        gripper_move_group_B.setNamedTarget("Open");
-        gripper_move_group_B.move();
+        // gripper_move_group_A.setNamedTarget("Open");
+        // gripper_move_group_A.move();
+        // gripper_move_group_B.setNamedTarget("Open");
+        // gripper_move_group_B.move();
+
+        gripper_planning_group_dual.setNamedTarget("Open");
+        gripper_planning_group_dual.move();
 
         // Make sure to detach from planning scene interfaces
         attached_bin.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
@@ -841,10 +849,13 @@ private:
     bool planToHome() {
 
         // Close gripper
-        gripper_move_group_A.setNamedTarget("Close");
-        gripper_move_group_A.move();
-        gripper_move_group_B.setNamedTarget("Close");
-        gripper_move_group_B.move();
+        // gripper_move_group_A.setNamedTarget("Close");
+        // gripper_move_group_A.move();
+        // gripper_move_group_B.setNamedTarget("Close");
+        // gripper_move_group_B.move();
+
+        gripper_planning_group_dual.setNamedTarget("Close");
+        gripper_planning_group_dual.move();
 
         // Use named target instead of recorded position
         arm_move_group_dual.setNamedTarget("Home");
@@ -887,7 +898,7 @@ int main(int argc, char** argv) {
     static const std::string PLANNING_GROUP_B = "right_arm";
     static const std::string GRIPPER_GROUP_B = "right_gripper";
     static const std::string PLANNING_GROUP_dual = "both_arms";
-    static const std::string GRIPPER_GROUP_dual = "both_arms_with_grippers";
+    static const std::string GRIPPER_GROUP_dual = "both_grippers";
 
     // Create and run FSM
     MotionPlanningFSM fsm(move_group_node, PLANNING_GROUP_A, GRIPPER_GROUP_A,PLANNING_GROUP_B,GRIPPER_GROUP_B,PLANNING_GROUP_dual,GRIPPER_GROUP_dual);
