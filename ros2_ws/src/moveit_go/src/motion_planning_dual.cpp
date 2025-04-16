@@ -621,11 +621,6 @@ private:
 
     bool opengripper() {
         //state for gripping action
-        // gripper_move_group_A.setNamedTarget("Open");
-        // bool success1 = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        // gripper_move_group_B.setNamedTarget("Open");
-        // bool success2 = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-
         gripper_move_group_dual.setNamedTarget("Open");
         bool success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         
@@ -697,11 +692,6 @@ private:
         bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Close gripper
-        // gripper_move_group_A.setNamedTarget("Close");
-        // bool gripper_success_A = (gripper_move_group_A.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        // gripper_move_group_B.setNamedTarget("Close");
-        // bool gripper_success_B = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-
         gripper_move_group_dual.setNamedTarget("Close");
         bool gripper_success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
@@ -823,11 +813,6 @@ private:
         arm_move_group_dual.clearPathConstraints();
 
         // Open gripper
-        // gripper_move_group_A.setNamedTarget("Open");
-        // gripper_move_group_A.move();
-        // gripper_move_group_B.setNamedTarget("Open");
-        // gripper_move_group_B.move();
-
         gripper_move_group_dual.setNamedTarget("Open");
         gripper_move_group_dual.move();
 
@@ -849,11 +834,6 @@ private:
     bool planToHome() {
 
         // Close gripper
-        // gripper_move_group_A.setNamedTarget("Close");
-        // gripper_move_group_A.move();
-        // gripper_move_group_B.setNamedTarget("Close");
-        // gripper_move_group_B.move();
-
         gripper_move_group_dual.setNamedTarget("Close");
         gripper_move_group_dual.move();
 

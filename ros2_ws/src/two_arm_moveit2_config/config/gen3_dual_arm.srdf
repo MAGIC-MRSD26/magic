@@ -41,7 +41,7 @@
         <group name="left_arm"/>
         <group name="right_arm"/>
     </group>
-    <group name="both grippers">
+    <group name="both_grippers">
         <group name="left_gripper"/>
         <group name="right_gripper"/>
     </group>
