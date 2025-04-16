@@ -765,7 +765,6 @@ private:
     bool planToRotateBack() {
 
         rotate(-M_PI/4, 0, 0); // Rotate 30 degrees around X axis
-        rotations++;
         return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
                         "Planning rotation succeeded!");
     }
@@ -773,12 +772,12 @@ private:
     bool planToRotateFront() {
 
         rotate(M_PI/4, 0, 0); // Rotate 30 degrees around X axis
-        rotations++;
         return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
                         "Planning rotation succeeded!");
     }
 
     bool moveToRotate() {
+        rotate++;
         RCLCPP_INFO(LOGGER, "Current rotation count: %d", rotations);
         if (rotations < 2) {
             return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
