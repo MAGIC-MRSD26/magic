@@ -626,7 +626,7 @@ private:
         // gripper_move_group_B.setNamedTarget("Open");
         // bool success2 = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
-        gripper_planning_group_dual.setNamedTarget("Open");
+        gripper_move_group_dual.setNamedTarget("Open");
         bool success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         
         if (success) {
@@ -702,7 +702,7 @@ private:
         // gripper_move_group_B.setNamedTarget("Close");
         // bool gripper_success_B = (gripper_move_group_B.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
-        gripper_planning_group_dual.setNamedTarget("Close");
+        gripper_move_group_dual.setNamedTarget("Close");
         bool gripper_success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Check both operations for overall success
@@ -828,8 +828,8 @@ private:
         // gripper_move_group_B.setNamedTarget("Open");
         // gripper_move_group_B.move();
 
-        gripper_planning_group_dual.setNamedTarget("Open");
-        gripper_planning_group_dual.move();
+        gripper_move_group_dual.setNamedTarget("Open");
+        gripper_move_group_dual.move();
 
         // Make sure to detach from planning scene interfaces
         attached_bin.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
@@ -854,8 +854,8 @@ private:
         // gripper_move_group_B.setNamedTarget("Close");
         // gripper_move_group_B.move();
 
-        gripper_planning_group_dual.setNamedTarget("Close");
-        gripper_planning_group_dual.move();
+        gripper_move_group_dual.setNamedTarget("Close");
+        gripper_move_group_dual.move();
 
         // Use named target instead of recorded position
         arm_move_group_dual.setNamedTarget("Home");
