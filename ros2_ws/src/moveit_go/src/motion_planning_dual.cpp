@@ -23,8 +23,8 @@ enum class State {
     GRASP,
     PLAN_TO_LIFT,
     MOVE_TO_LIFT,
-    // PLAN_TO_SIDE2,
-    // MOVE_TO_SIDE2,
+    PLAN_TO_SIDE2,
+    MOVE_TO_SIDE2,
     // PLAN_TO_SIDE3,
     // MOVE_TO_SIDE3,
     // PLAN_TO_SIDE4,
@@ -201,8 +201,6 @@ public:
         std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
         collision_objects.push_back(bin_object);
         //adding bin in all planning scenes
-        planning_scene_interface_A.applyCollisionObjects(collision_objects);
-        planning_scene_interface_B.applyCollisionObjects(collision_objects);
         planning_scene_interface_dual.applyCollisionObjects(collision_objects);
 
         RCLCPP_INFO(LOGGER, "Added bin to planning scene");
@@ -218,10 +216,6 @@ public:
                     retry_count++;
                     return true; // Stay in HOME state until we get a message
                 }
-
-                // Save the home position for later 
-                home_pose_A = arm_move_group_A.getCurrentPose().pose;
-                home_pose_B = arm_move_group_B.getCurrentPose().pose;
                 current_state_ = State::PLAN_TO_OBJECT;
      
             case State::PLAN_TO_OBJECT:
@@ -248,11 +242,11 @@ public:
             case State::MOVE_TO_LIFT:
                 return moveToLift();
 
-            // case State::PLAN_TO_SIDE2:
-            //     return planToSide2();
+            case State::PLAN_TO_SIDE2:
+                return planToSide2();
 
-            // case State::MOVE_TO_SIDE2:
-            //     return moveToSide2();
+            case State::MOVE_TO_SIDE2:
+                return moveToSide2();
 
             case State::PLAN_TO_PLACE:
                 return planToPlace();
@@ -303,12 +297,10 @@ private:
     //moveit groups for A
     moveit::planning_interface::MoveGroupInterface arm_move_group_A;
     moveit::planning_interface::MoveGroupInterface gripper_move_group_A;
-    moveit::planning_interface::PlanningSceneInterface planning_scene_interface_A;
 
     //moveit groups for B
     moveit::planning_interface::MoveGroupInterface arm_move_group_B;
     moveit::planning_interface::MoveGroupInterface gripper_move_group_B;
-    moveit::planning_interface::PlanningSceneInterface planning_scene_interface_B;
 
     //moveit groups for dual arms
     moveit::planning_interface::MoveGroupInterface arm_move_group_dual;
@@ -320,10 +312,11 @@ private:
     //current state variable
     State current_state_;
     //target pose variables
-    geometry_msgs::msg::Pose home_pose_A;
-    geometry_msgs::msg::Pose home_pose_B;
     geometry_msgs::msg::Pose target_pose_A;
     geometry_msgs::msg::Pose target_pose_B;
+
+    // for later when we reuse go to Lift state
+    bool go_to_home = false;
 
     moveit_msgs::msg::AttachedCollisionObject attached_bin;
 
@@ -432,7 +425,7 @@ private:
         arm_move_group_dual.setJointValueTarget(combined_joint_positions);
 
         // Set planning parameters
-        arm_move_group_dual.setPlanningTime(15.0 + (5.0 * plan_attempts));
+        arm_move_group_dual.setPlanningTime(5.0 + (5.0 * plan_attempts));
 
         // Plan with the dual arm group directly
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
@@ -576,6 +569,7 @@ private:
     }
 
     bool Grasp() {
+
         // Now we attach the compound bin
         attached_bin.object.id = "bin";
         //cannot link both end effectors so linking left arm alone
@@ -610,8 +604,6 @@ private:
         
         // Define object as attached
         attached_bin.object.operation = moveit_msgs::msg::CollisionObject::ADD;
-        // bool attach_success_left = (planning_scene_interface_A.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        // bool attach_success_right = (planning_scene_interface_B.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
         bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
         // Close gripper
@@ -643,9 +635,9 @@ private:
 
         // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
-        lift_pose1.position.z += 0.2;  // Lift by 20cm
+        lift_pose1.position.z += 0.02;  // Lift by 20cm
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
-        lift_pose2.position.z += 0.2;  // Lift by 20cm
+        lift_pose2.position.z += 0.02;  // Lift by 20cm
         
         // Try planning with the modified joint positions
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
@@ -655,40 +647,37 @@ private:
     }
 
     bool moveToLift() {
-        return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to lift position",
-                                "Press any key to plan to place");
+        if (go_to_home) {
+            return executeMovement_dualarm(State::PLAN_TO_HOME, "Successfully moved to lift position",
+                                "Press any key to plan to home");
+        } else {
+            return executeMovement_dualarm(State::PLAN_TO_SIDE2, "Successfully moved to lift position",
+                                "Press any key to plan to side2");
+        }
     }
 
-    // bool planToSide2() {
+    bool planToSide2() {
 
-    //     geometry_msgs::msg::Pose side2_pose1;
-    //     geometry_msgs::msg::Pose side2_pose2;
+        geometry_msgs::msg::Pose side2_pose1 = arm_move_group_A.getCurrentPose().pose;
+        geometry_msgs::msg::Pose side2_pose2 = arm_move_group_B.getCurrentPose().pose;
 
-    //     tf2::Quaternion tf2_quat;
-    //     tf2_quat.setRPY(-1.57, 0, 0);
-    //     geometry_msgs::msg::Quaternion quat_orient;
-    //     tf2::convert(tf2_quat, quat_orient);
-    
-    //     side2_pose1.orientation = quat_orient;
-    //     side2_pose2.orientation = quat_orient;
-    
-    //     side2_pose1.position.x = 0.1868;
-    //     side2_pose1.position.y = 0.0;
-    //     side2_pose1.position.z = 1.4; 
+        float temp = side2_pose1.position.x;
+        side2_pose1.position.x = 0.0;
+        side2_pose1.position.y = temp;
 
-    //     side2_pose2.position.x = -0.1868;
-    //     side2_pose2.position.y = 0.0;
-    //     side2_pose2.position.z = 1.4;
+        temp = side2_pose2.position.x;
+        side2_pose2.position.x = 0.0;
+        side2_pose2.position.y = temp;
         
-    //     // Try planning with the modified joint positions
-    //     return plantoTarget_dualarm(side2_pose1, side2_pose2, State::MOVE_TO_SIDE2, 
-    //                         "Planning to side2 succeeded!");
-    // }
+        // Try planning with the modified joint positions
+        return plantoTarget_dualarm(side2_pose1, side2_pose2, State::MOVE_TO_SIDE2, 
+                            "Planning to side2 succeeded!");
+    }
 
-    // bool moveToSide2() {
-    //     return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to side2 position",
-    //                             "Press any key to plan to place");
-    // }
+    bool moveToSide2() {
+        return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully moved to side2 position",
+                                "Press any key to plan to place");
+    }
 
     bool planToPlace() {
         return plantoTarget_dualarm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
@@ -710,28 +699,41 @@ private:
         gripper_move_group_B.setNamedTarget("Open");
         gripper_move_group_B.move();
 
-        bool success1 = (gripper_move_group_A.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        bool success2 = (gripper_move_group_B.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        // Make sure to detach from planning scene interfaces
+        attached_bin.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
+        planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin);
         
-
-        if (success1 && success2) {
-            RCLCPP_INFO(LOGGER, "Successfully dropped object");
-            current_state_ = State::PLAN_TO_HOME;
-        } else {
-            RCLCPP_ERROR(LOGGER, "Failed to drop object");
-            current_state_ = State::FAILED;
-        }
+        // Also try gripper detach
+        gripper_move_group_A.detachObject(attached_bin.object.id);
+        gripper_move_group_B.detachObject(attached_bin.object.id);
+        
+        RCLCPP_INFO(LOGGER, "Successfully dropped object");
+        current_state_ = State::PLAN_TO_LIFT;
+        go_to_home = true;
         
         return true;
     }
 
     bool planToHome() {
-        
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
-        waitForKeyPress();
 
-        return plantoTarget_dualarm(home_pose_A, home_pose_B, State::MOVE_TO_HOME, 
-                            "Planning to home succeeded!");
+        // Close gripper
+        gripper_move_group_A.setNamedTarget("Close");
+        gripper_move_group_A.move();
+        gripper_move_group_B.setNamedTarget("Close");
+        gripper_move_group_B.move();
+
+        // Use named target instead of recorded position
+        arm_move_group_dual.setNamedTarget("Home");
+        arm_move_group_dual.setPlanningTime(10.0);
+        bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
+
+        if (success) {
+            current_state_ = State::MOVE_TO_HOME;
+        } else {
+            current_state_ = State::FAILED;
+        }
+        
+        return true;
     }
 
     bool moveToHome() {
