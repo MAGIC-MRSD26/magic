@@ -726,27 +726,27 @@ private:
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
         lift_pose2.position.z += 0.2;  // Lift by 20cm
 
-        // Add planar constraint
-        moveit_msgs::msg::PositionConstraint plane_constraint;
-        plane_constraint.header.frame_id = "world";
-        plane_constraint.link_name = arm_move_group_A.getEndEffectorLink();
-        shape_msgs::msg::SolidPrimitive plane;
-        plane.type = shape_msgs::msg::SolidPrimitive::BOX;
-        plane.dimensions = { 0.6, 0.0005, 0.6 };
-        plane_constraint.constraint_region.primitives.emplace_back(plane);
+        // // Add planar constraint
+        // moveit_msgs::msg::PositionConstraint plane_constraint;
+        // plane_constraint.header.frame_id = "world";
+        // plane_constraint.link_name = arm_move_group_A.getEndEffectorLink();
+        // shape_msgs::msg::SolidPrimitive plane;
+        // plane.type = shape_msgs::msg::SolidPrimitive::BOX;
+        // plane.dimensions = { 0.6, 0.0005, 0.6 };
+        // plane_constraint.constraint_region.primitives.emplace_back(plane);
 
-        geometry_msgs::msg::Pose plane_pose;
-        plane_pose.position.x = 0.0;
-        plane_pose.position.y = current_pose1.pose.position.y;
-        plane_pose.position.z = current_pose1.pose.position.z;
-        plane_pose.orientation.w = 1.0;
-        plane_constraint.constraint_region.primitive_poses.emplace_back(plane_pose);
-        plane_constraint.weight = 0.5;
+        // geometry_msgs::msg::Pose plane_pose;
+        // plane_pose.position.x = 0.0;
+        // plane_pose.position.y = current_pose1.pose.position.y;
+        // plane_pose.position.z = current_pose1.pose.position.z;
+        // plane_pose.orientation.w = 1.0;
+        // plane_constraint.constraint_region.primitive_poses.emplace_back(plane_pose);
+        // plane_constraint.weight = 0.5;
 
-        moveit_msgs::msg::Constraints plane_constraints;
-        plane_constraints.position_constraints.emplace_back(plane_constraint);
-        plane_constraints.name = "use_equality_constraints";
-        arm_move_group_dual.setPathConstraints(plane_constraints);
+        // moveit_msgs::msg::Constraints plane_constraints;
+        // plane_constraints.position_constraints.emplace_back(plane_constraint);
+        // plane_constraints.name = "use_equality_constraints";
+        // arm_move_group_dual.setPathConstraints(plane_constraints);
                 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
         waitForKeyPress();
