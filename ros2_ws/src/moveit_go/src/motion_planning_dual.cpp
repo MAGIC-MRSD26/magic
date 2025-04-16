@@ -777,7 +777,7 @@ private:
     }
 
     bool moveToRotate() {
-        rotate++;
+        rotations++;
         RCLCPP_INFO(LOGGER, "Current rotation count: %d", rotations);
         if (rotations < 2) {
             return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
