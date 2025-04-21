@@ -574,7 +574,7 @@ private:
 
 
         // Wait for pose if needed
-        if (!bin_pose_received_ && retry_count < 3) {
+        if (!bin_pose_received_ && retry_count < 2) {
             RCLCPP_INFO_THROTTLE(LOGGER, *node_->get_clock(), 2000, 
                                 "Waiting for pose on /aruco_poses...");
             retry_count++;
@@ -716,8 +716,12 @@ private:
 
         // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
+        lift_pose1.position.x = 0.0;
+        lift_pose1.position.y = 0.0;
         lift_pose1.position.z += 0.2;  // Lift by 20cm
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
+        lift_pose2.position.x = 0.0;
+        lift_pose2.position.y = 0.0;
         lift_pose2.position.z += 0.2;  // Lift by 20cm
 
         // // Add planar constraint
