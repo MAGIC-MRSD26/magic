@@ -578,9 +578,10 @@ private:
             RCLCPP_INFO_THROTTLE(LOGGER, *node_->get_clock(), 2000, 
                                 "Waiting for pose on /aruco_poses...");
             retry_count++;
-            current_state_ = State::PLAN_TO_OBJECT;
             return true; // Stay in HOME state until we get a message
         }
+        current_state_ = State::PLAN_TO_OBJECT;
+        return true;
     }
 
     bool planToObject() {
@@ -596,11 +597,11 @@ private:
 
         // Calculate grasp pose from bin pose
         target_pose_A.position.x = bin_x + (bin_width / 2) - (wall_thickness / 2);
-        target_pose_A.position.y = 0.0;
+        target_pose_A.position.y = bin_y;
         target_pose_A.position.z = 1.4; 
 
         target_pose_B.position.x = bin_x - (bin_width / 2) + (wall_thickness / 2);
-        target_pose_B.position.y = 0.0;
+        target_pose_B.position.y = bin_y;
         target_pose_B.position.z = 1.4;
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
