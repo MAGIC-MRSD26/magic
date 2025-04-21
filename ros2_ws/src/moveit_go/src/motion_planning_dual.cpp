@@ -716,11 +716,9 @@ private:
 
         // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
-        lift_pose1.position.x = 0.0;
         lift_pose1.position.y = 0.0;
         lift_pose1.position.z += 0.2;  // Lift by 20cm
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
-        lift_pose2.position.x = 0.0;
         lift_pose2.position.y = 0.0;
         lift_pose2.position.z += 0.2;  // Lift by 20cm
 
