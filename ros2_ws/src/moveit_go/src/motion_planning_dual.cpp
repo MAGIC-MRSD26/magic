@@ -837,7 +837,7 @@ private:
 
         // Use named target instead of recorded position
         arm_move_group_dual.setNamedTarget("Home");
-        arm_move_group_dual.setPlanningTime(10.0);
+        arm_move_group_dual.setPlanningTime(5.0);
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
         if (success) {
