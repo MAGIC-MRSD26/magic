@@ -714,16 +714,22 @@ private:
         geometry_msgs::msg::PoseStamped current_pose1 = arm_move_group_A.getCurrentPose();
         geometry_msgs::msg::PoseStamped current_pose2 = arm_move_group_B.getCurrentPose();
 
-        // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
-        lift_pose1.position.x = (bin_width / 2) - (wall_thickness / 2);
-        lift_pose1.position.y = 0.0;
-        lift_pose1.position.z += 0.2;  // Lift by 20cm
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
-        lift_pose2.position.x = -(bin_width / 2) + (wall_thickness / 2);
-        lift_pose2.position.y = 0.0;
-        lift_pose2.position.z += 0.2;  // Lift by 20cm
 
+        // Add to z position
+        if (go_to_home) {
+            lift_pose1.position.z += 0.2;  // Lift by 20cm
+            lift_pose2.position.z += 0.2;  // Lift by 20cm
+        } else {
+            lift_pose1.position.x = (bin_width / 2) - (wall_thickness / 2);
+            lift_pose1.position.y = 0.0;
+            lift_pose1.position.z += 0.2;  // Lift by 20cm
+            lift_pose2.position.x = -(bin_width / 2) + (wall_thickness / 2);
+            lift_pose2.position.y = 0.0;
+            lift_pose2.position.z += 0.2;  // Lift by 20cm
+        }
+        
         // // Add planar constraint
         // moveit_msgs::msg::PositionConstraint plane_constraint;
         // plane_constraint.header.frame_id = "world";
@@ -755,7 +761,7 @@ private:
     bool moveToLift() {
         if (go_to_home) {
             return executeMovement_dualarm(State::PLAN_TO_HOME, "Successfully moved to lift position",
-                                "Press any key to plan to home");
+                                "Press any key to go to home");
         } else {
             return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully moved to lift position",
                                 "Press any key to plan to rotation");
@@ -796,8 +802,8 @@ private:
     }
 
     bool planToPlace() {
-        target_pose_A.position.z = 1.32;
-        target_pose_B.position.z = 1.32;
+        target_pose_A.position.z = 1.31;
+        target_pose_B.position.z = 1.31;
 
         return plantoTarget_dualarm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
                              "Planning to place succeeded!");
@@ -865,6 +871,10 @@ int main(int argc, char** argv) {
 
     move_group_node->declare_parameter("robot_description_kinematics.left_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
     move_group_node->declare_parameter("robot_description_kinematics.right_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
+
+    move_group_node->declare_parameter("trajectory_execution.allowed_start_tolerance", 0.05);  // Increase from 0.01
+    move_group_node->declare_parameter("trajectory_execution.allowed_execution_duration_scaling", 2.0);  // Default is 1.0
+    move_group_node->declare_parameter("trajectory_execution.allowed_goal_duration_margin", 1.0);  // Default is 0.5
 
     rclcpp::executors::SingleThreadedExecutor executor;
     executor.add_node(move_group_node);
