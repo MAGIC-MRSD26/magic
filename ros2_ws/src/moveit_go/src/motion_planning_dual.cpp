@@ -73,147 +73,20 @@ public:
         arm_move_group_dual.setMaxVelocityScalingFactor(0.4); // Safe but still faster
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
         
-        // Create subscription to the grasp pose topic
-        grasp_pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
-            "/arm_pose", 10, 
-            std::bind(&MotionPlanningFSM::graspPoseCallback, this, std::placeholders::_1));
+        // Create subscription to the bin pose topic
+        bin_pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
+            "/aruco_poses", 10, 
+            std::bind(&MotionPlanningFSM::binPoseCallback, this, std::placeholders::_1));
 
-        grasp_pose_received_ = false;
+        bin_pose_received_ = false;
         
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
-
-        // Add object to the planning scene
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to add bin to planning scene \033[0m");
-        waitForKeyPress();
-
-        // Create a bin using multiple collision objects for sides and bottom
-        double bin_width = 0.38;   // X dimension (length)
-        double bin_depth = 0.32;   // Y dimension (width)
-        double bin_height = 0.266; // Z dimension (height)
-        double wall_thickness = 0.01; // Wall thickness of the bin
-
-        // Base position for the bin
-        double bin_x = 0.0;
-        double bin_y = 0.0;
-        double bin_z = 1.0646; // height of table is 0.9316
-        double bin_bottom_z = bin_z - (bin_height / 2) + (wall_thickness / 2);
-
-        // Create a single collision object for the entire bin
-        moveit_msgs::msg::CollisionObject bin_object;
-        bin_object.id = "bin";
-        bin_object.header.frame_id = "world";
-        bin_object.operation = moveit_msgs::msg::CollisionObject::ADD;
-
-        // Create a quaternion for orientation (not rotated)
-        tf2::Quaternion bin_quat;
-        bin_quat.setRPY(0, 0, 0);
-        geometry_msgs::msg::Quaternion bin_orientation = tf2::toMsg(bin_quat);
-
-        // 1. Bottom of the bin
-        shape_msgs::msg::SolidPrimitive bottom_primitive;
-        bottom_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        bottom_primitive.dimensions.resize(3);
-        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
-        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
-        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = wall_thickness;
-
-        geometry_msgs::msg::Pose bottom_pose;
-        bottom_pose.orientation = bin_orientation;
-        bottom_pose.position.x = bin_x;
-        bottom_pose.position.y = bin_y;
-        bottom_pose.position.z = bin_bottom_z;
-
-        bin_object.primitives.push_back(bottom_primitive);
-        bin_object.primitive_poses.push_back(bottom_pose);
-
-        // 2. Front wall of the bin
-        shape_msgs::msg::SolidPrimitive front_primitive;
-        front_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        front_primitive.dimensions.resize(3);
-        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
-        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
-        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose front_pose;
-        front_pose.orientation = bin_orientation;
-        front_pose.position.x = bin_x;
-        front_pose.position.y = bin_y + (bin_depth / 2) - (wall_thickness / 2);
-        front_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(front_primitive);
-        bin_object.primitive_poses.push_back(front_pose);
-
-        // 3. Back wall of the bin
-        shape_msgs::msg::SolidPrimitive back_primitive;
-        back_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        back_primitive.dimensions.resize(3);
-        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
-        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
-        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose back_pose;
-        back_pose.orientation = bin_orientation;
-        back_pose.position.x = bin_x;
-        back_pose.position.y = bin_y - (bin_depth / 2) + (wall_thickness / 2);
-        back_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(back_primitive);
-        bin_object.primitive_poses.push_back(back_pose);
-
-        // 4. Left wall of the bin
-        shape_msgs::msg::SolidPrimitive left_primitive;
-        left_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        left_primitive.dimensions.resize(3);
-        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
-        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
-        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose left_pose;
-        left_pose.orientation = bin_orientation;
-        left_pose.position.x = bin_x - (bin_width / 2) + (wall_thickness / 2);
-        left_pose.position.y = bin_y;
-        left_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(left_primitive);
-        bin_object.primitive_poses.push_back(left_pose);
-
-        // 5. Right wall of the bin
-        shape_msgs::msg::SolidPrimitive right_primitive;
-        right_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        right_primitive.dimensions.resize(3);
-        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
-        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
-        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose right_pose;
-        right_pose.orientation = bin_orientation;
-        right_pose.position.x = bin_x + (bin_width / 2) - (wall_thickness / 2);
-        right_pose.position.y = bin_y;
-        right_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(right_primitive);
-        bin_object.primitive_poses.push_back(right_pose);
-
-        // Add bin object to the planning scene
-        std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
-        collision_objects.push_back(bin_object);
-        //adding bin in all planning scenes
-        planning_scene_interface_dual.applyCollisionObjects(collision_objects);
-
-        RCLCPP_INFO(LOGGER, "Added bin to planning scene");
     }
 
     bool execute() {
         switch (current_state_) {
             case State::HOME:
-                // Wait for pose if needed
-                if (!grasp_pose_received_ && retry_count < 3) {
-                    RCLCPP_INFO_THROTTLE(LOGGER, *node_->get_clock(), 2000, 
-                                        "Waiting for pose on /left_arm_pose...");
-                    retry_count++;
-                    return true; // Stay in HOME state until we get a message
-                }
-                current_state_ = State::PLAN_TO_OBJECT;
+                return home();
      
             case State::PLAN_TO_OBJECT:
                 return planToObject();
@@ -291,7 +164,6 @@ private:
     std::string gripper_planning_group_B;
     std::string arm_planning_group_dual;
     std::string gripper_planning_group_dual;
-    
 
     //creating moveit interfaces for arm and gripper groups
     //moveit groups for A
@@ -325,36 +197,34 @@ private:
     geometry_msgs::msg::Pose rotated_pose2;
     int rotations = 0;
 
-    //creating subscription for grasp_pose
-    rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr grasp_pose_subscription_;
-    
-    // Grasp pose storage for gripper
-    geometry_msgs::msg::Pose target_grasp_pose_A;
-    geometry_msgs::msg::Pose target_grasp_pose_B;
-    bool grasp_pose_received_;
-    
-    
-    // Callback for the grasp pose subscriber
-    void graspPoseCallback(const geometry_msgs::msg::PoseArray::SharedPtr msg) {
-        //checking if both poses are present
-        if (msg->poses.size() < 2) {
-            RCLCPP_WARN(LOGGER, "Received fewer than 2 poses.");
-          }
-        //getting grasp poses
-        target_grasp_pose_A = msg->poses[0];
-        target_grasp_pose_B = msg->poses[1];
-        grasp_pose_received_ = true;
-        RCLCPP_INFO(LOGGER, "Received grasp pose left: x=%f, y=%f, z=%f", 
-                    target_grasp_pose_A.position.x,
-                    target_grasp_pose_A.position.y,
-                    target_grasp_pose_A.position.z);
+    // Bin params
+    double bin_width;   // X dimension (length)
+    double bin_depth;   // Y dimension (width)
+    double bin_height; // Z dimension (height)
+    double wall_thickness; // Wall thickness of the bin
 
-        RCLCPP_INFO(LOGGER, "Received grasp pose right: x=%f, y=%f, z=%f", 
-                    target_grasp_pose_B.position.x,
-                    target_grasp_pose_B.position.y,
-                    target_grasp_pose_B.position.z);
+    // Base position for the bin
+    double bin_x;
+    double bin_y;
+    double bin_z; // height of table is 0.9316
+    double bin_bottom_z = bin_z - (bin_height / 2) + (wall_thickness / 2);
 
-        grasp_pose_subscription_.reset();
+    // Bin subscription 
+    rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr bin_pose_subscription_;
+    geometry_msgs::msg::Pose bin_pose;
+    bool bin_pose_received_;
+    
+    
+    // Callback for the bin pose subscriber
+    void binPoseCallback(const geometry_msgs::msg::PoseArray::SharedPtr msg) {
+        bin_pose = msg->poses[0];
+        bin_pose_received_ = true;
+        RCLCPP_INFO(LOGGER, "Received bin pose: x=%f, y=%f, z=%f", 
+                bin_pose.position.x,
+                bin_pose.position.y,
+                bin_pose.position.z);
+
+        bin_pose_subscription_.reset();
     }
 
     char waitForKeyPress() {
@@ -574,6 +444,146 @@ private:
 
     *//////////////////////////////////////////
 
+    bool home() {
+        // Add object to the planning scene
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to add bin to planning scene \033[0m");
+        waitForKeyPress();
+
+        // Bin parameters
+        bin_width = 0.38;   // X dimension (length)
+        bin_depth = 0.32;   // Y dimension (width)
+        bin_height = 0.266; // Z dimension (height)
+        wall_thickness = 0.01; // Wall thickness of the bin
+
+        // Base position for the bin
+        bin_x = 0.0;
+        bin_y = 0.0;
+        bin_z = 1.0646; // height of table is 0.9316
+        bin_bottom_z = bin_z - (bin_height / 2) + (wall_thickness / 2);
+
+        // If we get pose from realsense, change pose in x and y
+        if (bin_pose_received_) {
+            RCLCPP_INFO(LOGGER, "Using position from topic");
+            bin_x = bin_pose.position.x;
+            bin_y = bin_pose.position.y;
+        }
+
+        // Create a single collision object for the entire bin
+        moveit_msgs::msg::CollisionObject bin_object;
+        bin_object.id = "bin";
+        bin_object.header.frame_id = "world";
+        bin_object.operation = moveit_msgs::msg::CollisionObject::ADD;
+
+        // Create a quaternion for orientation (not rotated)
+        tf2::Quaternion bin_quat;
+        bin_quat.setRPY(0, 0, 0);
+        geometry_msgs::msg::Quaternion bin_orientation = tf2::toMsg(bin_quat);
+
+        // 1. Bottom of the bin
+        shape_msgs::msg::SolidPrimitive bottom_primitive;
+        bottom_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        bottom_primitive.dimensions.resize(3);
+        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
+        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
+        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = wall_thickness;
+
+        geometry_msgs::msg::Pose bottom_pose;
+        bottom_pose.orientation = bin_orientation;
+        bottom_pose.position.x = bin_x;
+        bottom_pose.position.y = bin_y;
+        bottom_pose.position.z = bin_bottom_z;
+
+        bin_object.primitives.push_back(bottom_primitive);
+        bin_object.primitive_poses.push_back(bottom_pose);
+
+        // 2. Front wall of the bin
+        shape_msgs::msg::SolidPrimitive front_primitive;
+        front_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        front_primitive.dimensions.resize(3);
+        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
+        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
+        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose front_pose;
+        front_pose.orientation = bin_orientation;
+        front_pose.position.x = bin_x;
+        front_pose.position.y = bin_y + (bin_depth / 2) - (wall_thickness / 2);
+        front_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(front_primitive);
+        bin_object.primitive_poses.push_back(front_pose);
+
+        // 3. Back wall of the bin
+        shape_msgs::msg::SolidPrimitive back_primitive;
+        back_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        back_primitive.dimensions.resize(3);
+        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
+        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
+        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose back_pose;
+        back_pose.orientation = bin_orientation;
+        back_pose.position.x = bin_x;
+        back_pose.position.y = bin_y - (bin_depth / 2) + (wall_thickness / 2);
+        back_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(back_primitive);
+        bin_object.primitive_poses.push_back(back_pose);
+
+        // 4. Left wall of the bin
+        shape_msgs::msg::SolidPrimitive left_primitive;
+        left_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        left_primitive.dimensions.resize(3);
+        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
+        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
+        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose left_pose;
+        left_pose.orientation = bin_orientation;
+        left_pose.position.x = bin_x - (bin_width / 2) + (wall_thickness / 2);
+        left_pose.position.y = bin_y;
+        left_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(left_primitive);
+        bin_object.primitive_poses.push_back(left_pose);
+
+        // 5. Right wall of the bin
+        shape_msgs::msg::SolidPrimitive right_primitive;
+        right_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        right_primitive.dimensions.resize(3);
+        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
+        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
+        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
+
+        geometry_msgs::msg::Pose right_pose;
+        right_pose.orientation = bin_orientation;
+        right_pose.position.x = bin_x + (bin_width / 2) - (wall_thickness / 2);
+        right_pose.position.y = bin_y;
+        right_pose.position.z = bin_z;
+
+        bin_object.primitives.push_back(right_primitive);
+        bin_object.primitive_poses.push_back(right_pose);
+
+        // Add bin object to the planning scene
+        std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
+        collision_objects.push_back(bin_object);
+        //adding bin in all planning scenes
+        planning_scene_interface_dual.applyCollisionObjects(collision_objects);
+
+        RCLCPP_INFO(LOGGER, "Added bin to planning scene");
+
+
+        // Wait for pose if needed
+        if (!bin_pose_received_ && retry_count < 2) {
+            RCLCPP_INFO_THROTTLE(LOGGER, *node_->get_clock(), 2000, 
+                                "Waiting for pose on /aruco_poses...");
+            retry_count++;
+            return true; // Stay in HOME state until we get a message
+        }
+        current_state_ = State::PLAN_TO_OBJECT;
+        return true;
+    }
+
     bool planToObject() {
         //plans to the object
         // Define orientation in quaternion
@@ -584,26 +594,17 @@ private:
     
         target_pose_A.orientation = quat_orient;
         target_pose_B.orientation = quat_orient;
-    
-        if (grasp_pose_received_) {
-            RCLCPP_INFO(LOGGER, "Using position from topic");
-            target_pose_A.position.x = target_grasp_pose_A.position.x;
-            target_pose_A.position.y = target_grasp_pose_A.position.y;
-            target_pose_A.position.z = target_grasp_pose_A.position.z; 
 
-            target_pose_B.position.x = target_grasp_pose_B.position.x;
-            target_pose_B.position.y = target_grasp_pose_B.position.y;
-            target_pose_B.position.z = target_grasp_pose_B.position.z; 
-        } else {
-            RCLCPP_INFO(LOGGER, "Using default position");
-            target_pose_A.position.x = 0.1868;
-            target_pose_A.position.y = 0.0;
-            target_pose_A.position.z = 1.4; 
+        // Calculate grasp pose from bin pose
+        target_pose_A.position.x = bin_x + (bin_width / 2) - (wall_thickness / 2);
+        target_pose_A.position.y = bin_y;
+        target_pose_A.position.z = 1.4; 
 
-            target_pose_B.position.x = -0.1868;
-            target_pose_B.position.y = 0.0;
-            target_pose_B.position.z = 1.4;
-        }
+        target_pose_B.position.x = bin_x - (bin_width / 2) + (wall_thickness / 2);
+        target_pose_B.position.y = bin_y;
+        target_pose_B.position.z = 1.4;
+        RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
+        RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to object \033[0m");
         waitForKeyPress();
@@ -713,12 +714,22 @@ private:
         geometry_msgs::msg::PoseStamped current_pose1 = arm_move_group_A.getCurrentPose();
         geometry_msgs::msg::PoseStamped current_pose2 = arm_move_group_B.getCurrentPose();
 
-        // Add to z position
         geometry_msgs::msg::Pose lift_pose1 = current_pose1.pose;
-        lift_pose1.position.z += 0.2;  // Lift by 20cm
         geometry_msgs::msg::Pose lift_pose2 = current_pose2.pose;
-        lift_pose2.position.z += 0.2;  // Lift by 20cm
 
+        // Add to z position
+        if (go_to_home) {
+            lift_pose1.position.z += 0.2;  // Lift by 20cm
+            lift_pose2.position.z += 0.2;  // Lift by 20cm
+        } else {
+            lift_pose1.position.x = (bin_width / 2) - (wall_thickness / 2);
+            lift_pose1.position.y = 0.0;
+            lift_pose1.position.z += 0.2;  // Lift by 20cm
+            lift_pose2.position.x = -(bin_width / 2) + (wall_thickness / 2);
+            lift_pose2.position.y = 0.0;
+            lift_pose2.position.z += 0.2;  // Lift by 20cm
+        }
+        
         // // Add planar constraint
         // moveit_msgs::msg::PositionConstraint plane_constraint;
         // plane_constraint.header.frame_id = "world";
@@ -750,7 +761,7 @@ private:
     bool moveToLift() {
         if (go_to_home) {
             return executeMovement_dualarm(State::PLAN_TO_HOME, "Successfully moved to lift position",
-                                "Press any key to plan to home");
+                                "Press any key to go to home");
         } else {
             return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully moved to lift position",
                                 "Press any key to plan to rotation");
@@ -791,8 +802,8 @@ private:
     }
 
     bool planToPlace() {
-        target_pose_A.position.z = 1.32;
-        target_pose_B.position.z = 1.32;
+        target_pose_A.position.z = 1.31;
+        target_pose_B.position.z = 1.31;
 
         return plantoTarget_dualarm(target_pose_A, target_pose_B, State::MOVE_TO_PLACE, 
                              "Planning to place succeeded!");
@@ -832,7 +843,7 @@ private:
 
         // Use named target instead of recorded position
         arm_move_group_dual.setNamedTarget("Home");
-        arm_move_group_dual.setPlanningTime(10.0);
+        arm_move_group_dual.setPlanningTime(5.0);
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
         if (success) {
@@ -860,6 +871,10 @@ int main(int argc, char** argv) {
 
     move_group_node->declare_parameter("robot_description_kinematics.left_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
     move_group_node->declare_parameter("robot_description_kinematics.right_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
+
+    move_group_node->declare_parameter("trajectory_execution.allowed_start_tolerance", 0.05);  // Increase from 0.01
+    move_group_node->declare_parameter("trajectory_execution.allowed_execution_duration_scaling", 2.0);  // Default is 1.0
+    move_group_node->declare_parameter("trajectory_execution.allowed_goal_duration_margin", 1.0);  // Default is 0.5
 
     rclcpp::executors::SingleThreadedExecutor executor;
     executor.add_node(move_group_node);
