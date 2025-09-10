@@ -30,10 +30,10 @@ ObjectParameters ObjectFactory::createCylinderParameters(double x, double y) {
     ObjectParameters params;
     
     // Cylinder dimensions
-    params.cylinder_radius = 0.15;  // 15cm radius
+    params.cylinder_radius = 0.1;  // 1cm radius
     params.height = 0.3;            // 30cm height
-    params.spoke_length = 0.35;     // Spokes extend beyond cylinder
-    params.spoke_width = 0.03;      // 3cm wide spokes
+    params.spoke_length = 0.075;     // Spokes extend beyond cylinder
+    params.spoke_width = 0.05;      // 5cm wide spokes
     params.spoke_thickness = 0.01;  // 1cm thick spokes
     
     // For compatibility with grasp calculations
