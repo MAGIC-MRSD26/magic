@@ -71,16 +71,15 @@ public:
         ObjectParameters params;
         
         // Cylinder dimensions
-        params.cylinder_radius = 0.15;  // 15cm radius
+        params.cylinder_radius = 0.1;  // 1cm radius
         params.height = 0.3;            // 30cm height
-        params.spoke_length = 0.35;     // Spokes extend beyond cylinder
-        params.spoke_width = 0.03;      // 3cm wide spokes
+        params.spoke_length = 0.175;     // Spokes extend beyond cylinder
+        params.spoke_width = 0.05;      // 5cm wide spokes
         params.spoke_thickness = 0.01;  // 1cm thick spokes
         
         // For compatibility with grasp calculations
         params.width = params.cylinder_radius * 2;  // Diameter for X
         params.depth = params.cylinder_radius * 2;  // Diameter for Y
-        params.wall_thickness = params.spoke_thickness;
         
         // Position
         params.x = x;
@@ -266,16 +265,16 @@ public:
             // Spokes extend radially from center
             if (i % 2 == 0) {  // 0° and 180° - along X axis
                 spoke_primitive.dimensions[0] = params.spoke_length;
-                spoke_primitive.dimensions[1] = params.spoke_width;
-                spoke_primitive.dimensions[2] = params.height;
+                spoke_primitive.dimensions[1] = params.spoke_thickness;
+                spoke_primitive.dimensions[2] = params.spoke_width;
                 
                 spoke_pose.position.x = params.x + (i == 0 ? params.spoke_length/2 : -params.spoke_length/2);
                 spoke_pose.position.y = params.y;
             } else {  // 90° and 270° - along Y axis
-                spoke_primitive.dimensions[0] = params.spoke_width;
+                spoke_primitive.dimensions[0] = params.spoke_thickness;
                 spoke_primitive.dimensions[1] = params.spoke_length;
-                spoke_primitive.dimensions[2] = params.height;
-                
+                spoke_primitive.dimensions[2] = params.spoke_width; 
+
                 spoke_pose.position.x = params.x;
                 spoke_pose.position.y = params.y + (i == 1 ? params.spoke_length/2 : -params.spoke_length/2);
             }
