@@ -25,7 +25,7 @@ cd magic/ros2_ws
 
 Build the packages except the ones needed for Gazebo sim
 ```
-colcon build --packages-skip-regex "(.*gz.*|.*ign.*|.*gazebo.*)"
+colcon build --packages-skip-regex "(.*gz.*|.*ign.*|.*gazebo.*|mujoco_ros2)"
 source install/setup.bash
 ```
 
@@ -71,7 +71,7 @@ ros2 launch two_arm_moveit2_config moveit_gaz_control.py
 
 ## Run the FSM to run motion policy
 ```
-ros2 run moveit_go motion_planning
+ros2 run moveit_go motion_planning_dual
 ```
 
 
