@@ -1,57 +1,40 @@
-#include "moveit_go/object_definitions.hpp"
+
+#include "object_definitions.hpp"
 
 const rclcpp::Logger ObjectFactory::LOGGER = rclcpp::get_logger("object_factory");
 
 ObjectParameters ObjectFactory::createBinParameters(double x, double y) {
     ObjectParameters params;
-    
-    // Bin dimensions
-    params.width = 0.38;        // X dimension (length)
-    params.depth = 0.32;        // Y dimension (width)
-    params.height = 0.266;      // Z dimension (height)
-    params.wall_thickness = 0.01; // Wall thickness
-    
-    // Position
+    params.width = 0.38;
+    params.depth = 0.32;
+    params.height = 0.266;
+    params.wall_thickness = 0.01;
     params.x = x;
     params.y = y;
-    params.z = 1.0646;  // height of table is 0.9316
+    params.z = 1.0646;
     params.bottom_z = params.z - (params.height / 2) + (params.wall_thickness / 2);
-    
-    // Object ID
     params.object_id = "bin";
-    
-    // Calculate grasp poses
     calculateGraspPoses(ObjectType::BIN, params);
-    
     return params;
 }
 
 ObjectParameters ObjectFactory::createCylinderParameters(double x, double y) {
     ObjectParameters params;
-    
-    // Cylinder dimensions
-    params.cylinder_radius = 0.1;  // 1cm radius
-    params.height = 0.3;            // 30cm height
-    params.spoke_length = 0.175;     // Spokes extend beyond cylinder
-    params.spoke_width = 0.05;      // 5cm wide spokes
-    params.spoke_thickness = 0.01;  // 1cm thick spokes
-    
-    // For compatibility with grasp calculations
-    params.width = params.cylinder_radius * 2;  // Diameter for X
-    params.depth = params.cylinder_radius * 2;  // Diameter for Y
-    
-    // Position
+    params.cylinder_radius = 0.1;
+    params.height = 0.3;
+    params.spoke_length = 0.175;
+    params.spoke_width = 0.05;
+    params.spoke_thickness = 0.01;
+    params.width = params.cylinder_radius * 2;
+    params.depth = params.cylinder_radius * 2;
     params.x = x;
     params.y = y;
     params.z = 1.0646;
     params.bottom_z = params.z - (params.height / 2);
-    
-    // Object ID
     params.object_id = "cylinder_with_spokes";
     
     // Calculate grasp poses
     calculateGraspPoses(ObjectType::CYLINDER_WITH_SPOKES, params);
-    
     return params;
 }
 
@@ -182,8 +165,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createBin(const ObjectParameter
     
     bin_object.primitives.push_back(right_primitive);
     bin_object.primitive_poses.push_back(right_pose);
-    
-    RCLCPP_INFO(LOGGER, "Created bin collision object with 5 walls");
+    RCLCPP_INFO(ObjectFactory::LOGGER, "Created bin collision object with 5 walls");
     return bin_object;
 }
 
@@ -244,8 +226,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createCylinderWithSpokes(const 
         cylinder_object.primitives.push_back(spoke_primitive);
         cylinder_object.primitive_poses.push_back(spoke_pose);
     }
-    
-    RCLCPP_INFO(LOGGER, "Created cylinder with 4 spokes collision object");
+    RCLCPP_INFO(ObjectFactory::LOGGER, "Created cylinder with 4 spokes collision object");
     return cylinder_object;
 }
 
@@ -256,7 +237,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createObject(ObjectType type, c
         case ObjectType::CYLINDER_WITH_SPOKES:
             return createCylinderWithSpokes(params);
         default:
-            RCLCPP_ERROR(LOGGER, "Unknown object type, returning empty collision object");
+            RCLCPP_ERROR(ObjectFactory::LOGGER, "Unknown object type, returning empty collision object");
             return moveit_msgs::msg::CollisionObject();
     }
 }

@@ -10,7 +10,7 @@
 #include <moveit/robot_trajectory/robot_trajectory.h>
 #include <tf2_eigen/tf2_eigen.hpp>
 
-#include "moveit_go/object_definitions.hpp"
+#include "object_definitions.hpp"
 
 // This is a finite state machine for Kinova Gen3 7DOF arm
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("motion_planning");
