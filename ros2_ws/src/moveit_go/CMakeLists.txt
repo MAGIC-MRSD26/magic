@@ -84,6 +84,19 @@ ament_target_dependencies(
   "geometry_msgs"
 )
 
+add_executable(motion_planning_advanced src/motion_planning_advanced.cpp)
+target_include_directories(motion_planning_advanced PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(motion_planning_advanced PUBLIC c_std_99 cxx_std_17)
+ament_target_dependencies(
+  motion_planning_advanced
+  "moveit_ros_planning_interface"
+  "moveit_visual_tools"
+  "rclcpp"
+  "geometry_msgs"
+)
+
 add_executable(dual_arm_joint_planner src/dual_arm_joint_planner.cpp)
 ament_target_dependencies(
   dual_arm_joint_planner
@@ -96,7 +109,7 @@ install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
 
-install(TARGETS moveit_go_left moveit_go_right moveit_go_dual motion_planning motion_planning_dual moveit_go_dual_test_IK
+install(TARGETS moveit_go_left moveit_go_right moveit_go_dual motion_planning motion_planning_dual motion_planning_advanced moveit_go_dual_test_IK
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
