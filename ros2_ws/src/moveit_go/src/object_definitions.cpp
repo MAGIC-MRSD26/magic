@@ -29,8 +29,7 @@ ObjectParameters ObjectFactory::createCylinderParameters(double x, double y) {
     params.depth = params.cylinder_radius * 2;
     params.x = x;
     params.y = y;
-    params.z = 1.0646;
-    params.bottom_z = params.z - (params.height / 2);
+    params.z = 1.077;
     params.object_id = "cylinder_with_spokes";
     
     // Calculate grasp poses
@@ -39,17 +38,18 @@ ObjectParameters ObjectFactory::createCylinderParameters(double x, double y) {
 }
 
 void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& params) {
-    // Set orientation for both grippers (pointing down)
-    tf2::Quaternion tf2_quat;
-    tf2_quat.setRPY(0, -3.14, 0);
-    geometry_msgs::msg::Quaternion quat_orient;
-    tf2::convert(tf2_quat, quat_orient);
-    
-    params.left_grasp_pose.orientation = quat_orient;
-    params.right_grasp_pose.orientation = quat_orient;
     
     // Calculate position based on object type
     if (type == ObjectType::BIN) {
+        // Set orientation for both grippers (pointing down)
+        tf2::Quaternion tf2_quat;
+        tf2_quat.setRPY(0, -3.14, 0);
+        geometry_msgs::msg::Quaternion quat_orient;
+        tf2::convert(tf2_quat, quat_orient);
+        
+        params.left_grasp_pose.orientation = quat_orient;
+        params.right_grasp_pose.orientation = quat_orient;
+
         // Grasp the left and right walls of the bin
         params.left_grasp_pose.position.x = params.x + (params.width / 2) - (params.wall_thickness / 2);
         params.left_grasp_pose.position.y = params.y;
@@ -59,14 +59,32 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         params.right_grasp_pose.position.y = params.y;
         params.right_grasp_pose.position.z = params.z + 0.034;
     } else if (type == ObjectType::CYLINDER_WITH_SPOKES) {
-        // Grasp the ends of the horizontal spokes
-        params.left_grasp_pose.position.x = params.x + (params.spoke_length / 2) - 0.05;
-        params.left_grasp_pose.position.y = params.y;
-        params.left_grasp_pose.position.z = params.z;
+        // Set orientation for both grippers (pointing in)
+
+        // Left gripper
+        tf2::Quaternion base_left_quat;
+        base_left_quat.setRPY(0, -1.57, 0);
+        tf2::Vector3 rotation_axis(0, 0, 1);
+        tf2::Quaternion finger_rotation_left(rotation_axis, 1.57);
+        tf2::Quaternion final_left_quat = base_left_quat * finger_rotation_left;
+        tf2::convert(final_left_quat, params.left_grasp_pose.orientation);
+
+        // Right gripper
+        tf2::Quaternion base_right_quat;
+        base_right_quat.setRPY(0, 1.57, 0);
+        tf2::Quaternion finger_rotation_right(rotation_axis, -1.57);
+        tf2::Quaternion final_right_quat = base_right_quat * finger_rotation_right;
+        tf2::convert(final_right_quat, params.right_grasp_pose.orientation);
+
         
-        params.right_grasp_pose.position.x = params.x - (params.spoke_length / 2) + 0.05;
+        // Grasp the ends of the horizontal spokes
+        params.left_grasp_pose.position.x = params.x + params.spoke_length + params.cylinder_radius + 0.02;
+        params.left_grasp_pose.position.y = params.y;
+        params.left_grasp_pose.position.z = params.z + params.height;
+        
+        params.right_grasp_pose.position.x = params.x - params.spoke_length - params.cylinder_radius - 0.02;
         params.right_grasp_pose.position.y = params.y;
-        params.right_grasp_pose.position.z = params.z;
+        params.right_grasp_pose.position.z = params.z + params.height;
     }
 }
 

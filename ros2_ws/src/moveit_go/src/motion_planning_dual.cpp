@@ -257,6 +257,7 @@ private:
         }
         
         RCLCPP_INFO(LOGGER, "Successfully retrieved current states");
+        bool success = false;
 
         // Get joint model
         const moveit::core::JointModelGroup* joint_model_group_left = current_state_left->getJointModelGroup("left_arm");
@@ -264,8 +265,8 @@ private:
  
         //Compute IK
         RCLCPP_INFO(LOGGER, "Computing IK solutions...");
-        bool ik_left = current_state_left->setFromIK(joint_model_group_left, pose1, arm_move_group_A.getEndEffectorLink(), 10.0);
-        bool ik_right = current_state_right->setFromIK(joint_model_group_right, pose2, arm_move_group_B.getEndEffectorLink(), 10.0);
+        bool ik_left = current_state_left->setFromIK(joint_model_group_left, pose1, arm_move_group_A.getEndEffectorLink(), 15.0);
+        bool ik_right = current_state_right->setFromIK(joint_model_group_right, pose2, arm_move_group_B.getEndEffectorLink(), 15.0);
         
         if (ik_left && ik_right) {
             RCLCPP_INFO(LOGGER, "IK successful for both arms");
@@ -287,19 +288,19 @@ private:
                                         right_joint_positions.end());
                                         
             RCLCPP_INFO(LOGGER, "Joint positions combined successfully, size=%zu", combined_joint_positions.size());
+
+            arm_move_group_dual.setJointValueTarget(combined_joint_positions);
+
+            // Set planning parameters
+            arm_move_group_dual.setPlanningTime(5.0 + (5.0 * plan_attempts));
+
+            // Plan with the dual arm group directly
+            success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
         } else {
             RCLCPP_WARN(LOGGER, "IK failed for one or both arms");
             if (!ik_left) RCLCPP_WARN(LOGGER, "Left arm IK failed");
             if (!ik_right) RCLCPP_WARN(LOGGER, "Right arm IK failed");
         }
-
-        arm_move_group_dual.setJointValueTarget(combined_joint_positions);
-
-        // Set planning parameters
-        arm_move_group_dual.setPlanningTime(5.0 + (5.0 * plan_attempts));
-
-        // Plan with the dual arm group directly
-        bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
         if (success) {
             // Reset attempt counter on success
@@ -487,8 +488,6 @@ private:
         target_pose_B = object_params_.right_grasp_pose;
         
         // Adjust Z for approach
-        target_pose_A.position.z = 1.4;
-        target_pose_B.position.z = 1.4;
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
@@ -522,8 +521,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z = 1.3;
-        target_pose_B.position.z = 1.3;
+        target_pose_A.position.z = target_pose_A.position.z - 0.03;
+        target_pose_B.position.z = target_pose_B.position.z - 0.03;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
