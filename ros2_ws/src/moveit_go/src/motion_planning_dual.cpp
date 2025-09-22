@@ -67,8 +67,8 @@ public:
           gripper_move_group_dual(node, gripper_planning_group_dual_),
           current_state_(State::HOME),
           selected_object_type_(object_type) {
-
-        // Add this in constructor
+        
+        // Create object parameters based on selected type
         arm_move_group_A.setMaxVelocityScalingFactor(0.6); // Increase from default
         arm_move_group_B.setMaxVelocityScalingFactor(0.6);
         arm_move_group_dual.setMaxVelocityScalingFactor(0.5); // More conservative for dual-arm
@@ -488,6 +488,8 @@ private:
         target_pose_B = object_params_.right_grasp_pose;
         
         // Adjust Z for approach
+        target_pose_A.position.z -= 0.1;
+        target_pose_B.position.z -= 0.1;
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
@@ -521,8 +523,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z = target_pose_A.position.z - 0.03;
-        target_pose_B.position.z = target_pose_B.position.z - 0.03;
+        target_pose_A.position.z -= 0.18;
+        target_pose_B.position.z -= 0.18;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -612,28 +614,6 @@ private:
             lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
             lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
         }
-        
-        // // Add planar constraint
-        // moveit_msgs::msg::PositionConstraint plane_constraint;
-        // plane_constraint.header.frame_id = "world";
-        // plane_constraint.link_name = arm_move_group_A.getEndEffectorLink();
-        // shape_msgs::msg::SolidPrimitive plane;
-        // plane.type = shape_msgs::msg::SolidPrimitive::BOX;
-        // plane.dimensions = { 0.6, 0.0005, 0.6 };
-        // plane_constraint.constraint_region.primitives.emplace_back(plane);
-
-        // geometry_msgs::msg::Pose plane_pose;
-        // plane_pose.position.x = 0.0;
-        // plane_pose.position.y = current_pose1.pose.position.y;
-        // plane_pose.position.z = current_pose1.pose.position.z;
-        // plane_pose.orientation.w = 1.0;
-        // plane_constraint.constraint_region.primitive_poses.emplace_back(plane_pose);
-        // plane_constraint.weight = 0.5;
-
-        // moveit_msgs::msg::Constraints plane_constraints;
-        // plane_constraints.position_constraints.emplace_back(plane_constraint);
-        // plane_constraints.name = "use_equality_constraints";
-        // arm_move_group_dual.setPathConstraints(plane_constraints);
                 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
         waitForKeyPress();
