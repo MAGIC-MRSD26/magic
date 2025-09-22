@@ -523,8 +523,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z -= 0.185;
-        target_pose_B.position.z -= 0.185;
+        target_pose_A.position.z -= 0.19;
+        target_pose_B.position.z -= 0.19;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -611,11 +611,7 @@ private:
         } else {
             lift_pose1 = object_params_.left_grasp_pose;
             lift_pose2 = object_params_.right_grasp_pose;
-            lift_pose1.position.x = object_params_.spoke_length + object_params_.cylinder_radius;
-            lift_pose1.position.y = 0.0;
             lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
-            lift_pose2.position.x = -(object_params_.spoke_length + object_params_.cylinder_radius);
-            lift_pose2.position.y = 0.0;
             lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
         }
                 
