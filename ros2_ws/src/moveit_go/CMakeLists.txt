@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 add_executable(moveit_go_left src/moveit_go_left.cpp)
 target_include_directories(moveit_go_left PUBLIC
@@ -71,7 +72,10 @@ ament_target_dependencies(
   "rclcpp"
 )
 #adding executable info for motion_planning_dual node
-add_executable(motion_planning_dual src/motion_planning_dual.cpp)
+add_executable(motion_planning_dual
+  src/motion_planning_dual.cpp
+  src/object_definitions.cpp
+)
 target_include_directories(motion_planning_dual PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -110,5 +114,10 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+
+install(DIRECTORY include/
+  DESTINATION include/
+)
 
 ament_package()
