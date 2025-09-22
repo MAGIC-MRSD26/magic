@@ -25,7 +25,7 @@ cd magic/ros2_ws
 
 Build the packages except the ones needed for Gazebo sim
 ```
-colcon build --packages-skip-regex "(.*gz.*|.*ign.*|.*gazebo.*)"
+colcon build --packages-skip-regex "(.*gz.*|.*ign.*|.*gazebo.*|mujoco_ros2)"
 source install/setup.bash
 ```
 
