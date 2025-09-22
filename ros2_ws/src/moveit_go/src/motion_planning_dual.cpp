@@ -8,7 +8,9 @@
 #include <moveit_msgs/msg/attached_collision_object.hpp>
 #include <moveit_msgs/msg/collision_object.hpp>
 #include <moveit/robot_trajectory/robot_trajectory.h>
-#include <tf2_eigen/tf2_eigen.h>
+#include <tf2_eigen/tf2_eigen.hpp>
+
+#include "object_definitions.hpp"
 
 // This is a finite state machine for Kinova Gen3 7DOF arm
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("motion_planning");
@@ -44,27 +46,29 @@ public:
         const std::string& arm_planning_group_B_, 
         const std::string& gripper_planning_group_B_,
         const std::string& arm_planning_group_dual_, 
-        const std::string& gripper_planning_group_dual_) 
+        const std::string& gripper_planning_group_dual_,
+        ObjectType object_type = ObjectType::BIN)
         : node_(node),
-        //initialising arm_group names
-          arm_planning_group_A(arm_planning_group_A_),
-          arm_planning_group_B(arm_planning_group_B_),
-          arm_planning_group_dual(arm_planning_group_dual_),
-        //initialising gripper group names
-          gripper_planning_group_A(gripper_planning_group_A_),
-          gripper_planning_group_B(gripper_planning_group_B_),
-          gripper_planning_group_dual(gripper_planning_group_dual_),
-        //initialising movegroups
-          arm_move_group_A(node,arm_planning_group_A_),
-          arm_move_group_B(node,arm_planning_group_B_),
-          arm_move_group_dual(node,arm_planning_group_dual_),
-        //gripper movegroup initialisation
-          gripper_move_group_A(node, gripper_planning_group_A_),
-          gripper_move_group_B(node, gripper_planning_group_B_),
-          gripper_move_group_dual(node, gripper_planning_group_dual_),
-          current_state_(State::HOME) {
 
-        // Add this in constructor
+        // Initialize planning groups
+        arm_planning_group_A(arm_planning_group_A_),
+        gripper_planning_group_A(gripper_planning_group_A_),
+        arm_planning_group_B(arm_planning_group_B_),
+        gripper_planning_group_B(gripper_planning_group_B_),
+        arm_planning_group_dual(arm_planning_group_dual_),
+        gripper_planning_group_dual(gripper_planning_group_dual_),
+
+        // Initialize move groups
+        arm_move_group_A(node,arm_planning_group_A_),
+        gripper_move_group_A(node, gripper_planning_group_A_),
+        arm_move_group_B(node,arm_planning_group_B_),
+        gripper_move_group_B(node, gripper_planning_group_B_),
+        arm_move_group_dual(node,arm_planning_group_dual_),
+        gripper_move_group_dual(node, gripper_planning_group_dual_),
+        current_state_(State::HOME),
+        selected_object_type_(object_type) {
+        
+        // Create object parameters based on selected type
         arm_move_group_A.setMaxVelocityScalingFactor(0.6); // Increase from default
         arm_move_group_B.setMaxVelocityScalingFactor(0.6);
         arm_move_group_dual.setMaxVelocityScalingFactor(0.5); // More conservative for dual-arm
@@ -74,11 +78,11 @@ public:
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
         
         // Create subscription to the bin pose topic
-        bin_pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
+        pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
             "/aruco_poses", 10, 
             std::bind(&MotionPlanningFSM::binPoseCallback, this, std::placeholders::_1));
 
-        bin_pose_received_ = false;
+        pose_received_ = false;
         
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
     }
@@ -190,41 +194,33 @@ private:
     // for later when we reuse go to Lift state
     bool go_to_home = false;
 
-    moveit_msgs::msg::AttachedCollisionObject attached_bin;
+    moveit_msgs::msg::AttachedCollisionObject attached_object;
 
     // Rotation policy variables
     geometry_msgs::msg::Pose rotated_pose1;
     geometry_msgs::msg::Pose rotated_pose2;
     int rotations = 0;
 
-    // Bin params
-    double bin_width;   // X dimension (length)
-    double bin_depth;   // Y dimension (width)
-    double bin_height; // Z dimension (height)
-    double wall_thickness; // Wall thickness of the bin
-
-    // Base position for the bin
-    double bin_x;
-    double bin_y;
-    double bin_z; // height of table is 0.9316
-    double bin_bottom_z = bin_z - (bin_height / 2) + (wall_thickness / 2);
+    // Object params
+    ObjectType selected_object_type_;
+    ObjectParameters object_params_;
 
     // Bin subscription 
-    rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr bin_pose_subscription_;
-    geometry_msgs::msg::Pose bin_pose;
-    bool bin_pose_received_;
+    rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr pose_subscription_;
+    geometry_msgs::msg::Pose object_pose_;
+    bool pose_received_;
     
     
     // Callback for the bin pose subscriber
     void binPoseCallback(const geometry_msgs::msg::PoseArray::SharedPtr msg) {
-        bin_pose = msg->poses[0];
-        bin_pose_received_ = true;
-        RCLCPP_INFO(LOGGER, "Received bin pose: x=%f, y=%f, z=%f", 
-                bin_pose.position.x,
-                bin_pose.position.y,
-                bin_pose.position.z);
+        object_pose_ = msg->poses[0];
+        pose_received_ = true;
+        RCLCPP_INFO(LOGGER, "Received object pose: x=%f, y=%f, z=%f", 
+                object_pose_.position.x,
+                object_pose_.position.y,
+                object_pose_.position.z);
 
-        bin_pose_subscription_.reset();
+        pose_subscription_.reset();
     }
 
     char waitForKeyPress() {
@@ -261,6 +257,7 @@ private:
         }
         
         RCLCPP_INFO(LOGGER, "Successfully retrieved current states");
+        bool success = false;
 
         // Get joint model
         const moveit::core::JointModelGroup* joint_model_group_left = current_state_left->getJointModelGroup("left_arm");
@@ -268,8 +265,8 @@ private:
  
         //Compute IK
         RCLCPP_INFO(LOGGER, "Computing IK solutions...");
-        bool ik_left = current_state_left->setFromIK(joint_model_group_left, pose1, arm_move_group_A.getEndEffectorLink(), 10.0);
-        bool ik_right = current_state_right->setFromIK(joint_model_group_right, pose2, arm_move_group_B.getEndEffectorLink(), 10.0);
+        bool ik_left = current_state_left->setFromIK(joint_model_group_left, pose1, arm_move_group_A.getEndEffectorLink(), 15.0);
+        bool ik_right = current_state_right->setFromIK(joint_model_group_right, pose2, arm_move_group_B.getEndEffectorLink(), 15.0);
         
         if (ik_left && ik_right) {
             RCLCPP_INFO(LOGGER, "IK successful for both arms");
@@ -291,19 +288,19 @@ private:
                                         right_joint_positions.end());
                                         
             RCLCPP_INFO(LOGGER, "Joint positions combined successfully, size=%zu", combined_joint_positions.size());
+
+            arm_move_group_dual.setJointValueTarget(combined_joint_positions);
+
+            // Set planning parameters
+            arm_move_group_dual.setPlanningTime(5.0 + (5.0 * plan_attempts));
+
+            // Plan with the dual arm group directly
+            success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
         } else {
             RCLCPP_WARN(LOGGER, "IK failed for one or both arms");
             if (!ik_left) RCLCPP_WARN(LOGGER, "Left arm IK failed");
             if (!ik_right) RCLCPP_WARN(LOGGER, "Right arm IK failed");
         }
-
-        arm_move_group_dual.setJointValueTarget(combined_joint_positions);
-
-        // Set planning parameters
-        arm_move_group_dual.setPlanningTime(5.0 + (5.0 * plan_attempts));
-
-        // Plan with the dual arm group directly
-        bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
         if (success) {
             // Reset attempt counter on success
@@ -340,14 +337,14 @@ private:
     }
 
     bool executeMovement_dualarm(State next_state, const std::string& success_message, const std::string& prompt_message = "") {
-        bool success = (arm_move_group_dual.execute(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        bool success = (arm_move_group_dual.execute(plan) == moveit::core::MoveItErrorCode::SUCCESS);
         
         if (success) {
             RCLCPP_INFO(LOGGER, "%s", success_message.c_str());
             
             if (!prompt_message.empty()) {
                 RCLCPP_INFO(LOGGER, "\033[32m %s\033[0m", prompt_message.c_str());
-                char input = waitForKeyPress();
+                waitForKeyPress();
             }
             current_state_ = next_state;
         } else {
@@ -446,163 +443,53 @@ private:
 
     bool home() {
         // Add object to the planning scene
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to add bin to planning scene \033[0m");
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to add object to planning scene \033[0m");
         waitForKeyPress();
 
-        // Bin parameters
-        bin_width = 0.38;   // X dimension (length)
-        bin_depth = 0.32;   // Y dimension (width)
-        bin_height = 0.266; // Z dimension (height)
-        wall_thickness = 0.01; // Wall thickness of the bin
-
-        // Base position for the bin
-        bin_x = 0.0;
-        bin_y = 0.0;
-        bin_z = 1.0646; // height of table is 0.9316
-        bin_bottom_z = bin_z - (bin_height / 2) + (wall_thickness / 2);
-
-        // If we get pose from realsense, change pose in x and y
-        if (bin_pose_received_) {
-            RCLCPP_INFO(LOGGER, "Using position from topic");
-            bin_x = bin_pose.position.x;
-            bin_y = bin_pose.position.y;
+        // Create object parameters based on type
+        double x = 0.0, y = 0.0;
+        if (pose_received_) {
+            x = object_pose_.position.x;
+            y = object_pose_.position.y;
         }
-
-        // Create a single collision object for the entire bin
-        moveit_msgs::msg::CollisionObject bin_object;
-        bin_object.id = "bin";
-        bin_object.header.frame_id = "world";
-        bin_object.operation = moveit_msgs::msg::CollisionObject::ADD;
-
-        // Create a quaternion for orientation (not rotated)
-        tf2::Quaternion bin_quat;
-        bin_quat.setRPY(0, 0, 0);
-        geometry_msgs::msg::Quaternion bin_orientation = tf2::toMsg(bin_quat);
-
-        // 1. Bottom of the bin
-        shape_msgs::msg::SolidPrimitive bottom_primitive;
-        bottom_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        bottom_primitive.dimensions.resize(3);
-        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
-        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
-        bottom_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = wall_thickness;
-
-        geometry_msgs::msg::Pose bottom_pose;
-        bottom_pose.orientation = bin_orientation;
-        bottom_pose.position.x = bin_x;
-        bottom_pose.position.y = bin_y;
-        bottom_pose.position.z = bin_bottom_z;
-
-        bin_object.primitives.push_back(bottom_primitive);
-        bin_object.primitive_poses.push_back(bottom_pose);
-
-        // 2. Front wall of the bin
-        shape_msgs::msg::SolidPrimitive front_primitive;
-        front_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        front_primitive.dimensions.resize(3);
-        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
-        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
-        front_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose front_pose;
-        front_pose.orientation = bin_orientation;
-        front_pose.position.x = bin_x;
-        front_pose.position.y = bin_y + (bin_depth / 2) - (wall_thickness / 2);
-        front_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(front_primitive);
-        bin_object.primitive_poses.push_back(front_pose);
-
-        // 3. Back wall of the bin
-        shape_msgs::msg::SolidPrimitive back_primitive;
-        back_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        back_primitive.dimensions.resize(3);
-        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = bin_width;
-        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = wall_thickness;
-        back_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose back_pose;
-        back_pose.orientation = bin_orientation;
-        back_pose.position.x = bin_x;
-        back_pose.position.y = bin_y - (bin_depth / 2) + (wall_thickness / 2);
-        back_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(back_primitive);
-        bin_object.primitive_poses.push_back(back_pose);
-
-        // 4. Left wall of the bin
-        shape_msgs::msg::SolidPrimitive left_primitive;
-        left_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        left_primitive.dimensions.resize(3);
-        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
-        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
-        left_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose left_pose;
-        left_pose.orientation = bin_orientation;
-        left_pose.position.x = bin_x - (bin_width / 2) + (wall_thickness / 2);
-        left_pose.position.y = bin_y;
-        left_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(left_primitive);
-        bin_object.primitive_poses.push_back(left_pose);
-
-        // 5. Right wall of the bin
-        shape_msgs::msg::SolidPrimitive right_primitive;
-        right_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-        right_primitive.dimensions.resize(3);
-        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = wall_thickness;
-        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = bin_depth;
-        right_primitive.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = bin_height;
-
-        geometry_msgs::msg::Pose right_pose;
-        right_pose.orientation = bin_orientation;
-        right_pose.position.x = bin_x + (bin_width / 2) - (wall_thickness / 2);
-        right_pose.position.y = bin_y;
-        right_pose.position.z = bin_z;
-
-        bin_object.primitives.push_back(right_primitive);
-        bin_object.primitive_poses.push_back(right_pose);
-
-        // Add bin object to the planning scene
+        
+        // Use factory to create parameters and collision object
+        if (selected_object_type_ == ObjectType::BIN) {
+            object_params_ = ObjectFactory::createBinParameters(x, y);
+        } else {
+            object_params_ = ObjectFactory::createCylinderParameters(x, y);
+        }
+        
+        // Create and add collision object to scene
+        moveit_msgs::msg::CollisionObject collision_object = 
+            ObjectFactory::createObject(selected_object_type_, object_params_);
+        
         std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
-        collision_objects.push_back(bin_object);
-        //adding bin in all planning scenes
+        collision_objects.push_back(collision_object);
         planning_scene_interface_dual.applyCollisionObjects(collision_objects);
-
-        RCLCPP_INFO(LOGGER, "Added bin to planning scene");
-
-
-        // Wait for pose if needed
-        if (!bin_pose_received_ && retry_count < 2) {
+        
+        RCLCPP_INFO(LOGGER, "Added %s to planning scene", object_params_.object_id.c_str());
+        
+        if (!pose_received_ && retry_count < 2) {
             RCLCPP_INFO_THROTTLE(LOGGER, *node_->get_clock(), 2000, 
                                 "Waiting for pose on /aruco_poses...");
             retry_count++;
-            return true; // Stay in HOME state until we get a message
+            return true;
         }
         current_state_ = State::PLAN_TO_OBJECT;
         return true;
     }
 
+
     bool planToObject() {
         //plans to the object
-        // Define orientation in quaternion
-        tf2::Quaternion tf2_quat;
-        tf2_quat.setRPY(0, -3.14, 0);
-        geometry_msgs::msg::Quaternion quat_orient;
-        tf2::convert(tf2_quat, quat_orient);
-    
-        target_pose_A.orientation = quat_orient;
-        target_pose_B.orientation = quat_orient;
-
-        // Calculate grasp pose from bin pose
-        target_pose_A.position.x = bin_x + (bin_width / 2) - (wall_thickness / 2);
-        target_pose_A.position.y = bin_y;
-        target_pose_A.position.z = 1.4; 
-
-        target_pose_B.position.x = bin_x - (bin_width / 2) + (wall_thickness / 2);
-        target_pose_B.position.y = bin_y;
-        target_pose_B.position.z = 1.4;
+        /// Use pre-calculated grasp poses from object_params_
+        target_pose_A = object_params_.left_grasp_pose;
+        target_pose_B = object_params_.right_grasp_pose;
+        
+        // Adjust Z for approach
+        target_pose_A.position.z -= 0.1;
+        target_pose_B.position.z -= 0.1;
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
@@ -620,7 +507,7 @@ private:
     bool opengripper() {
         //state for gripping action
         gripper_move_group_dual.setNamedTarget("Open");
-        bool success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        bool success = (gripper_move_group_dual.move() == moveit::core::MoveItErrorCode::SUCCESS);
         
         if (success) {
             RCLCPP_INFO(LOGGER, "Successfully opened gripper");
@@ -636,8 +523,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z = 1.3;
-        target_pose_B.position.z = 1.3;
+        target_pose_A.position.z -= 0.19;
+        target_pose_B.position.z -= 0.19;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -653,10 +540,10 @@ private:
 
     bool Grasp() {
 
-        // Now we attach the compound bin
-        attached_bin.object.id = "bin";
+        // Now we attach the object
+        attached_object.object.id = object_params_.object_id;
         //cannot link both end effectors so linking left arm alone
-        attached_bin.link_name = arm_move_group_A.getEndEffectorLink();
+        attached_object.link_name = arm_move_group_A.getEndEffectorLink();
         
         // Define which links are allowed to touch the bin
         std::vector<std::string> touch_links;
@@ -683,15 +570,15 @@ private:
         // Add the end effector link of the other arm
         touch_links.push_back(arm_move_group_B.getEndEffectorLink());
 
-        attached_bin.touch_links = touch_links;
+        attached_object.touch_links = touch_links;
         
         // Define object as attached
-        attached_bin.object.operation = moveit_msgs::msg::CollisionObject::ADD;
-        bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        attached_object.object.operation = moveit_msgs::msg::CollisionObject::ADD;
+        bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_object) == moveit::core::MoveItErrorCode::SUCCESS);
 
         // Close gripper
         gripper_move_group_dual.setNamedTarget("Close");
-        bool gripper_success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        bool gripper_success = (gripper_move_group_dual.move() == moveit::core::MoveItErrorCode::SUCCESS);
 
         // Check both operations for overall success
         if (attach_success_dual && gripper_success) {
@@ -722,35 +609,28 @@ private:
             lift_pose1.position.z += 0.2;  // Lift by 20cm
             lift_pose2.position.z += 0.2;  // Lift by 20cm
         } else {
-            lift_pose1.position.x = (bin_width / 2) - (wall_thickness / 2);
+            lift_pose1 = object_params_.left_grasp_pose;
+            lift_pose2 = object_params_.right_grasp_pose;
+            lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
+            lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
+                        
+            // Left gripper
+            tf2::Quaternion left_quat;
+            left_quat.setRPY(0, -1.57, 0);  // Point fingers towards negative X (center)
+            tf2::convert(left_quat, lift_pose1.orientation);
+            
+            // Right gripper (negative X spoke) - fingers should point towards center  
+            tf2::Quaternion right_quat;
+            right_quat.setRPY(0, 1.57, 0);   // Point fingers towards positive X (center)
+            tf2::convert(right_quat, lift_pose2.orientation);
+
+            lift_pose1.position.x = object_params_.spoke_length + object_params_.cylinder_radius;
             lift_pose1.position.y = 0.0;
-            lift_pose1.position.z += 0.2;  // Lift by 20cm
-            lift_pose2.position.x = -(bin_width / 2) + (wall_thickness / 2);
+            lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
+            lift_pose2.position.x = -(object_params_.spoke_length + object_params_.cylinder_radius);
             lift_pose2.position.y = 0.0;
-            lift_pose2.position.z += 0.2;  // Lift by 20cm
+            lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
         }
-        
-        // // Add planar constraint
-        // moveit_msgs::msg::PositionConstraint plane_constraint;
-        // plane_constraint.header.frame_id = "world";
-        // plane_constraint.link_name = arm_move_group_A.getEndEffectorLink();
-        // shape_msgs::msg::SolidPrimitive plane;
-        // plane.type = shape_msgs::msg::SolidPrimitive::BOX;
-        // plane.dimensions = { 0.6, 0.0005, 0.6 };
-        // plane_constraint.constraint_region.primitives.emplace_back(plane);
-
-        // geometry_msgs::msg::Pose plane_pose;
-        // plane_pose.position.x = 0.0;
-        // plane_pose.position.y = current_pose1.pose.position.y;
-        // plane_pose.position.z = current_pose1.pose.position.z;
-        // plane_pose.orientation.w = 1.0;
-        // plane_constraint.constraint_region.primitive_poses.emplace_back(plane_pose);
-        // plane_constraint.weight = 0.5;
-
-        // moveit_msgs::msg::Constraints plane_constraints;
-        // plane_constraints.position_constraints.emplace_back(plane_constraint);
-        // plane_constraints.name = "use_equality_constraints";
-        // arm_move_group_dual.setPathConstraints(plane_constraints);
                 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
         waitForKeyPress();
@@ -821,12 +701,12 @@ private:
         gripper_move_group_dual.move();
 
         // Make sure to detach from planning scene interfaces
-        attached_bin.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
-        planning_scene_interface_dual.applyAttachedCollisionObject(attached_bin);
+        attached_object.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
+        planning_scene_interface_dual.applyAttachedCollisionObject(attached_object);
         
         // Also try gripper detach
-        gripper_move_group_A.detachObject(attached_bin.object.id);
-        gripper_move_group_B.detachObject(attached_bin.object.id);
+        gripper_move_group_A.detachObject(attached_object.object.id);
+        gripper_move_group_B.detachObject(attached_object.object.id);
         
         RCLCPP_INFO(LOGGER, "Successfully dropped object");
         current_state_ = State::PLAN_TO_LIFT;
@@ -869,6 +749,9 @@ int main(int argc, char** argv) {
     rclcpp::Parameter sim_time_param("use_sim_time", true);
     move_group_node->set_parameter(sim_time_param);
 
+    // Select object type
+    ObjectType object_type = ObjectType::CYLINDER_WITH_SPOKES;
+
     move_group_node->declare_parameter("robot_description_kinematics.left_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
     move_group_node->declare_parameter("robot_description_kinematics.right_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
 
@@ -889,7 +772,14 @@ int main(int argc, char** argv) {
     static const std::string GRIPPER_GROUP_dual = "both_grippers";
 
     // Create and run FSM
-    MotionPlanningFSM fsm(move_group_node, PLANNING_GROUP_A, GRIPPER_GROUP_A,PLANNING_GROUP_B,GRIPPER_GROUP_B,PLANNING_GROUP_dual,GRIPPER_GROUP_dual);
+    MotionPlanningFSM fsm(move_group_node, 
+        PLANNING_GROUP_A, 
+        GRIPPER_GROUP_A,
+        PLANNING_GROUP_B,
+        GRIPPER_GROUP_B,
+        PLANNING_GROUP_dual,
+        GRIPPER_GROUP_dual,
+        object_type);
     
     // FSM execution loop
     while (fsm.execute()) {
