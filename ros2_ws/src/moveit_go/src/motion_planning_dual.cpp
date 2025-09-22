@@ -49,24 +49,24 @@ public:
         const std::string& gripper_planning_group_dual_,
         ObjectType object_type = ObjectType::BIN)
         : node_(node),
-        //initialising arm_group names
-          arm_planning_group_A(arm_planning_group_A_),
-          arm_planning_group_B(arm_planning_group_B_),
-          arm_planning_group_dual(arm_planning_group_dual_),
-        //initialising gripper group names
-          gripper_planning_group_A(gripper_planning_group_A_),
-          gripper_planning_group_B(gripper_planning_group_B_),
-          gripper_planning_group_dual(gripper_planning_group_dual_),
-        //initialising movegroups
-          arm_move_group_A(node,arm_planning_group_A_),
-          arm_move_group_B(node,arm_planning_group_B_),
-          arm_move_group_dual(node,arm_planning_group_dual_),
-        //gripper movegroup initialisation
-          gripper_move_group_A(node, gripper_planning_group_A_),
-          gripper_move_group_B(node, gripper_planning_group_B_),
-          gripper_move_group_dual(node, gripper_planning_group_dual_),
-          current_state_(State::HOME),
-          selected_object_type_(object_type) {
+
+        // Initialize planning groups
+        arm_planning_group_A(arm_planning_group_A_),
+        gripper_planning_group_A(gripper_planning_group_A_),
+        arm_planning_group_B(arm_planning_group_B_),
+        gripper_planning_group_B(gripper_planning_group_B_),
+        arm_planning_group_dual(arm_planning_group_dual_),
+        gripper_planning_group_dual(gripper_planning_group_dual_),
+
+        // Initialize move groups
+        arm_move_group_A(node,arm_planning_group_A_),
+        gripper_move_group_A(node, gripper_planning_group_A_),
+        arm_move_group_B(node,arm_planning_group_B_),
+        gripper_move_group_B(node, gripper_planning_group_B_),
+        arm_move_group_dual(node,arm_planning_group_dual_),
+        gripper_move_group_dual(node, gripper_planning_group_dual_),
+        current_state_(State::HOME),
+        selected_object_type_(object_type) {
         
         // Create object parameters based on selected type
         arm_move_group_A.setMaxVelocityScalingFactor(0.6); // Increase from default
@@ -337,14 +337,14 @@ private:
     }
 
     bool executeMovement_dualarm(State next_state, const std::string& success_message, const std::string& prompt_message = "") {
-        bool success = (arm_move_group_dual.execute(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        bool success = (arm_move_group_dual.execute(plan) == moveit::core::MoveItErrorCode::SUCCESS);
         
         if (success) {
             RCLCPP_INFO(LOGGER, "%s", success_message.c_str());
             
             if (!prompt_message.empty()) {
                 RCLCPP_INFO(LOGGER, "\033[32m %s\033[0m", prompt_message.c_str());
-                char input = waitForKeyPress();
+                waitForKeyPress();
             }
             current_state_ = next_state;
         } else {
@@ -507,7 +507,7 @@ private:
     bool opengripper() {
         //state for gripping action
         gripper_move_group_dual.setNamedTarget("Open");
-        bool success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        bool success = (gripper_move_group_dual.move() == moveit::core::MoveItErrorCode::SUCCESS);
         
         if (success) {
             RCLCPP_INFO(LOGGER, "Successfully opened gripper");
@@ -523,8 +523,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z -= 0.18;
-        target_pose_B.position.z -= 0.18;
+        target_pose_A.position.z -= 0.185;
+        target_pose_B.position.z -= 0.185;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -574,11 +574,11 @@ private:
         
         // Define object as attached
         attached_object.object.operation = moveit_msgs::msg::CollisionObject::ADD;
-        bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_object) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        bool attach_success_dual = (planning_scene_interface_dual.applyAttachedCollisionObject(attached_object) == moveit::core::MoveItErrorCode::SUCCESS);
 
         // Close gripper
         gripper_move_group_dual.setNamedTarget("Close");
-        bool gripper_success = (gripper_move_group_dual.move() == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+        bool gripper_success = (gripper_move_group_dual.move() == moveit::core::MoveItErrorCode::SUCCESS);
 
         // Check both operations for overall success
         if (attach_success_dual && gripper_success) {
@@ -611,7 +611,11 @@ private:
         } else {
             lift_pose1 = object_params_.left_grasp_pose;
             lift_pose2 = object_params_.right_grasp_pose;
+            lift_pose1.position.x = object_params_.spoke_length + object_params_.cylinder_radius;
+            lift_pose1.position.y = 0.0;
             lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
+            lift_pose2.position.x = -(object_params_.spoke_length + object_params_.cylinder_radius);
+            lift_pose2.position.y = 0.0;
             lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
         }
                 
