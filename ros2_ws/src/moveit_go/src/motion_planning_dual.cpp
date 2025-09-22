@@ -613,6 +613,23 @@ private:
             lift_pose2 = object_params_.right_grasp_pose;
             lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
             lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
+                        
+            // Left gripper
+            tf2::Quaternion left_quat;
+            left_quat.setRPY(0, -1.57, 0);  // Point fingers towards negative X (center)
+            tf2::convert(left_quat, lift_pose1.orientation);
+            
+            // Right gripper (negative X spoke) - fingers should point towards center  
+            tf2::Quaternion right_quat;
+            right_quat.setRPY(0, 1.57, 0);   // Point fingers towards positive X (center)
+            tf2::convert(right_quat, lift_pose2.orientation);
+
+            lift_pose1.position.x = object_params_.spoke_length + object_params_.cylinder_radius;
+            lift_pose1.position.y = 0.0;
+            lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
+            lift_pose2.position.x = -(object_params_.spoke_length + object_params_.cylinder_radius);
+            lift_pose2.position.y = 0.0;
+            lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
         }
                 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
