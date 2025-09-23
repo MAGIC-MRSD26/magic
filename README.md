@@ -71,7 +71,7 @@ ros2 launch two_arm_moveit2_config moveit_gaz_control.py
 
 ## Run the FSM to run motion policy
 ```
-ros2 run moveit_go motion_planning
+ros2 run moveit_go motion_planning_dual
 ```
 
 
