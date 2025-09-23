@@ -5,7 +5,7 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>/home/jarvis/codebase/magic_dev/magic/ros2_ws/install/control/share/control/kinova_gen3_mujoco/assets/bin.stl</uri>
+            <uri>/home/jarvis/codebase/capstone/magic/ros2_ws/install/control/share/control/kinova_gen3_mujoco/assets/bin.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>
@@ -18,7 +18,7 @@
       <collision name="collision">
         <geometry>
           <mesh>
-            <uri>/home/jarvis/codebase/magic_dev/magic/ros2_ws/install/control/share/control/kinova_gen3_mujoco/assets/bin.stl</uri>
+            <uri>/home/jarvis/codebase/capstone/magic/ros2_ws/install/control/share/control/kinova_gen3_mujoco/assets/bin.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>

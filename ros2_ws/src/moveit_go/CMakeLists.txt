@@ -78,3 +78,8 @@ install(DIRECTORY include/
 )
 
 ament_package()
+
+install(PROGRAMS
+  src/transforms.py
+  DESTINATION lib/${PROJECT_NAME}
+)
