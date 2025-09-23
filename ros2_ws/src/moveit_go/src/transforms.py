@@ -20,7 +20,7 @@ class BinPoseClient(Node):
         self.cli = self.create_client(GetPlanningScene, '/get_planning_scene')
         while not self.cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('Waiting for /get_planning_scene service...')
-        self.get_logger().info("Press 'q' to query the bin pose. Ctrl+C to quit.")
+        self.get_logger().info("Press 'q' to query the bin pose. esc to quit.")
 
     def query_scene(self):
         req = GetPlanningScene.Request()
@@ -34,7 +34,7 @@ class BinPoseClient(Node):
 
         # 1. Free objects in world
         for obj in scene.world.collision_objects:
-            if obj.id == "bin":
+            if obj.id == "cylinder_with_spokes":
                 p = obj.pose
                 self.get_logger().info(
                     f"World bin pose (frame={obj.header.frame_id}): "
@@ -45,7 +45,7 @@ class BinPoseClient(Node):
 
         # 2. Attached objects
         for aobj in scene.robot_state.attached_collision_objects:
-            if aobj.object.id == "bin":
+            if aobj.object.id == "cylinder_with_spokes":
                 p = aobj.object.pose
                 self.get_logger().info(
                     f"Attached bin pose (frame={aobj.object.header.frame_id}, link={aobj.link_name}): "
@@ -60,8 +60,12 @@ def main(args=None):
     try:
         while rclpy.ok():
             key = get_key()
-            if key.lower() == 'q':
-                node.query_scene()
+            if key:
+                if key.lower() == 'q':
+                    node.query_scene()
+                elif key == '\x1b':  # ESC key
+                    node.get_logger().info("ESC pressed, exiting.")
+                    break
     except KeyboardInterrupt:
         pass
     finally:
