@@ -112,3 +112,8 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
+
+install(PROGRAMS
+  src/transforms.py
+  DESTINATION lib/${PROJECT_NAME}
+)
