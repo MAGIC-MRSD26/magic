@@ -1,7 +1,6 @@
 #include <moveit/move_group_interface/move_group_interface.h>
 #include "geometry_msgs/msg/pose_array.hpp"
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
-#include <moveit/planning_scene_monitor/planning_scene_monitor.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <moveit_msgs/msg/display_robot_state.hpp>
 #include <moveit_msgs/msg/display_trajectory.hpp>
@@ -29,6 +28,7 @@ enum class State {
     MOVE_TO_LIFT,
     PLAN_TO_STRAIGHTEN_LIFT,
     MOVE_TO_STRAIGHTEN_LIFT,
+    ROTATE_EE,
     PLAN_TO_ROTATE_BACK,
     PLAN_TO_ROTATE_FRONT,
     MOVE_TO_ROTATE,
@@ -125,6 +125,9 @@ public:
 
             case State::MOVE_TO_STRAIGHTEN_LIFT:
                 return moveToStraightenLift();
+
+            case State::ROTATE_EE:
+                return rotateEndEffectors();
 
             case State::PLAN_TO_ROTATE_BACK:
                 return planToRotateBack();
@@ -650,15 +653,70 @@ private:
 
     bool planToStraightenLift() {
         
-        rotate(0, 0, -M_PI/6); // No rotation, just straighten
+        rotate(0, 0, -M_PI/4);
         return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_STRAIGHTEN_LIFT, 
                         "Planning to straighten lift succeeded!");
     }
 
     bool moveToStraightenLift() {
 
-        return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully straightened lift position",
+        return executeMovement_dualarm(State::ROTATE_EE, "Successfully straightened lift position",
                                 "Press any key to straighten lift");
+    }
+
+    bool rotateEndEffectors() {
+       RCLCPP_INFO(LOGGER, "\033[32m STEP 3: End Effector Rotation Demonstration \033[0m");
+       RCLCPP_INFO(LOGGER, "Demonstrating independent end effector rotation - 360° without arm movement");
+       RCLCPP_INFO(LOGGER, "Press any key to start end effector rotation");
+       waitForKeyPress();
+      
+       std::vector<double> current_joints = arm_move_group_dual.getCurrentJointValues();
+      
+       double left_wrist_joint = 6;  
+       double right_wrist_joint = 13; 
+      
+       double original_left_wrist = current_joints[left_wrist_joint];
+       double original_right_wrist = current_joints[right_wrist_joint];
+      
+       const int steps = 8;
+       const double rotation_per_step = 2 * M_PI / steps; // 45 degrees per step
+      
+       for (int i = 1; i <= steps; i++) {
+           RCLCPP_INFO(LOGGER, "Rotation step %d/%d (%.1f degrees)",
+                      i, steps, (i * 360.0 / steps));
+          
+           current_joints[left_wrist_joint] = original_left_wrist + (i * rotation_per_step);
+           current_joints[right_wrist_joint] = original_right_wrist - (i * rotation_per_step);
+
+           arm_move_group_dual.setJointValueTarget(current_joints);
+           arm_move_group_dual.setPlanningTime(5.0);
+          
+           moveit::planning_interface::MoveGroupInterface::Plan rotation_plan;
+           bool plan_success = (arm_move_group_dual.plan(rotation_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+          
+           if (plan_success) {
+               bool execute_success = (arm_move_group_dual.execute(rotation_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+               if (execute_success) {
+                   RCLCPP_INFO(LOGGER, "Step %d completed - notice arm positions remain unchanged!", i);
+                   rclcpp::sleep_for(std::chrono::milliseconds(500));
+               } else {
+                   RCLCPP_ERROR(LOGGER, "Failed to execute rotation step %d", i);
+                   current_state_ = State::FAILED;
+                   return true;
+               }
+           } else {
+               RCLCPP_ERROR(LOGGER, "Failed to plan rotation step %d", i);
+               current_state_ = State::FAILED;
+               return true;
+           }
+       }
+      
+       RCLCPP_INFO(LOGGER, "\033[32m360° rotation completed! End effectors rotated independently.\033[0m");
+       RCLCPP_INFO(LOGGER, "Press any key to return to home position");
+       waitForKeyPress();
+      
+       current_state_ = State::PLAN_TO_HOME;
+       return true;
     }
 
     bool planToRotateBack() {
