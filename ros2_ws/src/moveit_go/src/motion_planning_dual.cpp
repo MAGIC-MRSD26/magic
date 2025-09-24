@@ -5,7 +5,6 @@
 #include <moveit_msgs/msg/display_robot_state.hpp>
 #include <moveit_msgs/msg/display_trajectory.hpp>
 #include <future>
-#include <random>
 #include <moveit_msgs/msg/attached_collision_object.hpp>
 #include <moveit_msgs/msg/collision_object.hpp>
 #include <moveit/robot_trajectory/robot_trajectory.h>
@@ -29,9 +28,6 @@ enum class State {
     PLAN_TO_STRAIGHTEN_LIFT,
     MOVE_TO_STRAIGHTEN_LIFT,
     ROTATE_EE,
-    PLAN_TO_ROTATE_BACK,
-    PLAN_TO_ROTATE_FRONT,
-    MOVE_TO_ROTATE,
     PLAN_TO_PLACE,
     MOVE_TO_PLACE,
     PLACE,
@@ -128,15 +124,6 @@ public:
 
             case State::ROTATE_EE:
                 return rotateEndEffectors();
-
-            case State::PLAN_TO_ROTATE_BACK:
-                return planToRotateBack();
-
-            case State::PLAN_TO_ROTATE_FRONT:
-                return planToRotateFront();
-
-            case State::MOVE_TO_ROTATE:
-                return moveToRotate();
 
             case State::PLAN_TO_PLACE:
                 return planToPlace();
@@ -715,41 +702,8 @@ private:
        RCLCPP_INFO(LOGGER, "Press any key to return to home position");
        waitForKeyPress();
       
-       current_state_ = State::PLAN_TO_HOME;
+       current_state_ = State::PLAN_TO_PLACE;
        return true;
-    }
-
-    bool planToRotateBack() {
-
-        rotate(-M_PI/4, 0, 0); // Rotate 30 degrees around X axis
-        return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
-                        "Planning rotation succeeded!");
-    }
-
-    bool planToRotateFront() {
-
-        rotate(M_PI/4, 0, 0); // Rotate 30 degrees around X axis
-        return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
-                        "Planning rotation succeeded!");
-    }
-
-    bool moveToRotate() {
-        rotations++;
-        RCLCPP_INFO(LOGGER, "Current rotation count: %d", rotations);
-        if (rotations < 2) {
-            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
-                                "Press any key to plan to rotate back");
-        } else if (rotations >= 2 && rotations < 6) {
-            return executeMovement_dualarm(State::PLAN_TO_ROTATE_FRONT, "Successfully rotated",
-                            "Press any key to plan to rotate front");
-        } else if (rotations >= 6 && rotations < 8) {
-            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
-                "Press any key to plan to rotate back");
-        } else {
-            return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully showed three sides",
-                "Press any key to plan to place");
-        }
-        
     }
 
     bool planToPlace() {
