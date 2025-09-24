@@ -29,7 +29,7 @@ ObjectParameters ObjectFactory::createCylinderParameters(double x, double y) {
     params.depth = params.cylinder_radius * 2;
     params.x = x;
     params.y = y;
-    params.z = 1.075;
+    params.z = 1.09;
     params.object_id = "cylinder_with_spokes";
     
     // Calculate grasp poses
@@ -60,32 +60,6 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         params.right_grasp_pose.position.z = params.z + 0.034;
     } else if (type == ObjectType::CYLINDER_WITH_SPOKES) {
         // Set orientation for both grippers (pointing in)
-
-        //Left and right grasp orientations
-        // // Left gripper
-        // tf2::Quaternion base_left_quat;
-        // base_left_quat.setRPY(0, -1.57, 0);
-        // tf2::Vector3 rotation_axis(0, 0, 1);
-        // tf2::Quaternion finger_rotation_left(rotation_axis, 1.57);
-        // tf2::Quaternion final_left_quat = base_left_quat * finger_rotation_left;
-        // tf2::convert(final_left_quat, params.left_grasp_pose.orientation);
-
-        // // Right gripper
-        // tf2::Quaternion base_right_quat;
-        // base_right_quat.setRPY(0, 1.57, 0);
-        // tf2::Quaternion finger_rotation_right(rotation_axis, -1.57);
-        // tf2::Quaternion final_right_quat = base_right_quat * finger_rotation_right;
-        // tf2::convert(final_right_quat, params.right_grasp_pose.orientation);
-
-        // // Grasp the ends of the horizontal spokes
-        // params.left_grasp_pose.position.x = params.x + params.spoke_length + params.cylinder_radius + 0.02;
-        // params.left_grasp_pose.position.y = params.y;
-        // params.left_grasp_pose.position.z = params.z + params.height;
-        
-        // params.right_grasp_pose.position.x = params.x - params.spoke_length - params.cylinder_radius - 0.02;
-        // params.right_grasp_pose.position.y = params.y;
-        // params.right_grasp_pose.position.z = params.z + params.height;
-        
         // Left gripper - grasp the 45° spoke
         tf2::Quaternion base_left_quat;
         base_left_quat.setRPY(0.785, -1.57, 0);

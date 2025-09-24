@@ -15,16 +15,16 @@ both_arms:
     - BiTRRT
     - LazyPRM
   default_planner_config: RRTstar
-  # Goal sampling parameters
-  goal_joint_tolerance: 0.01
-  goal_position_tolerance: 0.01
-  goal_orientation_tolerance: 0.01
-  optimization_objective: PathLengthOptimization
+  # # Goal sampling parameters
+  # goal_joint_tolerance: 0.01
+  # goal_position_tolerance: 0.01
+  # goal_orientation_tolerance: 0.01
+  # optimization_objective: PathLengthOptimization
   
-  # Using left and right arm joints for projection
-  projection_evaluator: joints(left_joint_1,right_joint_1)
-  longest_valid_segment_fraction: 0.005
-  simplify_solutions: true
+  # # Using left and right arm joints for projection
+  # projection_evaluator: joints(left_joint_1,right_joint_1)
+  # longest_valid_segment_fraction: 0.005
+  # simplify_solutions: true
 
 # Configuration for the 'both_arms_with_grippers' group
 both_arms_with_grippers:
@@ -106,7 +106,7 @@ right_arm_with_gripper:
 RRTConnect:
   type: geometric::RRTConnect
   range: 0.0  # Max step size (0.0 means auto)
-  goal_bias: 0.15  # Increased from 0.05 to help with goal sampling
+  # goal_bias: 0.15  # Increased from 0.05 to help with goal sampling
 
 RRT:
   type: geometric::RRT
