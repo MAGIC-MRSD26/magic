@@ -63,51 +63,6 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          bound_left_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_left_top_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_right_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_right_top_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_1_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_2_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_3_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_4_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_top_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           left_base_link:
             Alpha: 1
             Show Axes: false
@@ -342,51 +297,6 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          bound_left_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_left_top_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_right_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_right_top_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_1_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_2_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_3_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_stand_4_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bound_top_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           left_base_link:
             Alpha: 1
             Show Axes: false

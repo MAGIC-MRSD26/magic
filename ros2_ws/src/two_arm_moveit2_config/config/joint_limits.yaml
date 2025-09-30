@@ -11,38 +11,38 @@ joint_limits:
   left_joint_1:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   left_joint_2:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   left_joint_3:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   left_joint_4:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   left_joint_5:
     has_velocity_limits: true
     max_velocity: 1.2218
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   left_joint_6:
     has_velocity_limits: true
     max_velocity: 1.2218
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   left_joint_7:
     has_velocity_limits: true
     max_velocity: 1.2218
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   left_robotiq_85_left_knuckle_joint:
     has_velocity_limits: true
     max_velocity: 0.5
@@ -51,38 +51,38 @@ joint_limits:
   right_joint_1:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   right_joint_2:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   right_joint_3:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   right_joint_4:
     has_velocity_limits: true
     max_velocity: 1.3963000000000001
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   right_joint_5:
     has_velocity_limits: true
     max_velocity: 1.2218
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   right_joint_6:
     has_velocity_limits: true
     max_velocity: 1.2218
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   right_joint_7:
     has_velocity_limits: true
     max_velocity: 1.2218
-    has_acceleration_limits: false
-    max_acceleration: 0
+    has_acceleration_limits: true
+    max_acceleration: 2.0
   right_robotiq_85_left_knuckle_joint:
     has_velocity_limits: true
     max_velocity: 0.5
