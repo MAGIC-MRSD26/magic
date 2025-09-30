@@ -12,42 +12,6 @@ find_package(rclcpp REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
-add_executable(moveit_go_left src/moveit_go_left.cpp)
-target_include_directories(moveit_go_left PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
-target_compile_features(moveit_go_left PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  moveit_go_left
-  "moveit_ros_planning_interface"
-  "moveit_visual_tools"
-  "rclcpp"
-)
-
-add_executable(moveit_go_right src/moveit_go_right.cpp)
-target_include_directories(moveit_go_right PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
-target_compile_features(moveit_go_right PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  moveit_go_right
-  "moveit_ros_planning_interface"
-  "moveit_visual_tools"
-  "rclcpp"
-)
-
-add_executable(moveit_go_dual src/moveit_go_dual.cpp)
-target_include_directories(moveit_go_dual PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
-target_compile_features(moveit_go_dual PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  moveit_go_dual
-  "moveit_ros_planning_interface"
-  "moveit_visual_tools"
-  "rclcpp"
-)
-
 add_executable(moveit_go_dual_test_IK src/moveit_go_dual_test_IK.cpp)
 target_include_directories(moveit_go_dual_test_IK PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -60,47 +24,40 @@ ament_target_dependencies(
   "rclcpp"
 )
 
-add_executable(motion_planning src/motion_planning.cpp)
-target_include_directories(motion_planning PUBLIC
+add_executable(motion_planning_single_arm_RRT src/motion_planning_single_arm_RRT.cpp)
+target_include_directories(motion_planning_single_arm_RRT PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(motion_planning PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(motion_planning_single_arm_RRT PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
-  motion_planning
+  motion_planning_single_arm_RRT
   "moveit_ros_planning_interface"
   "moveit_visual_tools"
   "rclcpp"
 )
-#adding executable info for motion_planning_dual node
-add_executable(motion_planning_dual
-  src/motion_planning_dual.cpp
+#adding executable info for dual_arm_fsm node
+add_executable(dual_arm_fsm
+  src/dual_arm_fsm.cpp
   src/object_definitions.cpp
+  src/dual_arm_planner.cpp
 )
-target_include_directories(motion_planning_dual PUBLIC
+target_include_directories(dual_arm_fsm PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(motion_planning_dual PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(dual_arm_fsm PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
-  motion_planning_dual
+  dual_arm_fsm
   "moveit_ros_planning_interface"
   "moveit_visual_tools"
   "rclcpp"
   "geometry_msgs"
 )
 
-add_executable(dual_arm_joint_planner src/dual_arm_joint_planner.cpp)
-ament_target_dependencies(
-  dual_arm_joint_planner
-  "moveit_ros_planning_interface"
-  "moveit_visual_tools"
-  "rclcpp"
-)
-install(TARGETS dual_arm_joint_planner DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
 
-install(TARGETS moveit_go_left moveit_go_right moveit_go_dual motion_planning motion_planning_dual moveit_go_dual_test_IK
+install(TARGETS dual_arm_fsm moveit_go_dual_test_IK
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
