@@ -76,6 +76,9 @@ public:
         // For kinematic chain movements specifically (after grasping)
         arm_move_group_dual.setMaxVelocityScalingFactor(0.4); // Safe but still faster
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
+
+        // Set planner
+        arm_move_group_dual.setPlannerId("PTP");
         
         // Create subscription to the bin pose topic
         pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
