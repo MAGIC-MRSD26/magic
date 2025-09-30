@@ -25,9 +25,9 @@ enum class State {
     GRASP,
     PLAN_TO_LIFT,
     MOVE_TO_LIFT,
-    PLAN_TO_ROTATE_BACK,
-    PLAN_TO_ROTATE_FRONT,
-    MOVE_TO_ROTATE,
+    PLAN_TO_STRAIGHTEN_LIFT,
+    MOVE_TO_STRAIGHTEN_LIFT,
+    ROTATE_EE,
     PLAN_TO_PLACE,
     MOVE_TO_PLACE,
     PLACE,
@@ -116,14 +116,14 @@ public:
             case State::MOVE_TO_LIFT:
                 return moveToLift();
 
-            case State::PLAN_TO_ROTATE_BACK:
-                return planToRotateBack();
+            case State::PLAN_TO_STRAIGHTEN_LIFT:
+                return planToStraightenLift();
 
-            case State::PLAN_TO_ROTATE_FRONT:
-                return planToRotateFront();
+            case State::MOVE_TO_STRAIGHTEN_LIFT:
+                return moveToStraightenLift();
 
-            case State::MOVE_TO_ROTATE:
-                return moveToRotate();
+            case State::ROTATE_EE:
+                return rotateEndEffectors();
 
             case State::PLAN_TO_PLACE:
                 return planToPlace();
@@ -232,107 +232,115 @@ private:
         std::cout << std::endl;  // Add newline after key press
         return input;
     }
-
-    bool plantoTarget_dualarm(geometry_msgs::msg::Pose pose1, geometry_msgs::msg::Pose pose2, State next_state, const std::string& planning_message = "Planning succeeded!") {
+    
+    bool plantoTarget_dualarm(geometry_msgs::msg::Pose pose1, geometry_msgs::msg::Pose pose2, 
+                                State next_state, const std::string& planning_message = "Planning succeeded!") {
         
         static int plan_attempts = 0;
         const int max_plan_attempts = 5;
 
-        std::vector<double> combined_joint_positions;
+        RCLCPP_INFO(LOGGER, "Planning dual-arm motion (attempt %d/%d)...", 
+                    plan_attempts + 1, max_plan_attempts);
 
-        // Get the current state with timeout
-        RCLCPP_INFO(LOGGER, "Getting current robot state...");
-        moveit::core::RobotStatePtr current_state_left = arm_move_group_A.getCurrentState(5.0);
-        if (!current_state_left) {
-            RCLCPP_ERROR(LOGGER, "Failed to get current state for left arm");
+        // Get the kinematic model and current state
+        moveit::core::RobotModelConstPtr kinematic_model = arm_move_group_dual.getRobotModel();
+        moveit::core::RobotStatePtr kinematic_state = arm_move_group_dual.getCurrentState(10.0);
+        
+        if (!kinematic_state) {
+            RCLCPP_ERROR(LOGGER, "Failed to get current robot state");
             current_state_ = State::FAILED;
             return true;
         }
-        
-        moveit::core::RobotStatePtr current_state_right = arm_move_group_B.getCurrentState(5.0);
-        if (!current_state_right) {
-            RCLCPP_ERROR(LOGGER, "Failed to get current state for right arm");
+
+        // Get joint model groups for individual arms
+        const moveit::core::JointModelGroup* left_joint_model_group = 
+            kinematic_model->getJointModelGroup("left_arm");
+        const moveit::core::JointModelGroup* right_joint_model_group = 
+            kinematic_model->getJointModelGroup("right_arm");
+
+        if (!left_joint_model_group || !right_joint_model_group) {
+            RCLCPP_ERROR(LOGGER, "Failed to get joint model groups");
             current_state_ = State::FAILED;
             return true;
         }
+
+        // Get joint names for both arms
+        const std::vector<std::string>& left_joint_names = left_joint_model_group->getVariableNames();
+        const std::vector<std::string>& right_joint_names = right_joint_model_group->getVariableNames();
         
-        RCLCPP_INFO(LOGGER, "Successfully retrieved current states");
-        bool success = false;
-
-        // Get joint model
-        const moveit::core::JointModelGroup* joint_model_group_left = current_state_left->getJointModelGroup("left_arm");
-        const moveit::core::JointModelGroup* joint_model_group_right = current_state_right->getJointModelGroup("right_arm");
- 
-        //Compute IK
-        RCLCPP_INFO(LOGGER, "Computing IK solutions...");
-        bool ik_left = current_state_left->setFromIK(joint_model_group_left, pose1, arm_move_group_A.getEndEffectorLink(), 15.0);
-        bool ik_right = current_state_right->setFromIK(joint_model_group_right, pose2, arm_move_group_B.getEndEffectorLink(), 15.0);
+        std::vector<double> left_joint_values;
+        std::vector<double> right_joint_values;
         
-        if (ik_left && ik_right) {
-            RCLCPP_INFO(LOGGER, "IK successful for both arms");
+        double timeout = 0.1;
+        RCLCPP_INFO(LOGGER, "Computing IK solutions with timeout: %.1f seconds", timeout);
+        
+        bool left_found_ik = kinematic_state->setFromIK(left_joint_model_group, pose1, 
+                                                    arm_move_group_A.getEndEffectorLink(), timeout);
+        bool right_found_ik = kinematic_state->setFromIK(right_joint_model_group, pose2, 
+                                                        arm_move_group_B.getEndEffectorLink(), timeout);
+
+        if (left_found_ik && right_found_ik) {
+            RCLCPP_INFO(LOGGER, "IK solutions found for both arms");
             
-            // Initialize the vectors first, then pass them as output parameters
-            std::vector<double> left_joint_positions;
-            std::vector<double> right_joint_positions;
+            // Extract joint values for both arms
+            kinematic_state->copyJointGroupPositions(left_joint_model_group, left_joint_values);
+            kinematic_state->copyJointGroupPositions(right_joint_model_group, right_joint_values);
+
+            // Set joint value targets for the dual arm group
+            arm_move_group_dual.setJointValueTarget(left_joint_names, left_joint_values);
+            arm_move_group_dual.setJointValueTarget(right_joint_names, right_joint_values);
+
+            // Configure planning parameters based on attempt number
+            arm_move_group_dual.setPlanningTime(10.0 + (5.0 * plan_attempts));
+            arm_move_group_dual.setNumPlanningAttempts(10 + (5 * plan_attempts)); // Increase attempts
+
+            // Plan
+            bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
             
-            // Get joint positions for left arm
-            current_state_left->copyJointGroupPositions(joint_model_group_left, left_joint_positions);
-            
-            // Get joint positions for right arm
-            current_state_right->copyJointGroupPositions(joint_model_group_right, right_joint_positions);
-            
-            // Combine the joint positions
-            combined_joint_positions = left_joint_positions;
-            combined_joint_positions.insert(combined_joint_positions.end(), 
-                                        right_joint_positions.begin(), 
-                                        right_joint_positions.end());
-                                        
-            RCLCPP_INFO(LOGGER, "Joint positions combined successfully, size=%zu", combined_joint_positions.size());
+            if (success) {
+                // Reset attempt counter and restore normal scaling factors
+                plan_attempts = 0;
+                arm_move_group_dual.setMaxVelocityScalingFactor(0.5); // Restore default
+                arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
 
-            arm_move_group_dual.setJointValueTarget(combined_joint_positions);
+                RCLCPP_INFO(LOGGER, "%s", planning_message.c_str());
 
-            // Set planning parameters
-            arm_move_group_dual.setPlanningTime(5.0 + (5.0 * plan_attempts));
+                RCLCPP_INFO(LOGGER, "\033[32m 1) Press 'r' to replan, OR 2) press any other key to execute the plan \033[0m");
+                char input = waitForKeyPress();
 
-            // Plan with the dual arm group directly
-            success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
-        } else {
-            RCLCPP_WARN(LOGGER, "IK failed for one or both arms");
-            if (!ik_left) RCLCPP_WARN(LOGGER, "Left arm IK failed");
-            if (!ik_right) RCLCPP_WARN(LOGGER, "Right arm IK failed");
-        }
-
-        if (success) {
-            // Reset attempt counter on success
-            plan_attempts = 0;
-
-            RCLCPP_INFO(LOGGER, "%s", planning_message.c_str());
-
-            RCLCPP_INFO(LOGGER, "\033[32m 1) Press 'r' to replan, OR 2) press any other key to execute the plan \033[0m");
-            char input = waitForKeyPress();
-
-            if (input == 'r' || input == 'R') {
-                RCLCPP_INFO(LOGGER, "Replanning requested");
-                return true; // Stay in same state for replanning
+                if (input == 'r' || input == 'R') {
+                    RCLCPP_INFO(LOGGER, "Replanning requested");
+                    return true; // Stay in same state for replanning
                 } else {
-                RCLCPP_INFO(LOGGER, "Executing plan");
-                current_state_ = next_state;
-                return true;
+                    RCLCPP_INFO(LOGGER, "Executing plan");
+                    current_state_ = next_state;
+                    return true;
+                }
+            } else {
+                // Planning failed even with valid IK
+                plan_attempts++;
+                RCLCPP_WARN(LOGGER, "Planning failed despite valid IK solutions (attempt %d/%d)", 
+                        plan_attempts, max_plan_attempts);
+                
+                if (plan_attempts < max_plan_attempts) {
+                    return true; // Try again
+                } else {
+                    RCLCPP_ERROR(LOGGER, "Planning failed after %d attempts", max_plan_attempts);
+                    plan_attempts = 0; // Reset for next call
+                    current_state_ = State::FAILED;
+                    return true;
+                }
             }
         } else {
-            // Planning failed
-            plan_attempts++;
-
-            if (plan_attempts < max_plan_attempts) {
-                RCLCPP_WARN(LOGGER, "Planning attempt %d/%d, retrying...", 
-                plan_attempts, max_plan_attempts);
-                return true; // Stay in current state to try again
-                } else {
-                // After max attempts, ask the user what to do
-                RCLCPP_ERROR(LOGGER, "Failed to plan after %d attempts", max_plan_attempts);
-                current_state_ = State::FAILED;
-                return true;
+            // IK failed for one or both arms
+            if (!left_found_ik) {
+                RCLCPP_WARN(LOGGER, "Left arm IK failed");
             }
+            if (!right_found_ik) {
+                RCLCPP_WARN(LOGGER, "Right arm IK failed");
+            }
+            current_state_ = State::FAILED;
+            return true;
         }
     }
 
@@ -365,13 +373,13 @@ private:
         rotated_pose2 = current_pose2.pose;
         
         // Calculate bin's center point (midpoint between grippers)
-        geometry_msgs::msg::Point bin_center;
-        bin_center.x = 0.0;
-        bin_center.y = 0.0;
-        bin_center.z = 1.194;
+        geometry_msgs::msg::Point object_center;
+        object_center.x = (current_pose1.pose.position.x + current_pose2.pose.position.x) / 2.0;
+        object_center.y = (current_pose1.pose.position.y + current_pose2.pose.position.y) / 2.0;
+        object_center.z = (current_pose1.pose.position.z + current_pose2.pose.position.z) / 2.0;
         
-        RCLCPP_INFO(LOGGER, "Bin center: x=%.3f, y=%.3f, z=%.3f", 
-                    bin_center.x, bin_center.y, bin_center.z);
+        RCLCPP_INFO(LOGGER, "Object center: x=%.3f, y=%.3f, z=%.3f", 
+                    object_center.x, object_center.y, object_center.z);
         
         // Create rotation quaternion - define the rotation axis
         tf2::Quaternion rotation_quat;
@@ -379,15 +387,15 @@ private:
         
         // Calculate vectors from bin center to each gripper
         tf2::Vector3 vec_to_gripper1(
-            current_pose1.pose.position.x - bin_center.x,
-            current_pose1.pose.position.y - bin_center.y,
-            current_pose1.pose.position.z - bin_center.z
+            current_pose1.pose.position.x - object_center.x,
+            current_pose1.pose.position.y - object_center.y,
+            current_pose1.pose.position.z - object_center.z
         );
         
         tf2::Vector3 vec_to_gripper2(
-            current_pose2.pose.position.x - bin_center.x,
-            current_pose2.pose.position.y - bin_center.y,
-            current_pose2.pose.position.z - bin_center.z
+            current_pose2.pose.position.x - object_center.x,
+            current_pose2.pose.position.y - object_center.y,
+            current_pose2.pose.position.z - object_center.z
         );
         
         // Create rotation matrix from quaternion
@@ -399,13 +407,13 @@ private:
         
         // Apply rotated vectors to get new positions
         // The center stays the same, only the gripper positions change
-        rotated_pose1.position.x = bin_center.x + rotated_vec1.x();
-        rotated_pose1.position.y = bin_center.y + rotated_vec1.y();
-        rotated_pose1.position.z = bin_center.z + rotated_vec1.z();
+        rotated_pose1.position.x = object_center.x + rotated_vec1.x();
+        rotated_pose1.position.y = object_center.y + rotated_vec1.y();
+        rotated_pose1.position.z = object_center.z + rotated_vec1.z();
         
-        rotated_pose2.position.x = bin_center.x + rotated_vec2.x();
-        rotated_pose2.position.y = bin_center.y + rotated_vec2.y();
-        rotated_pose2.position.z = bin_center.z + rotated_vec2.z();
+        rotated_pose2.position.x = object_center.x + rotated_vec2.x();
+        rotated_pose2.position.y = object_center.y + rotated_vec2.y();
+        rotated_pose2.position.z = object_center.z + rotated_vec2.z();
         
         // Convert current orientations to tf2
         tf2::Quaternion current_quat1, current_quat2;
@@ -433,7 +441,6 @@ private:
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.1);
         arm_move_group_dual.setPlanningTime(15.0); // Give more planning time
     }
-
 
     /*//////////////////////////////////////////
 
@@ -611,25 +618,8 @@ private:
         } else {
             lift_pose1 = object_params_.left_grasp_pose;
             lift_pose2 = object_params_.right_grasp_pose;
-            lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
-            lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
-                        
-            // Left gripper
-            tf2::Quaternion left_quat;
-            left_quat.setRPY(0, -1.57, 0);  // Point fingers towards negative X (center)
-            tf2::convert(left_quat, lift_pose1.orientation);
-            
-            // Right gripper (negative X spoke) - fingers should point towards center  
-            tf2::Quaternion right_quat;
-            right_quat.setRPY(0, 1.57, 0);   // Point fingers towards positive X (center)
-            tf2::convert(right_quat, lift_pose2.orientation);
-
-            lift_pose1.position.x = object_params_.spoke_length + object_params_.cylinder_radius;
-            lift_pose1.position.y = 0.0;
-            lift_pose1.position.z = current_pose1.pose.position.z + 0.2;
-            lift_pose2.position.x = -(object_params_.spoke_length + object_params_.cylinder_radius);
-            lift_pose2.position.y = 0.0;
-            lift_pose2.position.z = current_pose2.pose.position.z + 0.2;
+            lift_pose1.position.z = current_pose1.pose.position.z + 0.35;
+            lift_pose2.position.z = current_pose2.pose.position.z + 0.35;
         }
                 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
@@ -643,42 +633,77 @@ private:
             return executeMovement_dualarm(State::PLAN_TO_HOME, "Successfully moved to lift position",
                                 "Press any key to go to home");
         } else {
-            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully moved to lift position",
-                                "Press any key to plan to rotation");
+            return executeMovement_dualarm(State::PLAN_TO_STRAIGHTEN_LIFT, "Successfully moved to lift position",
+                                "Press any key to straighten lift");
         }
     }
 
-    bool planToRotateBack() {
-
-        rotate(-M_PI/4, 0, 0); // Rotate 30 degrees around X axis
-        return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
-                        "Planning rotation succeeded!");
-    }
-
-    bool planToRotateFront() {
-
-        rotate(M_PI/4, 0, 0); // Rotate 30 degrees around X axis
-        return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_ROTATE, 
-                        "Planning rotation succeeded!");
-    }
-
-    bool moveToRotate() {
-        rotations++;
-        RCLCPP_INFO(LOGGER, "Current rotation count: %d", rotations);
-        if (rotations < 2) {
-            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
-                                "Press any key to plan to rotate back");
-        } else if (rotations >= 2 && rotations < 6) {
-            return executeMovement_dualarm(State::PLAN_TO_ROTATE_FRONT, "Successfully rotated",
-                            "Press any key to plan to rotate front");
-        } else if (rotations >= 6 && rotations < 8) {
-            return executeMovement_dualarm(State::PLAN_TO_ROTATE_BACK, "Successfully rotated",
-                "Press any key to plan to rotate back");
-        } else {
-            return executeMovement_dualarm(State::PLAN_TO_PLACE, "Successfully showed three sides",
-                "Press any key to plan to place");
-        }
+    bool planToStraightenLift() {
         
+        rotate(0, 0, -M_PI/4);
+        return plantoTarget_dualarm(rotated_pose1, rotated_pose2, State::MOVE_TO_STRAIGHTEN_LIFT, 
+                        "Planning to straighten lift succeeded!");
+    }
+
+    bool moveToStraightenLift() {
+
+        return executeMovement_dualarm(State::ROTATE_EE, "Successfully straightened lift position",
+                                "Press any key to straighten lift");
+    }
+
+    bool rotateEndEffectors() {
+       RCLCPP_INFO(LOGGER, "\033[32m STEP 3: End Effector Rotation Demonstration \033[0m");
+       RCLCPP_INFO(LOGGER, "Demonstrating independent end effector rotation - 360° without arm movement");
+       RCLCPP_INFO(LOGGER, "Press any key to start end effector rotation");
+       waitForKeyPress();
+      
+       std::vector<double> current_joints = arm_move_group_dual.getCurrentJointValues();
+      
+       double left_wrist_joint = 6;  
+       double right_wrist_joint = 13; 
+      
+       double original_left_wrist = current_joints[left_wrist_joint];
+       double original_right_wrist = current_joints[right_wrist_joint];
+      
+       const int steps = 8;
+       const double rotation_per_step = 2 * M_PI / steps; // 45 degrees per step
+      
+       for (int i = 1; i <= steps; i++) {
+           RCLCPP_INFO(LOGGER, "Rotation step %d/%d (%.1f degrees)",
+                      i, steps, (i * 360.0 / steps));
+          
+           current_joints[left_wrist_joint] = original_left_wrist + (i * rotation_per_step);
+           current_joints[right_wrist_joint] = original_right_wrist - (i * rotation_per_step);
+
+           arm_move_group_dual.setJointValueTarget(current_joints);
+           arm_move_group_dual.setPlanningTime(5.0);
+          
+           moveit::planning_interface::MoveGroupInterface::Plan rotation_plan;
+           bool plan_success = (arm_move_group_dual.plan(rotation_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+          
+           if (plan_success) {
+               bool execute_success = (arm_move_group_dual.execute(rotation_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+               if (execute_success) {
+                   RCLCPP_INFO(LOGGER, "Step %d completed - notice arm positions remain unchanged!", i);
+                   rclcpp::sleep_for(std::chrono::milliseconds(500));
+               } else {
+                   RCLCPP_ERROR(LOGGER, "Failed to execute rotation step %d", i);
+                   current_state_ = State::FAILED;
+                   return true;
+               }
+           } else {
+               RCLCPP_ERROR(LOGGER, "Failed to plan rotation step %d", i);
+               current_state_ = State::FAILED;
+               return true;
+           }
+       }
+      
+       RCLCPP_INFO(LOGGER, "\033[32m360° rotation completed! End effectors rotated independently.\033[0m");
+       RCLCPP_INFO(LOGGER, "Press any key to return to home position");
+       waitForKeyPress();
+      
+       current_state_ = State::PLAN_TO_PLACE;
+       return true;
     }
 
     bool planToPlace() {
