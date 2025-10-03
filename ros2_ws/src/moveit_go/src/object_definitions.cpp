@@ -20,11 +20,11 @@ ObjectParameters ObjectFactory::createBinParameters(double x, double y) {
 
 ObjectParameters ObjectFactory::createCylinderParameters(double x, double y) {
     ObjectParameters params;
-    params.cylinder_radius = 0.1;
+    params.cylinder_radius = 0.1075;
     params.height = 0.3;
-    params.spoke_length = 0.175;
-    params.spoke_width = 0.05;
-    params.spoke_thickness = 0.01;
+    params.spoke_length = 0.1625;
+    params.spoke_width = 0.053;
+    params.spoke_thickness = 0.02;
     params.width = params.cylinder_radius * 2;
     params.depth = params.cylinder_radius * 2;
     params.x = x;
