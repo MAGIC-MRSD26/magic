@@ -69,13 +69,13 @@
         <joint name="left_robotiq_85_left_knuckle_joint" value="0"/>
     </group_state>
     <group_state name="Close" group="left_gripper">
-        <joint name="left_robotiq_85_left_knuckle_joint" value="0.615"/>
+        <joint name="left_robotiq_85_left_knuckle_joint" value="0.63"/>
     </group_state>
     <group_state name="Open" group="right_gripper">
         <joint name="right_robotiq_85_left_knuckle_joint" value="0"/>
     </group_state>
     <group_state name="Close" group="right_gripper">
-        <joint name="right_robotiq_85_left_knuckle_joint" value="0.615"/>
+        <joint name="right_robotiq_85_left_knuckle_joint" value="0.63"/>
     </group_state>
     <group_state name="Home" group="both_arms">
         <joint name="left_joint_1" value="0"/>
@@ -158,8 +158,8 @@
         <joint name="left_robotiq_85_left_knuckle_joint" value="0"/>
     </group_state>
     <group_state name="Close" group="both_grippers">
-        <joint name="right_robotiq_85_left_knuckle_joint" value="0.615"/>
-        <joint name="left_robotiq_85_left_knuckle_joint" value="0.615"/>
+        <joint name="right_robotiq_85_left_knuckle_joint" value="0.63"/>
+        <joint name="left_robotiq_85_left_knuckle_joint" value="0.63"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="left_gripper" parent_link="left_end_effector_link" group="left_gripper" parent_group="left_arm"/>

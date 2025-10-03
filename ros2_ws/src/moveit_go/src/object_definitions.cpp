@@ -76,7 +76,7 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         tf2::convert(final_right_quat, params.right_grasp_pose.orientation);
 
         // Calculate grasp positions for diagonal spokes
-        double grasp_distance = params.spoke_length + params.cylinder_radius + 0.03;
+        double grasp_distance = params.spoke_length + params.cylinder_radius + 0.02;
 
         // Left gripper position (45° spoke end)
         params.left_grasp_pose.position.x = params.x + cos(M_PI / 4) * grasp_distance;

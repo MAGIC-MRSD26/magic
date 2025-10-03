@@ -336,8 +336,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z -= 0.19;
-        target_pose_B.position.z -= 0.19;
+        target_pose_A.position.z -= 0.2;
+        target_pose_B.position.z -= 0.2;
 
         // Save these for placing later (with the clean orientation)
         lifted_pose_A = target_pose_A;
