@@ -36,6 +36,8 @@ struct ObjectParameters {
     // Grasp poses
     geometry_msgs::msg::Pose left_grasp_pose;
     geometry_msgs::msg::Pose right_grasp_pose;
+    geometry_msgs::msg::Pose second_left_grasp_pose;
+    geometry_msgs::msg::Pose second_right_grasp_pose;
 
     // Object ID
     std::string object_id;
