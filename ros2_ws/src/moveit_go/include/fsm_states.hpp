@@ -15,8 +15,11 @@ enum class State {
     PLAN_TO_PLACE,
     MOVE_TO_PLACE,
     PLACE,
+    RETRACT_FROM_PLACE,
+    MOVE_RETRACT,
+    RESET_WRISTS,
     PLAN_TO_HOME,
-    MOVE_TO_HOME,
+    // MOVE_TO_HOME,
     SUCCEEDED,
     FAILED
 };
