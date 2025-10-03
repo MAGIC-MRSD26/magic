@@ -422,90 +422,121 @@ private:
     }
 
     bool rotateEndEffectors() {
-       RCLCPP_INFO(LOGGER, "\033[32m STEP 3: End Effector Rotation Demonstration \033[0m");
-       RCLCPP_INFO(LOGGER, "Demonstrating independent end effector rotation - 360° without arm movement");
-       RCLCPP_INFO(LOGGER, "Press any key to start end effector rotation");
-       waitForKeyPress();
-      
-       std::vector<double> current_joints = arm_move_group_dual.getCurrentJointValues();
-      
-       double left_wrist_joint = 6;  
-       double right_wrist_joint = 13; 
-      
-       double original_left_wrist = current_joints[left_wrist_joint];
-       double original_right_wrist = current_joints[right_wrist_joint];
-      
-       const int steps = 8;
-       const double rotation_per_step = 2 * M_PI / steps; // 45 degrees per step
-      
-       for (int i = 1; i <= steps; i++) {
-           RCLCPP_INFO(LOGGER, "Rotation step %d/%d (%.1f degrees)",
-                      i, steps, (i * 360.0 / steps));
-          
-           current_joints[left_wrist_joint] = original_left_wrist + (i * rotation_per_step);
-           current_joints[right_wrist_joint] = original_right_wrist - (i * rotation_per_step);
-
-           arm_move_group_dual.setJointValueTarget(current_joints);
-           arm_move_group_dual.setPlanningTime(5.0);
-          
-           moveit::planning_interface::MoveGroupInterface::Plan rotation_plan;
-           bool plan_success = (arm_move_group_dual.plan(rotation_plan) == moveit::core::MoveItErrorCode::SUCCESS);
-          
-           if (plan_success) {
-               bool execute_success = (arm_move_group_dual.execute(rotation_plan) == moveit::core::MoveItErrorCode::SUCCESS);
-               if (execute_success) {
-                   RCLCPP_INFO(LOGGER, "Step %d completed - notice arm positions remain unchanged!", i);
-                   rclcpp::sleep_for(std::chrono::milliseconds(500));
-               } else {
-                   RCLCPP_ERROR(LOGGER, "Failed to execute rotation step %d", i);
-                   current_state_ = State::FAILED;
-                   return true;
-               }
-           } else {
-               RCLCPP_ERROR(LOGGER, "Failed to plan rotation step %d", i);
-               current_state_ = State::FAILED;
-               return true;
-           }
-       }
-      
-       RCLCPP_INFO(LOGGER, "\033[32m360° rotation completed! End effectors rotated independently.\033[0m");
-       RCLCPP_INFO(LOGGER, "Press any key to return to home position");
-       waitForKeyPress();
-      
-       current_state_ = State::PLAN_TO_PLACE;
-       return true;
+        RCLCPP_INFO(LOGGER, "\033[32m STEP 3: End Effector Rotation Demonstration \033[0m");
+        RCLCPP_INFO(LOGGER, "Demonstrating continuous end effector rotation");
+        RCLCPP_INFO(LOGGER, "Press any key to start end effector rotation");
+        waitForKeyPress();
+       
+        const int left_wrist_joint = 6;  
+        const int right_wrist_joint = 13; 
+       
+        // Get current state
+        auto current_state = arm_move_group_dual.getCurrentState(10.0);
+        if (!current_state) {
+            RCLCPP_ERROR(LOGGER, "Failed to get current state");
+            current_state_ = State::FAILED;
+            return true;
+        }
+        
+        std::vector<double> start_joints = arm_move_group_dual.getCurrentJointValues();
+        
+        double current_left = start_joints[left_wrist_joint];
+        double current_right = start_joints[right_wrist_joint];
+        
+        RCLCPP_INFO(LOGGER, "Left wrist current: %.3f rad (%.1f deg)", 
+                    current_left, current_left * 180.0 / M_PI);
+        RCLCPP_INFO(LOGGER, "Right wrist current: %.3f rad (%.1f deg)", 
+                    current_right, current_right * 180.0 / M_PI);
+        
+        // Set conservative limits for rotation
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.15);  // Even slower
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.15);
+        
+        const int steps = 16;  // 22.5 degrees per step
+        const double rotation_per_step = (M_PI / 8.0);  // 22.5 degrees
+       
+        for (int step = 1; step <= steps; step++) {
+            RCLCPP_INFO(LOGGER, "Rotation step %d/%d (%.1f degrees total)",
+                       step, steps, (step * 22.5));
+           
+            // Get fresh joint values each iteration
+            std::vector<double> target_joints = arm_move_group_dual.getCurrentJointValues();
+            
+            // Increment wrist joints
+            target_joints[left_wrist_joint] += rotation_per_step;
+            target_joints[right_wrist_joint] -= rotation_per_step;
+    
+            // Use setJointValueTarget and move() instead of plan/execute
+            arm_move_group_dual.setJointValueTarget(target_joints);
+            arm_move_group_dual.setPlanningTime(5.0);
+            
+            // Use the synchronous move() call instead of plan + execute
+            moveit::core::MoveItErrorCode result = arm_move_group_dual.move();
+            
+            if (result != moveit::core::MoveItErrorCode::SUCCESS) {
+                RCLCPP_ERROR(LOGGER, "Failed to move in rotation step %d, error code: %d", 
+                            step, result.val);
+                current_state_ = State::FAILED;
+                return true;
+            }
+            
+            RCLCPP_INFO(LOGGER, "Step %d completed successfully", step);
+            rclcpp::sleep_for(std::chrono::milliseconds(200));
+        }
+        
+        // Restore normal velocity scaling
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.4);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
+       
+        RCLCPP_INFO(LOGGER, "\033[32m360° rotation completed!\033[0m");
+        RCLCPP_INFO(LOGGER, "Press any key to continue");
+        waitForKeyPress();
+       
+        current_state_ = State::PLAN_TO_PLACE;
+        return true;
     }
-
     bool planToPlace() {
-        target_pose_A.position.z = 1.31;
-        target_pose_B.position.z = 1.31;
-
+        // Lower to table height for placement
+        target_pose_A.position.z = 1.1;  // Adjust this to your table height
+        target_pose_B.position.z = 1.1;
+    
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
+        waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE, plan,
                              "Planning to place succeeded!");
     }
-
+    
     bool moveToPlace() {
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLACE, plan, "Successfully moved to place position",
-                             "Press any key to drop object");
+                             "Press any key to release object");
     }
-
+    
     bool Place() {
-
-        // Open gripper
+        RCLCPP_INFO(LOGGER, "Releasing object...");
+    
+        // Open gripper to release object
         gripper_move_group_dual.setNamedTarget("Open");
-        gripper_move_group_dual.move();
-
-        // Make sure to detach from planning scene interfaces
+        bool gripper_success = (gripper_move_group_dual.move() == moveit::core::MoveItErrorCode::SUCCESS);
+    
+        if (!gripper_success) {
+            RCLCPP_ERROR(LOGGER, "Failed to open gripper");
+            current_state_ = State::FAILED;
+            return true;
+        }
+    
+        // Detach object from planning scene
         attached_object.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
         planning_scene_interface_dual.applyAttachedCollisionObject(attached_object);
         
-        // Also try gripper detach
+        // Also detach from gripper interfaces
         gripper_move_group_A.detachObject(attached_object.object.id);
         gripper_move_group_B.detachObject(attached_object.object.id);
         
-        RCLCPP_INFO(LOGGER, "Successfully dropped object");
-        current_state_ = State::PLAN_TO_LIFT;
+        RCLCPP_INFO(LOGGER, "Successfully released object on table");
+        
+        // Now set flag to go home and move to lift state
         go_to_home = true;
+        current_state_ = State::PLAN_TO_LIFT;
         
         return true;
     }
