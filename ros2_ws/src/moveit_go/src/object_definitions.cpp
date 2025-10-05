@@ -20,11 +20,11 @@ ObjectParameters ObjectFactory::createBinParameters(double x, double y) {
 
 ObjectParameters ObjectFactory::createCylinderParameters(double x, double y) {
     ObjectParameters params;
-    params.cylinder_radius = 0.1;
+    params.cylinder_radius = 0.1075;
     params.height = 0.3;
-    params.spoke_length = 0.175;
-    params.spoke_width = 0.05;
-    params.spoke_thickness = 0.01;
+    params.spoke_length = 0.1625;
+    params.spoke_width = 0.053;
+    params.spoke_thickness = 0.02;
     params.width = params.cylinder_radius * 2;
     params.depth = params.cylinder_radius * 2;
     params.x = x;
@@ -79,14 +79,37 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         double grasp_distance = params.spoke_length + params.cylinder_radius + 0.02;
 
         // Left gripper position (45° spoke end)
-        params.left_grasp_pose.position.x = params.x + cos(0.785) * grasp_distance;
-        params.left_grasp_pose.position.y = params.y + sin(0.785) * grasp_distance;
+        params.left_grasp_pose.position.x = params.x + cos(M_PI / 4) * grasp_distance;
+        params.left_grasp_pose.position.y = params.y + sin(M_PI / 4) * grasp_distance;
         params.left_grasp_pose.position.z = params.z + params.height;
 
         // Right gripper position (225° spoke end)
-        params.right_grasp_pose.position.x = params.x + cos(3.927) * grasp_distance;
-        params.right_grasp_pose.position.y = params.y + sin(3.927) * grasp_distance;
+        params.right_grasp_pose.position.x = params.x + cos(5 * M_PI / 4) * grasp_distance;
+        params.right_grasp_pose.position.y = params.y + sin(5 * M_PI / 4) * grasp_distance;
         params.right_grasp_pose.position.z = params.z + params.height;
+
+        // Set orientation for SECOND grasp points
+        // Left gripper - grasp the 315° spoke
+        tf2::Quaternion second_base_left_quat;
+        second_base_left_quat.setRPY(0.785 - M_PI/2, -1.57, 0);
+        tf2::Quaternion second_final_left_quat = second_base_left_quat * finger_rotation_left;
+        tf2::convert(second_final_left_quat, params.second_left_grasp_pose.orientation);
+
+        // Right gripper - grasp the 135° spoke
+        tf2::Quaternion second_base_right_quat;
+        second_base_right_quat.setRPY(-0.785 + M_PI/2, 1.57, 0);
+        tf2::Quaternion second_final_right_quat = second_base_right_quat * finger_rotation_right;
+        tf2::convert(second_final_right_quat, params.second_right_grasp_pose.orientation);
+
+        // Left gripper position (315° spoke end)
+        params.second_left_grasp_pose.position.x = params.x + cos(7 * M_PI / 4) * grasp_distance;
+        params.second_left_grasp_pose.position.y = params.y + sin(7 * M_PI / 4) * grasp_distance;
+        params.second_left_grasp_pose.position.z = params.z + params.height;
+
+        // Right gripper position (135° spoke end)
+        params.second_right_grasp_pose.position.x = params.x + cos(3 * M_PI / 4) * grasp_distance;
+        params.second_right_grasp_pose.position.y = params.y + sin(3 * M_PI / 4) * grasp_distance;
+        params.second_right_grasp_pose.position.z = params.z + params.height;
     }
 }
 
@@ -123,7 +146,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createBin(const ObjectParameter
     front_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
     front_primitive.dimensions.resize(3);
     front_primitive.dimensions[0] = params.width;
-    front_primitive.dimensions[1] = params.wall_thickness;
+    front_primitive.dimensions[1] = params.wall_thickness; 
     front_primitive.dimensions[2] = params.height;
     
     geometry_msgs::msg::Pose front_pose;

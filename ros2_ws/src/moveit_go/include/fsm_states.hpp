@@ -15,10 +15,13 @@ enum class State {
     PLAN_TO_PLACE,
     MOVE_TO_PLACE,
     PLACE,
+    PLAN_RETRACT,
+    MOVE_RETRACT,
+    CLOSE_GRIPPER,
     PLAN_TO_HOME,
     MOVE_TO_HOME,
     SUCCEEDED,
     FAILED
 };
 
-#endif // FSM_STATES_HPP
+#endif
