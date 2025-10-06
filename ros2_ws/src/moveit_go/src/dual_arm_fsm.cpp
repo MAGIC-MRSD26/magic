@@ -102,6 +102,12 @@ public:
             case State::MOVE_TO_LIFT:
                 return moveToLift();
 
+            case State::PLAN_TO_ROTATE:
+                return planToRotate();
+
+            case State::MOVE_TO_ROTATE:
+                return moveToRotate();
+
             case State::ROTATE_EE:
                 return rotateEndEffectors();
 
@@ -184,7 +190,7 @@ private:
     geometry_msgs::msg::Pose target_pose_B;
 
     // for later when we reuse to go to other handles
-    bool go_to_next_grasp = false;
+    bool go_to_next_grasp = true;
 
     moveit_msgs::msg::AttachedCollisionObject attached_object;
 
@@ -415,6 +421,25 @@ private:
     }
 
     bool planToLift() {
+        
+        auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
+        auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
+        
+        current_pose_A.position.z += 0.35;
+        current_pose_B.position.z += 0.35;
+                
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
+        waitForKeyPress();
+        return dual_arm_planner_->plantoTarget_dualarm(current_pose_A, current_pose_B, current_state_, State::MOVE_TO_LIFT, plan,
+                            "Planning to lift succeeded!");
+    }
+
+    bool moveToLift() {
+        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_ROTATE, plan, "Successfully moved to lift position",
+                            "Press any key to lift");
+    }
+
+    bool planToRotate() {
 
         // Straighten out the arms for 360 rotation
         if (go_to_next_grasp) {
@@ -422,18 +447,14 @@ private:
         } else {
             dual_arm_planner_->rotate(0, 0, -M_PI/4, rotated_pose1, rotated_pose2);
         }
-        
-        // Add to z position
-        rotated_pose1.position.z += 0.35;
-        rotated_pose2.position.z += 0.35;
-                
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
+
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to straighten lift\033[0m");
         waitForKeyPress();
-        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_LIFT, plan,
-                            "Planning to lift succeeded!");
+        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_ROTATE, plan,
+                            "Planning to atraighten lift succeeded!");
     }
 
-    bool moveToLift() {
+    bool moveToRotate() {
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::ROTATE_EE, plan, "Successfully moved to lift position",
                             "Press any key to straighten lift");
     }
@@ -609,6 +630,7 @@ private:
         waitForKeyPress();
 
         // Use named target
+        arm_move_group_dual.setStartStateToCurrentState();
         arm_move_group_dual.setNamedTarget("Home");
         arm_move_group_dual.setPlanningTime(5.0);
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);

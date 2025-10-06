@@ -11,6 +11,8 @@ enum class State {
     GRASP,
     PLAN_TO_LIFT,
     MOVE_TO_LIFT,
+    PLAN_TO_ROTATE,
+    MOVE_TO_ROTATE,
     ROTATE_EE,
     PLAN_TO_PLACE,
     MOVE_TO_PLACE,
