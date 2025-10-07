@@ -66,7 +66,7 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         double base_rotation = params.rotation_angle;
 
         tf2::Quaternion base_left_quat;
-        base_left_quat.setRPY(base_rotation, -1.57, 0);
+        base_left_quat.setRPY(0, -1.57, base_rotation);
         tf2::Vector3 rotation_axis(0, 0, 1);
         tf2::Quaternion finger_rotation_left(rotation_axis, 1.57);
         tf2::Quaternion final_left_quat = base_left_quat * finger_rotation_left;
@@ -74,7 +74,7 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
 
         // Right gripper - grasp the 225° spoke
         tf2::Quaternion base_right_quat;
-        base_right_quat.setRPY(base_rotation + M_PI, 1.57, 0);
+        base_right_quat.setRPY(0, 1.57, base_rotation + M_PI);
         tf2::Quaternion finger_rotation_right(rotation_axis, -1.57);
         tf2::Quaternion final_right_quat = base_right_quat * finger_rotation_right;
         tf2::convert(final_right_quat, params.right_grasp_pose.orientation);
@@ -97,13 +97,13 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         // Set orientation for SECOND grasp points
         // Left gripper - grasp spoke at 90° from first
         tf2::Quaternion second_base_left_quat;
-        second_base_left_quat.setRPY(base_rotation + M_PI/2, -1.57, 0);
+        second_base_left_quat.setRPY(0, -1.57, base_rotation + M_PI/2);
         tf2::Quaternion second_final_left_quat = second_base_left_quat * finger_rotation_left;
         tf2::convert(second_final_left_quat, params.second_left_grasp_pose.orientation);
 
         // Right gripper - grasp spoke at 270° from first
         tf2::Quaternion second_base_right_quat;
-        second_base_right_quat.setRPY(base_rotation - M_PI/2, 1.57, 0);
+        second_base_right_quat.setRPY(0, 1.57, base_rotation - M_PI/2);
         tf2::Quaternion second_final_right_quat = second_base_right_quat * finger_rotation_right;
         tf2::convert(second_final_right_quat, params.second_right_grasp_pose.orientation);
 
