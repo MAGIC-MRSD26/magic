@@ -20,6 +20,8 @@ struct ObjectParameters {
     double depth = 0.0;       // Y dimension (bin) or diameter (cylinder)
     double height = 0.0;      // Z dimension
     double wall_thickness = 0.0; // Wall thickness (bin) or spoke thickness (cylinder)
+    double rotation_angle = 0.0; 
+
 
     // Position
     double x = 0.0;
