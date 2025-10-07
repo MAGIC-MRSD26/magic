@@ -83,3 +83,7 @@ install(PROGRAMS
   src/transforms.py
   DESTINATION lib/${PROJECT_NAME}
 )
+install(PROGRAMS
+  src/test_scene.py
+  DESTINATION lib/${PROJECT_NAME}
+)
