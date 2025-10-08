@@ -64,8 +64,8 @@ public:
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
         
         // Create subscription to the bin pose topic
-        pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
-            "/aruco_poses", 10, 
+        pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
+            "/cylinder_pose", 10, 
             std::bind(&MotionPlanningFSM::binPoseCallback, this, std::placeholders::_1));
 
         pose_received_ = false;
@@ -190,7 +190,7 @@ private:
     geometry_msgs::msg::Pose target_pose_B;
 
     // for later when we reuse to go to other handles
-    bool go_to_next_grasp = true;
+    bool go_to_next_grasp = false;
 
     moveit_msgs::msg::AttachedCollisionObject attached_object;
 
@@ -208,14 +208,14 @@ private:
     ObjectParameters object_params_;
 
     // Bin subscription 
-    rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr pose_subscription_;
+    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr pose_subscription_;
     geometry_msgs::msg::Pose object_pose_;
     bool pose_received_;
     
     
     // Callback for the bin pose subscriber
-    void binPoseCallback(const geometry_msgs::msg::PoseArray::SharedPtr msg) {
-        object_pose_ = msg->poses[0];
+    void binPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
+        object_pose_ = msg->pose;
         pose_received_ = true;
         RCLCPP_INFO(LOGGER, "Received object pose: x=%f, y=%f, z=%f", 
                 object_pose_.position.x,
