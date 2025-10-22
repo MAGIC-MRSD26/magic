@@ -64,8 +64,8 @@ public:
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
         
         // Create subscription to the bin pose topic
-        pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseArray>(
-            "/aruco_poses", 10, 
+        pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
+            "/cylinder_pose", 10, 
             std::bind(&MotionPlanningFSM::binPoseCallback, this, std::placeholders::_1));
 
         pose_received_ = false;
@@ -202,14 +202,14 @@ private:
     ObjectParameters object_params_;
 
     // Bin subscription 
-    rclcpp::Subscription<geometry_msgs::msg::PoseArray>::SharedPtr pose_subscription_;
+    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr pose_subscription_;
     geometry_msgs::msg::Pose object_pose_;
     bool pose_received_;
     
     
     // Callback for the bin pose subscriber
-    void binPoseCallback(const geometry_msgs::msg::PoseArray::SharedPtr msg) {
-        object_pose_ = msg->poses[0];
+    void binPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
+        object_pose_ = msg->pose;
         pose_received_ = true;
         RCLCPP_INFO(LOGGER, "Received object pose: x=%f, y=%f, z=%f", 
                 object_pose_.position.x,
@@ -308,7 +308,8 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to object \033[0m");
         waitForKeyPress();
 
-        return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_OBJECT, plan, "Planning to object succeeded!");
+        return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_OBJECT, plan,
+             "Planning to object succeeded!", false);
     }
 
     bool moveToObject() {
@@ -346,7 +347,7 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_GRASP, plan,
-                          "Planning to grasp succeeded!");
+                          "Planning to grasp succeeded!", false);
     }
 
     bool moveToGrasp() {
@@ -430,17 +431,15 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
         waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_LIFT, plan,
-                            "Planning to lift succeeded!");
+                            "Planning to lift succeeded!", true);
     }
 
     bool moveToLift() {
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::ROTATE_EE, plan, "Successfully moved to lift position",
-                            "Press any key to straighten lift");
+                            "Press any key to start 3d capture");
     }
 
     bool rotateEndEffectors() {
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to start 3d capture\033[0m");
-        waitForKeyPress();
        
         const int left_wrist_joint = 6;  
         const int right_wrist_joint = 13; 
@@ -507,7 +506,7 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
         waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE, plan,
-                             "Planning to place succeeded!");
+                             "Planning to place succeeded!", true);
     }
     
     bool moveToPlace() {
@@ -558,7 +557,8 @@ private:
         return dual_arm_planner_->plantoTarget_dualarm(
             current_pose_A, current_pose_B, 
             current_state_, State::MOVE_RETRACT,
-            plan, "Lifted from placement!");
+            plan, "Lifted from placement!",
+            false);
     }
 
     bool moveRetract() {

@@ -30,7 +30,8 @@ bool DualArmPlanner::plantoTarget_dualarm(
     State& current_state,
     State next_state,
     moveit::planning_interface::MoveGroupInterface::Plan& plan,
-    const std::string& planning_message) {
+    const std::string& planning_message,
+    bool holding_object) {
 
     static int plan_attempts = 0;
     const int max_plan_attempts = 5;
@@ -42,20 +43,65 @@ bool DualArmPlanner::plantoTarget_dualarm(
 
     // Get fresh current state
     moveit::core::RobotStatePtr current_robot_state = arm_move_group_dual_.getCurrentState(1.0);
-    arm_move_group_A_.setStartState(*current_robot_state);
-    arm_move_group_B_.setStartState(*current_robot_state);
     arm_move_group_dual_.setStartState(*current_robot_state);
 
-    // Create waypoints
+    auto current_pose1 = arm_move_group_A_.getCurrentPose().pose;
+    auto current_pose2 = arm_move_group_B_.getCurrentPose().pose;
+    
+    double dist1 = std::sqrt(
+        std::pow(pose1.position.x - current_pose1.position.x, 2) +
+        std::pow(pose1.position.y - current_pose1.position.y, 2) +
+        std::pow(pose1.position.z - current_pose1.position.z, 2));
+    
+    double dist2 = std::sqrt(
+        std::pow(pose2.position.x - current_pose2.position.x, 2) +
+        std::pow(pose2.position.y - current_pose2.position.y, 2) +
+        std::pow(pose2.position.z - current_pose2.position.z, 2));
+    
+    // Use the longer distance to determine number of waypoints
+    double max_dist = std::max(dist1, dist2);
+    double eef_step = 0.01;
+    int num_waypoints = std::max(2, static_cast<int>(max_dist / eef_step));
+    
+    RCLCPP_INFO(LOGGER, "Generating %d synchronized waypoints (dist1=%.3f, dist2=%.3f)", 
+                num_waypoints, dist1, dist2);
+    
+    // Synchronized waypoints
     std::vector<geometry_msgs::msg::Pose> waypoints_left;
     std::vector<geometry_msgs::msg::Pose> waypoints_right;
     
-    waypoints_left.push_back(pose1);
-    waypoints_right.push_back(pose2);
-    
+    for (int i = 0; i <= num_waypoints; i++) {
+        double t = static_cast<double>(i) / num_waypoints;
+        
+        geometry_msgs::msg::Pose waypoint1, waypoint2;
+        
+        // Linear interpolation for positions
+        waypoint1.position.x = current_pose1.position.x + t * (pose1.position.x - current_pose1.position.x);
+        waypoint1.position.y = current_pose1.position.y + t * (pose1.position.y - current_pose1.position.y);
+        waypoint1.position.z = current_pose1.position.z + t * (pose1.position.z - current_pose1.position.z);
+        
+        waypoint2.position.x = current_pose2.position.x + t * (pose2.position.x - current_pose2.position.x);
+        waypoint2.position.y = current_pose2.position.y + t * (pose2.position.y - current_pose2.position.y);
+        waypoint2.position.z = current_pose2.position.z + t * (pose2.position.z - current_pose2.position.z);
+        
+        // SLERP for orientations
+        tf2::Quaternion q1_start, q1_end, q2_start, q2_end;
+        tf2::convert(current_pose1.orientation, q1_start);
+        tf2::convert(pose1.orientation, q1_end);
+        tf2::convert(current_pose2.orientation, q2_start);
+        tf2::convert(pose2.orientation, q2_end);
+        
+        tf2::Quaternion q1_interp = q1_start.slerp(q1_end, t);
+        tf2::Quaternion q2_interp = q2_start.slerp(q2_end, t);
+        
+        tf2::convert(q1_interp, waypoint1.orientation);
+        tf2::convert(q2_interp, waypoint2.orientation);
+        
+        waypoints_left.push_back(waypoint1);
+        waypoints_right.push_back(waypoint2);
+    }
     // Compute Cartesian paths
     moveit_msgs::msg::RobotTrajectory trajectory_left;
-    double eef_step = 0.01;
     double jump_threshold = 0.0;
     
     double fraction_left = arm_move_group_A_.computeCartesianPath(
@@ -77,6 +123,27 @@ bool DualArmPlanner::plantoTarget_dualarm(
         plan_attempts = 0;
         current_state = State::FAILED;
         return true;
+    }
+
+    // Keep Gripper distant constant
+    if (holding_object) {
+        double initial_gripper_distance = std::sqrt(
+            std::pow(current_pose1.position.x - current_pose2.position.x, 2) +
+            std::pow(current_pose1.position.y - current_pose2.position.y, 2) +
+            std::pow(current_pose1.position.z - current_pose2.position.z, 2));
+
+        RCLCPP_INFO(LOGGER, "Enforcing gripper distance: %.3f m", initial_gripper_distance);
+    
+        // Correct the trajectories to maintain exact distance
+        enforceGripperDistance(trajectory_left, trajectory_right, initial_gripper_distance);
+        
+        // Validate after correction
+        if (!validateGripperDistance(trajectory_left, trajectory_right, 
+                                    initial_gripper_distance, 0.002)) {  // Tighter tolerance now
+            RCLCPP_ERROR(LOGGER, "Failed to enforce gripper distance constraint");
+        }
+        
+        RCLCPP_INFO(LOGGER, "✓ Gripper distance enforced and validated");
     }
     
     // Build combined trajectory and clear old traj
@@ -252,4 +319,156 @@ void DualArmPlanner::rotate(
     arm_move_group_dual_.setMaxVelocityScalingFactor(0.2);
     arm_move_group_dual_.setMaxAccelerationScalingFactor(0.1);
     arm_move_group_dual_.setPlanningTime(15.0);
+}
+
+bool DualArmPlanner::validateGripperDistance(
+    const moveit_msgs::msg::RobotTrajectory& traj_left,
+    const moveit_msgs::msg::RobotTrajectory& traj_right,
+    double expected_distance,
+    double tolerance) {
+    
+    size_t num_points = traj_left.joint_trajectory.points.size();
+    
+    if (num_points != traj_right.joint_trajectory.points.size()) {
+        RCLCPP_ERROR(LOGGER, "Trajectory sizes don't match for validation");
+        return false;
+    }
+    
+    // Get robot model and kinematic states
+    auto robot_model = arm_move_group_dual_.getRobotModel();
+    moveit::core::RobotState robot_state(robot_model);
+    
+    const auto* jmg_left = robot_model->getJointModelGroup(arm_move_group_A_.getName());
+    const auto* jmg_right = robot_model->getJointModelGroup(arm_move_group_B_.getName());
+    
+    if (!jmg_left || !jmg_right) {
+        RCLCPP_ERROR(LOGGER, "Could not get joint model groups");
+        return false;
+    }
+    
+    std::string ee_link_left = arm_move_group_A_.getEndEffectorLink();
+    std::string ee_link_right = arm_move_group_B_.getEndEffectorLink();
+    
+    double max_deviation = 0.0;
+    
+    // Check distance at each waypoint
+    for (size_t i = 0; i < num_points; i++) {
+        // Set joint positions for left arm
+        const auto& left_point = traj_left.joint_trajectory.points[i];
+        const auto& right_point = traj_right.joint_trajectory.points[i];
+        
+        robot_state.setJointGroupPositions(jmg_left, left_point.positions);
+        robot_state.setJointGroupPositions(jmg_right, right_point.positions);
+        robot_state.update();
+        
+        // Get end-effector positions
+        const Eigen::Isometry3d& tf_left = robot_state.getGlobalLinkTransform(ee_link_left);
+        const Eigen::Isometry3d& tf_right = robot_state.getGlobalLinkTransform(ee_link_right);
+        
+        Eigen::Vector3d pos_left = tf_left.translation();
+        Eigen::Vector3d pos_right = tf_right.translation();
+        
+        double distance = (pos_left - pos_right).norm();
+        double deviation = std::abs(distance - expected_distance);
+        
+        max_deviation = std::max(max_deviation, deviation);
+        
+        if (deviation > tolerance) {
+            RCLCPP_ERROR(LOGGER, 
+                "Waypoint %zu: Distance %.3fm (expected %.3fm, deviation %.3fm > %.3fm tolerance)",
+                i, distance, expected_distance, deviation, tolerance);
+            return false;
+        }
+    }
+    
+    RCLCPP_INFO(LOGGER, "Distance validation passed. Max deviation: %.4f m", max_deviation);
+    return true;
+}
+
+void DualArmPlanner::enforceGripperDistance(
+    moveit_msgs::msg::RobotTrajectory& traj_left,
+    moveit_msgs::msg::RobotTrajectory& traj_right,
+    double target_distance) {
+    
+    auto robot_model = arm_move_group_dual_.getRobotModel();
+    moveit::core::RobotState robot_state(robot_model);
+    
+    const auto* jmg_left = robot_model->getJointModelGroup(arm_move_group_A_.getName());
+    const auto* jmg_right = robot_model->getJointModelGroup(arm_move_group_B_.getName());
+    
+    std::string ee_link_left = arm_move_group_A_.getEndEffectorLink();
+    std::string ee_link_right = arm_move_group_B_.getEndEffectorLink();
+    
+    size_t num_points = traj_left.joint_trajectory.points.size();
+    
+    for (size_t i = 0; i < num_points; i++) {
+        auto& left_point = traj_left.joint_trajectory.points[i];
+        auto& right_point = traj_right.joint_trajectory.points[i];
+        
+        // Set current joint positions
+        robot_state.setJointGroupPositions(jmg_left, left_point.positions);
+        robot_state.setJointGroupPositions(jmg_right, right_point.positions);
+        robot_state.update();
+        
+        // Get current end-effector positions
+        const Eigen::Isometry3d& tf_left = robot_state.getGlobalLinkTransform(ee_link_left);
+        const Eigen::Isometry3d& tf_right = robot_state.getGlobalLinkTransform(ee_link_right);
+        
+        Eigen::Vector3d pos_left = tf_left.translation();
+        Eigen::Vector3d pos_right = tf_right.translation();
+        
+        double current_distance = (pos_left - pos_right).norm();
+        
+        if (std::abs(current_distance - target_distance) > 0.001) {  // 1mm threshold
+            // Calculate center point
+            Eigen::Vector3d center = (pos_left + pos_right) / 2.0;
+            
+            // Calculate unit vectors from center to each gripper
+            Eigen::Vector3d vec_to_left = (pos_left - center).normalized();
+            Eigen::Vector3d vec_to_right = (pos_right - center).normalized();
+            
+            // Set corrected positions at exact target distance
+            Eigen::Vector3d corrected_left = center + vec_to_left * (target_distance / 2.0);
+            Eigen::Vector3d corrected_right = center + vec_to_right * (target_distance / 2.0);
+            
+            // Create target poses
+            geometry_msgs::msg::Pose target_left, target_right;
+            target_left.position.x = corrected_left.x();
+            target_left.position.y = corrected_left.y();
+            target_left.position.z = corrected_left.z();
+            
+            target_right.position.x = corrected_right.x();
+            target_right.position.y = corrected_right.y();
+            target_right.position.z = corrected_right.z();
+
+            // Convert rotation matrix to quaternion
+            Eigen::Quaterniond quat_left(tf_left.rotation());
+            target_left.orientation.x = quat_left.x();
+            target_left.orientation.y = quat_left.y();
+            target_left.orientation.z = quat_left.z();
+            target_left.orientation.w = quat_left.w();
+
+            Eigen::Quaterniond quat_right(tf_right.rotation());
+            target_right.orientation.x = quat_right.x();
+            target_right.orientation.y = quat_right.y();
+            target_right.orientation.z = quat_right.z();
+            target_right.orientation.w = quat_right.w();
+            
+            // Solve IK for corrected positions
+            std::vector<double> joint_values_left, joint_values_right;
+            
+            if (robot_state.setFromIK(jmg_left, target_left)) {
+                robot_state.copyJointGroupPositions(jmg_left, joint_values_left);
+                left_point.positions = joint_values_left;
+            }
+            
+            if (robot_state.setFromIK(jmg_right, target_right)) {
+                robot_state.copyJointGroupPositions(jmg_right, joint_values_right);
+                right_point.positions = joint_values_right;
+            }
+            
+            RCLCPP_DEBUG(LOGGER, "Corrected waypoint %zu: %.3fm -> %.3fm", 
+                        i, current_distance, target_distance);
+        }
+    }
 }
