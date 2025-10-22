@@ -208,7 +208,7 @@ private:
     
     
     // Callback for the bin pose subscriber
-    void binPoseCallback(const geometry_msgs::msg::PoseArray::SharedPtr msg) {
+    void binPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
         object_pose_ = msg->pose;
         pose_received_ = true;
         RCLCPP_INFO(LOGGER, "Received object pose: x=%f, y=%f, z=%f", 
@@ -308,7 +308,8 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to object \033[0m");
         waitForKeyPress();
 
-        return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_OBJECT, plan, "Planning to object succeeded!");
+        return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_OBJECT, plan,
+             "Planning to object succeeded!", false);
     }
 
     bool moveToObject() {
@@ -346,7 +347,7 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_GRASP, plan,
-                          "Planning to grasp succeeded!");
+                          "Planning to grasp succeeded!", false);
     }
 
     bool moveToGrasp() {
@@ -430,7 +431,7 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
         waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_LIFT, plan,
-                            "Planning to lift succeeded!");
+                            "Planning to lift succeeded!", true);
     }
 
     bool moveToLift() {
@@ -505,7 +506,7 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
         waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE, plan,
-                             "Planning to place succeeded!");
+                             "Planning to place succeeded!", true);
     }
     
     bool moveToPlace() {
@@ -556,7 +557,8 @@ private:
         return dual_arm_planner_->plantoTarget_dualarm(
             current_pose_A, current_pose_B, 
             current_state_, State::MOVE_RETRACT,
-            plan, "Lifted from placement!");
+            plan, "Lifted from placement!",
+            false);
     }
 
     bool moveRetract() {
