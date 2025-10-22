@@ -435,12 +435,10 @@ private:
 
     bool moveToLift() {
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::ROTATE_EE, plan, "Successfully moved to lift position",
-                            "Press any key to straighten lift");
+                            "Press any key to start 3d capture");
     }
 
     bool rotateEndEffectors() {
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to start 3d capture\033[0m");
-        waitForKeyPress();
        
         const int left_wrist_joint = 6;  
         const int right_wrist_joint = 13; 

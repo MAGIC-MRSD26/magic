@@ -42,20 +42,65 @@ bool DualArmPlanner::plantoTarget_dualarm(
 
     // Get fresh current state
     moveit::core::RobotStatePtr current_robot_state = arm_move_group_dual_.getCurrentState(1.0);
-    arm_move_group_A_.setStartState(*current_robot_state);
-    arm_move_group_B_.setStartState(*current_robot_state);
     arm_move_group_dual_.setStartState(*current_robot_state);
 
-    // Create waypoints
+    auto current_pose1 = arm_move_group_A_.getCurrentPose().pose;
+    auto current_pose2 = arm_move_group_B_.getCurrentPose().pose;
+    
+    double dist1 = std::sqrt(
+        std::pow(pose1.position.x - current_pose1.position.x, 2) +
+        std::pow(pose1.position.y - current_pose1.position.y, 2) +
+        std::pow(pose1.position.z - current_pose1.position.z, 2));
+    
+    double dist2 = std::sqrt(
+        std::pow(pose2.position.x - current_pose2.position.x, 2) +
+        std::pow(pose2.position.y - current_pose2.position.y, 2) +
+        std::pow(pose2.position.z - current_pose2.position.z, 2));
+    
+    // Use the longer distance to determine number of waypoints
+    double max_dist = std::max(dist1, dist2);
+    double eef_step = 0.01;
+    int num_waypoints = std::max(2, static_cast<int>(max_dist / eef_step));
+    
+    RCLCPP_INFO(LOGGER, "Generating %d synchronized waypoints (dist1=%.3f, dist2=%.3f)", 
+                num_waypoints, dist1, dist2);
+    
+    // **GENERATE SYNCHRONIZED WAYPOINTS FOR BOTH ARMS**
     std::vector<geometry_msgs::msg::Pose> waypoints_left;
     std::vector<geometry_msgs::msg::Pose> waypoints_right;
     
-    waypoints_left.push_back(pose1);
-    waypoints_right.push_back(pose2);
-    
+    for (int i = 0; i <= num_waypoints; i++) {
+        double t = static_cast<double>(i) / num_waypoints;
+        
+        geometry_msgs::msg::Pose waypoint1, waypoint2;
+        
+        // Linear interpolation for positions
+        waypoint1.position.x = current_pose1.position.x + t * (pose1.position.x - current_pose1.position.x);
+        waypoint1.position.y = current_pose1.position.y + t * (pose1.position.y - current_pose1.position.y);
+        waypoint1.position.z = current_pose1.position.z + t * (pose1.position.z - current_pose1.position.z);
+        
+        waypoint2.position.x = current_pose2.position.x + t * (pose2.position.x - current_pose2.position.x);
+        waypoint2.position.y = current_pose2.position.y + t * (pose2.position.y - current_pose2.position.y);
+        waypoint2.position.z = current_pose2.position.z + t * (pose2.position.z - current_pose2.position.z);
+        
+        // SLERP for orientations
+        tf2::Quaternion q1_start, q1_end, q2_start, q2_end;
+        tf2::convert(current_pose1.orientation, q1_start);
+        tf2::convert(pose1.orientation, q1_end);
+        tf2::convert(current_pose2.orientation, q2_start);
+        tf2::convert(pose2.orientation, q2_end);
+        
+        tf2::Quaternion q1_interp = q1_start.slerp(q1_end, t);
+        tf2::Quaternion q2_interp = q2_start.slerp(q2_end, t);
+        
+        tf2::convert(q1_interp, waypoint1.orientation);
+        tf2::convert(q2_interp, waypoint2.orientation);
+        
+        waypoints_left.push_back(waypoint1);
+        waypoints_right.push_back(waypoint2);
+    }
     // Compute Cartesian paths
     moveit_msgs::msg::RobotTrajectory trajectory_left;
-    double eef_step = 0.01;
     double jump_threshold = 0.0;
     
     double fraction_left = arm_move_group_A_.computeCartesianPath(
