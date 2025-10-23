@@ -265,7 +265,7 @@ private:
         waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.0, y = 0.0, yaw = 0.0;
+        double x = 0.0, y = 0.0, yaw = 45.0;
         if (pose_received_) {
             x = object_pose_.position.x;
             y = object_pose_.position.y;

@@ -289,8 +289,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createCylinderWithSpokes(const 
         geometry_msgs::msg::Pose spoke_pose;
         
         // Calculate angle for each spoke (45°, 135°, 225°, 315°)
-        // double angle = (45 + i * 90) * M_PI / 180.0;  // Convert to radians
-        double angle = base_angle + (i * M_PI / 2.0);
+        double angle = (base_angle + i * 90) * M_PI / 180.0;  // Convert to radians
         
         // All spokes have the same dimensions
         spoke_primitive.dimensions[0] = params.spoke_length;
