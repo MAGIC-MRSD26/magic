@@ -60,21 +60,22 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         params.right_grasp_pose.position.y = params.y;
         params.right_grasp_pose.position.z = params.z + 0.034;
     } else if (type == ObjectType::CYLINDER_WITH_SPOKES) {
+
+        double base_rotation = params.rotation_angle * M_PI / 180.0; // Convert to radians
+
         // Set orientation for both grippers (pointing in)
         // Left gripper - grasp the 45° spoke
-
-        double base_rotation = params.rotation_angle;
-
         tf2::Quaternion base_left_quat;
-        base_left_quat.setRPY(0.785, -1.57, 0);
+        base_left_quat.setRPY(base_rotation, -1.57, 0);
         tf2::Vector3 rotation_axis(0, 0, 1);
         tf2::Quaternion finger_rotation_left(rotation_axis, 1.57);
         tf2::Quaternion final_left_quat = base_left_quat * finger_rotation_left;
         tf2::convert(final_left_quat, params.left_grasp_pose.orientation);
 
         // Right gripper - grasp the 225° spoke
+        double right_angle = base_rotation + M_PI;
         tf2::Quaternion base_right_quat;
-        base_right_quat.setRPY(-0.785, 1.57, 0);
+        base_right_quat.setRPY(-base_rotation, 1.57, 0);
         tf2::Quaternion finger_rotation_right(rotation_axis, -1.57);
         tf2::Quaternion final_right_quat = base_right_quat * finger_rotation_right;
         tf2::convert(final_right_quat, params.right_grasp_pose.orientation);
@@ -82,39 +83,37 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         // Calculate grasp positions for diagonal spokes
         double grasp_distance = params.spoke_length + params.cylinder_radius + 0.02;
 
-        // Left gripper position (first spoke)
-        double left_angle = base_rotation;
-        params.left_grasp_pose.position.x = params.x + cos(left_angle) * grasp_distance;
-        params.left_grasp_pose.position.y = params.y + sin(left_angle) * grasp_distance;
+        // Left gripper position (45° spoke end)
+        params.left_grasp_pose.position.x = params.x + cos(base_rotation) * grasp_distance;
+        params.left_grasp_pose.position.y = params.y + sin(base_rotation) * grasp_distance;
         params.left_grasp_pose.position.z = params.z + params.height;
 
-        // Right gripper position (opposite spoke, 180° away)
-        double right_angle = base_rotation + M_PI;
+        // Right gripper position (225° spoke end)
         params.right_grasp_pose.position.x = params.x + cos(right_angle) * grasp_distance;
         params.right_grasp_pose.position.y = params.y + sin(right_angle) * grasp_distance;
         params.right_grasp_pose.position.z = params.z + params.height;
 
         // Set orientation for SECOND grasp points
-        // Left gripper - grasp spoke at 90° from first
+        // Left gripper - grasp the 315° spoke
+        double second_left_angle = base_rotation - M_PI/2;
         tf2::Quaternion second_base_left_quat;
-        second_base_left_quat.setRPY(0.785 - M_PI/2, -1.57, 0);
+        second_base_left_quat.setRPY(second_left_angle, -1.57, 0);
         tf2::Quaternion second_final_left_quat = second_base_left_quat * finger_rotation_left;
         tf2::convert(second_final_left_quat, params.second_left_grasp_pose.orientation);
 
-        // Right gripper - grasp spoke at 270° from first
+        // Right gripper - grasp the 135° spoke
+        double second_right_angle = base_rotation + M_PI/2;
         tf2::Quaternion second_base_right_quat;
-        second_base_right_quat.setRPY(-0.785 + M_PI/2, 1.57, 0);
+        second_base_right_quat.setRPY(-second_left_angle, 1.57, 0);
         tf2::Quaternion second_final_right_quat = second_base_right_quat * finger_rotation_right;
         tf2::convert(second_final_right_quat, params.second_right_grasp_pose.orientation);
 
-        // Second left gripper position (90° from first spoke)
-        double second_left_angle = base_rotation + M_PI/2;
+        // Left gripper position (315° spoke end)
         params.second_left_grasp_pose.position.x = params.x + cos(second_left_angle) * grasp_distance;
         params.second_left_grasp_pose.position.y = params.y + sin(second_left_angle) * grasp_distance;
         params.second_left_grasp_pose.position.z = params.z + params.height;
 
-        // Second right gripper position (270° from first spoke)
-        double second_right_angle = base_rotation + 3*M_PI/2;
+        // Right gripper position (135° spoke end)
         params.second_right_grasp_pose.position.x = params.x + cos(second_right_angle) * grasp_distance;
         params.second_right_grasp_pose.position.y = params.y + sin(second_right_angle) * grasp_distance;
         params.second_right_grasp_pose.position.z = params.z + params.height;

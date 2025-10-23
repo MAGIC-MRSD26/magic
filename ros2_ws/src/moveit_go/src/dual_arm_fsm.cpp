@@ -265,7 +265,7 @@ private:
         waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.0, y = 0.0, yaw = 45.0;
+        double x = 0.0, y = 0.0, yaw = 60.0;
         if (pose_received_) {
             x = object_pose_.position.x;
             y = object_pose_.position.y;
@@ -427,12 +427,13 @@ private:
     }
 
     bool planToLift() {
-
+        
+        double yaw = object_params_.rotation_angle * M_PI / 180.0;
         // Straighten out the arms for 360 rotation
         if (go_to_next_grasp) {
-            dual_arm_planner_->rotate(0, 0, M_PI/4, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, yaw, rotated_pose1, rotated_pose2);
         } else {
-            dual_arm_planner_->rotate(0, 0, -M_PI/4, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, -yaw, rotated_pose1, rotated_pose2);
         }
         
         // Add to z position
