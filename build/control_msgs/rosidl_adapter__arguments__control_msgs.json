@@ -1,0 +1,30 @@
+{
+  "package_name": "control_msgs",
+  "non_idl_tuples": [
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:action/ParallelGripperCommand.action",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:action/FollowJointTrajectory.action",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:action/GripperCommand.action",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:action/JointTrajectory.action",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:action/PointHead.action",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:action/SingleJointPosition.action",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/AdmittanceControllerState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/DynamicInterfaceGroupValues.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/DynamicJointState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/GripperCommand.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/InterfaceValue.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/JointComponentTolerance.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/JointControllerState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/JointJog.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/JointTolerance.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/JointTrajectoryControllerState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/MecanumDriveControllerState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/MultiDOFCommand.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/MultiDOFStateStamped.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/PidState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/SingleDOFState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/SingleDOFStateStamped.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:msg/SteeringControllerStatus.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:srv/QueryCalibrationState.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/control_msgs/control_msgs:srv/QueryTrajectoryState.srv"
+  ]
+}

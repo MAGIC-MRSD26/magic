@@ -1,0 +1,71 @@
+[0.925s] Invoking command in '/home/emma/Documents/GitHub/magic/ros2_ws/src/control': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/emma/Documents/GitHub/magic/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/control build --build-base /home/emma/Documents/GitHub/magic/build/control/build install --record /home/emma/Documents/GitHub/magic/build/control/install.log --single-version-externally-managed install_data
+[1.138s] running egg_info
+[1.139s] creating ../../../build/control/control.egg-info
+[1.139s] writing ../../../build/control/control.egg-info/PKG-INFO
+[1.139s] writing dependency_links to ../../../build/control/control.egg-info/dependency_links.txt
+[1.139s] writing entry points to ../../../build/control/control.egg-info/entry_points.txt
+[1.139s] writing requirements to ../../../build/control/control.egg-info/requires.txt
+[1.139s] writing top-level names to ../../../build/control/control.egg-info/top_level.txt
+[1.139s] writing manifest file '../../../build/control/control.egg-info/SOURCES.txt'
+[1.141s] reading manifest file '../../../build/control/control.egg-info/SOURCES.txt'
+[1.142s] writing manifest file '../../../build/control/control.egg-info/SOURCES.txt'
+[1.142s] running build
+[1.142s] running build_py
+[1.142s] creating /home/emma/Documents/GitHub/magic/build/control/build
+[1.142s] creating /home/emma/Documents/GitHub/magic/build/control/build/lib
+[1.142s] creating /home/emma/Documents/GitHub/magic/build/control/build/lib/control
+[1.142s] copying control/one_arm_pid_control.py -> /home/emma/Documents/GitHub/magic/build/control/build/lib/control
+[1.142s] copying control/__init__.py -> /home/emma/Documents/GitHub/magic/build/control/build/lib/control
+[1.142s] copying control/main.py -> /home/emma/Documents/GitHub/magic/build/control/build/lib/control
+[1.142s] copying control/utils.py -> /home/emma/Documents/GitHub/magic/build/control/build/lib/control
+[1.143s] copying control/impedance_control.py -> /home/emma/Documents/GitHub/magic/build/control/build/lib/control
+[1.143s] running install
+[1.143s] running install_lib
+[1.144s] creating /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control
+[1.144s] copying /home/emma/Documents/GitHub/magic/build/control/build/lib/control/one_arm_pid_control.py -> /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control
+[1.144s] copying /home/emma/Documents/GitHub/magic/build/control/build/lib/control/__init__.py -> /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control
+[1.144s] copying /home/emma/Documents/GitHub/magic/build/control/build/lib/control/main.py -> /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control
+[1.144s] copying /home/emma/Documents/GitHub/magic/build/control/build/lib/control/utils.py -> /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control
+[1.144s] copying /home/emma/Documents/GitHub/magic/build/control/build/lib/control/impedance_control.py -> /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control
+[1.145s] byte-compiling /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control/one_arm_pid_control.py to one_arm_pid_control.cpython-310.pyc
+[1.146s] byte-compiling /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control/__init__.py to __init__.cpython-310.pyc
+[1.146s] byte-compiling /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control/main.py to main.cpython-310.pyc
+[1.146s] byte-compiling /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control/utils.py to utils.cpython-310.pyc
+[1.146s] byte-compiling /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control/impedance_control.py to impedance_control.cpython-310.pyc
+[1.147s] running install_data
+[1.147s] creating /home/emma/Documents/GitHub/magic/install/control/share/ament_index
+[1.147s] creating /home/emma/Documents/GitHub/magic/install/control/share/ament_index/resource_index
+[1.147s] creating /home/emma/Documents/GitHub/magic/install/control/share/ament_index/resource_index/packages
+[1.148s] copying resource/control -> /home/emma/Documents/GitHub/magic/install/control/share/ament_index/resource_index/packages
+[1.148s] copying package.xml -> /home/emma/Documents/GitHub/magic/install/control/share/control
+[1.148s] creating /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco
+[1.148s] copying kinova_gen3_mujoco/two_arm_table.xml -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco
+[1.148s] copying kinova_gen3_mujoco/scene.xml -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco
+[1.148s] copying kinova_gen3_mujoco/two_arm_vention_table.xml -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco
+[1.148s] copying kinova_gen3_mujoco/gen3_template.xml -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco
+[1.148s] creating /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.148s] copying kinova_gen3_mujoco/assets/half_arm_1_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.148s] copying kinova_gen3_mujoco/assets/bracelet_with_vision_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.149s] copying kinova_gen3_mujoco/assets/forearm_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.149s] copying kinova_gen3_mujoco/assets/outer_knuckle_coarse.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.149s] copying kinova_gen3_mujoco/assets/base_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.149s] copying kinova_gen3_mujoco/assets/inner_finger_coarse.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.149s] copying kinova_gen3_mujoco/assets/spherical_wrist_1_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.149s] copying kinova_gen3_mujoco/assets/half_arm_2_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.150s] copying kinova_gen3_mujoco/assets/robotiq_85_base_link_coarse.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.150s] copying kinova_gen3_mujoco/assets/outer_finger_coarse.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.150s] copying kinova_gen3_mujoco/assets/VentionAssembly.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.154s] copying kinova_gen3_mujoco/assets/spherical_wrist_2_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.154s] copying kinova_gen3_mujoco/assets/bin.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.154s] copying kinova_gen3_mujoco/assets/bracelet_no_vision_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.155s] copying kinova_gen3_mujoco/assets/shoulder_link.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.155s] copying kinova_gen3_mujoco/assets/inner_knuckle_coarse.stl -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.156s] copying kinova_gen3_mujoco/assets/ball_pinchingpoint.STL -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco/assets
+[1.156s] copying kinova_gen3_mujoco/gen3.png -> /home/emma/Documents/GitHub/magic/install/control/share/control/kinova_gen3_mujoco
+[1.156s] running install_egg_info
+[1.159s] Copying ../../../build/control/control.egg-info to /home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages/control-0.0.1-py3.10.egg-info
+[1.159s] running install_scripts
+[1.177s] Installing control_node script to /home/emma/Documents/GitHub/magic/install/control/lib/control
+[1.177s] Installing kinova_gen3_mujoco script to /home/emma/Documents/GitHub/magic/install/control/lib/control
+[1.177s] writing list of installed files to '/home/emma/Documents/GitHub/magic/build/control/install.log'
+[1.198s] Invoked command in '/home/emma/Documents/GitHub/magic/ros2_ws/src/control' returned '0': CONDA_PROMPT_MODIFIER=(base) PYTHONPATH=/home/emma/Documents/GitHub/magic/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/emma/Documents/GitHub/magic/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/control build --build-base /home/emma/Documents/GitHub/magic/build/control/build install --record /home/emma/Documents/GitHub/magic/build/control/install.log --single-version-externally-managed install_data

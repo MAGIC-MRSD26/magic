@@ -1,0 +1,10 @@
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/uninstall.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/picknik_twist_controller_uninstall.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/picknik_twist_controller.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/test.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/edit_cache.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/rebuild_cache.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/list_install_components.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/install.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/install/local.dir
+/home/emma/Documents/GitHub/magic/build/picknik_twist_controller/CMakeFiles/install/strip.dir

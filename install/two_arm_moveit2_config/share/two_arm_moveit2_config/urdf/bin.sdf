@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="bin">
+    <link name="bin_link">
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>/home/ultron/megan_magic/magic/ros2_ws/install/control/share/control/kinova_gen3_mujoco/assets/bin.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.25 0.25 0.25 1</ambient>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+        </material>
+        <pose>0.0 0 0 0 0 0</pose>
+      </visual>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>/home/ultron/megan_magic/magic/ros2_ws/install/control/share/control/kinova_gen3_mujoco/assets/bin.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <pose>0 0 0 0 0 0</pose>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.8</mu>
+              <mu2>0.8</mu2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>10000.0</kp>
+              <kd>100.0</kd>
+              <max_vel>0.01</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <inertial>
+        <mass>0.68</mass>
+        <pose>0.1905 0 0.15875 0 0 0</pose>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+    </link>
+  </model>
+</sdf>

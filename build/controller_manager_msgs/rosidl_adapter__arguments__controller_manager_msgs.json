@@ -1,0 +1,19 @@
+{
+  "package_name": "controller_manager_msgs",
+  "non_idl_tuples": [
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:msg/ControllerState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:msg/ChainConnection.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:msg/HardwareComponentState.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:msg/HardwareInterface.msg",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/ConfigureController.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/ListControllers.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/ListControllerTypes.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/ListHardwareComponents.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/ListHardwareInterfaces.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/LoadController.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/ReloadControllerLibraries.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/SetHardwareComponentState.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/SwitchController.srv",
+    "/home/emma/Documents/GitHub/magic/ros2_ws/src/ros2_control/controller_manager_msgs:srv/UnloadController.srv"
+  ]
+}

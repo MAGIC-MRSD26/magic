@@ -1,0 +1,8 @@
+source;share/two_arm_moveit2_config/hook/cmake_prefix_path.ps1
+source;share/two_arm_moveit2_config/hook/cmake_prefix_path.dsv
+source;share/two_arm_moveit2_config/hook/cmake_prefix_path.sh
+source;share/two_arm_moveit2_config/local_setup.bash
+source;share/two_arm_moveit2_config/local_setup.dsv
+source;share/two_arm_moveit2_config/local_setup.ps1
+source;share/two_arm_moveit2_config/local_setup.sh
+source;share/two_arm_moveit2_config/local_setup.zsh

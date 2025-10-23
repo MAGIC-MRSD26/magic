@@ -1,0 +1,283 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-2fd4691f510a17c44c8f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				},
+				{
+					"build" : "gmock",
+					"jsonFile" : "directory-gmock-3370d118e31866b3418b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "/opt/ros/humble/src/gmock_vendor",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				},
+				{
+					"build" : "gtest",
+					"jsonFile" : "directory-gtest-a2408fe1a73b92c5e636.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "/opt/ros/humble/src/gtest_vendor",
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "realtime_tools",
+					"targetIndexes" : 
+					[
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "gmock",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "gtest",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "gmock::@0590522bda6a4df7f28a",
+					"jsonFile" : "target-gmock-291c1d8c554d5d44d18b.json",
+					"name" : "gmock",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "gmock_main::@0590522bda6a4df7f28a",
+					"jsonFile" : "target-gmock_main-99bee9dcc2d5f26e135c.json",
+					"name" : "gmock_main",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gtest::@0af4add9fe94340e763e",
+					"jsonFile" : "target-gtest-c0d07b7fc71f4c577148.json",
+					"name" : "gtest",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gtest_main::@0af4add9fe94340e763e",
+					"jsonFile" : "target-gtest_main-ef180df367ae6da68f26.json",
+					"name" : "gtest_main",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lock_free_queue_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lock_free_queue_tests-d39706fa3e675364ce6a.json",
+					"name" : "lock_free_queue_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_box_best_effort_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_box_best_effort_tests-7d85b7d31ce5358c32a0.json",
+					"name" : "realtime_box_best_effort_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_box_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_box_tests-74d418a0379177339555.json",
+					"name" : "realtime_box_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_buffer_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_buffer_tests-eea6c0dd5d1c5ce98f7e.json",
+					"name" : "realtime_buffer_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_clock_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_clock_tests-135d02a6fe18e51258c2.json",
+					"name" : "realtime_clock_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_mutex_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_mutex_tests-ecde1bd4809404379a14.json",
+					"name" : "realtime_mutex_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_publisher_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_publisher_tests-80d40dfabc558f55229a.json",
+					"name" : "realtime_publisher_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_publisher_tests_non_polling::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_publisher_tests_non_polling-33bd19b673fc0c3aa8da.json",
+					"name" : "realtime_publisher_tests_non_polling",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_server_goal_handle_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_server_goal_handle_tests-e1b9fe83c9c50c0cfd41.json",
+					"name" : "realtime_server_goal_handle_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_tools::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_tools-f1d331d65023f0869ab1.json",
+					"name" : "realtime_tools",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realtime_tools_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realtime_tools_uninstall-092f5246c8e6b8994380.json",
+					"name" : "realtime_tools_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_async_function_handler::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_async_function_handler-a81001bf11c3de263fcf.json",
+					"name" : "test_async_function_handler",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "thread_priority::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-thread_priority-a39fa8f982dae1040e4b.json",
+					"name" : "thread_priority",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "thread_priority_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-thread_priority_tests-1b7abbe085c5eab8211b.json",
+					"name" : "thread_priority_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-5898f99071219b3c8829.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/emma/Documents/GitHub/magic/build/realtime_tools",
+		"source" : "/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

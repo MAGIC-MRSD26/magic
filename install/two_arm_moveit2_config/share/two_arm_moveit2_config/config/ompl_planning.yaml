@@ -1,0 +1,155 @@
+planning_plugin: ompl_interface/OMPLPlanner
+request_adapters: >-
+  default_planner_request_adapters/AddTimeOptimalParameterization
+  default_planner_request_adapters/ResolveConstraintFrames
+  default_planner_request_adapters/FixStartStateBounds
+  default_planner_request_adapters/FixStartStateCollision
+  default_planner_request_adapters/FixStartStatePathConstraints
+
+response_adapters: >-
+  default_planning_response_adapters/AddTimeOptimalParameterization
+  default_planning_response_adapters/ValidateSolution
+  default_planning_response_adapters/DisplayMotionPath
+
+# Configuration for the 'both_arms' group
+both_arms:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - BiTRRT
+    - LazyPRM
+  default_planner_config: RRTConnect
+  # Goal sampling parameters
+  # goal_joint_tolerance: 0.01
+  # goal_position_tolerance: 0.01
+  # goal_orientation_tolerance: 0.01
+  optimization_objective: PathLengthOptimization
+  projection_evaluator: joints(left_joint_1,right_joint_1)
+  longest_valid_segment_fraction: 0.01
+
+# Configuration for the 'both_arms_with_grippers' group
+both_arms_with_grippers:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - BiTRRT
+    - LazyPRM
+  default_planner_config: RRTstar
+  goal_joint_tolerance: 0.01
+  goal_position_tolerance: 0.01
+  goal_orientation_tolerance: 0.01
+  projection_evaluator: joints(left_joint_1,right_joint_1)
+  longest_valid_segment_fraction: 0.005
+  simplify_solutions: true
+
+# Configuration for the 'left_arm' group
+left_arm:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - BiTRRT
+    - LazyPRM
+  default_planner_config: RRTstar
+  goal_joint_tolerance: 0.01
+  goal_position_tolerance: 0.01
+  goal_orientation_tolerance: 0.01
+  projection_evaluator: joints(left_joint_1,left_joint_2)
+  longest_valid_segment_fraction: 0.005
+
+# Configuration for the 'right_arm' group
+right_arm:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - BiTRRT
+    - LazyPRM
+  default_planner_config: RRTstar
+  goal_joint_tolerance: 0.01
+  goal_position_tolerance: 0.01
+  goal_orientation_tolerance: 0.01
+  projection_evaluator: joints(right_joint_1,right_joint_2)
+  longest_valid_segment_fraction: 0.005
+
+# Configuration for the 'left_arm_with_gripper' group
+left_arm_with_gripper:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - BiTRRT
+    - LazyPRM
+  default_planner_config: RRTstar
+  goal_joint_tolerance: 0.01
+  goal_position_tolerance: 0.01
+  goal_orientation_tolerance: 0.01
+  projection_evaluator: joints(left_joint_1,left_joint_2)
+  longest_valid_segment_fraction: 0.005
+
+# Configuration for the 'right_arm_with_gripper' group
+right_arm_with_gripper:
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - BiTRRT
+    - LazyPRM
+  default_planner_config: RRTstar
+  goal_joint_tolerance: 0.01
+  goal_position_tolerance: 0.01
+  goal_orientation_tolerance: 0.01
+  projection_evaluator: joints(right_joint_1,right_joint_2)
+  longest_valid_segment_fraction: 0.005
+
+# Planner configurations
+RRTConnect:
+  type: geometric::RRTConnect
+  range: 0.0  # Max step size (0.0 means auto)
+
+RRT:
+  type: geometric::RRT
+  range: 0.0
+  goal_bias: 0.1
+
+RRTstar:
+  type: geometric::RRTstar
+  range: 0.0
+  goal_bias: 0.2
+  delay_collision_checking: 1
+  max_states_failed: 150
+  rewire_factor: 1.1 
+  
+TRRTConnect:
+  type: geometric::TRRTConnect
+  range: 0.0
+  goal_bias: 0.1
+
+BiTRRT:
+  type: geometric::BiTRRT
+  range: 0.0
+  temp_change_factor: 0.1
+  init_temperature: 100
+  cost_threshold: 1e300
+
+LazyPRM:
+  type: geometric::LazyPRM
+  range: 0.0
+  max_nearest_neighbors: 5
+
+PRMstar:
+  type: geometric::PRMstar
+  range: 0.0
+
+TRRT:
+  type: geometric::TRRT
+  range: 0.0
+  goal_bias: 0.1
+  temp_change_factor: 0.1
+  min_temperature: 10e-10
+  init_temperature: 10e-6
+  frountier_threshold: 0.0
+  frountier_node_ratio: 0.1
+  k_constant: 0.0

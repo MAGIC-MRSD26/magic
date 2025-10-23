@@ -1,0 +1,4 @@
+[console_scripts]
+control_node = control.control:main
+kinova_gen3_mujoco = control.kinova_gen3_mujoco:main
+

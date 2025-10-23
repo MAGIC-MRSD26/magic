@@ -1,0 +1,53 @@
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:[m[K In member function ‘[01m[Kbool MotionPlanningFSM::executeMovement(State, const string&, const string&)[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:343:112:[m[K [01;35m[Kwarning: [m[K‘[01m[Kusing MoveItErrorCode = class moveit::core::MoveItErrorCode[m[K’ is deprecated: Use moveit::core::MoveItErrorCode [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  343 |         bool success = (arm_move_group_.execute(current_plan_) == moveit::planning_interface::MoveItErrorCode::[01;35m[KSUCCESS[m[K);
+      |                                                                                                                [01;35m[K^~~~~~~[m[K
+In file included from [01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:1[m[K:
+[01m[K/opt/ros/humble/include/moveit/move_group_interface/move_group_interface.h:71:7:[m[K [01;36m[Knote: [m[Kdeclared here
+   71 | using [01;36m[KMoveItErrorCode[m[K [[deprecated("Use moveit::core::MoveItErrorCode")]] = moveit::core::MoveItErrorCode;
+      |       [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:350:22:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kinput[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+  350 |                 char [01;35m[Kinput[m[K = waitForKeyPress();
+      |                      [01;35m[K^~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:[m[K In member function ‘[01m[Kbool MotionPlanningFSM::opengripper()[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:394:100:[m[K [01;35m[Kwarning: [m[K‘[01m[Kusing MoveItErrorCode = class moveit::core::MoveItErrorCode[m[K’ is deprecated: Use moveit::core::MoveItErrorCode [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  394 |         bool success = (gripper_move_group_.move() == moveit::planning_interface::MoveItErrorCode::[01;35m[KSUCCESS[m[K);
+      |                                                                                                    [01;35m[K^~~~~~~[m[K
+In file included from [01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:1[m[K:
+[01m[K/opt/ros/humble/include/moveit/move_group_interface/move_group_interface.h:71:7:[m[K [01;36m[Knote: [m[Kdeclared here
+   71 | using [01;36m[KMoveItErrorCode[m[K [[deprecated("Use moveit::core::MoveItErrorCode")]] = moveit::core::MoveItErrorCode;
+      |       [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:[m[K In member function ‘[01m[Kbool MotionPlanningFSM::Grasp()[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:444:149:[m[K [01;35m[Kwarning: [m[K‘[01m[Kusing MoveItErrorCode = class moveit::core::MoveItErrorCode[m[K’ is deprecated: Use moveit::core::MoveItErrorCode [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  444 |         bool attach_success = (planning_scene_interface_.applyAttachedCollisionObject(attached_bin) == moveit::planning_interface::MoveItErrorCode::[01;35m[KSUCCESS[m[K);
+      |                                                                                                                                                     [01;35m[K^~~~~~~[m[K
+In file included from [01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:1[m[K:
+[01m[K/opt/ros/humble/include/moveit/move_group_interface/move_group_interface.h:71:7:[m[K [01;36m[Knote: [m[Kdeclared here
+   71 | using [01;36m[KMoveItErrorCode[m[K [[deprecated("Use moveit::core::MoveItErrorCode")]] = moveit::core::MoveItErrorCode;
+      |       [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:448:108:[m[K [01;35m[Kwarning: [m[K‘[01m[Kusing MoveItErrorCode = class moveit::core::MoveItErrorCode[m[K’ is deprecated: Use moveit::core::MoveItErrorCode [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  448 |         bool gripper_success = (gripper_move_group_.move() == moveit::planning_interface::MoveItErrorCode::[01;35m[KSUCCESS[m[K);
+      |                                                                                                            [01;35m[K^~~~~~~[m[K
+In file included from [01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:1[m[K:
+[01m[K/opt/ros/humble/include/moveit/move_group_interface/move_group_interface.h:71:7:[m[K [01;36m[Knote: [m[Kdeclared here
+   71 | using [01;36m[KMoveItErrorCode[m[K [[deprecated("Use moveit::core::MoveItErrorCode")]] = moveit::core::MoveItErrorCode;
+      |       [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:[m[K In member function ‘[01m[Kbool MotionPlanningFSM::Place()[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:504:126:[m[K [01;35m[Kwarning: [m[K‘[01m[Kusing MoveItErrorCode = class moveit::core::MoveItErrorCode[m[K’ is deprecated: Use moveit::core::MoveItErrorCode [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  504 |         bool success = (arm_move_group_.detachObject(attached_bin.object.id) == moveit::planning_interface::MoveItErrorCode::[01;35m[KSUCCESS[m[K);
+      |                                                                                                                              [01;35m[K^~~~~~~[m[K
+In file included from [01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:1[m[K:
+[01m[K/opt/ros/humble/include/moveit/move_group_interface/move_group_interface.h:71:7:[m[K [01;36m[Knote: [m[Kdeclared here
+   71 | using [01;36m[KMoveItErrorCode[m[K [[deprecated("Use moveit::core::MoveItErrorCode")]] = moveit::core::MoveItErrorCode;
+      |       [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:[m[K In member function ‘[01m[Kbool MotionPlanningFSM::execute()[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:188:32:[m[K [01;35m[Kwarning: [m[Kthis statement may fall through [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wimplicit-fallthrough=-Wimplicit-fallthrough=]8;;[m[K]
+  188 |                 [01;35m[Kcurrent_state_ = State::PLAN_TO_OBJECT[m[K;
+      |                 [01;35m[K~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:190:13:[m[K [01;36m[Knote: [m[Khere
+  190 |             [01;36m[Kcase[m[K State::PLAN_TO_OBJECT:
+      |             [01;36m[K^~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:[m[K In member function ‘[01m[Kbool MotionPlanningFSM::plantoTarget(const std::variant<geometry_msgs::msg::Pose_<std::allocator<void> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, State, const string&)[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go/src/motion_planning_single_arm_RRT.cpp:340:5:[m[K [01;35m[Kwarning: [m[Kcontrol reaches end of non-void function [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreturn-type-Wreturn-type]8;;[m[K]
+  340 |     [01;35m[K}[m[K
+      |     [01;35m[K^[m[K

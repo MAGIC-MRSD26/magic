@@ -1,0 +1,77 @@
+[0.093s] Invoking command in '/home/emma/Documents/GitHub/magic/build/realtime_tools': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/realtime_tools -- -j20 -l20
+[0.480s] [35m[1mConsolidate compiler generated dependencies of target gmock_main[0m
+[0.480s] [35m[1mConsolidate compiler generated dependencies of target realtime_tools[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target gmock[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target thread_priority[0m
+[0.481s] [  9%] Built target realtime_tools
+[0.481s] [ 18%] Built target gmock
+[0.481s] [ 25%] Built target gmock_main
+[0.481s] [ 31%] Built target thread_priority
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_box_best_effort_tests[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_buffer_tests[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_box_tests[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_clock_tests[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target lock_free_queue_tests[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_publisher_tests[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_publisher_tests_non_polling[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target test_async_function_handler[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_mutex_tests[0m
+[0.481s] [35m[1mConsolidate compiler generated dependencies of target realtime_server_goal_handle_tests[0m
+[0.481s] [ 37%] Built target realtime_box_best_effort_tests
+[0.481s] [ 43%] Built target realtime_box_tests
+[0.481s] [ 50%] Built target realtime_buffer_tests
+[0.481s] [ 56%] Built target realtime_clock_tests
+[0.481s] [ 65%] Built target realtime_publisher_tests
+[0.481s] [ 68%] Built target realtime_publisher_tests_non_polling
+[0.481s] [ 75%] Built target realtime_mutex_tests
+[0.481s] [ 81%] Built target realtime_server_goal_handle_tests
+[0.481s] [ 87%] Built target test_async_function_handler
+[0.481s] [ 93%] Built target lock_free_queue_tests
+[0.482s] [35m[1mConsolidate compiler generated dependencies of target thread_priority_tests[0m
+[0.482s] [100%] Built target thread_priority_tests
+[0.513s] Invoked command in '/home/emma/Documents/GitHub/magic/build/realtime_tools' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/realtime_tools -- -j20 -l20
+[0.514s] Invoking command in '/home/emma/Documents/GitHub/magic/build/realtime_tools': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/realtime_tools
+[0.794s] -- Install configuration: ""
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_box_best_effort.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_box.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_buffer.h
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_buffer.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_clock.h
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_helpers.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/thread_priority.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_publisher.h
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/lock_free_queue.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_box.h
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_server_goal_handle.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_box_best_effort.h
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/mutex.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_clock.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_server_goal_handle.h
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/async_function_handler.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/include/realtime_tools/realtime_tools/realtime_publisher.hpp
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/lib/librealtime_tools.so
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/lib/libthread_priority.so
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/environment/library_path.sh
+[0.794s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/environment/library_path.dsv
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/ament_index/resource_index/package_run_dependencies/realtime_tools
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/ament_index/resource_index/parent_prefix_path/realtime_tools
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/environment/ament_prefix_path.sh
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/environment/ament_prefix_path.dsv
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/environment/path.sh
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/environment/path.dsv
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/local_setup.bash
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/local_setup.sh
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/local_setup.zsh
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/local_setup.dsv
+[0.795s] -- Installing: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/package.dsv
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/ament_index/resource_index/packages/realtime_tools
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/cmake/export_realtime_toolsExport.cmake
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/cmake/export_realtime_toolsExport-noconfig.cmake
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/cmake/ament_cmake_export_targets-extras.cmake
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/cmake/realtime_toolsConfig.cmake
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/cmake/realtime_toolsConfig-version.cmake
+[0.795s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/realtime_tools/share/realtime_tools/package.xml
+[0.836s] Invoked command in '/home/emma/Documents/GitHub/magic/build/realtime_tools' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/realtime_tools

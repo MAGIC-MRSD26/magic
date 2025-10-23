@@ -1,0 +1,28 @@
+[35m[1mConsolidate compiler generated dependencies of target dual_arm_fsm[0m
+[ 25%] Built target moveit_go_dual_test_IK
+[ 50%] Built target motion_planning_single_arm_RRT
+[100%] Built target dual_arm_fsm
+-- Install configuration: ""
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/launch
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/launch/dual_arm_plan.launch.py
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/lib/moveit_go/dual_arm_fsm
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/lib/moveit_go/moveit_go_dual_test_IK
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/include/
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/include//fsm_states.hpp
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/include//object_definitions.hpp
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/include//dual_arm_planner.hpp
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/ament_index/resource_index/package_run_dependencies/moveit_go
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/ament_index/resource_index/parent_prefix_path/moveit_go
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/ament_prefix_path.sh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/path.sh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/path.dsv
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.bash
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.sh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.zsh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/package.dsv
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/ament_index/resource_index/packages/moveit_go
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/cmake/moveit_goConfig.cmake
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/cmake/moveit_goConfig-version.cmake
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/package.xml

@@ -1,0 +1,16 @@
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/test/realtime_publisher_tests.cpp:[m[K In member function ‘[01m[Kvirtual void RealtimePublisher_construct_destruct_Test::TestBody()[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/test/realtime_publisher_tests.cpp:45:76:[m[K [01;35m[Kwarning: [m[K‘[01m[Krealtime_tools::RealtimePublisher<MessageT>::RealtimePublisher() [with MessageT = test_msgs::msg::Strings_<std::allocator<void> >][m[K’ is deprecated: Use constructor with rclcpp::Publisher<T>::SharedPtr instead - this class does not make sense without a real publisher [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+   45 | TEST(RealtimePublisher, construct_destruct) { RealtimePublisher<StringMsg> [01;35m[Krt_pub[m[K; }
+      |                                                                            [01;35m[K^~~~~~[m[K
+In file included from [01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/test/realtime_publisher_tests.cpp:39[m[K:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/include/realtime_tools/realtime_publisher.hpp:86:3:[m[K [01;36m[Knote: [m[Kdeclared here
+   86 |   [01;36m[KRealtimePublisher[m[K()
+      |   [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/test/realtime_publisher_tests_non_polling.cpp:[m[K In member function ‘[01m[Kvirtual void RealtimePublisherNonPolling_construct_destruct_Test::TestBody()[m[K’:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/test/realtime_publisher_tests_non_polling.cpp:47:86:[m[K [01;35m[Kwarning: [m[K‘[01m[Krealtime_tools::RealtimePublisher<MessageT>::RealtimePublisher() [with MessageT = test_msgs::msg::Strings_<std::allocator<void> >][m[K’ is deprecated: Use constructor with rclcpp::Publisher<T>::SharedPtr instead - this class does not make sense without a real publisher [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+   47 | TEST(RealtimePublisherNonPolling, construct_destruct) { RealtimePublisher<StringMsg> [01;35m[Krt_pub[m[K; }
+      |                                                                                      [01;35m[K^~~~~~[m[K
+In file included from [01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/test/realtime_publisher_tests_non_polling.cpp:41[m[K:
+[01m[K/home/emma/Documents/GitHub/magic/ros2_ws/src/realtime_tools/include/realtime_tools/realtime_publisher.hpp:86:3:[m[K [01;36m[Knote: [m[Kdeclared here
+   86 |   [01;36m[KRealtimePublisher[m[K()
+      |   [01;36m[K^~~~~~~~~~~~~~~~~[m[K

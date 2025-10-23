@@ -1,0 +1,1 @@
+controller_manager:gazebo_ros2_control:gripper_controllers:joint_state_broadcaster:joint_state_publisher:joint_trajectory_controller:kortex_description:kortex_driver:launch:launch_ros:rclpy:robotiq_description:rviz2:urdf:xacro

@@ -1,0 +1,12 @@
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/uninstall.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/moveit_go_uninstall.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/moveit_go_dual_test_IK.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/motion_planning_single_arm_RRT.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/dual_arm_fsm.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/test.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/edit_cache.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/rebuild_cache.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/list_install_components.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/install.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/install/local.dir
+/home/emma/Documents/GitHub/magic/build/moveit_go/CMakeFiles/install/strip.dir

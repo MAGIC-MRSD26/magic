@@ -1,0 +1,29 @@
+#ifndef FSM_STATES_HPP
+#define FSM_STATES_HPP
+
+enum class State {
+    HOME,
+    PLAN_TO_OBJECT,
+    MOVE_TO_OBJECT,
+    OPEN_GRIPPER,
+    PLAN_TO_GRASP,
+    MOVE_TO_GRASP,
+    GRASP,
+    PLAN_TO_LIFT,
+    MOVE_TO_LIFT,
+    PLAN_TO_ROTATE,
+    MOVE_TO_ROTATE,
+    ROTATE_EE,
+    PLAN_TO_PLACE,
+    MOVE_TO_PLACE,
+    PLACE,
+    PLAN_RETRACT,
+    MOVE_RETRACT,
+    CLOSE_GRIPPER,
+    PLAN_TO_HOME,
+    MOVE_TO_HOME,
+    SUCCEEDED,
+    FAILED
+};
+
+#endif

@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-a3806ae01389c8d8dbc5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "moveit_go",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "dual_arm_fsm::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dual_arm_fsm-13d036f9cb7b35bd6af9.json",
+					"name" : "dual_arm_fsm",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "motion_planning_single_arm_RRT::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-motion_planning_single_arm_RRT-8a82a10dc91b686032b9.json",
+					"name" : "motion_planning_single_arm_RRT",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "moveit_go_dual_test_IK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-moveit_go_dual_test_IK-0b4a36be87d0829952bc.json",
+					"name" : "moveit_go_dual_test_IK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "moveit_go_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-moveit_go_uninstall-bc92f7c5289c10e32cf5.json",
+					"name" : "moveit_go_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-c7ed742b42c319c913b8.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/emma/Documents/GitHub/magic/build/moveit_go",
+		"source" : "/home/emma/Documents/GitHub/magic/ros2_ws/src/moveit_go"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

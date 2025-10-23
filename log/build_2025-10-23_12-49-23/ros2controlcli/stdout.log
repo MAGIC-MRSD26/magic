@@ -1,0 +1,82 @@
+running egg_info
+creating ../../../../build/ros2controlcli/ros2controlcli.egg-info
+writing ../../../../build/ros2controlcli/ros2controlcli.egg-info/PKG-INFO
+writing dependency_links to ../../../../build/ros2controlcli/ros2controlcli.egg-info/dependency_links.txt
+writing entry points to ../../../../build/ros2controlcli/ros2controlcli.egg-info/entry_points.txt
+writing requirements to ../../../../build/ros2controlcli/ros2controlcli.egg-info/requires.txt
+writing top-level names to ../../../../build/ros2controlcli/ros2controlcli.egg-info/top_level.txt
+writing manifest file '../../../../build/ros2controlcli/ros2controlcli.egg-info/SOURCES.txt'
+reading manifest file '../../../../build/ros2controlcli/ros2controlcli.egg-info/SOURCES.txt'
+writing manifest file '../../../../build/ros2controlcli/ros2controlcli.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/emma/Documents/GitHub/magic/build/ros2controlcli/build
+creating /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib
+creating /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli
+copying ros2controlcli/__init__.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli
+creating /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/api
+copying ros2controlcli/api/__init__.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/api
+creating /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/unload_controller.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/switch_controllers.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/set_hardware_component_state.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/view_controller_chains.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/load_controller.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/set_controller_state.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/__init__.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/list_controller_types.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/list_hardware_components.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/list_controllers.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/list_hardware_interfaces.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+copying ros2controlcli/verb/reload_controller_libraries.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb
+creating /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/command
+copying ros2controlcli/command/control.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/command
+copying ros2controlcli/command/__init__.py -> /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/command
+running install
+running install_lib
+creating /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli
+creating /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/api
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/api/__init__.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/api
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/__init__.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli
+creating /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/unload_controller.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/switch_controllers.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/set_hardware_component_state.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/view_controller_chains.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/load_controller.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/set_controller_state.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/__init__.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/list_controller_types.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/list_hardware_components.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/list_controllers.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/list_hardware_interfaces.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/verb/reload_controller_libraries.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb
+creating /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/command
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/command/control.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/command
+copying /home/emma/Documents/GitHub/magic/build/ros2controlcli/build/lib/ros2controlcli/command/__init__.py -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/command
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/api/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/unload_controller.py to unload_controller.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/switch_controllers.py to switch_controllers.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/set_hardware_component_state.py to set_hardware_component_state.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/view_controller_chains.py to view_controller_chains.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/load_controller.py to load_controller.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/set_controller_state.py to set_controller_state.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/list_controller_types.py to list_controller_types.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/list_hardware_components.py to list_hardware_components.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/list_controllers.py to list_controllers.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/list_hardware_interfaces.py to list_hardware_interfaces.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/verb/reload_controller_libraries.py to reload_controller_libraries.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/command/control.py to control.cpython-310.pyc
+byte-compiling /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli/command/__init__.py to __init__.cpython-310.pyc
+running install_data
+copying package.xml -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/share/ros2controlcli
+creating /home/emma/Documents/GitHub/magic/install/ros2controlcli/share/ament_index
+creating /home/emma/Documents/GitHub/magic/install/ros2controlcli/share/ament_index/resource_index
+creating /home/emma/Documents/GitHub/magic/install/ros2controlcli/share/ament_index/resource_index/packages
+copying resource/ros2controlcli -> /home/emma/Documents/GitHub/magic/install/ros2controlcli/share/ament_index/resource_index/packages
+running install_egg_info
+Copying ../../../../build/ros2controlcli/ros2controlcli.egg-info to /home/emma/Documents/GitHub/magic/install/ros2controlcli/lib/python3.10/site-packages/ros2controlcli-2.49.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/emma/Documents/GitHub/magic/build/ros2controlcli/install.log'

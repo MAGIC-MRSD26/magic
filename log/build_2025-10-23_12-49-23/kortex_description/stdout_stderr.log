@@ -1,0 +1,145 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/emma/Documents/GitHub/magic/build/kortex_description
+-- Install configuration: ""
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/config
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/config/twist_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/config/ros2_controllers.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/config/joint_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/meshes
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/meshes/forearm_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/meshes/lower_wrist_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/meshes/upper_wrist_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/meshes/shoulder_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/meshes/arm_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/meshes/base_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/urdf/gen3_lite_transmission_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/urdf/gen3_lite_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3_lite/6dof/urdf/kortex.ros2_control.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/config
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/config/twist_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/config/ros2_controllers.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/config/joint_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/config/gazebo_initial_joint_positions.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/base_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/half_arm_1_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/forearm_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/forearm_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/bracelet_with_vision_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/half_arm_1_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/shoulder_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_1_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_1_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_2_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/ball_pinchingpoint.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/end_effector_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/spherical_wrist_2_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/half_arm_2_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/half_arm_2_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/bracelet_no_vision_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/shoulder_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/bracelet_with_vision_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/base_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/meshes/bracelet_no_vision_link.dae
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/urdf/gen3_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/urdf/kortex.ros2_control.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/7dof/urdf/gen3_transmission_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/config
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/config/twist_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/config/ros2_controllers.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/config/joint_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/config/gazebo_initial_joint_positions.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/forearm_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/bracelet_with_vision_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/spherical_wrist_1_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/bicep_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/spherical_wrist_2_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/bracelet_no_vision_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/shoulder_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/meshes/base_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/urdf/gen3_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/urdf/kortex.ros2_control.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/arms/gen3/6dof/urdf/gen3_transmission_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/config
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/config/joint_limits.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/meshes
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/meshes/right_finger_dist_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/meshes/right_finger_prox_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/meshes/left_finger_dist_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/meshes/gripper_base_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/meshes/left_finger_prox_link.STL
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/urdf/gen3_lite_2f_transmission_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/urdf/GEN3-LITE-GRIPPER_URDF_SIMPLIFIED_V2.urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/urdf/gen3_lite_2f.ros2_control.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/gen3_lite_2f/urdf/gen3_lite_2f_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_140
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_140/README.md
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_140/urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_140/urdf/robotiq_2f_140_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_140/LICENSE
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_85
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_85/README.md
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_85/urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_85/urdf/robotiq_2f_85_macro.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/grippers/robotiq_2f_85/LICENSE
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/launch
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/launch/view_robot.launch.py
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/launch/view_multi_robot.launch.py
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/multiple_robots
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/multiple_robots/kortex_dual_robots.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/kortex_robot.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/gen3.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/gen3_robotiq_2f_140.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/gen3_lite_gen3_lite_2f.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/gen3_lite.urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/gen3_2f85.urdf
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/kinova.urdf.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/robots/gen3_robotiq_2f_85.xacro
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/rviz
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/rviz/view_robot.rviz
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/config
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/config/initial_positions.yaml
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/ament_index/resource_index/package_run_dependencies/kortex_description
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/ament_index/resource_index/parent_prefix_path/kortex_description
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/environment/ament_prefix_path.sh
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/environment/ament_prefix_path.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/environment/path.sh
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/environment/path.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/local_setup.bash
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/local_setup.sh
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/local_setup.zsh
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/local_setup.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/package.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/ament_index/resource_index/packages/kortex_description
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/cmake/kortex_descriptionConfig.cmake
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/cmake/kortex_descriptionConfig-version.cmake
+-- Installing: /home/emma/Documents/GitHub/magic/install/kortex_description/share/kortex_description/package.xml

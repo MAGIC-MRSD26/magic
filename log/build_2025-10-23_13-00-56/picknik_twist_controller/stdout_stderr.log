@@ -1,0 +1,30 @@
+[100%] Built target picknik_twist_controller
+-- Install configuration: ""
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/controller_plugins.xml
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/lib/libpicknik_twist_controller.so
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/include
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/include/picknik_twist_controller
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/include/picknik_twist_controller/visibility_control.h
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/include/picknik_twist_controller/picknik_twist_controller.hpp
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/controller_plugins.xml
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/environment/library_path.sh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/environment/library_path.dsv
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/ament_index/resource_index/package_run_dependencies/picknik_twist_controller
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/ament_index/resource_index/parent_prefix_path/picknik_twist_controller
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/environment/ament_prefix_path.sh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/environment/path.sh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/environment/path.dsv
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.bash
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.sh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.zsh
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/local_setup.dsv
+-- Installing: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/package.dsv
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/ament_index/resource_index/packages/picknik_twist_controller
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/picknik_twist_controller
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/cmake/picknik_twist_controllerConfig.cmake
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/cmake/picknik_twist_controllerConfig-version.cmake
+-- Up-to-date: /home/emma/Documents/GitHub/magic/install/picknik_twist_controller/share/picknik_twist_controller/package.xml

@@ -1,0 +1,38 @@
+[0.415s] Invoking command in '/home/emma/Documents/GitHub/magic/build/moveit_go': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/moveit_go -- -j20 -l20
+[0.484s] [35m[1mConsolidate compiler generated dependencies of target motion_planning_single_arm_RRT[0m
+[0.484s] [35m[1mConsolidate compiler generated dependencies of target moveit_go_dual_test_IK[0m
+[0.486s] [35m[1mConsolidate compiler generated dependencies of target dual_arm_fsm[0m
+[0.516s] [ 25%] Built target moveit_go_dual_test_IK
+[0.517s] [ 50%] Built target motion_planning_single_arm_RRT
+[0.520s] [ 62%] [32mBuilding CXX object CMakeFiles/dual_arm_fsm.dir/src/dual_arm_fsm.cpp.o[0m
+[0.522s] [ 75%] [32mBuilding CXX object CMakeFiles/dual_arm_fsm.dir/src/object_definitions.cpp.o[0m
+[11.737s] [ 87%] [32m[1mLinking CXX executable dual_arm_fsm[0m
+[12.460s] [100%] Built target dual_arm_fsm
+[12.477s] Invoked command in '/home/emma/Documents/GitHub/magic/build/moveit_go' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/emma/Documents/GitHub/magic/build/moveit_go -- -j20 -l20
+[12.479s] Invoking command in '/home/emma/Documents/GitHub/magic/build/moveit_go': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/moveit_go
+[12.489s] -- Install configuration: ""
+[12.489s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/launch
+[12.489s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/launch/dual_arm_plan.launch.py
+[12.490s] -- Installing: /home/emma/Documents/GitHub/magic/install/moveit_go/lib/moveit_go/dual_arm_fsm
+[12.492s] -- Set runtime path of "/home/emma/Documents/GitHub/magic/install/moveit_go/lib/moveit_go/dual_arm_fsm" to ""
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/lib/moveit_go/moveit_go_dual_test_IK
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/include/
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/include//fsm_states.hpp
+[12.493s] -- Installing: /home/emma/Documents/GitHub/magic/install/moveit_go/include//object_definitions.hpp
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/include//dual_arm_planner.hpp
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/ament_index/resource_index/package_run_dependencies/moveit_go
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/ament_index/resource_index/parent_prefix_path/moveit_go
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/ament_prefix_path.sh
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/ament_prefix_path.dsv
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/path.sh
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/environment/path.dsv
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.bash
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.sh
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.zsh
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/local_setup.dsv
+[12.493s] -- Installing: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/package.dsv
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/ament_index/resource_index/packages/moveit_go
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/cmake/moveit_goConfig.cmake
+[12.493s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/cmake/moveit_goConfig-version.cmake
+[12.494s] -- Up-to-date: /home/emma/Documents/GitHub/magic/install/moveit_go/share/moveit_go/package.xml
+[12.496s] Invoked command in '/home/emma/Documents/GitHub/magic/build/moveit_go' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/emma/Documents/GitHub/magic/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/magic/install/rqt_controller_manager:/home/emma/Documents/GitHub/magic/install/ros2controlcli:/home/emma/Documents/GitHub/magic/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/magic/install/control:/home/emma/Documents/GitHub/install/rqt_joint_trajectory_controller:/home/emma/Documents/GitHub/install/rqt_controller_manager:/home/emma/Documents/GitHub/install/ros2controlcli:/home/emma/Documents/GitHub/install/ros2_controllers_test_nodes:/home/emma/Documents/GitHub/install/mujoco_ros2:/home/emma/Documents/GitHub/install/control:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/emma/Documents/GitHub/magic/build/moveit_go

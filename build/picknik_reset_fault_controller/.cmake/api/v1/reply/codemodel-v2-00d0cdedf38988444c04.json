@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-8c1d297e3e152948f45a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "picknik_reset_fault_controller",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "picknik_reset_fault_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-picknik_reset_fault_controller-a5fb1d0eb4ddd02bf41c.json",
+					"name" : "picknik_reset_fault_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "picknik_reset_fault_controller_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-picknik_reset_fault_controller_uninstall-8934a83ae64617ae91b2.json",
+					"name" : "picknik_reset_fault_controller_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-9f8424edff8b0927e779.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/emma/Documents/GitHub/magic/build/picknik_reset_fault_controller",
+		"source" : "/home/emma/Documents/GitHub/magic/ros2_ws/src/picknik_controllers/picknik_reset_fault_controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
