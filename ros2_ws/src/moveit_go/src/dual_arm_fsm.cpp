@@ -204,6 +204,7 @@ private:
     // Bin subscription 
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr pose_subscription_;
     geometry_msgs::msg::Pose object_pose_;
+    double yaw_angle;
     bool pose_received_;
     
     
@@ -215,6 +216,16 @@ private:
                 object_pose_.position.x,
                 object_pose_.position.y,
                 object_pose_.position.z);
+
+        tf2::Quaternion q(object_pose_.orientation.x,
+                            object_pose_.orientation.y,
+                            object_pose_.orientation.z,
+                            object_pose_.orientation.w);
+        double roll, pitch, yaw;
+        tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
+        yaw_angle = yaw * (180.0 / M_PI);
+
+        RCLCPP_INFO(LOGGER, "Object orientation (yaw): %f degrees", yaw_angle);
 
         pose_subscription_.reset();
     }
@@ -254,17 +265,18 @@ private:
         waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.0, y = 0.0;
+        double x = 0.0, y = 0.0, yaw = 0.0;
         if (pose_received_) {
             x = object_pose_.position.x;
             y = object_pose_.position.y;
+            yaw = yaw_angle;
         }
         
         // Use factory to create parameters and collision object
         if (selected_object_type_ == ObjectType::BIN) {
             object_params_ = ObjectFactory::createBinParameters(x, y);
         } else {
-            object_params_ = ObjectFactory::createCylinderParameters(x, y);
+            object_params_ = ObjectFactory::createCylinderParameters(x, y, yaw);
         }
         
         // Create and add collision object to scene
@@ -286,7 +298,6 @@ private:
         current_state_ = State::PLAN_TO_OBJECT;
         return true;
     }
-
 
     bool planToObject() {
 
