@@ -23,7 +23,8 @@ public:
         State& current_state,
         State next_state,
         moveit::planning_interface::MoveGroupInterface::Plan& plan,
-        const std::string& planning_message = "Planning succeeded!");
+        const std::string& planning_message = "Planning succeeded!",
+        bool holding_object = false);
 
     bool executeMovement_dualarm(
         State& current_state,
@@ -46,6 +47,17 @@ private:
     moveit::planning_interface::MoveGroupInterface& arm_move_group_dual_;
 
     char waitForKeyPress();
+    
+    bool validateGripperDistance(
+        const moveit_msgs::msg::RobotTrajectory& traj_left,
+        const moveit_msgs::msg::RobotTrajectory& traj_right,
+        double expected_distance,
+        double tolerance);
+
+    void enforceGripperDistance(
+        moveit_msgs::msg::RobotTrajectory& traj_left,
+        moveit_msgs::msg::RobotTrajectory& traj_right,
+        double target_distance);
 };
 
 #endif // DUAL_ARM_PLANNER_HPP
