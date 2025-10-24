@@ -204,6 +204,7 @@ private:
     // Bin subscription 
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr pose_subscription_;
     geometry_msgs::msg::Pose object_pose_;
+    double yaw_angle;
     bool pose_received_;
     
     
@@ -215,6 +216,16 @@ private:
                 object_pose_.position.x,
                 object_pose_.position.y,
                 object_pose_.position.z);
+
+        tf2::Quaternion q(object_pose_.orientation.x,
+                            object_pose_.orientation.y,
+                            object_pose_.orientation.z,
+                            object_pose_.orientation.w);
+        double roll, pitch, yaw;
+        tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
+        yaw_angle = yaw * (180.0 / M_PI);
+
+        RCLCPP_INFO(LOGGER, "Object orientation (yaw): %f degrees", yaw_angle);
 
         pose_subscription_.reset();
     }
@@ -254,17 +265,19 @@ private:
         waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.0, y = 0.0;
+        double x = 0.0, y = 0.0, yaw = 45.0;
+        // At (0,0) yaw angle range is 35 - 50
         if (pose_received_) {
             x = object_pose_.position.x;
             y = object_pose_.position.y;
+            yaw = yaw_angle;
         }
         
         // Use factory to create parameters and collision object
         if (selected_object_type_ == ObjectType::BIN) {
             object_params_ = ObjectFactory::createBinParameters(x, y);
         } else {
-            object_params_ = ObjectFactory::createCylinderParameters(x, y);
+            object_params_ = ObjectFactory::createCylinderParameters(x, y, yaw);
         }
         
         // Create and add collision object to scene
@@ -286,7 +299,6 @@ private:
         current_state_ = State::PLAN_TO_OBJECT;
         return true;
     }
-
 
     bool planToObject() {
 
@@ -337,8 +349,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z -= 0.2;
-        target_pose_B.position.z -= 0.2;
+        target_pose_A.position.z -= 0.21;
+        target_pose_B.position.z -= 0.21;
 
         // Save these for placing later (with the clean orientation)
         lifted_pose_A = target_pose_A;
@@ -416,12 +428,13 @@ private:
     }
 
     bool planToLift() {
-
+        
+        double yaw = object_params_.rotation_angle * M_PI / 180.0;
         // Straighten out the arms for 360 rotation
         if (go_to_next_grasp) {
-            dual_arm_planner_->rotate(0, 0, M_PI/4, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, M_PI/2 - yaw, rotated_pose1, rotated_pose2);
         } else {
-            dual_arm_planner_->rotate(0, 0, -M_PI/4, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, -yaw, rotated_pose1, rotated_pose2);
         }
         
         // Add to z position
@@ -548,8 +561,8 @@ private:
         auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
         auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
         
-        current_pose_A.position.z += 0.29;
-        current_pose_B.position.z += 0.29;
+        current_pose_A.position.z += 0.34;
+        current_pose_B.position.z += 0.34;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to retract arms\033[0m");
         waitForKeyPress();

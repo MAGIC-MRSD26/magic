@@ -20,6 +20,8 @@ struct ObjectParameters {
     double depth = 0.0;       // Y dimension (bin) or diameter (cylinder)
     double height = 0.0;      // Z dimension
     double wall_thickness = 0.0; // Wall thickness (bin) or spoke thickness (cylinder)
+    double rotation_angle = 0.0; 
+
 
     // Position
     double x = 0.0;
@@ -49,7 +51,7 @@ public:
     static ObjectParameters createBinParameters(double x = 0.0, double y = 0.0);
 
     // Create parameters for a cylinder with spokes
-    static ObjectParameters createCylinderParameters(double x = 0.0, double y = 0.0);
+    static ObjectParameters createCylinderParameters(double x = 0.0, double y = 0.0, double rotation_angle = 45.0);
 
     // Calculate grasp poses for an object
     static void calculateGraspPoses(ObjectType type, ObjectParameters& params);
