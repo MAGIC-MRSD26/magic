@@ -265,7 +265,8 @@ private:
         waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.0, y = 0.0, yaw = 60.0;
+        double x = 0.0, y = 0.0, yaw = 45.0;
+        // At (0,0) yaw angle range is 35 - 50
         if (pose_received_) {
             x = object_pose_.position.x;
             y = object_pose_.position.y;
@@ -348,8 +349,8 @@ private:
     bool planToGrasp() {
         //next state where we plan for grasp point
         // Reuse target_pose with new z pos
-        target_pose_A.position.z -= 0.2;
-        target_pose_B.position.z -= 0.2;
+        target_pose_A.position.z -= 0.21;
+        target_pose_B.position.z -= 0.21;
 
         // Save these for placing later (with the clean orientation)
         lifted_pose_A = target_pose_A;
@@ -431,7 +432,7 @@ private:
         double yaw = object_params_.rotation_angle * M_PI / 180.0;
         // Straighten out the arms for 360 rotation
         if (go_to_next_grasp) {
-            dual_arm_planner_->rotate(0, 0, yaw, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, M_PI/2 - yaw, rotated_pose1, rotated_pose2);
         } else {
             dual_arm_planner_->rotate(0, 0, -yaw, rotated_pose1, rotated_pose2);
         }
@@ -560,8 +561,8 @@ private:
         auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
         auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
         
-        current_pose_A.position.z += 0.29;
-        current_pose_B.position.z += 0.29;
+        current_pose_A.position.z += 0.34;
+        current_pose_B.position.z += 0.34;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to retract arms\033[0m");
         waitForKeyPress();

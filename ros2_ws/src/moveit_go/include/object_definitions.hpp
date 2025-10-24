@@ -51,7 +51,7 @@ public:
     static ObjectParameters createBinParameters(double x = 0.0, double y = 0.0);
 
     // Create parameters for a cylinder with spokes
-    static ObjectParameters createCylinderParameters(double x = 0.0, double y = 0.0, double rotation_angle = 0.0);
+    static ObjectParameters createCylinderParameters(double x = 0.0, double y = 0.0, double rotation_angle = 45.0);
 
     // Calculate grasp poses for an object
     static void calculateGraspPoses(ObjectType type, ObjectParameters& params);

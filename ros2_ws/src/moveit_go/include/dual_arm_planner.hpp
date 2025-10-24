@@ -58,6 +58,11 @@ private:
         moveit_msgs::msg::RobotTrajectory& traj_left,
         moveit_msgs::msg::RobotTrajectory& traj_right,
         double target_distance);
+
+    void constrainWaypointPairDistance(
+        geometry_msgs::msg::Pose& waypoint1,
+        geometry_msgs::msg::Pose& waypoint2,
+        double target_distance);
 };
 
 #endif // DUAL_ARM_PLANNER_HPP
