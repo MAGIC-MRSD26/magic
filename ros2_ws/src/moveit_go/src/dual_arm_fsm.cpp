@@ -194,8 +194,8 @@ private:
     int rotations = 0;
 
     // Add these for placing
-    geometry_msgs::msg::Pose lifted_pose_A;
-    geometry_msgs::msg::Pose lifted_pose_B;
+    geometry_msgs::msg::Pose grasped_pose_A;
+    geometry_msgs::msg::Pose grasped_pose_B;
 
     // Object params
     ObjectType selected_object_type_;
@@ -353,8 +353,8 @@ private:
         target_pose_B.position.z -= 0.21;
 
         // Save these for placing later (with the clean orientation)
-        lifted_pose_A = target_pose_A;
-        lifted_pose_B = target_pose_B;
+        grasped_pose_A = target_pose_A;
+        grasped_pose_B = target_pose_B;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -436,6 +436,22 @@ private:
         } else {
             dual_arm_planner_->rotate(0, 0, -yaw, rotated_pose1, rotated_pose2);
         }
+
+        // Calculate current gripper distance
+        double gripper_distance = std::sqrt(
+            std::pow(rotated_pose1.position.x - rotated_pose2.position.x, 2) +
+            std::pow(rotated_pose1.position.y - rotated_pose2.position.y, 2) +
+            std::pow(rotated_pose1.position.z - rotated_pose2.position.z, 2)
+        );
+
+        // Center both grippers around object center in x, separated by current distance
+        double half_distance = gripper_distance / 2.0;
+        rotated_pose1.position.x = half_distance;
+        rotated_pose2.position.x = -half_distance;
+        
+        // Center in y
+        rotated_pose1.position.y = 0.0;
+        rotated_pose2.position.y = 0.0;
         
         // Add to z position
         rotated_pose1.position.z += 0.35;
@@ -500,7 +516,6 @@ private:
             }
             
             RCLCPP_INFO(LOGGER, "Step %d completed successfully", step);
-            rclcpp::sleep_for(std::chrono::milliseconds(200));
         }
         
         // Restore normal velocity scaling
@@ -511,10 +526,13 @@ private:
         return true;
     }
     bool planToPlace() {
+        
+        target_pose_A = grasped_pose_A;
+        target_pose_B = grasped_pose_B;
 
-        // Get current poses instead of reusing old ones
-        target_pose_A = lifted_pose_A;
-        target_pose_B = lifted_pose_B;
+        RCLCPP_INFO(LOGGER, "Left arm place pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
+        RCLCPP_INFO(LOGGER, "Right arm place pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
+        
     
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
         waitForKeyPress();
