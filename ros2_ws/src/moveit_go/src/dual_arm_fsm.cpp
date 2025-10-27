@@ -15,6 +15,7 @@
 // Helpers
 #include "dual_arm_planner.hpp"
 #include "fsm_states.hpp"
+#include "std_msgs/msg/string.hpp"
 
 // This is a finite state machine for Kinova Gen3 7DOF arm
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("motion_planning");
@@ -71,9 +72,16 @@ public:
         pose_received_ = false;
         
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
+
+        state_publisher_ = node_->create_publisher<std_msgs::msg::String>("/fsm_state", 10);
     }
 
     bool execute() {
+        // Publish current state
+        std_msgs::msg::String state_msg;
+        state_msg.data = stateToString(current_state_);
+        state_publisher_->publish(state_msg);
+        
         switch (current_state_) {
             case State::HOME:
                 return home();
@@ -207,6 +215,7 @@ private:
     double yaw_angle;
     bool pose_received_;
     
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr state_publisher_;
     
     // Callback for the bin pose subscriber
     void binPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
@@ -677,6 +686,32 @@ private:
         }
         
         return true;
+    }
+
+    std::string stateToString(State state) {
+        switch(state) {
+            case State::HOME: return "HOME";
+            case State::PLAN_TO_OBJECT: return "PLAN_TO_OBJECT";
+            case State::MOVE_TO_OBJECT: return "MOVE_TO_OBJECT";
+            case State::OPEN_GRIPPER: return "OPEN_GRIPPER";
+            case State::PLAN_TO_GRASP: return "PLAN_TO_GRASP";
+            case State::MOVE_TO_GRASP: return "MOVE_TO_GRASP";
+            case State::GRASP: return "GRASP";
+            case State::PLAN_TO_LIFT: return "PLAN_TO_LIFT";
+            case State::MOVE_TO_LIFT: return "MOVE_TO_LIFT";
+            case State::ROTATE_EE: return "ROTATE_EE";
+            case State::PLAN_TO_PLACE: return "PLAN_TO_PLACE";
+            case State::MOVE_TO_PLACE: return "MOVE_TO_PLACE";
+            case State::PLACE: return "PLACE";
+            case State::PLAN_RETRACT: return "PLAN_RETRACT";
+            case State::MOVE_RETRACT: return "MOVE_RETRACT";
+            case State::CLOSE_GRIPPER: return "CLOSE_GRIPPER";
+            case State::PLAN_TO_HOME: return "PLAN_TO_HOME";
+            case State::MOVE_TO_HOME: return "MOVE_TO_HOME";
+            case State::SUCCEEDED: return "SUCCEEDED";
+            case State::FAILED: return "FAILED";
+            default: return "UNKNOWN";
+        }
     }
 };
 
