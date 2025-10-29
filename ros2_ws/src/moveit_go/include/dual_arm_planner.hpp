@@ -63,6 +63,16 @@ private:
         geometry_msgs::msg::Pose& waypoint1,
         geometry_msgs::msg::Pose& waypoint2,
         double target_distance);
+
+    moveit_msgs::msg::RobotTrajectory resampleTrajectory(
+        const moveit_msgs::msg::RobotTrajectory& traj, 
+        size_t target_size);
+
+    std::tuple<std::vector<geometry_msgs::msg::Pose>, std::vector<geometry_msgs::msg::Pose>, double> calculateWaypoints(
+        geometry_msgs::msg::Pose& pose1,
+        geometry_msgs::msg::Pose& pose2,
+        double eef_step,
+        bool holding_object);
 };
 
 #endif // DUAL_ARM_PLANNER_HPP
