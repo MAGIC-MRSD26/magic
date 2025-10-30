@@ -1,0 +1,5 @@
+the problem 
+16cm -- 1.09 meters
+51cm -- corresponds to 1.44 meters
+
+the issue is that the reference is the gripper start
