@@ -546,7 +546,6 @@ private:
     bool planToPlace() {
         ObjectParameters place_params = createPlacementParams();
 
-        // Select grasp poses based on current grasp configuration
         if (go_to_next_grasp) {
             target_pose_A = place_params.second_left_grasp_pose;
             target_pose_B = place_params.second_right_grasp_pose;
