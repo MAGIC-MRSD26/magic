@@ -199,10 +199,6 @@ private:
     geometry_msgs::msg::Pose rotated_pose2;
     int rotations = 0;
 
-    // Add these for placing
-    geometry_msgs::msg::Pose grasped_pose_A;
-    geometry_msgs::msg::Pose grasped_pose_B;
-
     // Object params
     ObjectType selected_object_type_;
     ObjectParameters object_params_;
@@ -283,7 +279,7 @@ private:
         waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.03, y = 0.05, yaw = 40.0;
+        double x = 0.0, y = 0.0, yaw = 45.0;
         // At (0,0) yaw angle range is 35 - 50
         if (pose_received_) {
             x = object_pose_.position.x;
@@ -369,10 +365,6 @@ private:
         // Reuse target_pose with new z pos
         target_pose_A.position.z -= 0.21;
         target_pose_B.position.z -= 0.21;
-
-        // Save these for placing later (with the clean orientation)
-        grasped_pose_A = target_pose_A;
-        grasped_pose_B = target_pose_B;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -559,7 +551,6 @@ private:
         target_pose_A.position.z -= (APPROACH_OFFSET + GRASP_OFFSET);
         target_pose_B.position.z -= (APPROACH_OFFSET + GRASP_OFFSET);
 
-        RCLCPP_INFO(LOGGER, "Using grasp configuration: %s", go_to_next_grasp ? "SECOND" : "FIRST");
         RCLCPP_INFO(LOGGER, "Pickup location: x=%.4f, y=%.4f, z=%.4f, angle=%.2f deg",
                     object_params_.x, object_params_.y, object_params_.z,
                     object_params_.rotation_angle);
@@ -604,57 +595,6 @@ private:
 
         moveit_msgs::msg::CollisionObject placed_collision_object =
             ObjectFactory::createObject(selected_object_type_, placed_params);
-
-        std::vector<moveit_msgs::msg::CollisionObject> placed_objects;
-        placed_objects.push_back(placed_collision_object);
-        planning_scene_interface_dual.applyCollisionObjects(placed_objects);
-
-        RCLCPP_INFO(LOGGER, "Successfully released and placed object on table at (%.1f, %.1f)",
-                    PLACEMENT_X, PLACEMENT_Y);
-
-        auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
-        auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
-
-        double actual_center_x = (current_pose_A.position.x + current_pose_B.position.x) / 2.0;
-        double actual_center_y = (current_pose_A.position.y + current_pose_B.position.y) / 2.0;
-        double actual_center_z;
-        double actual_angle_deg = placed_params.rotation_angle;
-
-        double expected_center_z = placed_params.z;
-
-        constexpr double LOWERING_OFFSET = 0.31;  // 0.1 approach + 0.21 grasp
-
-        if (selected_object_type_ == ObjectType::BIN) {
-            actual_center_z = current_pose_A.position.z + LOWERING_OFFSET - 0.034;
-        } else if (selected_object_type_ == ObjectType::CYLINDER_WITH_SPOKES) {
-            actual_center_z = current_pose_A.position.z + LOWERING_OFFSET - placed_params.height;
-        } else {
-            actual_center_z = current_pose_A.position.z;
-        }
-
-        RCLCPP_INFO(LOGGER, "\033[33m========== PLACEMENT VERIFICATION ==========\033[0m");
-        RCLCPP_INFO(LOGGER, "Object type: %s",
-                    selected_object_type_ == ObjectType::BIN ? "BIN" : "CYLINDER_WITH_SPOKES");
-        RCLCPP_INFO(LOGGER, "Table height: 0.9316");
-        RCLCPP_INFO(LOGGER, "--- Target Placement ---");
-        RCLCPP_INFO(LOGGER, "Target center: x=%.4f, y=%.4f, z=%.4f, angle=%.2f deg",
-                    PLACEMENT_X, PLACEMENT_Y, expected_center_z, placed_params.rotation_angle);
-        RCLCPP_INFO(LOGGER, "--- Actual Placement ---");
-        RCLCPP_INFO(LOGGER, "Actual object center: x=%.4f, y=%.4f, z=%.4f",
-                    actual_center_x, actual_center_y, actual_center_z);
-        RCLCPP_INFO(LOGGER, "Actual object angle: %.2f degrees", actual_angle_deg);
-        RCLCPP_INFO(LOGGER, "--- Errors ---");
-        RCLCPP_INFO(LOGGER, "Position error: dx=%.4f, dy=%.4f, dz=%.4f (xy-distance: %.4f)",
-                    actual_center_x - PLACEMENT_X, actual_center_y - PLACEMENT_Y,
-                    actual_center_z - expected_center_z,
-                    sqrt(actual_center_x * actual_center_x + actual_center_y * actual_center_y));
-        RCLCPP_INFO(LOGGER, "Angle error: %.2f degrees", actual_angle_deg - placed_params.rotation_angle);
-        RCLCPP_INFO(LOGGER, "--- Gripper Positions ---");
-        RCLCPP_INFO(LOGGER, "Left arm:  x=%.4f, y=%.4f, z=%.4f",
-                    current_pose_A.position.x, current_pose_A.position.y, current_pose_A.position.z);
-        RCLCPP_INFO(LOGGER, "Right arm: x=%.4f, y=%.4f, z=%.4f",
-                    current_pose_B.position.x, current_pose_B.position.y, current_pose_B.position.z);
-        RCLCPP_INFO(LOGGER, "\033[33m============================================\033[0m");
 
         object_params_ = placed_params;
         RCLCPP_INFO(LOGGER, "Updated object_params_ to reflect placement at (%.1f, %.1f, %.4f) with %.1f° rotation",
