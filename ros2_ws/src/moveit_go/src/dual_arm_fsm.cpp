@@ -593,15 +593,11 @@ private:
 
         ObjectParameters placed_params = createPlacementParams();
 
-        moveit_msgs::msg::CollisionObject placed_collision_object =
-            ObjectFactory::createObject(selected_object_type_, placed_params);
-
         object_params_ = placed_params;
         RCLCPP_INFO(LOGGER, "Updated object_params_ to reflect placement at (%.1f, %.1f, %.4f) with %.1f° rotation",
                     object_params_.x, object_params_.y, object_params_.z, object_params_.rotation_angle);
 
         current_state_ = State::PLAN_RETRACT;
-
         return true;
     }
 
