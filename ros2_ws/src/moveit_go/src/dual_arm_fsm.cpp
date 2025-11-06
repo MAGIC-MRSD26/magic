@@ -20,6 +20,12 @@
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("motion_planning");
 
 class MotionPlanningFSM {
+private:
+    // mid fsm placement spot
+    static constexpr double PLACEMENT_X = 0.0;
+    static constexpr double PLACEMENT_Y = 0.0;
+    static constexpr double PLACEMENT_ANGLE = 45.0;
+
 public:
     MotionPlanningFSM(
         const rclcpp::Node::SharedPtr& node,
@@ -193,10 +199,6 @@ private:
     geometry_msgs::msg::Pose rotated_pose2;
     int rotations = 0;
 
-    // Add these for placing
-    geometry_msgs::msg::Pose grasped_pose_A;
-    geometry_msgs::msg::Pose grasped_pose_B;
-
     // Object params
     ObjectType selected_object_type_;
     ObjectParameters object_params_;
@@ -228,6 +230,18 @@ private:
         RCLCPP_INFO(LOGGER, "Object orientation (yaw): %f degrees", yaw_angle);
 
         pose_subscription_.reset();
+    }
+
+    ObjectParameters createPlacementParams() {
+        ObjectParameters params;
+        if (selected_object_type_ == ObjectType::BIN) {
+            params = ObjectFactory::createBinParameters(PLACEMENT_X, PLACEMENT_Y);
+        } else if (selected_object_type_ == ObjectType::CYLINDER_WITH_SPOKES) {
+            params = ObjectFactory::createCylinderParameters(PLACEMENT_X, PLACEMENT_Y, PLACEMENT_ANGLE);
+        } else {
+            RCLCPP_ERROR(LOGGER, "Unknown object type!");
+        }
+        return params;
     }
 
     char waitForKeyPress() {
@@ -351,10 +365,6 @@ private:
         // Reuse target_pose with new z pos
         target_pose_A.position.z -= 0.21;
         target_pose_B.position.z -= 0.21;
-
-        // Save these for placing later (with the clean orientation)
-        grasped_pose_A = target_pose_A;
-        grasped_pose_B = target_pose_B;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -526,14 +536,31 @@ private:
         return true;
     }
     bool planToPlace() {
-        
-        target_pose_A = grasped_pose_A;
-        target_pose_B = grasped_pose_B;
+        ObjectParameters place_params = createPlacementParams();
 
-        RCLCPP_INFO(LOGGER, "Left arm place pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
-        RCLCPP_INFO(LOGGER, "Right arm place pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
-        
-    
+        if (go_to_next_grasp) {
+            target_pose_A = place_params.second_left_grasp_pose;
+            target_pose_B = place_params.second_right_grasp_pose;
+        } else {
+            target_pose_A = place_params.left_grasp_pose;
+            target_pose_B = place_params.right_grasp_pose;
+        }
+
+        constexpr double APPROACH_OFFSET = 0.1;
+        constexpr double GRASP_OFFSET = 0.21;
+        target_pose_A.position.z -= (APPROACH_OFFSET + GRASP_OFFSET);
+        target_pose_B.position.z -= (APPROACH_OFFSET + GRASP_OFFSET);
+
+        RCLCPP_INFO(LOGGER, "Pickup location: x=%.4f, y=%.4f, z=%.4f, angle=%.2f deg",
+                    object_params_.x, object_params_.y, object_params_.z,
+                    object_params_.rotation_angle);
+        RCLCPP_INFO(LOGGER, "Placement location: x=%.4f, y=%.4f, z=%.4f, angle=%.2f deg",
+                    PLACEMENT_X, PLACEMENT_Y, place_params.z, place_params.rotation_angle);
+        RCLCPP_INFO(LOGGER, "Left arm place pose: x=%.4f, y=%.4f, z=%.4f",
+                    target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
+        RCLCPP_INFO(LOGGER, "Right arm place pose: x=%.4f, y=%.4f, z=%.4f",
+                    target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
+
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
         waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE, plan,
@@ -547,29 +574,30 @@ private:
     
     bool Place() {
         RCLCPP_INFO(LOGGER, "Releasing object...");
-    
+
         // Open gripper to release object
         gripper_move_group_dual.setNamedTarget("Open");
         bool gripper_success = (gripper_move_group_dual.move() == moveit::core::MoveItErrorCode::SUCCESS);
-    
+
         if (!gripper_success) {
             RCLCPP_ERROR(LOGGER, "Failed to open gripper");
             current_state_ = State::FAILED;
             return true;
         }
-    
-        // Detach object from planning scene
-        attached_object.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
-        planning_scene_interface_dual.applyAttachedCollisionObject(attached_object);
-        
+
         gripper_move_group_A.detachObject(attached_object.object.id);
         gripper_move_group_B.detachObject(attached_object.object.id);
-        
-        RCLCPP_INFO(LOGGER, "Successfully released object on table");
-        
-        // Transition to retract state instead
+
+        attached_object.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
+        planning_scene_interface_dual.applyAttachedCollisionObject(attached_object);
+
+        ObjectParameters placed_params = createPlacementParams();
+
+        object_params_ = placed_params;
+        RCLCPP_INFO(LOGGER, "Updated object_params_ to reflect placement at (%.1f, %.1f, %.4f) with %.1f° rotation",
+                    object_params_.x, object_params_.y, object_params_.z, object_params_.rotation_angle);
+
         current_state_ = State::PLAN_RETRACT;
-        
         return true;
     }
 
@@ -639,9 +667,14 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
         waitForKeyPress();
 
-        // Use named target
+        arm_move_group_dual.setStartStateToCurrentState();
+
+        auto current_pose = arm_move_group_A.getCurrentPose().pose;
+        RCLCPP_INFO(LOGGER, "Planning from current lifted position: z=%.4f", current_pose.position.z);
         arm_move_group_dual.setNamedTarget("Home");
-        arm_move_group_dual.setPlanningTime(5.0);
+        arm_move_group_dual.setPlannerId("RRTConnectkConfigDefault");  
+        arm_move_group_dual.setPlanningTime(15.0);  
+        arm_move_group_dual.setNumPlanningAttempts(10);  
         bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
         if (success) {
