@@ -238,6 +238,8 @@ private:
             params = ObjectFactory::createBinParameters(PLACEMENT_X, PLACEMENT_Y);
         } else if (selected_object_type_ == ObjectType::CYLINDER_WITH_SPOKES) {
             params = ObjectFactory::createCylinderParameters(PLACEMENT_X, PLACEMENT_Y, PLACEMENT_ANGLE);
+        } else if (selected_object_type_ == ObjectType::TBAR) {
+            params = ObjectFactory::createTbarParameters(PLACEMENT_X, PLACEMENT_Y, PLACEMENT_ANGLE);
         } else {
             RCLCPP_ERROR(LOGGER, "Unknown object type!");
         }
@@ -290,10 +292,11 @@ private:
         // Use factory to create parameters and collision object
         if (selected_object_type_ == ObjectType::BIN) {
             object_params_ = ObjectFactory::createBinParameters(x, y);
-        } else {
+        } else if (selected_object_type_ == ObjectType::CYLINDER_WITH_SPOKES) {
             object_params_ = ObjectFactory::createCylinderParameters(x, y, yaw);
+        } else if (selected_object_type_ == ObjectType::TBAR) {
+            object_params_ = ObjectFactory::createTbarParameters(x, y, yaw);
         }
-        
         // Create and add collision object to scene
         moveit_msgs::msg::CollisionObject collision_object = 
             ObjectFactory::createObject(selected_object_type_, object_params_);
@@ -723,7 +726,8 @@ int main(int argc, char** argv) {
     move_group_node->set_parameter(sim_time_param);
 
     // Select object type
-    ObjectType object_type = ObjectType::CYLINDER_WITH_SPOKES;
+    // ObjectType object_type = ObjectType::CYLINDER_WITH_SPOKES;
+    ObjectType object_type = ObjectType::TBAR;
 
     move_group_node->declare_parameter("robot_description_kinematics.left_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
     move_group_node->declare_parameter("robot_description_kinematics.right_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
