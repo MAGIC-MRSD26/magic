@@ -14,6 +14,8 @@ ObjectParameters ObjectFactory::createBinParameters(double x, double y) {
     params.z = 1.0646;
     params.bottom_z = params.z - (params.height / 2) + (params.wall_thickness / 2);
     params.object_id = "bin";
+    params.approach_offset = 0.0;
+    params.grasp_offset = -0.21;
     calculateGraspPoses(ObjectType::BIN, params);
     return params;
 }
@@ -32,6 +34,8 @@ ObjectParameters ObjectFactory::createCylinderParameters(double x, double y, dou
     params.z = 1.09;
     params.rotation_angle = rotation_angle; 
     params.object_id = "cylinder_with_spokes";
+    params.approach_offset = -0.1;
+    params.grasp_offset = -0.21;
     
     // Calculate grasp poses
     calculateGraspPoses(ObjectType::CYLINDER_WITH_SPOKES, params);
@@ -54,6 +58,8 @@ ObjectParameters ObjectFactory::createTbarParameters(double x, double y, double 
     params.z = 0.982;
     params.rotation_angle = rotation_angle; 
     params.object_id = "tbar";
+    params.approach_offset = 0.035;
+    params.grasp_offset = -0.21;
     
     // Calculate grasp poses
     calculateGraspPoses(ObjectType::TBAR, params);
@@ -81,7 +87,7 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         params.right_grasp_pose.position.x = params.x - (params.width / 2) + (params.wall_thickness / 2);
         params.right_grasp_pose.position.y = params.y;
         params.right_grasp_pose.position.z = params.z + 0.034;
-    } else if (type == ObjectType::CYLINDER_WITH_SPOKES) {
+    } else if (type == ObjectType::CYLINDER_WITH_SPOKES or type == ObjectType::TBAR) {
 
         double base_rotation = params.rotation_angle * M_PI / 180.0; // Convert to radians
 
@@ -103,17 +109,31 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         tf2::convert(final_right_quat, params.right_grasp_pose.orientation);
 
         // Calculate grasp positions for diagonal spokes
-        double grasp_distance = params.spoke_length + params.cylinder_radius + 0.02;
+        double grasp_distance;
+        if (type == ObjectType::CYLINDER_WITH_SPOKES) {
+            grasp_distance = params.spoke_length + params.cylinder_radius + 0.02;
+        } else if (type == ObjectType::TBAR) {
+            double stem_radius = params.stem_width / 2;
+            grasp_distance = stem_radius + params.spoke_length + 0.125;
+        }
+
+        // Grasp height 
+        double grasp_z;
+        if (type == ObjectType::CYLINDER_WITH_SPOKES) {
+            grasp_z = params.z + params.height;
+        } else if (type == ObjectType::TBAR) {
+            grasp_z = params.z + params.height + params.stem_height ;
+        }
 
         // Left gripper position (45° spoke end)
         params.left_grasp_pose.position.x = params.x + cos(base_rotation) * grasp_distance;
         params.left_grasp_pose.position.y = params.y + sin(base_rotation) * grasp_distance;
-        params.left_grasp_pose.position.z = params.z + params.height;
+        params.left_grasp_pose.position.z = grasp_z;
 
         // Right gripper position (225° spoke end)
         params.right_grasp_pose.position.x = params.x + cos(right_angle) * grasp_distance;
         params.right_grasp_pose.position.y = params.y + sin(right_angle) * grasp_distance;
-        params.right_grasp_pose.position.z = params.z + params.height;
+        params.right_grasp_pose.position.z = grasp_z;
 
         // Set orientation for SECOND grasp points
         // Left gripper - grasp the 315° spoke
@@ -133,12 +153,12 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         // Left gripper position (315° spoke end)
         params.second_left_grasp_pose.position.x = params.x + cos(second_left_angle) * grasp_distance;
         params.second_left_grasp_pose.position.y = params.y + sin(second_left_angle) * grasp_distance;
-        params.second_left_grasp_pose.position.z = params.z + params.height;
+        params.second_left_grasp_pose.position.z = grasp_z;
 
         // Right gripper position (135° spoke end)
         params.second_right_grasp_pose.position.x = params.x + cos(second_right_angle) * grasp_distance;
         params.second_right_grasp_pose.position.y = params.y + sin(second_right_angle) * grasp_distance;
-        params.second_right_grasp_pose.position.z = params.z + params.height;
+        params.second_right_grasp_pose.position.z = grasp_z;
     }
 }
 
@@ -351,9 +371,6 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createTbar(const ObjectParamete
     tbar_object.primitives.push_back(base_bar_primitive);
     tbar_object.primitive_poses.push_back(base_pose);
 
-    RCLCPP_INFO(ObjectFactory::LOGGER, "Total primitives in tbar_object: %zu", 
-            tbar_object.primitives.size());
-
     // Four rectangular spokes
     for (int i = 0; i < 4; ++i) {
         shape_msgs::msg::SolidPrimitive spoke_primitive;
@@ -362,7 +379,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createTbar(const ObjectParamete
         
         geometry_msgs::msg::Pose spoke_pose;
         
-        // Calculate angle for each spoke (45°, 135°, 225°, 315°)
+        // Calculate angle for each spoke
         double spoke_angle = base_angle + (i * 90.0 * M_PI / 180.0);
         
         // All spokes have the same dimensions
@@ -376,7 +393,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createTbar(const ObjectParamete
         // Position spoke extending from stem
         spoke_pose.position.x = params.x + cos(spoke_angle) * offset_distance;
         spoke_pose.position.y = params.y + sin(spoke_angle) * offset_distance;
-        spoke_pose.position.z = params.z + params.height + (params.stem_depth / 2);
+        spoke_pose.position.z = params.z + params.height + (params.stem_height / 8);
         
         // Rotate the spoke to align with the radial direction
         tf2::Quaternion spoke_quat;
