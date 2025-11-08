@@ -38,6 +38,28 @@ ObjectParameters ObjectFactory::createCylinderParameters(double x, double y, dou
     return params;
 }
 
+ObjectParameters ObjectFactory::createTbarParameters(double x, double y, double rotation_angle) {
+    ObjectParameters params;
+    params.width = 0.2;
+    params.depth = 0.1;
+    params.height = 0.1;
+    params.stem_width = 0.1;
+    params.stem_depth = 0.1;
+    params.stem_height = 0.2;
+    params.spoke_length = 0.07;
+    params.spoke_width = 0.05;
+    params.spoke_thickness = 0.02;
+    params.x = x;
+    params.y = y;
+    params.z = 0.982;
+    params.rotation_angle = rotation_angle; 
+    params.object_id = "tbar";
+    
+    // Calculate grasp poses
+    calculateGraspPoses(ObjectType::TBAR, params);
+    return params;
+}
+
 void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& params) {
     
     // Calculate position based on object type
@@ -229,7 +251,7 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createCylinderWithSpokes(const 
     orientation.setRPY(0, 0, 0);
     geometry_msgs::msg::Quaternion quat_orientation = tf2::toMsg(orientation);
     
-    // 1. Central cylinder
+    // Central cylinder
     shape_msgs::msg::SolidPrimitive cylinder_primitive;
     cylinder_primitive.type = shape_msgs::msg::SolidPrimitive::CYLINDER;
     cylinder_primitive.dimensions.resize(2);
@@ -244,42 +266,10 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createCylinderWithSpokes(const 
     
     cylinder_object.primitives.push_back(cylinder_primitive);
     cylinder_object.primitive_poses.push_back(cylinder_pose);
-    
-    // // 2. Four rectangular spokes (0°, 90°, 180°, 270°)
-    // for (int i = 0; i < 4; ++i) {
-    //     shape_msgs::msg::SolidPrimitive spoke_primitive;
-    //     spoke_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-    //     spoke_primitive.dimensions.resize(3);
-        
-    //     geometry_msgs::msg::Pose spoke_pose;
-        
-    //     // Spokes extend radially from center
-    //     if (i % 2 == 0) {  // 0° and 180° - along X axis
-    //         spoke_primitive.dimensions[0] = params.spoke_length;
-    //         spoke_primitive.dimensions[1] = params.spoke_thickness;
-    //         spoke_primitive.dimensions[2] = params.spoke_width;
-            
-    //         spoke_pose.position.x = params.x + (i == 0 ? params.spoke_length/2 : -params.spoke_length/2);
-    //         spoke_pose.position.y = params.y;
-    //     } else {  // 90° and 270° - along Y axis
-    //         spoke_primitive.dimensions[0] = params.spoke_thickness;
-    //         spoke_primitive.dimensions[1] = params.spoke_length;
-    //         spoke_primitive.dimensions[2] = params.spoke_width; 
-            
-    //         spoke_pose.position.x = params.x;
-    //         spoke_pose.position.y = params.y + (i == 1 ? params.spoke_length/2 : -params.spoke_length/2);
-    //     }
-        
-    //     spoke_pose.position.z = params.z;
-    //     spoke_pose.orientation = quat_orientation;
-        
-    //     cylinder_object.primitives.push_back(spoke_primitive);
-    //     cylinder_object.primitive_poses.push_back(spoke_pose);
-    // }
 
     double base_angle = params.rotation_angle; 
 
-    // 2. Four rectangular spokes (45°, 135°, 225°, 315°)
+    // Four rectangular spokes (45°, 135°, 225°, 315°)
     for (int i = 0; i < 4; ++i) {
         shape_msgs::msg::SolidPrimitive spoke_primitive;
         spoke_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
@@ -312,12 +302,102 @@ moveit_msgs::msg::CollisionObject ObjectFactory::createCylinderWithSpokes(const 
     return cylinder_object;
 }
 
+moveit_msgs::msg::CollisionObject ObjectFactory::createTbar(const ObjectParameters& params) {
+    moveit_msgs::msg::CollisionObject tbar_object;
+    tbar_object.id = params.object_id;
+    tbar_object.header.frame_id = "world";
+    tbar_object.operation = moveit_msgs::msg::CollisionObject::ADD;
+    
+    double base_angle = params.rotation_angle * M_PI / 180.0; // Convert to radians
+    
+    // Vertical stem of the T
+    shape_msgs::msg::SolidPrimitive stem_primitive;
+    stem_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+    stem_primitive.dimensions.resize(3);
+    stem_primitive.dimensions[0] = params.stem_width;
+    stem_primitive.dimensions[1] = params.stem_depth;
+    stem_primitive.dimensions[2] = params.stem_height;
+    
+    tf2::Quaternion stem_orientation;
+    stem_orientation.setRPY(0, 0, base_angle);
+    
+    geometry_msgs::msg::Pose stem_pose;
+    stem_pose.orientation = tf2::toMsg(stem_orientation);
+    stem_pose.position.x = params.x;
+    stem_pose.position.y = params.y;
+    stem_pose.position.z = params.z + params.height + (params.stem_depth / 2);
+    
+    tbar_object.primitives.push_back(stem_primitive);
+    tbar_object.primitive_poses.push_back(stem_pose);
+
+    // base of the T
+    shape_msgs::msg::SolidPrimitive base_bar_primitive;
+    base_bar_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+    base_bar_primitive.dimensions.resize(3);
+    base_bar_primitive.dimensions[0] = params.width;
+    base_bar_primitive.dimensions[1] = params.depth;
+    base_bar_primitive.dimensions[2] = params.height;
+    
+    // Rotate 90 degrees around Y-axis to make it horizontal
+    tf2::Quaternion base_orientation;
+    base_orientation.setRPY(0, 0, base_angle);
+    
+    geometry_msgs::msg::Pose base_pose;
+    base_pose.orientation = tf2::toMsg(base_orientation);
+    base_pose.position.x = params.x;
+    base_pose.position.y = params.y;
+    base_pose.position.z = params.z;
+    
+    tbar_object.primitives.push_back(base_bar_primitive);
+    tbar_object.primitive_poses.push_back(base_pose);
+
+    RCLCPP_INFO(ObjectFactory::LOGGER, "Total primitives in tbar_object: %zu", 
+            tbar_object.primitives.size());
+
+    // Four rectangular spokes
+    for (int i = 0; i < 4; ++i) {
+        shape_msgs::msg::SolidPrimitive spoke_primitive;
+        spoke_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
+        spoke_primitive.dimensions.resize(3);
+        
+        geometry_msgs::msg::Pose spoke_pose;
+        
+        // Calculate angle for each spoke (45°, 135°, 225°, 315°)
+        double spoke_angle = base_angle + (i * 90.0 * M_PI / 180.0);
+        
+        // All spokes have the same dimensions
+        spoke_primitive.dimensions[0] = params.spoke_length;
+        spoke_primitive.dimensions[1] = params.spoke_thickness;
+        spoke_primitive.dimensions[2] = params.spoke_width;
+        
+        double stem_radius = (i % 2 == 0) ? params.stem_width / 2 : params.stem_depth / 2;
+        double offset_distance = stem_radius + params.spoke_length / 2;
+        
+        // Position spoke extending from stem
+        spoke_pose.position.x = params.x + cos(spoke_angle) * offset_distance;
+        spoke_pose.position.y = params.y + sin(spoke_angle) * offset_distance;
+        spoke_pose.position.z = params.z + params.height + (params.stem_depth / 2);
+        
+        // Rotate the spoke to align with the radial direction
+        tf2::Quaternion spoke_quat;
+        spoke_quat.setRPY(0, 0, spoke_angle);  // Rotate around Z-axis
+        spoke_pose.orientation = tf2::toMsg(spoke_quat);
+        
+        tbar_object.primitives.push_back(spoke_primitive);
+        tbar_object.primitive_poses.push_back(spoke_pose);
+    }
+    RCLCPP_INFO(ObjectFactory::LOGGER, "Created T-bar with 4 spokes at rotation %.2f rad", params.rotation_angle);
+    return tbar_object;
+}
+
 moveit_msgs::msg::CollisionObject ObjectFactory::createObject(ObjectType type, const ObjectParameters& params) {
     switch (type) {
         case ObjectType::BIN:
             return createBin(params);
         case ObjectType::CYLINDER_WITH_SPOKES:
             return createCylinderWithSpokes(params);
+        case ObjectType::TBAR:
+            return createTbar(params);
         default:
             RCLCPP_ERROR(ObjectFactory::LOGGER, "Unknown object type, returning empty collision object");
             return moveit_msgs::msg::CollisionObject();

@@ -11,7 +11,8 @@
 
 enum class ObjectType {
     BIN,
-    CYLINDER_WITH_SPOKES
+    CYLINDER_WITH_SPOKES,
+    TBAR
 };
 
 struct ObjectParameters {
@@ -35,6 +36,11 @@ struct ObjectParameters {
     double spoke_width = 0.0;
     double spoke_thickness = 0.0;
 
+    // T-bar specific
+    double stem_width = 0.0;
+    double stem_depth = 0.0;
+    double stem_height = 0.0;
+
     // Grasp poses
     geometry_msgs::msg::Pose left_grasp_pose;
     geometry_msgs::msg::Pose right_grasp_pose;
@@ -53,6 +59,9 @@ public:
     // Create parameters for a cylinder with spokes
     static ObjectParameters createCylinderParameters(double x = 0.0, double y = 0.0, double rotation_angle = 45.0);
 
+    // Create parameters for a T-bar
+    static ObjectParameters createTbarParameters(double x = 0.0, double y = 0.0, double rotation_angle = 45.0);
+
     // Calculate grasp poses for an object
     static void calculateGraspPoses(ObjectType type, ObjectParameters& params);
 
@@ -61,6 +70,9 @@ public:
 
     // Create a collision object for a cylinder with spokes
     static moveit_msgs::msg::CollisionObject createCylinderWithSpokes(const ObjectParameters& params);
+
+    // Create a collision object for a Tbar
+    static moveit_msgs::msg::CollisionObject createTbar(const ObjectParameters& params);
 
     // General object creation
     static moveit_msgs::msg::CollisionObject createObject(ObjectType type, const ObjectParameters& params);
