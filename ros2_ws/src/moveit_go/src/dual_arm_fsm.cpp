@@ -329,8 +329,9 @@ private:
         }
 
         // Adjust Z for approach
-        target_pose_A.position.z -= 0.1;
-        target_pose_B.position.z -= 0.1;
+        target_pose_A.position.z += object_params_.approach_offset;
+        target_pose_B.position.z += object_params_.approach_offset;
+        
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
@@ -364,10 +365,8 @@ private:
     }
 
     bool planToGrasp() {
-        //next state where we plan for grasp point
-        // Reuse target_pose with new z pos
-        target_pose_A.position.z -= 0.21;
-        target_pose_B.position.z -= 0.21;
+        target_pose_A.position.z += object_params_.grasp_offset;
+        target_pose_B.position.z += object_params_.grasp_offset;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
         waitForKeyPress();
@@ -549,10 +548,8 @@ private:
             target_pose_B = place_params.right_grasp_pose;
         }
 
-        constexpr double APPROACH_OFFSET = 0.1;
-        constexpr double GRASP_OFFSET = 0.21;
-        target_pose_A.position.z -= (APPROACH_OFFSET + GRASP_OFFSET);
-        target_pose_B.position.z -= (APPROACH_OFFSET + GRASP_OFFSET);
+        target_pose_A.position.z += (place_params.approach_offset + place_params.grasp_offset);
+        target_pose_B.position.z += (place_params.approach_offset + place_params.grasp_offset);
 
         RCLCPP_INFO(LOGGER, "Pickup location: x=%.4f, y=%.4f, z=%.4f, angle=%.2f deg",
                     object_params_.x, object_params_.y, object_params_.z,
@@ -610,8 +607,8 @@ private:
         auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
         auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
         
-        current_pose_A.position.z += 0.34;
-        current_pose_B.position.z += 0.34;
+        current_pose_A.position.z -= object_params_.grasp_offset - 0.13;
+        current_pose_B.position.z -= object_params_.grasp_offset - 0.13;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to retract arms\033[0m");
         waitForKeyPress();
@@ -633,7 +630,6 @@ private:
             go_to_next_grasp = true;
         }
         
-
         if (go_to_next_grasp) {
             return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_OBJECT,
                 plan, "Arms lifted successfully",
@@ -726,8 +722,8 @@ int main(int argc, char** argv) {
     move_group_node->set_parameter(sim_time_param);
 
     // Select object type
-    // ObjectType object_type = ObjectType::CYLINDER_WITH_SPOKES;
-    ObjectType object_type = ObjectType::TBAR;
+    ObjectType object_type = ObjectType::CYLINDER_WITH_SPOKES;
+    // ObjectType object_type = ObjectType::TBAR;
 
     move_group_node->declare_parameter("robot_description_kinematics.left_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
     move_group_node->declare_parameter("robot_description_kinematics.right_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");

@@ -17,12 +17,13 @@ enum class ObjectType {
 
 struct ObjectParameters {
     // Common dimensions
-    double width = 0.0;       // X dimension (bin) or diameter (cylinder)
-    double depth = 0.0;       // Y dimension (bin) or diameter (cylinder)
+    double width = 0.0;       // X dimension (bin) or diameter (cylinder) or width of base of Tbar
+    double depth = 0.0;       // Y dimension (bin) or diameter (cylinder) or depth of base of Tbar
     double height = 0.0;      // Z dimension
-    double wall_thickness = 0.0; // Wall thickness (bin) or spoke thickness (cylinder)
+    double wall_thickness = 0.0; // Wall thickness (bin) or spoke thickness (cylinder/Tbar)
     double rotation_angle = 0.0; 
-
+    double grasp_offset;
+    double approach_offset;
 
     // Position
     double x = 0.0;
