@@ -721,9 +721,21 @@ int main(int argc, char** argv) {
     rclcpp::Parameter sim_time_param("use_sim_time", true);
     move_group_node->set_parameter(sim_time_param);
 
-    // Select object type
-    ObjectType object_type = ObjectType::CYLINDER_WITH_SPOKES;
-    // ObjectType object_type = ObjectType::TBAR;
+    // Get the parameter value
+    std::string object_type_str = "cylinder";  // default value
+    if (move_group_node->has_parameter("object_type")) {
+        move_group_node->get_parameter("object_type", object_type_str);
+    }
+    
+    // Map string to ObjectType enum
+    ObjectType object_type;
+    if (object_type_str == "tbar") {
+        object_type = ObjectType::TBAR;
+    } else if (object_type_str == "bin") {
+        object_type = ObjectType::BIN;
+    } else {
+        object_type = ObjectType::CYLINDER_WITH_SPOKES;
+    }
 
     move_group_node->declare_parameter("robot_description_kinematics.left_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
     move_group_node->declare_parameter("robot_description_kinematics.right_arm.kinematics_solver", "kdl_kinematics_plugin/KDLKinematicsPlugin");
