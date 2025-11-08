@@ -70,8 +70,15 @@ ros2 launch two_arm_moveit2_config moveit_gaz_control.py
 ```
 
 ## Run the FSM to run motion policy
+
+To run the coupler object:
 ```
 ros2 run moveit_go dual_arm_fsm
+```
+
+To run the Tbar object:
+```
+ros2 run moveit_go dual_arm_fsm --ros-args -p object_type:=tbar
 ```
 
 
