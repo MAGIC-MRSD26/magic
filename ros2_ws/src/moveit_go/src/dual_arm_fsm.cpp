@@ -11,6 +11,7 @@
 #include <tf2_eigen/tf2_eigen.hpp>
 #include <moveit/trajectory_processing/time_optimal_trajectory_generation.h>
 #include "object_definitions.hpp"
+#include <std_msgs/msg/bool.hpp>
 
 // Helpers
 #include "dual_arm_planner.hpp"
@@ -75,6 +76,18 @@ public:
             std::bind(&MotionPlanningFSM::binPoseCallback, this, std::placeholders::_1));
 
         pose_received_ = false;
+        
+        // Initialize 3D capture flag
+        capture_active_ = false;
+        
+        // Create publisher for 3D capture flag (100Hz = 10ms period)
+        capture_flag_publisher_ = node_->create_publisher<std_msgs::msg::Bool>(
+            "/capture_3d_active", 10);
+        
+        // Create timer to publish at 100Hz
+        capture_flag_timer_ = node_->create_wall_timer(
+            std::chrono::milliseconds(10),
+            std::bind(&MotionPlanningFSM::publishCaptureFlag, this));
         
         RCLCPP_INFO(LOGGER, "MotionPlanningFSM initialized");
     }
@@ -209,6 +222,11 @@ private:
     double yaw_angle;
     bool pose_received_;
     
+    // 3D capture flag
+    bool capture_active_;
+    rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr capture_flag_publisher_;
+    rclcpp::TimerBase::SharedPtr capture_flag_timer_;
+    
     
     // Callback for the bin pose subscriber
     void binPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
@@ -230,6 +248,12 @@ private:
         RCLCPP_INFO(LOGGER, "Object orientation (yaw): %f degrees", yaw_angle);
 
         pose_subscription_.reset();
+    }
+
+    void publishCaptureFlag() {
+        std_msgs::msg::Bool msg;
+        msg.data = capture_active_;
+        capture_flag_publisher_->publish(msg);
     }
 
     ObjectParameters createPlacementParams() {
@@ -479,7 +503,7 @@ private:
     }
 
     bool rotateEndEffectors() {
-       
+        capture_active_ = true; // set capture active flag to true
         const int left_wrist_joint = 6;  
         const int right_wrist_joint = 13; 
        
@@ -533,6 +557,7 @@ private:
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
        
         current_state_ = State::PLAN_TO_PLACE;
+        capture_active_ = false; // set capture active flag to false
         return true;
     }
     bool planToPlace() {

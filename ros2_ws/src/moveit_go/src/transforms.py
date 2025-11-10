@@ -4,9 +4,11 @@ from rclpy.node import Node
 from tf2_ros import Buffer, TransformListener
 from tf_transformations import quaternion_matrix, quaternion_from_matrix
 from geometry_msgs.msg import Pose
+from std_msgs.msg import Bool
 import numpy as np
 import time
 import os, csv
+from datetime import datetime
 def pose_to_matrix(p: Pose):
     T = quaternion_matrix([p.orientation.x, p.orientation.y, p.orientation.z, p.orientation.w])
     T[0:3, 3] = [p.position.x, p.position.y, p.position.z]
@@ -36,24 +38,74 @@ class DualArmObjectPose(Node):
         super().__init__('dual_arm_object_pose')
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
-        self.log_file = "object_pose_log.csv"
-        self._setup_csv()
-
+        
+        # Recording state variables
+        self.recording_flag = False
+        self.log_file = None
+        self.last_message_time = None
+        self.timeout_duration = 30.0  # 30 seconds timeout
+        
         # known offsets at grasp time (tune or calibrate once)
         self.left_T_obj = np.eye(4)
         self.right_T_obj = np.eye(4)
         self.left_T_obj[0,3] = 0.0   # example offset in gripper frame
         self.right_T_obj[0,3] = -0.00
 
-        self.timer = self.create_timer(0.5, self.compute_object_pose)
-
-    def _setup_csv(self):
-        """Create CSV with headers if not already present."""
+        # Subscribe to 3D capture flag topic
+        self.capture_subscription = self.create_subscription(
+            Bool,
+            '/capture_3d_active',
+            self.capture_flag_callback,
+            10)
         
-        if not os.path.exists(self.log_file):
-            with open(self.log_file, mode='w', newline='') as f:
-                writer = csv.writer(f)
-                writer.writerow(["timestamp", "x", "y", "z", "qx", "qy", "qz", "qw"])
+        # Timer for computing object pose (20Hz = 0.05s period)
+        self.timer = self.create_timer(0.05, self.compute_object_pose)
+        
+        # Timer for checking timeout (check every second)
+        self.timeout_timer = self.create_timer(1.0, self.check_timeout)
+
+    def _setup_csv(self, log_file_path):
+        """Create CSV with headers."""
+        with open(log_file_path, mode='w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(["timestamp", "x", "y", "z", "qx", "qy", "qz", "qw"])
+    
+    def capture_flag_callback(self, msg):
+        """Callback for 3D capture flag topic."""
+        current_time = time.time()
+        self.last_message_time = current_time
+        
+        if msg.data:  # Capture is active
+            if not self.recording_flag:
+                # Start new recording session
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                self.log_file = f"object_pose_log_{timestamp}.csv"
+                self._setup_csv(self.log_file)
+                self.recording_flag = True
+                self.get_logger().info(f"Started recording to {self.log_file}")
+        else:  # Capture is not active
+            if self.recording_flag:
+                # Stop recording
+                self.recording_flag = False
+                self.get_logger().info(f"Stopped recording to {self.log_file}")
+                self.log_file = None
+    
+    def check_timeout(self):
+        """Check if 30 seconds have passed since last message."""
+        if self.last_message_time is not None:
+            current_time = time.time()
+            elapsed = current_time - self.last_message_time
+            
+            if elapsed >= self.timeout_duration:
+                if self.recording_flag:
+                    # Stop recording due to timeout
+                    self.recording_flag = False
+                    self.get_logger().warn(
+                        f"Recording stopped due to timeout ({self.timeout_duration}s). "
+                        f"Last file: {self.log_file}")
+                    self.log_file = None
+                # Reset last message time to avoid repeated warnings
+                self.last_message_time = None
 
     def compute_object_pose(self):
         try:
@@ -77,20 +129,24 @@ class DualArmObjectPose(Node):
             pose_R = matrix_to_pose(T_WO_R)
             pose_avg = average_pose(pose_L, pose_R)
 
-            #writing to csv:
-            ts = time.time_ns()
-            with open(self.log_file, mode='a', newline='') as f:
-                writer = csv.writer(f)
-                writer.writerow([
-                    f"{ts:.6f}",
-                    pose_avg.position.x,
-                    pose_avg.position.y,
-                    pose_avg.position.z,
-                    pose_avg.orientation.x,
-                    pose_avg.orientation.y,
-                    pose_avg.orientation.z,
-                    pose_avg.orientation.w
-                ])
+            # Write to CSV only if recording is active
+            if self.recording_flag and self.log_file is not None:
+                ts = time.time_ns()
+                try:
+                    with open(self.log_file, mode='a', newline='') as f:
+                        writer = csv.writer(f)
+                        writer.writerow([
+                            f"{ts:.6f}",
+                            pose_avg.position.x,
+                            pose_avg.position.y,
+                            pose_avg.position.z,
+                            pose_avg.orientation.x,
+                            pose_avg.orientation.y,
+                            pose_avg.orientation.z,
+                            pose_avg.orientation.w
+                        ])
+                except Exception as e:
+                    self.get_logger().error(f"Failed to write to CSV: {e}")
 
             # extract rotation matrix of averaged pose
             q = [pose_avg.orientation.x, pose_avg.orientation.y,
