@@ -69,10 +69,10 @@ public:
         arm_move_group_dual.setMaxVelocityScalingFactor(0.4); // Safe but still faster
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
         
-        // Create subscription to the bin pose topic
+        // Create subscription to the object pose topic
         pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
             "/cylinder_pose", 10, 
-            std::bind(&MotionPlanningFSM::binPoseCallback, this, std::placeholders::_1));
+            std::bind(&MotionPlanningFSM::objectPoseCallback, this, std::placeholders::_1));
 
         pose_received_ = false;
         
@@ -210,8 +210,8 @@ private:
     bool pose_received_;
     
     
-    // Callback for the bin pose subscriber
-    void binPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
+    // Callback for the object pose subscriber
+    void objectPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
         object_pose_ = msg->pose;
         pose_received_ = true;
         RCLCPP_INFO(LOGGER, "Received object pose: x=%f, y=%f, z=%f", 
@@ -387,7 +387,7 @@ private:
         //cannot link both end effectors so linking left arm alone
         attached_object.link_name = arm_move_group_A.getEndEffectorLink();
         
-        // Define which links are allowed to touch the bin
+        // Define which links are allowed to touch the object
         std::vector<std::string> touch_links;
         // Add your specific gripper finger links here
         std::string prefix = "left_";
@@ -731,8 +731,6 @@ int main(int argc, char** argv) {
     ObjectType object_type;
     if (object_type_str == "tbar") {
         object_type = ObjectType::TBAR;
-    } else if (object_type_str == "bin") {
-        object_type = ObjectType::BIN;
     } else {
         object_type = ObjectType::CYLINDER_WITH_SPOKES;
     }
