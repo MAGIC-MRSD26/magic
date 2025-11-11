@@ -111,7 +111,7 @@ void ObjectFactory::calculateGraspPoses(ObjectType type, ObjectParameters& param
         // Calculate grasp positions for diagonal spokes
         double grasp_distance;
         if (type == ObjectType::CYLINDER_WITH_SPOKES) {
-            grasp_distance = params.spoke_length + params.cylinder_radius + 0.01;
+            grasp_distance = params.spoke_length + params.cylinder_radius + 0.02;
         } else if (type == ObjectType::TBAR) {
             double stem_radius = params.stem_width / 2;
             grasp_distance = stem_radius + params.spoke_length + 0.11;
