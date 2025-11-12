@@ -63,7 +63,7 @@ bool DualArmPlanner::plantoTarget_dualarm(
     std::vector<geometry_msgs::msg::Pose> waypoints_left;
     std::vector<geometry_msgs::msg::Pose> waypoints_right;
     double target_gripper_distance;
-    double eef_step = 0.01;
+    double eef_step = 0.005;
     std::tie(waypoints_left, waypoints_right, target_gripper_distance) = calculateWaypoints(pose1, pose2, eef_step, holding_object);
 
     // Compute Cartesian paths
@@ -205,6 +205,9 @@ bool DualArmPlanner::executeMovement_dualarm(
     moveit::planning_interface::MoveGroupInterface::Plan& plan,
     const std::string& success_message,
     const std::string& prompt_message) {
+
+    arm_move_group_dual_.setMaxVelocityScalingFactor(0.3);
+    arm_move_group_dual_.setMaxAccelerationScalingFactor(0.2);
     
     bool success = (arm_move_group_dual_.execute(plan) == moveit::core::MoveItErrorCode::SUCCESS);
     
