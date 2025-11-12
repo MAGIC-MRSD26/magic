@@ -40,13 +40,13 @@ public:
         geometry_msgs::msg::Pose& rotated_pose1,
         geometry_msgs::msg::Pose& rotated_pose2);
 
+    char waitForKeyPress();
+
 private:
     rclcpp::Node::SharedPtr node_;
     moveit::planning_interface::MoveGroupInterface& arm_move_group_A_;
     moveit::planning_interface::MoveGroupInterface& arm_move_group_B_;
     moveit::planning_interface::MoveGroupInterface& arm_move_group_dual_;
-
-    char waitForKeyPress();
     
     bool validateGripperDistance(
         const moveit_msgs::msg::RobotTrajectory& traj_left,
