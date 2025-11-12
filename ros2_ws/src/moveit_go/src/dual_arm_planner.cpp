@@ -206,8 +206,8 @@ bool DualArmPlanner::executeMovement_dualarm(
     const std::string& success_message,
     const std::string& prompt_message) {
 
-    arm_move_group_dual_.setMaxVelocityScalingFactor(0.3);
-    arm_move_group_dual_.setMaxAccelerationScalingFactor(0.2);
+    arm_move_group_dual_.setMaxVelocityScalingFactor(0.2);
+    arm_move_group_dual_.setMaxAccelerationScalingFactor(0.05);
     
     bool success = (arm_move_group_dual_.execute(plan) == moveit::core::MoveItErrorCode::SUCCESS);
     
