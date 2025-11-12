@@ -18,9 +18,25 @@ DualArmPlanner::DualArmPlanner(
 
 char DualArmPlanner::waitForKeyPress() {
     system("stty raw");
-    char input = getchar();
+    char input = 0;
+    
+    while (true) {
+        input = getchar();
+        
+        // Only accept spacebar, 'r', 'R', or Ctrl+C (ASCII 3)
+        if (input == ' ' || input == 'r' || input == 'R' || input == 3) {
+            break;
+        }
+    }
+    
     system("stty cooked");
     std::cout << std::endl;
+
+    if (input == 3) {
+        rclcpp::shutdown();
+        return 'q';
+    }
+
     return input;
 }
 
@@ -171,8 +187,11 @@ bool DualArmPlanner::plantoTarget_dualarm(
     RCLCPP_INFO(LOGGER, "%s (Cartesian path)", planning_message.c_str());
     RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
     char input = waitForKeyPress();
-
-    if (input == 'r' || input == 'R') {
+    
+    if (input == 'q') {
+        current_state = State::FAILED;
+        return false;
+    } else if (input == 'r' || input == 'R') {
         return true;
     } else {
         current_state = next_state;

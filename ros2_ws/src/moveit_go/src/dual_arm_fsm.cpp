@@ -270,16 +270,6 @@ private:
         return params;
     }
 
-    char waitForKeyPress() {
-        // Make sure stdin is in raw mode to get a single keypress
-        system("stty raw");
-        char input = getchar();
-        system("stty cooked");
-        
-        std::cout << std::endl;  // Add newline after key press
-        return input;
-    }
-
     /*//////////////////////////////////////////
 
     START OF FSM FUNCTIONS
@@ -302,7 +292,7 @@ private:
 
         // Add object to the planning scene
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to add object to planning scene \033[0m");
-        waitForKeyPress();
+        dual_arm_planner_->waitForKeyPress();
 
         // Create object parameters based on type
         double x = 0.0, y = 0.0, yaw = 45.0;
@@ -360,7 +350,7 @@ private:
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to object \033[0m");
-        waitForKeyPress();
+        dual_arm_planner_->waitForKeyPress();
 
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_OBJECT, plan,
              "Planning to object succeeded!", false);
@@ -393,7 +383,7 @@ private:
         target_pose_B.position.z += object_params_.grasp_offset;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
-        waitForKeyPress();
+        dual_arm_planner_->waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_GRASP, plan,
                           "Planning to grasp succeeded!", false);
     }
@@ -494,7 +484,7 @@ private:
         rotated_pose2.position.z += 0.35;
                 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
-        waitForKeyPress();
+        dual_arm_planner_->waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_LIFT, plan,
                             "Planning to lift succeeded!", true);
     }
@@ -587,7 +577,7 @@ private:
                     target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
-        waitForKeyPress();
+        dual_arm_planner_->waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE, plan,
                              "Planning to place succeeded!", true);
     }
@@ -636,7 +626,7 @@ private:
         current_pose_B.position.z -= object_params_.grasp_offset - 0.13;
         
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to retract arms\033[0m");
-        waitForKeyPress();
+        dual_arm_planner_->waitForKeyPress();
         
         return dual_arm_planner_->plantoTarget_dualarm(
             current_pose_A, current_pose_B, 
@@ -689,7 +679,7 @@ private:
         gripper_move_group_dual.move();
 
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
-        waitForKeyPress();
+        dual_arm_planner_->waitForKeyPress();
 
         arm_move_group_dual.setStartStateToCurrentState();
 
@@ -704,7 +694,7 @@ private:
         if (success) {
             RCLCPP_INFO(LOGGER, "Planning to home succeeded!");
             RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
-            char input = waitForKeyPress();
+            char input = dual_arm_planner_->waitForKeyPress();
             
             if (input == 'r' || input == 'R') {
                 // Stay in current state to replan
@@ -786,7 +776,7 @@ int main(int argc, char** argv) {
         object_type);
     
     // FSM execution loop
-    while (fsm.execute()) {
+    while (rclcpp::ok() && fsm.execute()) {
         // Give time for things to process
         rclcpp::sleep_for(std::chrono::milliseconds(100));
     }
