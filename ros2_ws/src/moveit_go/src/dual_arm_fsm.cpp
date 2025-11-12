@@ -591,10 +591,12 @@ private:
         RCLCPP_INFO(LOGGER, "Releasing object...");
 
         // Open gripper to release object
-        gripper_move_group_dual.setNamedTarget("Open");
-        bool gripper_success = (gripper_move_group_dual.move() == moveit::core::MoveItErrorCode::SUCCESS);
+        gripper_move_group_A.setNamedTarget("Open");
+        gripper_move_group_B.setNamedTarget("Open");
+        bool gripper_success_A = (gripper_move_group_A.move() == moveit::core::MoveItErrorCode::SUCCESS);
+        bool gripper_success_B = (gripper_move_group_B.move() == moveit::core::MoveItErrorCode::SUCCESS);
 
-        if (!gripper_success) {
+        if (!gripper_success_A || !gripper_success_B) {
             RCLCPP_ERROR(LOGGER, "Failed to open gripper");
             current_state_ = State::FAILED;
             return true;
