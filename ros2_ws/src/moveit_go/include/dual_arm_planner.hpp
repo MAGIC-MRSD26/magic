@@ -18,7 +18,7 @@ public:
         moveit::planning_interface::MoveGroupInterface& arm_dual);
 
     bool plantoTarget_dualarm(
-        geometry_msgs::msg::Pose pose1, 
+        geometry_msgs::msg::Pose pose1,
         geometry_msgs::msg::Pose pose2,
         State& current_state,
         State next_state,

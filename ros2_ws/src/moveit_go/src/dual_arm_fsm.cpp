@@ -121,8 +121,26 @@ public:
             case State::MOVE_TO_LIFT:
                 return moveToLift();
 
+            case State::PLAN_TO_CENTER:
+                return planToCenter();
+
+            case State::MOVE_TO_CENTER:
+                return moveToCenter();
+
+            case State::PLAN_TO_STRAIGHTEN:
+                return planToStraighten();
+
+            case State::MOVE_TO_STRAIGHTEN:
+                return moveToStraighten();
+
             case State::ROTATE_EE:
                 return rotateEndEffectors();
+
+            case State::PLAN_TO_PLACE_XY:
+                return planToPlaceXY();
+
+            case State::MOVE_TO_PLACE_XY:
+                return moveToPlaceXY();
 
             case State::PLAN_TO_PLACE:
                 return planToPlace();
@@ -166,6 +184,7 @@ public:
 private:
     //retry counter variables
     int retry_count = 0;
+    int centering_attempts = 0;
     //pointer for ros2 node
     rclcpp::Node::SharedPtr node_;
 
@@ -295,7 +314,7 @@ private:
         dual_arm_planner_->waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.0, y = 0.0, yaw = 45.0;
+        double x = 0.08, y = 0.14, yaw = 40.3;
         // At (0,0) yaw angle range is 35 - 50
         if (pose_received_) {
             x = object_pose_.position.x;
@@ -345,10 +364,10 @@ private:
         // Adjust Z for approach
         target_pose_A.position.z += object_params_.approach_offset;
         target_pose_B.position.z += object_params_.approach_offset;
-        
+
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
-        
+
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to object \033[0m");
         dual_arm_planner_->waitForKeyPress();
 
@@ -454,8 +473,153 @@ private:
     }
 
     bool planToLift() {
-        
+        // Get current poses - just lift straight up from where we are
+        auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
+        auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
+
+        // STEP 1: Just lift straight up first (maintaining current x,y position)
+        // This avoids complex diagonal motion that can fail when object is off-center
+        geometry_msgs::msg::Pose lift_pose_A = current_pose_A;
+        geometry_msgs::msg::Pose lift_pose_B = current_pose_B;
+
+        lift_pose_A.position.z += 0.35;
+        lift_pose_B.position.z += 0.35;
+
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
+        dual_arm_planner_->waitForKeyPress();
+        return dual_arm_planner_->plantoTarget_dualarm(lift_pose_A, lift_pose_B, current_state_, State::MOVE_TO_LIFT, plan,
+                            "Planning to lift succeeded!", true);
+    }
+
+    bool moveToLift() {
+        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_CENTER, plan, "Successfully lifted object",
+                            "Press any key to center object");
+    }
+
+    bool planToCenter() {
+        // STEP 2: Center the object at (0, 0) by moving both arms horizontally
+        // Get current poses after lift
+        auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
+        auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
+
+        // Calculate current object center and gripper distance
+        double current_center_x = (current_pose_A.position.x + current_pose_B.position.x) / 2.0;
+        double current_center_y = (current_pose_A.position.y + current_pose_B.position.y) / 2.0;
+
+        double gripper_distance = std::sqrt(
+            std::pow(current_pose_A.position.x - current_pose_B.position.x, 2) +
+            std::pow(current_pose_A.position.y - current_pose_B.position.y, 2) +
+            std::pow(current_pose_A.position.z - current_pose_B.position.z, 2)
+        );
+
+        // Calculate the offset needed to center the object
+        double offset_x = -current_center_x;
+        double offset_y = -current_center_y;
+        double total_offset = std::sqrt(offset_x * offset_x + offset_y * offset_y);
+
+        RCLCPP_INFO(LOGGER, "Centering object from (%.3f, %.3f) to (0.0, 0.0), gripper distance: %.3f, total offset: %.3f",
+                    current_center_x, current_center_y, gripper_distance, total_offset);
+
+        geometry_msgs::msg::Pose center_pose_A = current_pose_A;
+        geometry_msgs::msg::Pose center_pose_B = current_pose_B;
+
+        // Strategy 1: For very small offsets, try direct centering
+        if (total_offset < 0.04) {
+            center_pose_A.position.x += offset_x;
+            center_pose_A.position.y += offset_y;
+            center_pose_B.position.x += offset_x;
+            center_pose_B.position.y += offset_y;
+
+            RCLCPP_INFO(LOGGER, "Attempting direct centering (very small offset)");
+            return dual_arm_planner_->plantoTarget_dualarm(center_pose_A, center_pose_B, current_state_, State::MOVE_TO_CENTER, plan,
+                                "Planning to center succeeded!", true);
+        }
+
+        // Strategy 2: For small-medium offsets, use 20% incremental steps
+        if (total_offset < 0.10) {
+            center_pose_A.position.x += offset_x * 0.20;
+            center_pose_A.position.y += offset_y * 0.20;
+            center_pose_B.position.x += offset_x * 0.20;
+            center_pose_B.position.y += offset_y * 0.20;
+
+            RCLCPP_INFO(LOGGER, "Attempting incremental centering (20%% step, %.3fm)", total_offset * 0.20);
+            return dual_arm_planner_->plantoTarget_dualarm(center_pose_A, center_pose_B, current_state_, State::MOVE_TO_CENTER, plan,
+                                "Planning to center succeeded!", true);
+        }
+
+        // Strategy 3: For larger offsets, use very small fixed-size steps
+        // Reduce step size further if we've had multiple attempts
+        double base_step = 0.025;  // Reduced from 0.04
+        if (centering_attempts > 3) {
+            base_step = 0.015;  // Even smaller if struggling
+        }
+
+        double step_size = std::min(base_step, total_offset * 0.2);
+        double scale_factor = step_size / total_offset;
+
+        center_pose_A.position.x += offset_x * scale_factor;
+        center_pose_A.position.y += offset_y * scale_factor;
+        center_pose_B.position.x += offset_x * scale_factor;
+        center_pose_B.position.y += offset_y * scale_factor;
+
+        RCLCPP_INFO(LOGGER, "Attempting small-step centering (%.1f%% step, %.3fm)", scale_factor * 100, step_size);
+        return dual_arm_planner_->plantoTarget_dualarm(center_pose_A, center_pose_B, current_state_, State::MOVE_TO_CENTER, plan,
+                            "Planning to center succeeded!", true);
+    }
+
+    bool moveToCenter() {
+        bool success = dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_CENTER, plan, "Centering step completed",
+                            "");
+
+        if (!success) {
+            return false;
+        }
+
+        centering_attempts++;
+
+        // Check if we've reached the center (within tolerance)
+        auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
+        auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
+
+        double current_center_x = (current_pose_A.position.x + current_pose_B.position.x) / 2.0;
+        double current_center_y = (current_pose_A.position.y + current_pose_B.position.y) / 2.0;
+        double distance_from_center = std::sqrt(current_center_x * current_center_x + current_center_y * current_center_y);
+
+        RCLCPP_INFO(LOGGER, "Current center: (%.3f, %.3f), distance from target: %.3f (attempt %d)",
+                    current_center_x, current_center_y, distance_from_center, centering_attempts);
+
+        // Check for max attempts to prevent infinite loop
+        if (centering_attempts > 20) {
+            RCLCPP_WARN(LOGGER, "Reached max centering attempts. Proceeding with current position (%.3f m from center)",
+                        distance_from_center);
+            centering_attempts = 0;
+            RCLCPP_INFO(LOGGER, "\033[32m Press any key to straighten arms\033[0m");
+            dual_arm_planner_->waitForKeyPress();
+            current_state_ = State::PLAN_TO_STRAIGHTEN;
+            return true;
+        }
+
+        // If we're close enough to center (within 8cm), proceed to next state
+        // Relaxed tolerance since precise centering isn't critical
+        if (distance_from_center < 0.08) {
+            RCLCPP_INFO(LOGGER, "Successfully centered object (within tolerance)");
+            centering_attempts = 0;
+            RCLCPP_INFO(LOGGER, "\033[32m Press any key to straighten arms\033[0m");
+            dual_arm_planner_->waitForKeyPress();
+            current_state_ = State::PLAN_TO_STRAIGHTEN;
+        } else {
+            // Continue centering with another iteration
+            RCLCPP_INFO(LOGGER, "Continuing centering process (%.3f m remaining)", distance_from_center);
+            current_state_ = State::PLAN_TO_CENTER;
+        }
+
+        return true;
+    }
+
+    bool planToStraighten() {
+        // STEP 3: Rotate/straighten the arms for the 360-degree scan
         double yaw = object_params_.rotation_angle * M_PI / 180.0;
+
         // Straighten out the arms for 360 rotation
         if (go_to_next_grasp) {
             dual_arm_planner_->rotate(0, 0, M_PI/2 - yaw, rotated_pose1, rotated_pose2);
@@ -463,34 +627,31 @@ private:
             dual_arm_planner_->rotate(0, 0, -yaw, rotated_pose1, rotated_pose2);
         }
 
-        // Calculate current gripper distance
+        // Re-center after rotation (just like the original planToLift does)
+        // Calculate gripper distance after rotation
         double gripper_distance = std::sqrt(
             std::pow(rotated_pose1.position.x - rotated_pose2.position.x, 2) +
             std::pow(rotated_pose1.position.y - rotated_pose2.position.y, 2) +
             std::pow(rotated_pose1.position.z - rotated_pose2.position.z, 2)
         );
 
-        // Center both grippers around object center in x, separated by current distance
+        // Center both grippers around (0, 0), separated by current distance
         double half_distance = gripper_distance / 2.0;
         rotated_pose1.position.x = half_distance;
         rotated_pose2.position.x = -half_distance;
-        
+
         // Center in y
         rotated_pose1.position.y = 0.0;
         rotated_pose2.position.y = 0.0;
-        
-        // Add to z position
-        rotated_pose1.position.z += 0.35;
-        rotated_pose2.position.z += 0.35;
-                
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
-        dual_arm_planner_->waitForKeyPress();
-        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_LIFT, plan,
-                            "Planning to lift succeeded!", true);
+
+        RCLCPP_INFO(LOGGER, "Straightening arms for 360-degree rotation and re-centering");
+
+        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_STRAIGHTEN, plan,
+                            "Planning to straighten succeeded!", true);
     }
 
-    bool moveToLift() {
-        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::ROTATE_EE, plan, "Successfully moved to lift position",
+    bool moveToStraighten() {
+        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::ROTATE_EE, plan, "Successfully straightened arms",
                             "Press any key to start 3d capture");
     }
 
@@ -547,12 +708,51 @@ private:
         // Restore normal velocity scaling
         arm_move_group_dual.setMaxVelocityScalingFactor(0.4);
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
-       
-        current_state_ = State::PLAN_TO_PLACE;
+
+        current_state_ = State::PLAN_TO_PLACE_XY;
         capture_active_ = false; // set capture active flag to false
         return true;
     }
+
+    bool planToPlaceXY() {
+        // STEP 1: Move to placement XY position at current height
+        ObjectParameters place_params = createPlacementParams();
+
+        if (go_to_next_grasp) {
+            target_pose_A = place_params.second_left_grasp_pose;
+            target_pose_B = place_params.second_right_grasp_pose;
+        } else {
+            target_pose_A = place_params.left_grasp_pose;
+            target_pose_B = place_params.right_grasp_pose;
+        }
+
+        // Use current Z height, not placement Z yet
+        auto current_pose_A = arm_move_group_A.getCurrentPose().pose;
+        auto current_pose_B = arm_move_group_B.getCurrentPose().pose;
+
+        target_pose_A.position.z = current_pose_A.position.z;
+        target_pose_B.position.z = current_pose_B.position.z;
+
+        RCLCPP_INFO(LOGGER, "Moving to placement XY position at current height z=%.4f", current_pose_A.position.z);
+        RCLCPP_INFO(LOGGER, "Target XY poses:");
+        RCLCPP_INFO(LOGGER, "  Left: x=%.4f, y=%.4f, z=%.4f",
+                    target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
+        RCLCPP_INFO(LOGGER, "  Right: x=%.4f, y=%.4f, z=%.4f",
+                    target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
+
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to move to placement XY\033[0m");
+        dual_arm_planner_->waitForKeyPress();
+        return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE_XY, plan,
+                             "Planning to placement XY succeeded!", true);
+    }
+
+    bool moveToPlaceXY() {
+        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_PLACE, plan, "Reached placement XY position",
+                            "Press any key to lower to placement");
+    }
+
     bool planToPlace() {
+        // STEP 2: Now lower straight down to placement height
         ObjectParameters place_params = createPlacementParams();
 
         if (go_to_next_grasp) {
@@ -566,22 +766,19 @@ private:
         target_pose_A.position.z += (place_params.approach_offset + place_params.grasp_offset);
         target_pose_B.position.z += (place_params.approach_offset + place_params.grasp_offset);
 
-        RCLCPP_INFO(LOGGER, "Pickup location: x=%.4f, y=%.4f, z=%.4f, angle=%.2f deg",
-                    object_params_.x, object_params_.y, object_params_.z,
-                    object_params_.rotation_angle);
-        RCLCPP_INFO(LOGGER, "Placement location: x=%.4f, y=%.4f, z=%.4f, angle=%.2f deg",
-                    PLACEMENT_X, PLACEMENT_Y, place_params.z, place_params.rotation_angle);
-        RCLCPP_INFO(LOGGER, "Left arm place pose: x=%.4f, y=%.4f, z=%.4f",
+        RCLCPP_INFO(LOGGER, "Lowering to placement height z=%.4f", target_pose_A.position.z);
+        RCLCPP_INFO(LOGGER, "Final placement poses:");
+        RCLCPP_INFO(LOGGER, "  Left: x=%.4f, y=%.4f, z=%.4f",
                     target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
-        RCLCPP_INFO(LOGGER, "Right arm place pose: x=%.4f, y=%.4f, z=%.4f",
+        RCLCPP_INFO(LOGGER, "  Right: x=%.4f, y=%.4f, z=%.4f",
                     target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
 
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
+        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lower\033[0m");
         dual_arm_planner_->waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE, plan,
                              "Planning to place succeeded!", true);
     }
-    
+
     bool moveToPlace() {
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLACE, plan, "Successfully moved to place position",
                              "Press any key to release object");
@@ -683,21 +880,56 @@ private:
         RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to home\033[0m");
         dual_arm_planner_->waitForKeyPress();
 
-        arm_move_group_dual.setStartStateToCurrentState();
+        // Give time for the robot state monitor to update
+        rclcpp::sleep_for(std::chrono::milliseconds(500));
+
+        // Clear any previous targets
+        arm_move_group_dual.clearPoseTargets();
+
+        // Get and verify current state
+        auto current_state = arm_move_group_dual.getCurrentState(5.0);
+        if (!current_state) {
+            RCLCPP_ERROR(LOGGER, "Failed to get current robot state");
+            current_state_ = State::FAILED;
+            return true;
+        }
+
+        arm_move_group_dual.setStartState(*current_state);
 
         auto current_pose = arm_move_group_A.getCurrentPose().pose;
         RCLCPP_INFO(LOGGER, "Planning from current lifted position: z=%.4f", current_pose.position.z);
+
         arm_move_group_dual.setNamedTarget("Home");
-        arm_move_group_dual.setPlannerId("RRTConnectkConfigDefault");  
-        arm_move_group_dual.setPlanningTime(15.0);  
-        arm_move_group_dual.setNumPlanningAttempts(10);  
-        bool success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
+
+        // Try multiple planners in order of preference
+        std::vector<std::string> planners = {
+            "RRTConnectkConfigDefault",
+            "RRTstarkConfigDefault",
+            "PRMkConfigDefault"
+        };
+
+        arm_move_group_dual.setPlanningTime(20.0);  // Increased timeout
+        arm_move_group_dual.setNumPlanningAttempts(15);  // More attempts
+
+        bool success = false;
+        for (const auto& planner : planners) {
+            arm_move_group_dual.setPlannerId(planner);
+            RCLCPP_INFO(LOGGER, "Trying planner: %s", planner.c_str());
+
+            success = (arm_move_group_dual.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
+
+            if (success) {
+                RCLCPP_INFO(LOGGER, "Planning to home succeeded with %s!", planner.c_str());
+                break;
+            } else {
+                RCLCPP_WARN(LOGGER, "Planning with %s failed, trying next planner...", planner.c_str());
+            }
+        }
 
         if (success) {
-            RCLCPP_INFO(LOGGER, "Planning to home succeeded!");
             RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
             char input = dual_arm_planner_->waitForKeyPress();
-            
+
             if (input == 'r' || input == 'R') {
                 // Stay in current state to replan
                 return true;
@@ -705,10 +937,10 @@ private:
                 current_state_ = State::MOVE_TO_HOME;
             }
         } else {
-            RCLCPP_ERROR(LOGGER, "Planning to home failed!");
+            RCLCPP_ERROR(LOGGER, "Planning to home failed with all planners!");
             current_state_ = State::FAILED;
         }
-        
+
         return true;
     }
 

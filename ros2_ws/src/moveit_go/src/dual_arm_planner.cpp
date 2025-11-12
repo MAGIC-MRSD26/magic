@@ -77,11 +77,15 @@ bool DualArmPlanner::plantoTarget_dualarm(
     double fraction_right = arm_move_group_B_.computeCartesianPath(
         waypoints_right, eef_step, jump_threshold, trajectory_right);
     
-    RCLCPP_INFO(LOGGER, "Cartesian path: Left %.2f%%, Right %.2f%%", 
+    RCLCPP_INFO(LOGGER, "Cartesian path: Left %.2f%%, Right %.2f%%",
                 fraction_left * 100.0, fraction_right * 100.0);
-        
-    if (fraction_left < 0.99 || fraction_right < 0.99) {
-        RCLCPP_ERROR(LOGGER, "Cartesian path incomplete");
+
+    // More lenient threshold when holding object - small movements near joint limits
+    // may not achieve perfect completion but are still safe and useful
+    double required_fraction = holding_object ? 0.95 : 0.99;
+
+    if (fraction_left < required_fraction || fraction_right < required_fraction) {
+        RCLCPP_ERROR(LOGGER, "Cartesian path incomplete (required: %.0f%%)", required_fraction * 100.0);
         plan_attempts++;
         if (plan_attempts < max_plan_attempts) {
             return true;
