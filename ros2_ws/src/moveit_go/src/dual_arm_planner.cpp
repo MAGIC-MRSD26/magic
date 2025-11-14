@@ -2,6 +2,9 @@
 #include "fsm_states.hpp"
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
+#include <moveit_msgs/msg/display_trajectory.hpp>
+#include <thread>
+#include <atomic>
 
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("dual_arm_planner");
 
@@ -186,7 +189,37 @@ bool DualArmPlanner::plantoTarget_dualarm(
     plan_attempts = 0;
     RCLCPP_INFO(LOGGER, "%s (Cartesian path)", planning_message.c_str());
     RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
+
+    // Keep visualizing both trajectories until user responds
+    auto display_publisher = node_->create_publisher<moveit_msgs::msg::DisplayTrajectory>(
+        "/display_planned_path", 10);
+
+    // Create display message for arm A
+    moveit_msgs::msg::DisplayTrajectory display_trajectory_A;
+    display_trajectory_A.trajectory.push_back(trajectory_left);
+    display_trajectory_A.model_id = arm_move_group_A_.getRobotModel()->getName();
+
+    // Create display message for arm B
+    moveit_msgs::msg::DisplayTrajectory display_trajectory_B;
+    display_trajectory_B.trajectory.push_back(trajectory_right);
+    display_trajectory_B.model_id = arm_move_group_B_.getRobotModel()->getName();
+
+    // Publish both trajectories in a loop while waiting for input
+    std::atomic<bool> keep_publishing{true};
+    std::thread visualization_thread([&]() {
+        rclcpp::Rate rate(2);  // 2 Hz - alternate between arms
+        while (keep_publishing && rclcpp::ok()) {
+            display_publisher->publish(display_trajectory_A);
+            rate.sleep();
+            if (!keep_publishing) break;
+            display_publisher->publish(display_trajectory_B);
+            rate.sleep();
+        }
+    });
+
     char input = waitForKeyPress();
+    keep_publishing = false;
+    visualization_thread.join();
     
     if (input == 'q') {
         current_state = State::FAILED;
