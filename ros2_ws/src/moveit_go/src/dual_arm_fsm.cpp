@@ -345,7 +345,9 @@ private:
         // Adjust Z for approach
         target_pose_A.position.z += object_params_.approach_offset;
         target_pose_B.position.z += object_params_.approach_offset;
-        
+        //adding offset-debug
+        target_pose_A.position.y -= 0.011;
+
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
@@ -474,9 +476,10 @@ private:
         double half_distance = gripper_distance / 2.0;
         rotated_pose1.position.x = half_distance;
         rotated_pose2.position.x = -half_distance;
-        
+        //debug - adding offset
+
         // Center in y
-        rotated_pose1.position.y = 0.0;
+        rotated_pose1.position.y = 0.0 - 0.028;
         rotated_pose2.position.y = 0.0;
         
         // Add to z position
@@ -562,7 +565,8 @@ private:
             target_pose_A = place_params.left_grasp_pose;
             target_pose_B = place_params.right_grasp_pose;
         }
-
+        // debug - adding offset
+        target_pose_A.position.y -= 0.028;
         target_pose_A.position.z += (place_params.approach_offset + place_params.grasp_offset);
         target_pose_B.position.z += (place_params.approach_offset + place_params.grasp_offset);
 
