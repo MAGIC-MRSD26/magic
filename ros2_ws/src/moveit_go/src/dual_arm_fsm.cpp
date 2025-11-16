@@ -13,6 +13,12 @@
 #include "object_definitions.hpp"
 #include <std_msgs/msg/bool.hpp>
 
+//socket communication headers
+#include <iostream>
+#include <cstring>
+#include <unistd.h>
+#include <arpa/inet.h>
+
 // Helpers
 #include "dual_arm_planner.hpp"
 #include "fsm_states.hpp"
@@ -518,7 +524,22 @@ private:
         
         const int steps = 16;
         const double rotation_per_step = (M_PI / 8.0);  // 22.5 degrees
-       
+        
+        //getting socket communication  set up
+        flag= 1; // set socket communication flag to 1 to start capture on python side
+        send(sock, &flag, 1, 0);
+        //need to wait for response
+        while(rclcpp::ok()){
+            int valread = read(sock, &response, 1);
+            if(valread > 0 && response == 1){
+                RCLCPP_INFO(LOGGER, "[CLIENT] Received capture start confirmation from server");
+                break;
+            }
+        }
+        //send start of rotation
+        flag=2;
+        send(sock, &flag, 1, 0);
+
         for (int step = 1; step <= steps; step++) {
             RCLCPP_INFO(LOGGER, "Rotation step %d/%d (%.1f degrees total)",
                        step, steps, (step * 22.5));
@@ -553,6 +574,9 @@ private:
        
         current_state_ = State::PLAN_TO_PLACE;
         capture_active_ = false; // set capture active flag to false
+        //send stop of rotation
+        flag=0;
+        send(sock, &flag, 1, 0);
         return true;
     }
     bool planToPlace() {
@@ -781,6 +805,37 @@ int main(int argc, char** argv) {
         GRIPPER_GROUP_dual,
         object_type);
     
+    //initialise socket communication here
+    const char* SERVER_IP = "192.168.1.10"; // <-- change to Python machine's IP
+    const int PORT = 5001;
+
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock < 0) {
+        std::cerr << "Socket creation error\n";
+        return -1;
+    }
+
+    sockaddr_in serv_addr{};
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(PORT);
+
+    if (inet_pton(AF_INET, SERVER_IP, &serv_addr.sin_addr) <= 0) {
+        std::cerr << "Invalid address / Address not supported\n";
+        return -1;
+    }
+
+    std::cout << "[CLIENT] Connecting...\n";
+    if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
+        std::cerr << "Connection failed\n";
+        return -1;
+    }
+
+    std::cout << "[CLIENT] Connected to data collection server\n";
+
+    uint8_t flag = 0; //0- fsm not started, 1-rotation ready, 2- rotation started
+    uint8_t response = 0; //response from server
+
+
     // FSM execution loop
     while (rclcpp::ok() && fsm.execute()) {
         // Give time for things to process
@@ -790,5 +845,6 @@ int main(int argc, char** argv) {
     executor.cancel();
     spinner.join();
     rclcpp::shutdown();
+    close(sock);  
     return 0;
 }
