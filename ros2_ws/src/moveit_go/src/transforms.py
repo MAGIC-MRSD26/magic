@@ -66,8 +66,7 @@ class DualArmObjectPose(Node):
 
     def _setup_csv(self, log_file_path):
         """Create CSV with headers."""
-        final_path = f"/home/ultron/3d_rec/{log_file_path}"
-        with open(final_path, mode='w', newline='') as f:
+        with open(log_file_path, mode='w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(["timestamp", "x", "y", "z", "qx", "qy", "qz", "qw"])
     
