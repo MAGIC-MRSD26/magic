@@ -183,7 +183,7 @@ bool DualArmPlanner::plantoTarget_dualarm(
     robot_traj.setRobotTrajectoryMsg(*current_robot_state, plan.trajectory_);
     
     trajectory_processing::TimeOptimalTrajectoryGeneration time_param;
-    time_param.computeTimeStamps(robot_traj, 0.5, 0.3);
+    time_param.computeTimeStamps(robot_traj, 0.2, 0.1);  // max vel and acc scaling
     
     robot_traj.getRobotTrajectoryMsg(plan.trajectory_);
     

@@ -62,8 +62,8 @@ public:
             node_, arm_move_group_A, arm_move_group_B, arm_move_group_dual);
 
         // Arm speed and acceleration
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.05);
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.05);
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.3);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.2);
         
         // Create subscription to the object pose topic
         pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
@@ -515,9 +515,9 @@ private:
         const int left_wrist_joint = 6;  
         const int right_wrist_joint = 13; 
 
-        // Speed up for rotation
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.2);
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.2);
+        // Slow down for rotation
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.15);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.15);
        
         // Get current state
         auto current_state = arm_move_group_dual.getCurrentState(10.0);
@@ -565,8 +565,8 @@ private:
         }
 
         // Restor slower speed
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.05);
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.05);
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.3);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.2);
        
         current_state_ = State::PLAN_TO_PLACE;
         capture_active_ = false; // set capture active flag to false
