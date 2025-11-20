@@ -189,7 +189,6 @@ bool DualArmPlanner::plantoTarget_dualarm(
     
     plan_attempts = 0;
     RCLCPP_INFO(LOGGER, "%s (Cartesian path)", planning_message.c_str());
-    // RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
 
     // Keep visualizing both trajectories until user responds
     auto display_publisher = node_->create_publisher<moveit_msgs::msg::DisplayTrajectory>(
@@ -224,9 +223,11 @@ bool DualArmPlanner::plantoTarget_dualarm(
         }
     });
 
-    // char input = waitForKeyPress();
     keep_publishing = false;
     visualization_thread.join();
+
+    // RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
+    // char input = waitForKeyPress();
     
     // if (input == 'q') {
     //     current_state = State::FAILED;

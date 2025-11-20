@@ -516,8 +516,8 @@ private:
         const int right_wrist_joint = 13; 
 
         // Speed up for rotation
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.4);
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.4);
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.2);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.2);
        
         // Get current state
         auto current_state = arm_move_group_dual.getCurrentState(10.0);
@@ -531,7 +531,7 @@ private:
         double initial_left_wrist = start_joints[left_wrist_joint];
         double initial_right_wrist = start_joints[right_wrist_joint];
         
-        const int steps = 8;
+        const int steps = 16;
         const double total_rotation = 2 * M_PI; //rad
         const double degrees_per_step = 360.0 / steps;
     
