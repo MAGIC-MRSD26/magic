@@ -116,6 +116,12 @@ public:
             case State::MOVE_TO_LIFT:
                 return moveToLift();
 
+            case State::PLAN_TO_CENTER:
+                return planToCenter();
+
+            case State::MOVE_TO_CENTER:
+                return moveToCenter();
+
             case State::ROTATE_EE:
                 return rotateEndEffectors();
 
@@ -201,6 +207,10 @@ private:
     bool go_to_next_grasp = false;
 
     moveit_msgs::msg::AttachedCollisionObject attached_object;
+
+    // Lift
+    geometry_msgs::msg::Pose lift_pose1;
+    geometry_msgs::msg::Pose lift_pose2;
 
     // Rotation policy variables
     geometry_msgs::msg::Pose rotated_pose1;
@@ -446,6 +456,24 @@ private:
     }
 
     bool planToLift() {
+
+        auto lift_pose1 = arm_move_group_A.getCurrentPose().pose;
+        auto lift_pose2 = arm_move_group_B.getCurrentPose().pose;
+        
+        // Add to z position
+        lift_pose1.position.z += 0.35;
+        lift_pose2.position.z += 0.35;
+                
+        return dual_arm_planner_->plantoTarget_dualarm(lift_pose1, lift_pose2, current_state_, State::MOVE_TO_LIFT, plan,
+                            "Planning to lift succeeded!", true);
+    }
+
+    bool moveToLift() {
+        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_CENTER, plan, "Successfully lifted",
+                            "Center lift");
+    }
+
+    bool planToCenter() {
         
         double yaw = object_params_.rotation_angle * M_PI / 180.0;
         // Straighten out the arms for 360 rotation
@@ -471,16 +499,12 @@ private:
         // Center in y
         rotated_pose1.position.y = 0.0 - 0.028;
         rotated_pose2.position.y = 0.0;
-        
-        // Add to z position
-        rotated_pose1.position.z += 0.35;
-        rotated_pose2.position.z += 0.35;
                 
-        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_LIFT, plan,
-                            "Planning to lift succeeded!", true);
+        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_CENTER, plan,
+                            "Planning to lift center succeeded!", true);
     }
 
-    bool moveToLift() {
+    bool moveToCenter() {
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::ROTATE_EE, plan, "Successfully moved to lift position",
                             "Press any key to start 3d capture");
     }
@@ -490,6 +514,10 @@ private:
         capture_active_ = true; // set capture active flag to true
         const int left_wrist_joint = 6;  
         const int right_wrist_joint = 13; 
+
+        // Speed up for rotation
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.4);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.4);
        
         // Get current state
         auto current_state = arm_move_group_dual.getCurrentState(10.0);
@@ -500,21 +528,25 @@ private:
         }
         
         std::vector<double> start_joints = arm_move_group_dual.getCurrentJointValues();
+        double initial_left_wrist = start_joints[left_wrist_joint];
+        double initial_right_wrist = start_joints[right_wrist_joint];
         
-        const int steps = 16;
-        const double rotation_per_step = (M_PI / 8.0);  // 22.5 degrees
-       
+        const int steps = 8;
+        const double total_rotation = 2 * M_PI; //rad
+        const double degrees_per_step = 360.0 / steps;
+    
         for (int step = 1; step <= steps; step++) {
             RCLCPP_INFO(LOGGER, "Rotation step %d/%d (%.1f degrees total)",
-                       step, steps, (step * 22.5));
-           
+                    step, steps, (step * degrees_per_step));
+        
             // Get fresh joint values each iteration
             std::vector<double> target_joints = arm_move_group_dual.getCurrentJointValues();
             
-            // Increment wrist joints
-            target_joints[left_wrist_joint] += rotation_per_step;
-            target_joints[right_wrist_joint] -= rotation_per_step;
-    
+            // Calculate target rotation in RADIANS
+            double target_rotation = (total_rotation / steps) * step;
+            target_joints[left_wrist_joint] = initial_left_wrist + target_rotation;
+            target_joints[right_wrist_joint] = initial_right_wrist - target_rotation;
+
             // Use setJointValueTarget and move() instead of plan/execute
             arm_move_group_dual.setJointValueTarget(target_joints);
             arm_move_group_dual.setPlanningTime(5.0);
@@ -531,6 +563,10 @@ private:
             
             RCLCPP_INFO(LOGGER, "Step %d completed successfully", step);
         }
+
+        // Restor slower speed
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.05);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.05);
        
         current_state_ = State::PLAN_TO_PLACE;
         capture_active_ = false; // set capture active flag to false
