@@ -189,7 +189,7 @@ bool DualArmPlanner::plantoTarget_dualarm(
     
     plan_attempts = 0;
     RCLCPP_INFO(LOGGER, "%s (Cartesian path)", planning_message.c_str());
-    RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
+    // RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
 
     // Keep visualizing both trajectories until user responds
     auto display_publisher = node_->create_publisher<moveit_msgs::msg::DisplayTrajectory>(
@@ -224,19 +224,19 @@ bool DualArmPlanner::plantoTarget_dualarm(
         }
     });
 
-    char input = waitForKeyPress();
+    // char input = waitForKeyPress();
     keep_publishing = false;
     visualization_thread.join();
     
-    if (input == 'q') {
-        current_state = State::FAILED;
-        return false;
-    } else if (input == 'r' || input == 'R') {
-        return true;
-    } else {
+    // if (input == 'q') {
+    //     current_state = State::FAILED;
+    //     return false;
+    // } else if (input == 'r' || input == 'R') {
+    //     return true;
+    // } else {
         current_state = next_state;
         return true;
-    }
+    // }
 }
 
 bool DualArmPlanner::executeMovement_dualarm(
@@ -245,9 +245,6 @@ bool DualArmPlanner::executeMovement_dualarm(
     moveit::planning_interface::MoveGroupInterface::Plan& plan,
     const std::string& success_message,
     const std::string& prompt_message) {
-
-    arm_move_group_dual_.setMaxVelocityScalingFactor(0.2);
-    arm_move_group_dual_.setMaxAccelerationScalingFactor(0.05);
     
     bool success = (arm_move_group_dual_.execute(plan) == moveit::core::MoveItErrorCode::SUCCESS);
     
@@ -256,7 +253,7 @@ bool DualArmPlanner::executeMovement_dualarm(
         
         if (!prompt_message.empty()) {
             RCLCPP_INFO(LOGGER, "\033[32m %s\033[0m", prompt_message.c_str());
-            waitForKeyPress();
+            // waitForKeyPress();
         }
         current_state = next_state;
     } else {
@@ -565,7 +562,5 @@ void DualArmPlanner::rotate(
                 rotated_pose2.position.x, rotated_pose2.position.y, rotated_pose2.position.z);
     
     // Set planning parameters specific for rotation
-    arm_move_group_dual_.setMaxVelocityScalingFactor(0.2);
-    arm_move_group_dual_.setMaxAccelerationScalingFactor(0.1);
     arm_move_group_dual_.setPlanningTime(15.0);
 }
