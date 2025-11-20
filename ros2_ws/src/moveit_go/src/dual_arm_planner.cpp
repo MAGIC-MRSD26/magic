@@ -183,7 +183,7 @@ bool DualArmPlanner::plantoTarget_dualarm(
     robot_traj.setRobotTrajectoryMsg(*current_robot_state, plan.trajectory_);
     
     trajectory_processing::TimeOptimalTrajectoryGeneration time_param;
-    time_param.computeTimeStamps(robot_traj, 0.2, 0.1);  // max vel and acc scaling
+    time_param.computeTimeStamps(robot_traj, 0.3, 0.15);  // max vel and acc scaling
     
     robot_traj.getRobotTrajectoryMsg(plan.trajectory_);
     
@@ -226,18 +226,23 @@ bool DualArmPlanner::plantoTarget_dualarm(
     keep_publishing = false;
     visualization_thread.join();
 
-    // RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
-    // char input = waitForKeyPress();
-    
-    // if (input == 'q') {
-    //     current_state = State::FAILED;
-    //     return false;
-    // } else if (input == 'r' || input == 'R') {
-    //     return true;
-    // } else {
+    if (current_state == State::PLAN_TO_OBJECT) {
+        RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
+        char input = waitForKeyPress();
+
+        if (input == 'q') {
+            current_state = State::FAILED;
+            return false;
+        } else if (input == 'r' || input == 'R') {
+            return true;
+        } else {
         current_state = next_state;
         return true;
-    // }
+        }
+    }
+
+    current_state = next_state;
+    return true;
 }
 
 bool DualArmPlanner::executeMovement_dualarm(
