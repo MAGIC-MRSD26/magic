@@ -116,6 +116,12 @@ public:
             case State::MOVE_TO_LIFT:
                 return moveToLift();
 
+            case State::PLAN_TO_STRAIGHT:
+                return planToStraight();
+
+            case State::MOVE_TO_STRAIGHT:
+                return moveToStraight();
+
             case State::PLAN_TO_CENTER:
                 return planToCenter();
 
@@ -300,7 +306,7 @@ private:
         // dual_arm_planner_->waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.0, y = 0.0, yaw = 45.0;
+        double x = 0.1, y = 0.1, yaw = 45.0;
         // At (0,0) yaw angle range is 35 - 50
         if (pose_received_) {
             x = object_pose_.position.x;
@@ -469,11 +475,11 @@ private:
     }
 
     bool moveToLift() {
-        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_CENTER, plan, "Successfully lifted",
+        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_STRAIGHT, plan, "Successfully lifted",
                             "Center lift");
     }
 
-    bool planToCenter() {
+    bool planToStraight() {
         
         double yaw = object_params_.rotation_angle * M_PI / 180.0;
         // Straighten out the arms for 360 rotation
@@ -483,24 +489,40 @@ private:
             dual_arm_planner_->rotate(0, 0, -yaw, rotated_pose1, rotated_pose2);
         }
 
+        rotated_pose1.position.y -= 0.028;
+                
+        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_STRAIGHT, plan,
+                            "Planning to lift center succeeded!", true);
+    }
+
+    bool moveToStraight() {
+        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_CENTER, plan, "Successfully moved to lift position",
+                            "Press any key to start 3d capture");
+    }
+
+    bool planToCenter() {
+        
+        lift_pose1 = arm_move_group_A.getCurrentPose().pose;
+        lift_pose2 = arm_move_group_B.getCurrentPose().pose;
+
         // Calculate current gripper distance
         double gripper_distance = std::sqrt(
-            std::pow(rotated_pose1.position.x - rotated_pose2.position.x, 2) +
-            std::pow(rotated_pose1.position.y - rotated_pose2.position.y, 2) +
-            std::pow(rotated_pose1.position.z - rotated_pose2.position.z, 2)
+            std::pow(lift_pose1.position.x - lift_pose2.position.x, 2) +
+            std::pow(lift_pose1.position.y - lift_pose2.position.y, 2) +
+            std::pow(lift_pose1.position.z - lift_pose2.position.z, 2)
         );
 
         // Center both grippers around object center in x, separated by current distance
         double half_distance = gripper_distance / 2.0;
-        rotated_pose1.position.x = half_distance;
-        rotated_pose2.position.x = -half_distance;
-        //debug - adding offset
+        lift_pose1.position.x = half_distance;
+        lift_pose2.position.x = -half_distance;
 
+        //debug - adding offset
         // Center in y
-        rotated_pose1.position.y = 0.0 - 0.028;
-        rotated_pose2.position.y = 0.0;
+        lift_pose1.position.y = 0.0 - 0.028;
+        lift_pose2.position.y = 0.0;
                 
-        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_CENTER, plan,
+        return dual_arm_planner_->plantoTarget_dualarm(lift_pose1, lift_pose2, current_state_, State::MOVE_TO_CENTER, plan,
                             "Planning to lift center succeeded!", true);
     }
 
@@ -583,7 +605,6 @@ private:
             target_pose_B = place_params.right_grasp_pose;
         }
         // debug - adding offset
-        target_pose_A.position.y -= 0.028;
         target_pose_A.position.z += (place_params.approach_offset + place_params.grasp_offset);
         target_pose_B.position.z += (place_params.approach_offset + place_params.grasp_offset);
 
