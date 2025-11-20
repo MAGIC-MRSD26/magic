@@ -60,15 +60,10 @@ public:
         // Initialize dual arm planner helper functions
         dual_arm_planner_ = std::make_unique<DualArmPlanner>(
             node_, arm_move_group_A, arm_move_group_B, arm_move_group_dual);
-        
-        // Create object parameters based on selected type
-        arm_move_group_A.setMaxVelocityScalingFactor(0.6); // Increase from default
-        arm_move_group_B.setMaxVelocityScalingFactor(0.6);
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.5); // More conservative for dual-arm
 
-        // For kinematic chain movements specifically (after grasping)
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.4); // Safe but still faster
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
+        // Arm speed and acceleration
+        arm_move_group_dual.setMaxVelocityScalingFactor(0.05);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.1);
         
         // Create subscription to the object pose topic
         pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
@@ -291,8 +286,8 @@ private:
         RCLCPP_INFO(LOGGER, "Robot state ready");
 
         // Add object to the planning scene
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to add object to planning scene \033[0m");
-        dual_arm_planner_->waitForKeyPress();
+        // RCLCPP_INFO(LOGGER, "\033[32m Press any key to add object to planning scene \033[0m");
+        // dual_arm_planner_->waitForKeyPress();
 
         // Create object parameters based on type
         double x = 0.0, y = 0.0, yaw = 45.0;
@@ -349,9 +344,6 @@ private:
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
         
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to object \033[0m");
-        dual_arm_planner_->waitForKeyPress();
-
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_OBJECT, plan,
              "Planning to object succeeded!", false);
     }
@@ -359,7 +351,7 @@ private:
     bool moveToObject() {
         //execute the planned trajectory
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::OPEN_GRIPPER, plan, "Successfully moved to object position", 
-                                    "Press any key to open gripper");
+                                    "Open gripper");
     }
 
     bool opengripper() {
@@ -382,8 +374,6 @@ private:
         target_pose_A.position.z += object_params_.grasp_offset;
         target_pose_B.position.z += object_params_.grasp_offset;
         
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to grasp\033[0m");
-        dual_arm_planner_->waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_GRASP, plan,
                           "Planning to grasp succeeded!", false);
     }
@@ -391,7 +381,7 @@ private:
     bool moveToGrasp() {
         //state for executing the trajectory for moving to grasp point
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::GRASP, plan, "Successfully moved to grasp pose", 
-                             "Press any key to grasp object");
+                             "Grasp object");
     }
 
     bool Grasp() {
@@ -483,8 +473,6 @@ private:
         rotated_pose1.position.z += 0.35;
         rotated_pose2.position.z += 0.35;
                 
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to lift\033[0m");
-        dual_arm_planner_->waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_LIFT, plan,
                             "Planning to lift succeeded!", true);
     }
@@ -495,6 +483,7 @@ private:
     }
 
     bool rotateEndEffectors() {
+        dual_arm_planner_->waitForKeyPress();
         capture_active_ = true; // set capture active flag to true
         const int left_wrist_joint = 6;  
         const int right_wrist_joint = 13; 
@@ -508,10 +497,6 @@ private:
         }
         
         std::vector<double> start_joints = arm_move_group_dual.getCurrentJointValues();
-        
-        // Set conservative limits for rotation
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.15);
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.15);
         
         const int steps = 16;
         const double rotation_per_step = (M_PI / 8.0);  // 22.5 degrees
@@ -543,10 +528,6 @@ private:
             
             RCLCPP_INFO(LOGGER, "Step %d completed successfully", step);
         }
-        
-        // Restore normal velocity scaling
-        arm_move_group_dual.setMaxVelocityScalingFactor(0.4);
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.3);
        
         current_state_ = State::PLAN_TO_PLACE;
         capture_active_ = false; // set capture active flag to false
@@ -576,20 +557,16 @@ private:
         RCLCPP_INFO(LOGGER, "Right arm place pose: x=%.4f, y=%.4f, z=%.4f",
                     target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
 
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to plan to place position\033[0m");
-        dual_arm_planner_->waitForKeyPress();
         return dual_arm_planner_->plantoTarget_dualarm(target_pose_A, target_pose_B, current_state_, State::MOVE_TO_PLACE, plan,
                              "Planning to place succeeded!", true);
     }
     
     bool moveToPlace() {
         return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLACE, plan, "Successfully moved to place position",
-                             "Press any key to release object");
+                             "Release object");
     }
     
     bool Place() {
-        RCLCPP_INFO(LOGGER, "Releasing object...");
-
         // Open gripper to release object
         gripper_move_group_A.setNamedTarget("Open");
         gripper_move_group_B.setNamedTarget("Open");
@@ -627,9 +604,6 @@ private:
         current_pose_A.position.z -= object_params_.grasp_offset - 0.13;
         current_pose_B.position.z -= object_params_.grasp_offset - 0.13;
         
-        RCLCPP_INFO(LOGGER, "\033[32m Press any key to retract arms\033[0m");
-        dual_arm_planner_->waitForKeyPress();
-        
         return dual_arm_planner_->plantoTarget_dualarm(
             current_pose_A, current_pose_B, 
             current_state_, State::MOVE_RETRACT,
@@ -650,11 +624,11 @@ private:
         if (go_to_next_grasp) {
             return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_OBJECT,
                 plan, "Arms lifted successfully",
-                "Press any key to go to next grasp points");
+                "Go to next grasp points");
         } else {
             return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_HOME,
                 plan, "Arms lifted successfully",
-                "Press any key to go to home");
+                "Go to home");
         }
     }
 
