@@ -63,7 +63,7 @@ public:
 
         // Arm speed and acceleration
         arm_move_group_dual.setMaxVelocityScalingFactor(0.05);
-        arm_move_group_dual.setMaxAccelerationScalingFactor(0.1);
+        arm_move_group_dual.setMaxAccelerationScalingFactor(0.05);
         
         // Create subscription to the object pose topic
         pose_subscription_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
