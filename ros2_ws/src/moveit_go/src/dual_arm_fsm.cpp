@@ -212,6 +212,9 @@ private:
     // for later when we reuse to go to other handles
     bool go_to_next_grasp = false;
 
+    // place
+    bool straightening_for_placement = false;
+
     moveit_msgs::msg::AttachedCollisionObject attached_object;
 
     // Lift
@@ -482,22 +485,32 @@ private:
     bool planToStraight() {
         
         double yaw = object_params_.rotation_angle * M_PI / 180.0;
-        // Straighten out the arms for 360 rotation
+        
+        // Straighten out the arms
         if (go_to_next_grasp) {
-            dual_arm_planner_->rotate(0, 0, M_PI/2 - yaw, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, straightening_for_placement ? yaw : M_PI/2 - yaw, rotated_pose1, rotated_pose2);
         } else {
-            dual_arm_planner_->rotate(0, 0, -yaw, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, straightening_for_placement ? yaw : -yaw, 
+                                    rotated_pose1, rotated_pose2);
         }
 
         rotated_pose1.position.y -= 0.028;
                 
-        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, current_state_, State::MOVE_TO_STRAIGHT, plan,
-                            "Planning to lift center succeeded!", true);
+        return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, 
+                    current_state_, State::MOVE_TO_STRAIGHT, plan,
+                    "Planning to straighten succeeded!", true);
     }
 
     bool moveToStraight() {
-        return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_CENTER, plan, "Successfully moved to lift position",
-                            "Press any key to start 3d capture");
+
+        if (straightening_for_placement) {
+            straightening_for_placement = false;  // Reset flag
+            return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_PLACE, plan, "Successfully moved to place position",
+                            "Go down to place");
+        } else {
+            return dual_arm_planner_->executeMovement_dualarm(current_state_, State::PLAN_TO_CENTER, plan, "Successfully moved to lift position",
+                            "Centering");
+        }
     }
 
     bool planToCenter() {
@@ -589,8 +602,9 @@ private:
         // Restor slower speed
         arm_move_group_dual.setMaxVelocityScalingFactor(0.3);
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.2);
-       
-        current_state_ = State::PLAN_TO_PLACE;
+        
+        straightening_for_placement = true;
+        current_state_ = State::PLAN_TO_STRAIGHT;
         capture_active_ = false; // set capture active flag to false
         return true;
     }
