@@ -488,7 +488,7 @@ private:
         
         // Straighten out the arms
         if (go_to_next_grasp) {
-            dual_arm_planner_->rotate(0, 0, straightening_for_placement ? yaw : M_PI/2 - yaw, rotated_pose1, rotated_pose2);
+            dual_arm_planner_->rotate(0, 0, straightening_for_placement ? -yaw : yaw, rotated_pose1, rotated_pose2);
         } else {
             dual_arm_planner_->rotate(0, 0, straightening_for_placement ? yaw : -yaw, 
                                     rotated_pose1, rotated_pose2);
