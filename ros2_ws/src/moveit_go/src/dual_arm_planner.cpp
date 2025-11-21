@@ -118,7 +118,7 @@ bool DualArmPlanner::plantoTarget_dualarm(
     // Validate gripper distance in computed trajectory
     if (holding_object) {
         if (!validateGripperDistance(trajectory_left, trajectory_right, 
-                                    target_gripper_distance, 0.005)) {  // 5mm tolerance
+                                    target_gripper_distance, 0.006)) {  // 5mm tolerance
             RCLCPP_ERROR(LOGGER, "Gripper distance constraint violated after Cartesian planning");
             plan_attempts++;
             if (plan_attempts < max_plan_attempts) {

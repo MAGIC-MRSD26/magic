@@ -309,7 +309,7 @@ private:
         // dual_arm_planner_->waitForKeyPress();
 
         // Create object parameters based on type
-        double x = 0.1, y = 0.1, yaw = 45.0;
+        double x = 0.0, y = 0.0, yaw = 45.0;
         // At (0,0) yaw angle range is 35 - 50
         if (pose_received_) {
             x = object_pose_.position.x;
