@@ -549,7 +549,7 @@ private:
         if (selected_object_type_ == ObjectType::TBAR) {
             lift_pose1.position.y = 0.0 - 0.0255;
         } else {
-            lift_pose2.position.y = 0.0 - 0.025;
+            lift_pose1.position.y = 0.0 - 0.025;
         }
         lift_pose2.position.y = 0.0;
                 
@@ -675,15 +675,18 @@ private:
         gripper_move_group_A.detachObject(attached_object.object.id);
         gripper_move_group_B.detachObject(attached_object.object.id);
 
-        attached_object.object.operation = moveit_msgs::msg::CollisionObject::REMOVE;
-        planning_scene_interface_dual.applyAttachedCollisionObject(attached_object);
-
         ObjectParameters placed_params = createPlacementParams();
+        moveit_msgs::msg::CollisionObject placed_object = ObjectFactory::createObject(selected_object_type_, placed_params);
+        placed_object.operation = moveit_msgs::msg::CollisionObject::ADD;
+
+        std::vector<moveit_msgs::msg::CollisionObject> collision_objects;
+        collision_objects.push_back(placed_object);
+        planning_scene_interface_dual.applyCollisionObjects(collision_objects);
 
         object_params_ = placed_params;
         RCLCPP_INFO(LOGGER, "Updated object_params_ to reflect placement at (%.1f, %.1f, %.4f) with %.1f° rotation",
                     object_params_.x, object_params_.y, object_params_.z, object_params_.rotation_angle);
-
+        
         current_state_ = State::PLAN_RETRACT;
         return true;
     }
@@ -786,6 +789,10 @@ private:
         
         if (result == moveit::core::MoveItErrorCode::SUCCESS) {
             RCLCPP_INFO(LOGGER, "Successfully moved to home position");
+            std::vector<std::string> object_ids;
+            object_ids.push_back(object_params_.object_id);
+            planning_scene_interface_dual.removeCollisionObjects(object_ids);
+
             current_state_ = State::SUCCEEDED;
         } else {
             RCLCPP_ERROR(LOGGER, "Failed to execute movement to home");
