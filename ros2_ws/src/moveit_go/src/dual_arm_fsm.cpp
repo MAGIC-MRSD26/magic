@@ -350,17 +350,27 @@ private:
         if (go_to_next_grasp) {
             target_pose_A = object_params_.second_left_grasp_pose;
             target_pose_B = object_params_.second_right_grasp_pose;
+
+            if (selected_object_type_ == ObjectType::TBAR) {
+                target_pose_A.position.y -= 0.016;
+            } else {
+                target_pose_A.position.y -= 0.011;
+            }
+
         } else {
             // Use pre-calculated grasp poses from object_params_
             target_pose_A = object_params_.left_grasp_pose;
             target_pose_B = object_params_.right_grasp_pose;
+
+            if (selected_object_type_ == ObjectType::TBAR) {
+                target_pose_A.position.x += 0.015;
+            }
+            target_pose_A.position.y -= 0.011;
         }
 
         // Adjust Z for approach
         target_pose_A.position.z += object_params_.approach_offset;
         target_pose_B.position.z += object_params_.approach_offset;
-        //adding offset-debug
-        target_pose_A.position.y -= 0.011;
 
         RCLCPP_INFO(LOGGER, "Left arm target pose x: %f y: %f z: %f", target_pose_A.position.x, target_pose_A.position.y, target_pose_A.position.z);
         RCLCPP_INFO(LOGGER, "Right arm target pose x: %f y: %f z: %f", target_pose_B.position.x, target_pose_B.position.y, target_pose_B.position.z);
@@ -494,7 +504,11 @@ private:
                                     rotated_pose1, rotated_pose2);
         }
 
-        rotated_pose1.position.y -= 0.028;
+        if (selected_object_type_ == ObjectType::TBAR) {
+            rotated_pose1.position.z += 0.004;
+        } else {
+            rotated_pose1.position.y -= 0.028;
+        }
                 
         return dual_arm_planner_->plantoTarget_dualarm(rotated_pose1, rotated_pose2, 
                     current_state_, State::MOVE_TO_STRAIGHT, plan,
@@ -532,7 +546,11 @@ private:
 
         //debug - adding offset
         // Center in y
-        lift_pose1.position.y = 0.0 - 0.028;
+        if (selected_object_type_ == ObjectType::TBAR) {
+            lift_pose1.position.y = 0.0 - 0.0255;
+        } else {
+            lift_pose2.position.y = 0.0 - 0.025;
+        }
         lift_pose2.position.y = 0.0;
                 
         return dual_arm_planner_->plantoTarget_dualarm(lift_pose1, lift_pose2, current_state_, State::MOVE_TO_CENTER, plan,
