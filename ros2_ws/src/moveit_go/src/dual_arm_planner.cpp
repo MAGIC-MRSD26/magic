@@ -226,20 +226,20 @@ bool DualArmPlanner::plantoTarget_dualarm(
     keep_publishing = false;
     visualization_thread.join();
 
-    if (current_state == State::PLAN_TO_OBJECT) {
-        RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
-        char input = waitForKeyPress();
+    // if (current_state == State::PLAN_TO_OBJECT) {
+    RCLCPP_INFO(LOGGER, "\033[32m Press 'r' to replan, or any other key to execute \033[0m");
+    char input = waitForKeyPress();
 
-        if (input == 'q') {
-            current_state = State::FAILED;
-            return false;
-        } else if (input == 'r' || input == 'R') {
-            return true;
-        } else {
-        current_state = next_state;
+    if (input == 'q') {
+        current_state = State::FAILED;
+        return false;
+    } else if (input == 'r' || input == 'R') {
         return true;
-        }
+    } else {
+    current_state = next_state;
+    return true;
     }
+    // }
 
     current_state = next_state;
     return true;
