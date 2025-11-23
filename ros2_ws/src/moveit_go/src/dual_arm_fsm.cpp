@@ -564,6 +564,7 @@ private:
         arm_move_group_dual.setMaxVelocityScalingFactor(0.3);
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.2);
         
+        current_state_ = State::PLAN_TO_PLACE;
         capture_active_ = false; // set capture active flag to false
         return true;
     }
