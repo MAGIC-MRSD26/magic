@@ -496,7 +496,7 @@ private:
         }
         lift_pose2.position.y = 0.0;
                 
-        return dual_arm_planner_->plantoTarget_dualarm(lift_pose1, lift_pose2, current_state_, State::MOVE_TO_CENTER, plan,
+        return dual_arm_planner_->plantoTarget_dualarm(lift_pose1, lift_pose2, current_state_, State::MOVE_TO_LIFT, plan,
                             "Planning to lift center succeeded!", true);
     }
 
@@ -564,7 +564,6 @@ private:
         arm_move_group_dual.setMaxVelocityScalingFactor(0.3);
         arm_move_group_dual.setMaxAccelerationScalingFactor(0.2);
         
-        current_state_ = State::PLAN_TO_STRAIGHT;
         capture_active_ = false; // set capture active flag to false
         return true;
     }
