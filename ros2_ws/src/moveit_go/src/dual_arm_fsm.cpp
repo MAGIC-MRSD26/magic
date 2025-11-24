@@ -349,6 +349,8 @@ private:
 
             if (selected_object_type_ == ObjectType::TBAR) {
                 target_pose_A.position.x += 0.015;
+            } else {
+                target_pose_A.position.x += 0.01;
             }
             target_pose_A.position.y -= 0.011;
         }
