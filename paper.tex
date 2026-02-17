@@ -1,0 +1,330 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+%In case you encounter the following error:
+%Error 1010 The PDF file may be corrupt (unable to open PDF file) OR
+%Error 1000 An error occurred while parsing a contents stream. Unable to analyze the PDF file.
+%This is a known problem with pdfLaTeX conversion filter. The file cannot be opened with acrobat reader
+%Please use one of the alternatives below to circumvent this error by uncommenting one or the other
+%\pdfobjcompresslevel=0
+%\pdfminorversion=4
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+MAGIC: A Multi-Agent Dual-Arm System for \\ Automated Geometric Inspection and 3D Reconstruction
+}
+
+\author{Kartik Agrawal$^{*}$, Manyung Emma Hon$^{*}$, Kailash Jagadeesh$^{*}$, Megan Lee$^{*}$, and Shreya Ragi$^{*}$%
+\thanks{*Authors contributed equally to this work.}%
+\thanks{All authors are with the Robotics Institute, Carnegie Mellon University, Pittsburgh, PA 15213, USA. Project sponsored by Jiaoyang Li.
+        {\tt\small \{kagrawal, mhon, kjagadee, meganl2, sragi\}@andrew.cmu.edu}}%
+}
+
+
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+Automated inspection of complex industrial components, particularly those produced via Wire Arc Additive Manufacturing (WAAM), presents significant challenges due to self-occlusion, surface roughness, and geometric irregularity. Traditional static sensor arrays or single-arm manipulator systems often fail to achieve complete surface coverage of such parts. This paper presents MAGIC (Multi-Agent Geometric Inspection and Classification), a dual-arm robotic system designed for object-centered active inspection. Unlike camera-in-hand approaches, MAGIC utilizes two coordinated 7-DOF manipulators to reorient the workpiece in front of a high-precision 3D sensor array. We detail the system's modular ROS-2 architecture, which integrates fiducial localization, bimanual grasp planning, and synchronized motion control to minimize occlusion. Experimental results demonstrate that the system achieves a reconstruction completeness of over 90\% with a dimensional accuracy of 1.2 cm RMSE, significantly outperforming static single-view baselines.
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+
+The advent of Industry 4.0 has necessitated the integration of intelligent inspection systems within manufacturing cells. Additive Manufacturing (AM) techniques, such as Wire Arc Additive Manufacturing (WAAM), allow for the creation of large-scale metal components with complex internal geometries\cite{waam_overview}. However, the layer-by-layer deposition process in WAAM often introduces geometric inconsistencies, surface voids, and significant roughness that require rigorous quality assurance (QA).
+
+Current automated QA solutions largely rely on static 3D scanners or single robotic arms equipped with wrist-mounted cameras. While effective for simple convex hulls, these methods suffer from "blind spots" when inspecting objects with deep concavities or undercuts. To scan the underside of a heavy WAAM part, human intervention is typically required to manually flip the object, introducing safety risks and breaking the digital thread of the manufacturing process.
+
+To address these limitations, we propose a "system-centric" or "object-centered" approach. Instead of moving the sensor around a stationary object, we propose manipulating the object itself to present optimal views to the sensor.
+
+This paper makes the following contributions:
+
+\begin{itemize}
+    \item An object-centered dual-arm inspection paradigm that eliminates
+    the need for camera-in-hand scanning for heavy industrial components.
+    \item A closed-chain constrained motion planning formulation for
+    rigid-body reorientation using synchronized dual manipulators.
+    \item A learning-based multi-handle geometric pose estimation
+    strategy for robust orientation recovery without fiducials.
+    \item Experimental validation demonstrating over 90\% reconstruction
+    completeness on occluded WAAM geometries.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{RELATED WORK}
+
+\subsection{Automated 3D Inspection}
+Robotic inspection has been widely studied for automotive and aerospace applications. Conventional approaches use a "Next-Best-View" (NBV) algorithm where a single arm moves a camera to minimize entropy in the volumetric map \cite{son2024coordinate}. However, determining NBV in highly constrained environments with a single manipulator often leads to unreachable distinct viewpoints. Son et al. \cite{son2024coordinate} highlighted the difficulties in coordinate system setting for post-machining WAAM parts, emphasizing the need for high-fidelity global models that static systems struggle to provide.
+
+\subsection{Bimanual Manipulation}
+Bimanual manipulation expands the robot's workspace and payload capacity. Smith et al. demonstrated collaborative carrying tasks, but applied it to logistics rather than inspection. In the context of inspection, dual-arm systems have primarily been used for "master-slave" configurations where one arm holds a light and the other a camera. Our work differs by using the arms to manipulate the \textit{workpiece}, requiring tight synchronization to prevent internal stresses on the rigid object during rotation.
+
+\subsection{Point Cloud Registration}
+Fusing multiple views into a single model is a classic computer vision problem. Iterative Closest Point (ICP) and its variants are standard; however, they are prone to local minima without good initialization. By leveraging the high-precision kinematics of the robot arms, MAGIC provides an accurate prior for the transformation matrix, significantly robustifying the registration process compared to purely vision-based global registration methods.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SYSTEM ARCHITECTURE}
+
+\subsection{Hardware Configuration}
+The MAGIC workcell is constructed around two Kinova Gen3 7-DOF robotic manipulators mounted on a shared, rigid aluminum extrusion base. The 7 degrees of freedom are critical for redundant kinematic resolution, allowing the arms to reorient objects without reaching joint limits or singularities.
+
+The perception system comprises an Intel RealSense D435i RGB-D camera mounted on a static overhead gantry. The camera is calibrated extrinsically to the robot base frame using a standard ChArUco board routine, resulting in a re-projection error of less than 1.5 pixels.
+
+\subsection{Software Framework}
+The system runs on ROS-2 Humble to leverage its real-time DDS communication layer. The architecture is divided into three primary subsystems:
+
+\begin{itemize}
+    \item \textbf{Perception Node:} Handles data acquisition, pose detection, and point cloud filtering (SOR and Voxel Grid downsampling).
+    \item \textbf{Motion Planning Node:} Built upon MoveIt 2, this node manages the dual-arm planning group. It uses OMPL's constrained planning API with RRT-Connect, applying projection-based constraint satisfaction to enforce closed-chain kinematic constraints during path generation.
+    \item \textbf{Executive Node:} A finite state machine (FSM) that orchestrates the workflow, handling transitions between scanning, grasping, and reorienting.
+\end{itemize}
+
+\begin{figure}[thpb]
+   \centering
+   % \includegraphics[scale=1.0]{system_arch.png}
+   \framebox{\parbox{3in}{}}
+   \caption{The ROS-2 software architecture showing the asynchronous communication between the perception pipeline and the motion control loop.}
+   \label{fig:architecture}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{METHODOLOGY}
+
+The MAGIC inspection pipeline follows a sequential execute-and-verify approach. The process is defined by the following stages: Localization, Grasp Synthesis, Coordinated Manipulation, and Reconstruction.
+
+\subsection{Object Localization and Initial Registration}
+% The system initializes by detecting the workpiece within the workspace. We utilize AprilTag fiducial markers attached to the build plate or a sacrificial base of the WAAM part.
+% Let $T_{world}^{cam}$ be the fixed transformation of the camera and $T_{cam}^{tag}$ be the detected pose of the tag. The pose of the object $P_{obj}$ in the robot's base frame is given by:
+% \begin{equation}
+%     P_{obj} = T_{world}^{base} \cdot T_{base}^{cam} \cdot T_{cam}^{tag}
+% \end{equation}
+% \subsection{Learning-Based Object Pose Estimation}
+
+Unlike fiducial-based localization approaches, MAGIC employs a
+learning-based perception pipeline for real-time object pose estimation.
+A custom-trained YOLOv11 detector is used to identify four
+semantically distinct handle classes on the workpiece. These handles
+are intentionally color-coded and spatially arranged to encode geometric
+constraints that enable stable orientation recovery.
+
+Let the detected handle centers in image coordinates be
+$\{h_i\}_{i=1}^4$, where each $h_i = (u_i, v_i)$ represents the pixel
+location of a detected bounding box centroid. Using the camera intrinsic
+matrix $K$ and the aligned depth map $D(u,v)$, each handle is lifted
+into 3D camera coordinates:
+
+\begin{equation}
+P_i^{cam} = D(u_i, v_i) \, K^{-1}
+\begin{bmatrix}
+u_i \\
+v_i \\
+1
+\end{bmatrix}
+\end{equation}
+
+The object center is computed as the mean of the four 3D handle
+positions:
+
+\begin{equation}
+P_{obj}^{cam} = \frac{1}{4} \sum_{i=1}^{4} P_i^{cam}
+\end{equation}
+
+To compute the yaw orientation, we leverage the fixed geometric
+relationship between a canonical pair of handles (e.g., opposing handles
+along the primary axis). Let $P_a$ and $P_b$ denote this pair. The yaw
+angle $\theta$ about the vertical axis is computed as:
+
+\begin{equation}
+\theta = \text{atan2}(P_b^y - P_a^y,\, P_b^x - P_a^x)
+\end{equation}
+
+The final object pose in the robot base frame is obtained via the
+known extrinsic calibration transform $T_{base}^{cam}$:
+
+\begin{equation}
+P_{obj}^{base} = T_{base}^{cam} \cdot
+\begin{bmatrix}
+P_{obj}^{cam} \\
+1
+\end{bmatrix}
+\end{equation}
+
+This multi-handle geometric encoding eliminates the orientation
+ambiguity commonly observed in single-marker or symmetric-object
+localization methods. Furthermore, because pose is derived from the
+relative spatial configuration of multiple detected features, the
+estimation is resilient to transient misdetections and reduces
+frame-to-frame jitter. The resulting $(x, y, z, \theta)$ pose estimate
+is published as a \texttt{PoseStamped} message at real-time rates,
+enabling closed-loop integration with the dual-arm manipulation
+subsystem.
+
+
+This initial pose seeds the collision environment in MoveIt 2, ensuring the planners are aware of the obstacle before any motion begins.
+
+\subsection{Grasp Synthesis and Stability}
+For bimanual manipulation, selecting stable grasp pairs is critical. We simplify the problem by assuming the object has parallel gripping surfaces (common in WAAM base plates). The grasp planner samples candidate grasp poses along both gripping faces, generating pairs $(g_L, g_R) \in SE(3) \times SE(3)$ representing the 6-DOF end-effector target poses for the left and right arms, respectively.
+
+A grasp pair is considered valid if:
+\begin{enumerate}
+    \item Both $g_L$ and $g_R$ are reachable via Inverse Kinematics (IK).
+    \item The Euclidean distance $d(g_L, g_R)$ between the two grasp points matches the object width within a tolerance $\epsilon$.
+    \item The grasp approach vectors are antipodal and the contact normals satisfy the friction cone condition, $\tan^{-1}(\mu) \geq \alpha$, where $\mu$ is the coefficient of friction and $\alpha$ is the half-angle between the contact normal and the resultant force vector, ensuring force closure.
+\end{enumerate}
+
+\subsection{Coordinated Motion Planning}
+Reorienting a rigid object with two arms requires a closed-chain kinematic constraint. If the arms move asynchronously, they may exert damaging internal forces on the object or lose grip.
+
+We model the two arms and the grasped object as a single closed kinematic chain. The motion planner solves for a trajectory $\tau$ in the joint configuration space $Q \in \mathbb{R}^{14}$, where $Q = [q_{\text{left}}^\top,\, q_{\text{right}}^\top]^\top$ is the concatenation of the 7-DOF joint vectors of each arm.
+
+The closed-chain constraint requires that for any time $t$ along the trajectory, the relative transform between the two end-effectors remains constant:
+\begin{equation}
+    ^{L}T_{R}(t) = ^{L}T_{R}(0) \quad \forall t \in [0, T]
+\end{equation}
+This equality constraint defines a lower-dimensional constraint manifold $\mathcal{C} \subset \mathbb{R}^{14}$ on which all valid configurations lie. We enforce this using MoveIt 2's constrained planning interface, which wraps OMPL's constrained state space. Valid configurations are sampled by projecting candidate states onto $\mathcal{C}$ via the pseudo-inverse of the constraint Jacobian:
+\begin{equation}
+    q \leftarrow q - J_c^{\dagger}(q)\, f(q)
+\end{equation}
+where $f(q)$ is the constraint error in $SE(3)$ and $J_c^{\dagger}$ is the Moore--Penrose pseudo-inverse of the constraint Jacobian $J_c = \partial f / \partial q$. This projection is iterated until $\|f(q)\| < \delta$ for a tolerance $\delta$.
+
+\begin{figure}[thpb]
+   \centering
+   \framebox{\parbox{3in}{}}
+   \caption{Visualizing the coordinated motion path. The red line indicates the end-effector trajectory while maintaining the closed-chain constraint.}
+   \label{fig:motion_plan}
+\end{figure}
+
+\subsection{3D Reconstruction Pipeline}
+The reconstruction module integrates depth frames into a global point cloud.
+\subsubsection{Pre-processing}
+Raw depth maps are converted to point clouds. We apply a Statistical Outlier Removal (SOR) filter ($k=50, \sigma=1.0$) to remove sensor noise and "flying pixels" common at the edges of metallic objects.
+
+\subsubsection{Registration}
+As the robot moves the object to pose $i$, we capture cloud $C_i$. Since the robot's forward kinematics provide a high-accuracy estimate of the sensor-to-object transform, we use this as the initial guess $T_{init}$. We refine this alignment using ICP to minimize the point-to-plane error metric:
+\begin{equation}
+    E = \sum_{p \in C_i} || (R \cdot p + t - q) \cdot n_q ||^2
+\end{equation}
+where $q$ is the corresponding point in the global model and $n_q$ is its normal.
+
+\subsubsection{Fusion}
+The aligned clouds are fused. We employ a voxel grid downsampling (leaf size = 2mm) to merge overlapping points and normalize point density, resulting in the final mesh $M_{final}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{EXPERIMENTAL EVALUATION}
+
+\subsection{Experimental Setup}
+Experiments were conducted using 3D-printed mockups of WAAM impellers and brackets. These proxies replicate the geometry of real parts but reduce the risk of damage during development. The "Ground Truth" is defined by the CAD models used to print these proxies.
+
+\subsection{Metrics}
+We evaluate the system on three Key Performance Indicators (KPIs):
+\begin{itemize}
+    \item \textbf{Reconstruction Completeness ($C_p$):} The ratio of surface area covered by the scan versus the total surface area of the CAD model.
+    \item \textbf{Geometric Accuracy (RMSE):} The Root Mean Square Error of the Euclidean distance between points in the reconstructed cloud and the nearest neighbor in the CAD reference.
+    \item \textbf{Cycle Time:} Total time from initialization to final model generation.
+\end{itemize}
+
+\subsection{Results}
+
+\subsubsection{Reconstruction Fidelity}
+We compared the MAGIC system against a baseline single-view static scan. The results, summarized in Table \ref{table_results}, show a marked improvement. The single-view approach consistently failed to capture the underside and internal faces of the objects, capping completeness at ~60\%. The MAGIC system, through active reorientation, achieved >90\% completeness.
+
+\begin{table}[h]
+\caption{Reconstruction Performance Comparison}
+\label{table_results}
+\begin{center}
+\begin{tabular}{|l||c|c|c|}
+\hline
+Object Type & Method & Completeness (\%) & RMSE (cm) \\
+\hline
+Simple Cube & Static & 58.2 & 0.9 \\
+Simple Cube & MAGIC & \textbf{98.5} & 1.1 \\
+\hline
+WAAM Impeller & Static & 45.4 & 1.5 \\
+WAAM Impeller & MAGIC & \textbf{90.1} & 1.3 \\
+\hline
+Overhang Part & Static & 52.0 & 1.4 \\
+Overhang Part & MAGIC & \textbf{89.4} & 1.6 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The slight increase in RMSE for the MAGIC system is attributed to error propagation during the registration of multiple views. However, an error of 1.3cm is acceptable for rough inspection of WAAM pre-forms before machining.
+
+\subsubsection{System Latency}
+The motion planning time was analyzed over 50 trials. The average time to compute a valid dual-arm trajectory was $4.4 \pm 3.4$ seconds. Grasp generation was near-instantaneous (<0.5s). The largest bottleneck remains the ICP registration step, which scales linearly with point cloud density.
+
+\begin{figure}[thpb]
+   \centering
+   \framebox{\parbox{3in}{}}
+   \caption{Qualitative comparison: (Left) Single view scan showing large holes. (Right) Fused model from MAGIC showing complete geometry.}
+   \label{fig:qualitative}
+\end{figure}
+
+\subsection{Grasp Reliability}
+To test robustness, we executed 20 automated grasp-lift-replace cycles. The system achieved a 90\% success rate. Failures were primarily due to detection noise causing a misalignment of the gripper fingers relative to the object's grasp tabs.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{DISCUSSION}
+
+\subsection{Implications for Industry}
+The ability to achieve near-complete reconstruction without human intervention allows for "Lights-Out" manufacturing. The 3D models generated by MAGIC can be directly fed into CAM software to generate "Hybrid Manufacturing" toolpaths—where a CNC mill machines down the rough WAAM surfaces to net shape.
+
+\subsection{Limitations}
+\begin{itemize}
+    \item \textbf{Sensor limitations:} The current fixed sensor cannot see into deep, narrow channels even with object rotation. A wrist-mounted camera on one of the arms could augment the fixed sensor in future iterations.
+    \item \textbf{Processing Speed:} Real-time point cloud fusion of high-resolution sensors is computationally expensive. Currently, the robot must pause motion to capture stable frames, slowing the cycle time.
+    \item \textbf{Part Rigidity:} The assumption of rigid body kinematics holds for metal parts but may fail for flexible components, where the dual-arm tension could deform the object.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{CONCLUSIONS AND FUTURE WORK}
+
+We have presented MAGIC, a comprehensive system for the automated geometric inspection of complex industrial parts. By integrating dual-arm manipulation with 3D perception, we demonstrated a robust pipeline that solves the occlusion problems inherent in static inspection cells.
+
+Future work will focus on three areas:
+1. Implementation of continuous scanning (Dynamic Reconstruction) to remove the stop-and-scan latency.
+2. Integration of learning-based grasp synthesis to handle arbitrary geometries without fiducial markers.
+3. Development of automatic M-code generation based on the detected defect maps.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{ACKNOWLEDGMENT}
+The authors acknowledge the support of the Carnegie Mellon University Robotics Institute and the guidance of our sponsor, Jiaoyang Li.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
