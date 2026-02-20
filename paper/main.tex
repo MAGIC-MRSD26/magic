@@ -30,6 +30,8 @@
 \usepackage{amsmath}  % assumes amsmath package installed
 \usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{bm}       % bold math symbols
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
 
 \title{\LARGE \bf
 MAGIC: A Multi-Agent Dual-Arm System for \\ Automated Geometric Inspection and 3D Reconstruction
@@ -211,8 +213,42 @@ subsystems:
 
     \item \textbf{Executive Node:} A finite state machine (FSM) that
     orchestrates the workflow, handling transitions between \textsc{Scan},
-    \textsc{Grasp}, \textsc{Reorient}, and \textsc{Fuse} states.
+    \textsc{Grasp}, \textsc{Reorient}, and \textsc{Fuse} states
+    (Fig.~\ref{fig:fsm}).
 \end{itemize}
+
+\begin{figure}[thpb]
+  \centering
+  \begin{tikzpicture}[
+      ->, >=Stealth,
+      fsmstate/.style = {draw, rounded corners=3pt,
+                         minimum width=1.5cm, minimum height=0.5cm,
+                         font=\footnotesize\bfseries, fill=gray!12},
+      lbl/.style = {font=\scriptsize, inner sep=1pt,
+                    fill=white, rounded corners=1pt}
+  ]
+    \node[circle, fill=black, inner sep=2.5pt]             (init) at (-0.8, 0)   {};
+    \node[fsmstate]                                        (G)    at (0.9,  0)   {\textsc{Grasp}};
+    \node[fsmstate]                                        (S)    at (3.0,  0)   {\textsc{Scan}};
+    \node[fsmstate]                                        (F)    at (5.1,  0)   {\textsc{Fuse}};
+    \node[fsmstate]                                        (R)    at (3.0, -1.6) {\textsc{Reorient}};
+    \node[circle, draw, double, double distance=1.5pt,
+          inner sep=3pt]                                   (done) at (6.5,  0)   {};
+
+    \draw (init) -- (G);
+    \draw (G)    -- node[lbl, above] {grasped}          (S);
+    \draw (S)    -- node[lbl, above] {$C_p \geq 90\%$} (F);
+    \draw (F)    -- node[lbl, above] {merged}           (done);
+
+    \draw[bend right=20] (S) to node[lbl, right] {$C_p < 90\%$} (R);
+    \draw[bend right=20] (R) to node[lbl, left]  {next pose}    (S);
+  \end{tikzpicture}
+  \caption{Executive FSM governing the MAGIC inspection loop. After grasping the
+           workpiece, the system cycles between \textsc{Reorient} and \textsc{Scan}
+           until reconstruction completeness $C_p$ exceeds 90\%, then fuses all
+           captured point clouds into the final model.}
+  \label{fig:fsm}
+\end{figure}
 
 \begin{figure}[thpb]
    \centering
